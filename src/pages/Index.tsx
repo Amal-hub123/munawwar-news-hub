@@ -3,6 +3,8 @@ import { Header } from "@/components/Header";
 import { NewsSlider } from "@/components/NewsSlider";
 import { TopWriters } from "@/components/TopWriters";
 import { ArticleCard } from "@/components/ArticleCard";
+import ProductsSlider from "@/components/ProductsSlider";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -74,6 +76,9 @@ const Index = () => {
             <TopWriters />
           </div>
         </section>
+
+        {/* Products Section */}
+        <ProductsSlider />
 
         {/* Latest Articles */}
         <section className="mb-12">
