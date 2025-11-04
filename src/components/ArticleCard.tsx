@@ -39,43 +39,48 @@ export const ArticleCard = ({
 
   return (
     <Link to={link}>
-      <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 h-full group border-0">
-        <div className="relative overflow-hidden aspect-video">
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          <Badge className={`absolute top-3 right-3 ${badgeColor} text-white border-0`}>
-            <Star className="w-3 h-3 ml-1" />
-            {badgeText}
-          </Badge>
-        </div>
-        <CardContent className="p-4 space-y-3">
-          <h3 className="text-lg font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors">
-            {title}
-          </h3>
-          <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
-            {excerpt}
-          </p>
-          <div className="flex items-center justify-between pt-2">
-            <div className="flex items-center gap-2">
+      <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border-0">
+        <div className="flex flex-row-reverse gap-4 p-4">
+          <div className="relative flex-shrink-0 w-48 h-48 overflow-hidden rounded-lg">
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
+              <Star className="w-3 h-3 ml-1" />
+              {badgeText}
+            </Badge>
+          </div>
+          
+          <div className="flex-1 flex flex-col justify-between min-w-0">
+            <div>
+              <h3 className="text-xl font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors mb-2">
+                {title}
+              </h3>
+              <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
+                {excerpt}
+              </p>
+            </div>
+            
+            <div className="flex items-center justify-between pt-3 mt-auto">
+              <div className="flex items-center gap-2">
+                <Avatar className="h-8 w-8 border-2 border-primary">
+                  <AvatarImage src={author.photo} alt={author.name} />
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    <User className="h-4 w-4" />
+                  </AvatarFallback>
+                </Avatar>
+                <span className="text-sm font-medium text-foreground">{author.name}</span>
+              </div>
+              
               <div className="flex items-center gap-1 text-xs text-muted-foreground">
                 <Calendar className="h-3 w-3" />
                 <span>{formattedDate}</span>
               </div>
             </div>
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-foreground">{author.name}</span>
-              <Avatar className="h-8 w-8 border-2 border-primary">
-                <AvatarImage src={author.photo} alt={author.name} />
-                <AvatarFallback className="bg-primary text-primary-foreground">
-                  <User className="h-4 w-4" />
-                </AvatarFallback>
-              </Avatar>
-            </div>
           </div>
-        </CardContent>
+        </div>
       </Card>
     </Link>
   );
