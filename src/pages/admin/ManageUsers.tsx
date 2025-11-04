@@ -23,16 +23,31 @@ export default function ManageUsers() {
   const { data: users, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: async () => {
-      const { data: profiles, error } = await supabase
+      // First get all profiles
+      const { data: profiles, error: profilesError } = await supabase
         .from("profiles")
-        .select(`
-          *,
-          user_roles (role)
-        `)
+        .select("*")
         .order("created_at", { ascending: false });
 
-      if (error) throw error;
-      return profiles;
+      if (profilesError) throw profilesError;
+      if (!profiles) return [];
+
+      // Then get user roles for each profile
+      const usersWithRoles = await Promise.all(
+        profiles.map(async (profile) => {
+          const { data: roles } = await supabase
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", profile.user_id);
+
+          return {
+            ...profile,
+            user_roles: roles || [],
+          };
+        })
+      );
+
+      return usersWithRoles;
     },
   });
 
