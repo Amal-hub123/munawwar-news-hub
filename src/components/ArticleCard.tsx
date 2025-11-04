@@ -41,17 +41,7 @@ export const ArticleCard = ({
     <Link to={link}>
       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border-0">
         <div className="flex flex-row-reverse gap-4 p-4">
-          <div className="relative flex-shrink-0 w-48 h-48 overflow-hidden rounded-lg">
-            <img
-              src={coverImage}
-              alt={title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            />
-            <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
-              <Star className="w-3 h-3 ml-1" />
-              {badgeText}
-            </Badge>
-          </div>
+         
           
           <div className="flex-1 flex flex-col justify-between min-w-0">
             <div>
@@ -79,6 +69,19 @@ export const ArticleCard = ({
                 <span>{formattedDate}</span>
               </div>
             </div>
+
+ <div className="relative flex-shrink-0 w-48 h-48 overflow-hidden rounded-lg">
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
+              <Star className="w-3 h-3 ml-1" />
+              {badgeText}
+            </Badge>
+          </div>
+            
           </div>
         </div>
       </Card>
