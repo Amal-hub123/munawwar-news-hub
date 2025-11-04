@@ -70,47 +70,49 @@ const Writers = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {writers.map((writer) => (
-              <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <CardContent className="p-3">
-                  <Link to={`/writers/${writer.id}`} className="block">
-                    <div className="flex flex-row items-center text-center space-y-4">
-                      <Avatar className="h-24 w-24">
-                        <AvatarImage src={writer.photo_url || undefined} alt={writer.name} />
-                        <AvatarFallback className="text-2xl">
-                          <User className="h-12 w-12" />
-                        </AvatarFallback>
-                      </Avatar>
-                      
-                      <div className="px-2 flex justify-between">
-                        <div>
-                        <h3 className="text-xl font-bold hover:text-primary transition-colors">
-                          {writer.name}
-                        </h3>
-                        {writer.bio && (
-                          <p className="text-sm text-muted-foreground line-clamp-3">
-                            {writer.bio}
-                          </p>
-                        )}</div>
-{writer.linkedin_url && (
-                    <div className="mt-4 flex justify-end">
-                      <a
-                        href={writer.linkedin_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors"
-                      >
-                        <Linkedin className="h-5 w-5" />
-                      </a>
-                    </div>
-                  )}
-                        
-                      </div>
-                    </div>
-                  </Link>
-                  
-                  
-                </CardContent>
-              </Card>
+             <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+  <CardContent className="p-3">
+    <Link to={`/writers/${writer.id}`} className="block">
+      <div className="flex items-center justify-between gap-4"> {/* توزيع أفقي متوازن */}
+        
+        {/* الصورة */}
+        <Avatar className="h-24 w-24 flex-shrink-0">
+          <AvatarImage src={writer.photo_url || undefined} alt={writer.name} />
+          <AvatarFallback className="text-2xl">
+            <User className="h-12 w-12" />
+          </AvatarFallback>
+        </Avatar>
+
+        {/* النصوص */}
+        <div className="flex-1 text-left space-y-2">
+          <h3 className="text-xl font-bold hover:text-primary transition-colors">
+            {writer.name}
+          </h3>
+          {writer.bio && (
+            <p className="text-sm text-muted-foreground line-clamp-3">
+              {writer.bio}
+            </p>
+          )}
+        </div>
+
+        {/* أيقونة لينكدإن */}
+        {writer.linkedin_url && (
+          <div className="flex items-center justify-center">
+            <a
+              href={writer.linkedin_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center text-primary hover:text-accent transition-colors"
+            >
+              <Linkedin className="h-6 w-6" />
+            </a>
+          </div>
+        )}
+      </div>
+    </Link>
+  </CardContent>
+</Card>
+
             ))}
           </div>
         )}
