@@ -81,7 +81,8 @@ const Writers = () => {
                         </AvatarFallback>
                       </Avatar>
                       
-                      <div className="px-2">
+                      <div className="px-2 flex justify-between">
+                        <div>
                         <h3 className="text-xl font-bold hover:text-primary transition-colors">
                           {writer.name}
                         </h3>
@@ -89,7 +90,7 @@ const Writers = () => {
                           <p className="text-sm text-muted-foreground line-clamp-3">
                             {writer.bio}
                           </p>
-                        )}
+                        )}</div>
 {writer.linkedin_url && (
                     <div className="mt-4 flex justify-end">
                       <a
