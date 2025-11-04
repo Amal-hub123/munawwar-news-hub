@@ -1,16 +1,41 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
 import logo from "@/assets/logo.png";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    toast({
+      title: "تم تسجيل الخروج بنجاح",
+    });
+    navigate("/");
+  };
 
   const navItems = [
     { label: "الرئيسية", href: "/" },
@@ -47,12 +72,23 @@ export const Header = () => {
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Button asChild variant="outline">
-              <Link to="/auth">تسجيل الدخول</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/register">اكتب معنا</Link>
-            </Button>
+            {user ? (
+              <>
+                <span className="text-sm text-muted-foreground">{user.email}</span>
+                <Button onClick={handleSignOut} variant="outline">
+                  تسجيل الخروج
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button asChild variant="outline">
+                  <Link to="/auth">تسجيل الدخول</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/register">اكتب معنا</Link>
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu */}
@@ -75,16 +111,27 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
-                  <Button asChild variant="outline">
-                    <Link to="/auth" onClick={() => setOpen(false)}>
-                      تسجيل الدخول
-                    </Link>
-                  </Button>
-                  <Button asChild>
-                    <Link to="/register" onClick={() => setOpen(false)}>
-                      اكتب معنا
-                    </Link>
-                  </Button>
+                  {user ? (
+                    <>
+                      <span className="text-sm text-muted-foreground px-3">{user.email}</span>
+                      <Button onClick={() => { handleSignOut(); setOpen(false); }} variant="outline">
+                        تسجيل الخروج
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button asChild variant="outline">
+                        <Link to="/auth" onClick={() => setOpen(false)}>
+                          تسجيل الدخول
+                        </Link>
+                      </Button>
+                      <Button asChild>
+                        <Link to="/register" onClick={() => setOpen(false)}>
+                          اكتب معنا
+                        </Link>
+                      </Button>
+                    </>
+                  )}
                 </div>
               </nav>
             </SheetContent>
