@@ -19,8 +19,15 @@ const Auth = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    // Check if user is already logged in on page load
+    supabase.auth.getSession().then(({ data: { session } }) => {
       if (session?.user) {
+        navigate("/");
+      }
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session?.user) {
         navigate("/");
       }
     });
