@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { AdminLayout } from "@/components/AdminLayout";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -113,16 +112,11 @@ export default function ManageUsers() {
   };
 
   if (isLoading) {
-    return (
-      <AdminLayout>
-        <div className="text-center">جاري التحميل...</div>
-      </AdminLayout>
-    );
+    return <div className="text-center">جاري التحميل...</div>;
   }
 
   return (
-    <AdminLayout>
-      <div className="space-y-6">
+    <div className="space-y-6">
         <div>
           <h1 className="text-3xl font-bold">إدارة المستخدمين</h1>
           <p className="text-muted-foreground">
@@ -250,6 +244,5 @@ export default function ManageUsers() {
           </CardContent>
         </Card>
       </div>
-    </AdminLayout>
   );
 }
