@@ -94,7 +94,7 @@ const Writers = () => {
             </p>
           )}
         </div>
-
+</div>
         {/* أيقونة لينكدإن */}
         {writer.linkedin_url && (
           <div className="flex items-center justify-center">
@@ -108,7 +108,7 @@ const Writers = () => {
             </a>
           </div>
         )}
-      </div>
+      
     </Link>
   </CardContent>
 </Card>
