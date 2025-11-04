@@ -11,6 +11,7 @@ interface Writer {
   name: string;
   photo_url?: string;
   linkedin_url?: string;
+  bio?: string;
   article_count: number;
 }
 
@@ -51,7 +52,7 @@ export const TopWriters = () => {
 
       const { data: profiles, error: profilesError } = await supabase
         .from("profiles")
-        .select("id, name, photo_url, linkedin_url")
+        .select("id, name, photo_url, linkedin_url, bio")
         .in("id", topAuthorIds)
         .eq("status", "approved");
 
@@ -88,13 +89,10 @@ export const TopWriters = () => {
   return (
     <div className="space-y-4">
       <h3 className="text-xl font-bold mb-4">أفضل 5 كتّاب</h3>
-      {writers.map((writer, index) => (
+      {writers.map((writer) => (
         <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
-              <div className="text-2xl font-bold text-primary w-8">
-                {index + 1}
-              </div>
               <Link to={`/writers/${writer.id}`} className="flex items-center gap-3 flex-1">
                 <Avatar className="h-12 w-12">
                   <AvatarImage src={writer.photo_url} alt={writer.name} />
@@ -106,8 +104,8 @@ export const TopWriters = () => {
                   <h4 className="font-semibold hover:text-primary transition-colors">
                     {writer.name}
                   </h4>
-                  <p className="text-xs text-muted-foreground">
-                    {writer.article_count} مقال ومقالة
+                  <p className="text-xs text-muted-foreground line-clamp-2">
+                    {writer.bio || "كاتب متميز"}
                   </p>
                 </div>
               </Link>

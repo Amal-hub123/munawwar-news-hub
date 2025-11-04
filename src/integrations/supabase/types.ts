@@ -22,6 +22,7 @@ export type Database = {
           created_at: string
           excerpt: string
           id: string
+          linkedin_url: string | null
           product_id: string | null
           status: Database["public"]["Enums"]["content_status"]
           title: string
@@ -35,6 +36,7 @@ export type Database = {
           created_at?: string
           excerpt: string
           id?: string
+          linkedin_url?: string | null
           product_id?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           title: string
@@ -48,6 +50,7 @@ export type Database = {
           created_at?: string
           excerpt?: string
           id?: string
+          linkedin_url?: string | null
           product_id?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           title?: string
@@ -79,6 +82,7 @@ export type Database = {
           created_at: string
           excerpt: string
           id: string
+          linkedin_url: string | null
           status: Database["public"]["Enums"]["content_status"]
           title: string
           updated_at: string
@@ -91,6 +95,7 @@ export type Database = {
           created_at?: string
           excerpt: string
           id?: string
+          linkedin_url?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           title: string
           updated_at?: string
@@ -103,6 +108,7 @@ export type Database = {
           created_at?: string
           excerpt?: string
           id?: string
+          linkedin_url?: string | null
           status?: Database["public"]["Enums"]["content_status"]
           title?: string
           updated_at?: string

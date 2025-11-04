@@ -26,10 +26,9 @@ export const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="منحنى" className="h-12 w-auto object-contain" />
+            <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover border-2 border-primary" />
             <div>
               <h1 className="text-2xl font-bold text-primary">منحنى</h1>
-              <p className="text-xs text-muted-foreground">موقع إخباري شامل</p>
             </div>
           </Link>
 

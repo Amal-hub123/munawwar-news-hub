@@ -32,6 +32,7 @@ export const ManageNews = () => {
     excerpt: "",
     cover_image_url: "",
     content: "",
+    linkedin_url: "",
   });
 
   useEffect(() => {
@@ -127,6 +128,7 @@ export const ManageNews = () => {
       excerpt: newsItem.excerpt,
       cover_image_url: newsItem.cover_image_url,
       content: newsItem.content,
+      linkedin_url: (newsItem as any).linkedin_url || "",
     });
     setIsDialogOpen(true);
   };
@@ -159,6 +161,7 @@ export const ManageNews = () => {
       excerpt: "",
       cover_image_url: "",
       content: "",
+      linkedin_url: "",
     });
     setEditingNews(null);
   };
@@ -229,6 +232,16 @@ export const ManageNews = () => {
                   placeholder="https://example.com/image.jpg"
                   type="url"
                   required
+                />
+              </div>
+
+              <div>
+                <Label>رابط LinkedIn (اختياري)</Label>
+                <Input
+                  value={formData.linkedin_url}
+                  onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
+                  placeholder="https://linkedin.com/in/..."
+                  type="url"
                 />
               </div>
 

@@ -77,15 +77,12 @@ const ProductsSlider = () => {
                   to={`/products/${product.id}`}
                   className="flex-shrink-0 w-48"
                 >
-                  <div className="bg-card rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                  <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                     <img
                       src={product.image_url}
                       alt={product.name}
-                      className="w-full h-48 object-cover rounded-md mb-3"
+                      className="w-full h-48 object-cover"
                     />
-                    <h3 className="font-semibold text-center text-sm line-clamp-2">
-                      {product.name}
-                    </h3>
                   </div>
                 </Link>
               ))}
