@@ -63,7 +63,7 @@ export const ManageNews = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.excerpt || !formData.cover_image_url || !formData.content) {
+    if (!formData.title || !formData.excerpt || !formData.cover_image_url) {
       toast({
         title: "خطأ",
         description: "يرجى ملء جميع الحقول المطلوبة",
@@ -235,7 +235,7 @@ export const ManageNews = () => {
               <div>
                 <Label>المحتوى</Label>
                 <Editor
-                  apiKey="your-tinymce-api-key"
+                  apiKey="uh4hkuw1dtsm5pf9rnr7q5l0za8ejikdwxs20o7z2yxqprz6"
                   value={formData.content}
                   onEditorChange={(content) => setFormData({ ...formData, content })}
                   init={{
