@@ -68,7 +68,7 @@ const ProductsSlider = () => {
             <div
               className="flex gap-4 transition-transform duration-300 ease-in-out"
               style={{
-                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+                transform: `translateX(-${currentIndex * 208}px)`,
               }}
             >
               {products.map((product) => (
