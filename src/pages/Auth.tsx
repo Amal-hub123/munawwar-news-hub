@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { TopBar } from "@/components/TopBar";
@@ -15,6 +16,9 @@ const Auth = () => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -93,6 +97,34 @@ const Auth = () => {
     }
   };
 
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetLoading(true);
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
+        redirectTo: `${window.location.origin}/auth`,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "تم إرسال رابط إعادة تعيين كلمة المرور",
+        description: "تفقد بريدك الإلكتروني",
+      });
+      setResetDialogOpen(false);
+      setResetEmail("");
+    } catch (error: any) {
+      toast({
+        title: "خطأ",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setResetLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <TopBar />
@@ -137,6 +169,37 @@ const Auth = () => {
                     <Button type="submit" className="w-full" disabled={loading}>
                       {loading ? "جاري التحميل..." : "تسجيل الدخول"}
                     </Button>
+                    
+                    <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+                      <DialogTrigger asChild>
+                        <Button variant="link" className="w-full mt-2">
+                          نسيت كلمة المرور؟
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>إعادة تعيين كلمة المرور</DialogTitle>
+                          <DialogDescription>
+                            أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور
+                          </DialogDescription>
+                        </DialogHeader>
+                        <form onSubmit={handleResetPassword} className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="reset-email">البريد الإلكتروني</Label>
+                            <Input
+                              id="reset-email"
+                              type="email"
+                              value={resetEmail}
+                              onChange={(e) => setResetEmail(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <Button type="submit" className="w-full" disabled={resetLoading}>
+                            {resetLoading ? "جاري الإرسال..." : "إرسال رابط إعادة التعيين"}
+                          </Button>
+                        </form>
+                      </DialogContent>
+                    </Dialog>
                   </form>
                 </TabsContent>
 
