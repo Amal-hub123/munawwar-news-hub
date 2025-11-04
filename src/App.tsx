@@ -19,6 +19,7 @@ import ManageArticles from "./pages/admin/ManageArticles";
 import ManageNews from "./pages/admin/ManageNews";
 import ManageWriters from "./pages/admin/ManageWriters";
 import ManageProducts from "./pages/admin/ManageProducts";
+import ManageUsers from "./pages/admin/ManageUsers";
 import AdminLayout from "./components/AdminLayout";
 import WriterLayout from "./components/WriterLayout";
 import WriterDashboard from "./pages/writer/Dashboard";
@@ -52,6 +53,7 @@ const App = () => (
           <Route path="/admin/news" element={<AdminLayout><ManageNews /></AdminLayout>} />
           <Route path="/admin/writers" element={<AdminLayout><ManageWriters /></AdminLayout>} />
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
+          <Route path="/admin/users" element={<AdminLayout><ManageUsers /></AdminLayout>} />
           <Route path="/writer" element={<WriterLayout><WriterDashboard /></WriterLayout>} />
           <Route path="/writer/articles" element={<WriterLayout><WriterManageArticles /></WriterLayout>} />
           <Route path="/writer/news" element={<WriterLayout><WriterManageNews /></WriterLayout>} />
