@@ -13,6 +13,7 @@ import ArticleDetail from "./pages/ArticleDetail";
 import NewsDetail from "./pages/NewsDetail";
 import WriterDetail from "./pages/WriterDetail";
 import ProductDetail from "./pages/ProductDetail";
+import Products from "./pages/Products";
 import AdminDashboard from "./pages/admin/Dashboard";
 import ManageArticles from "./pages/admin/ManageArticles";
 import ManageNews from "./pages/admin/ManageNews";
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/writers" element={<Writers />} />
           <Route path="/writers/:id" element={<WriterDetail />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
           <Route path="/admin/articles" element={<AdminLayout><ManageArticles /></AdminLayout>} />
