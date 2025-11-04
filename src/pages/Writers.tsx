@@ -71,7 +71,7 @@ const Writers = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {writers.map((writer) => (
               <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
+                <CardContent className="p-3">
                   <Link to={`/writers/${writer.id}`} className="block">
                     <div className="flex flex-row items-center text-center space-y-4">
                       <Avatar className="h-24 w-24">
@@ -81,7 +81,7 @@ const Writers = () => {
                         </AvatarFallback>
                       </Avatar>
                       
-                      <div className="space-y-2">
+                      <div className="px-2">
                         <h3 className="text-xl font-bold hover:text-primary transition-colors">
                           {writer.name}
                         </h3>
@@ -90,12 +90,8 @@ const Writers = () => {
                             {writer.bio}
                           </p>
                         )}
-                      </div>
-                    </div>
-                  </Link>
-                  
-                  {writer.linkedin_url && (
-                    <div className="mt-4 flex justify-center">
+{writer.linkedin_url && (
+                    <div className="mt-4 flex justify-end">
                       <a
                         href={writer.linkedin_url}
                         target="_blank"
@@ -103,10 +99,15 @@ const Writers = () => {
                         className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors"
                       >
                         <Linkedin className="h-5 w-5" />
-                        <span className="text-sm">تواصل على لينكد إن</span>
                       </a>
                     </div>
                   )}
+                        
+                      </div>
+                    </div>
+                  </Link>
+                  
+                  
                 </CardContent>
               </Card>
             ))}
