@@ -19,6 +19,8 @@ const Auth = () => {
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
+  const [isRecoveryMode, setIsRecoveryMode] = useState(false);
+  const [newPassword, setNewPassword] = useState("");
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -33,6 +35,9 @@ const Auth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         navigate("/");
+      }
+      if (event === 'PASSWORD_RECOVERY') {
+        setIsRecoveryMode(true);
       }
     });
 
@@ -125,6 +130,34 @@ const Auth = () => {
     }
   };
 
+  const handleUpdatePassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "تم تحديث كلمة المرور بنجاح",
+        description: "يمكنك الآن تسجيل الدخول بكلمة المرور الجديدة",
+      });
+      setIsRecoveryMode(false);
+      setNewPassword("");
+    } catch (error: any) {
+      toast({
+        title: "خطأ",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <TopBar />
@@ -134,11 +167,33 @@ const Auth = () => {
         <div className="max-w-md mx-auto">
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-2xl">مرحباً بك في منحنى</CardTitle>
-              <CardDescription>سجل الدخول أو أنشئ حساباً جديداً</CardDescription>
+              <CardTitle className="text-2xl">
+                {isRecoveryMode ? "إعادة تعيين كلمة المرور" : "مرحباً بك في منحنى"}
+              </CardTitle>
+              <CardDescription>
+                {isRecoveryMode ? "أدخل كلمة المرور الجديدة" : "سجل الدخول أو أنشئ حساباً جديداً"}
+              </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="signin" className="w-full">
+              {isRecoveryMode ? (
+                <form onSubmit={handleUpdatePassword} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="new-password">كلمة المرور الجديدة</Label>
+                    <Input
+                      id="new-password"
+                      type="password"
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      required
+                      minLength={6}
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? "جاري التحديث..." : "تحديث كلمة المرور"}
+                  </Button>
+                </form>
+              ) : (
+                <Tabs defaultValue="signin" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="signin">تسجيل الدخول</TabsTrigger>
                   <TabsTrigger value="signup">حساب جديد</TabsTrigger>
@@ -242,6 +297,7 @@ const Auth = () => {
                   </form>
                 </TabsContent>
               </Tabs>
+              )}
             </CardContent>
           </Card>
         </div>
