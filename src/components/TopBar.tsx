@@ -1,20 +1,57 @@
 import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export const TopBar = () => {
   const [currentNews, setCurrentNews] = useState(0);
-  const newsItems = [
-    "عاجل: أحدث الأخبار من منحنى",
-    "مقال جديد: تحليل شامل للأحداث الراهنة",
-    "تقرير خاص: رؤى مميزة من كتابنا",
-  ];
+  const [newsItems, setNewsItems] = useState<string[]>([]);
 
   useEffect(() => {
+    const fetchLatestContent = async () => {
+      try {
+        // Get latest approved articles
+        const { data: articles } = await supabase
+          .from("articles")
+          .select("title")
+          .eq("status", "approved")
+          .order("created_at", { ascending: false })
+          .limit(3);
+
+        // Get latest approved news
+        const { data: news } = await supabase
+          .from("news")
+          .select("title")
+          .eq("status", "approved")
+          .order("created_at", { ascending: false })
+          .limit(3);
+
+        const items = [
+          ...(articles?.map(a => `مقال جديد: ${a.title}`) || []),
+          ...(news?.map(n => `عاجل: ${n.title}`) || [])
+        ];
+
+        if (items.length > 0) {
+          setNewsItems(items);
+        } else {
+          setNewsItems(["مرحباً بكم في منحنى - موقع إخباري شامل"]);
+        }
+      } catch (error) {
+        console.error("Error fetching content:", error);
+        setNewsItems(["مرحباً بكم في منحنى - موقع إخباري شامل"]);
+      }
+    };
+
+    fetchLatestContent();
+  }, []);
+
+  useEffect(() => {
+    if (newsItems.length === 0) return;
+    
     const timer = setInterval(() => {
       setCurrentNews((prev) => (prev + 1) % newsItems.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [newsItems.length]);
 
   const today = new Date().toLocaleDateString("ar-SA", {
     weekday: "long",
