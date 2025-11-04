@@ -68,12 +68,12 @@ const Writers = () => {
             <p className="text-muted-foreground text-lg">لا يوجد كتاب حالياً</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {writers.map((writer) => (
               <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <CardContent className="p-6">
                   <Link to={`/writers/${writer.id}`} className="block">
-                    <div className="flex flex-col items-center text-center space-y-4">
+                    <div className="flex flex-row items-center text-center space-y-4">
                       <Avatar className="h-24 w-24">
                         <AvatarImage src={writer.photo_url || undefined} alt={writer.name} />
                         <AvatarFallback className="text-2xl">
