@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Editor } from "@tinymce/tinymce-react";
+import { RichTextEditor } from "@/components/ui/rich-text-editor";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 
@@ -280,26 +280,10 @@ export const ManageArticles = () => {
 
               <div>
                 <Label>المحتوى</Label>
-                <Editor
-                  apiKey="uh4hkuw1dtsm5pf9rnr7q5l0za8ejikdwxs20o7z2yxqprz6"
+                <RichTextEditor
                   value={formData.content}
-                  onEditorChange={(content) => setFormData({ ...formData, content })}
-                  init={{
-                    height: 500,
-                    menubar: true,
-                    plugins: [
-                      'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
-                      'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                      'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
-                    ],
-                    toolbar: 'undo redo | blocks | ' +
-                      'bold italic forecolor | alignleft aligncenter ' +
-                      'alignright alignjustify | bullist numlist outdent indent | ' +
-                      'removeformat | help',
-                    content_style: 'body { font-family:Cairo,Tajawal,Arial,sans-serif; font-size:14px; direction:rtl; }',
-                    directionality: 'rtl',
-                    language: 'ar',
-                  }}
+                  onChange={(content) => setFormData({ ...formData, content })}
+                  placeholder="اكتب محتوى المقال هنا..."
                 />
               </div>
 
