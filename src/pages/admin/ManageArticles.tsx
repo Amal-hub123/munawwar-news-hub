@@ -128,8 +128,7 @@ const ManageArticles = () => {
                   <Link to={`/admin/articles/preview/${article.id}`}>
                     <Button variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
-                      معاينة
-                    </Button>
+                        </Button>
                   </Link>
                   {article.status === "pending" && (
                     <>
@@ -161,8 +160,7 @@ const ManageArticles = () => {
                     onClick={() => deleteMutation.mutate(article.id)}
                   >
                     <Trash2 className="w-4 h-4 ml-2" />
-                    حذف
-                  </Button>
+                       </Button>
                 </div>
               </div>
             </div>
