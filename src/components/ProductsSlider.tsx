@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const ProductsSlider = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -19,17 +22,6 @@ const ProductsSlider = () => {
       return data;
     },
   });
-
-  const itemsPerView = 6;
-  const maxIndex = Math.max(0, (products?.length || 0) - itemsPerView);
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => Math.min(prev + 1, maxIndex));
-  };
-
-  const handlePrev = () => {
-    setCurrentIndex((prev) => Math.max(prev - 1, 0));
-  };
 
   if (isLoading) {
     return (
@@ -53,30 +45,17 @@ const ProductsSlider = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-start text-primary">منتجات المنحنى</h2>
         
-        <div className="relative">
-          {currentIndex > 0 && (
-            <button
-              onClick={handlePrev}
-              className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 transition-colors"
-              aria-label="السابق"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          )}
-
-          <div className="overflow-hidden">
-            <div
-              className="flex gap-4 transition-transform duration-300 ease-in-out"
-              style={{
-                transform: `translateX(-${currentIndex * 208}px)`,
-              }}
-            >
-              {products.map((product) => (
-                <Link
-                  key={product.id}
-                  to={`/products/${product.id}`}
-                  className="flex-shrink-0 w-48"
-                >
+        <Carousel
+          opts={{
+            align: "start",
+            direction: "rtl",
+          }}
+          className="w-full"
+        >
+          <CarouselContent className="-mr-4">
+            {products.map((product) => (
+              <CarouselItem key={product.id} className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6">
+                <Link to={`/products/${product.id}`}>
                   <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                     <img
                       src={product.image_url}
@@ -85,20 +64,12 @@ const ProductsSlider = () => {
                     />
                   </div>
                 </Link>
-              ))}
-            </div>
-          </div>
-
-          {currentIndex < maxIndex && (
-            <button
-              onClick={handleNext}
-              className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-primary text-primary-foreground p-2 rounded-full shadow-lg hover:bg-primary/90 transition-colors"
-              aria-label="التالي"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-          )}
-        </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="right-0 left-auto" />
+          <CarouselNext className="left-0 right-auto" />
+        </Carousel>
       </div>
     </section>
   );
