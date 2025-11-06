@@ -41,7 +41,7 @@ export const ArticleCard = ({
     <Link to={link}>
       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border-0">
         <div className="flex flex-row gap-4 p-4">
-           <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-md bg-gray-50">
+           <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-md bg-gray-50 relative">
             <img
               src={coverImage}
               alt={title}
@@ -79,9 +79,6 @@ export const ArticleCard = ({
                 <span>{formattedDate}</span>
               </div>
             </div>
-
-
-            
           </div>
         </div>
       </Card>
