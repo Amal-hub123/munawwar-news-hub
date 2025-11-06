@@ -31,6 +31,7 @@ const Register = () => {
           emailRedirectTo: `${window.location.origin}/`,
           data: {
             name,
+            bio,
           },
         },
       });
@@ -38,22 +39,12 @@ const Register = () => {
       if (authError) throw authError;
 
       if (authData.user) {
-        // تحديث النبذة التعريفية
-        if (bio) {
-          const { error: updateError } = await supabase
-            .from("profiles")
-            .update({ bio })
-            .eq("user_id", authData.user.id);
-
-          if (updateError) console.error("Error updating bio:", updateError);
-        }
-
         toast({
           title: "تم التسجيل بنجاح",
-          description: "مرحباً بك ككاتب في منحنى",
+          description: "سيتم مراجعة حسابك من قبل الإدارة",
         });
 
-        navigate("/");
+        navigate("/auth");
       }
     } catch (error: any) {
       toast({
