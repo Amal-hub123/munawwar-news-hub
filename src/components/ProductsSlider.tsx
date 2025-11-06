@@ -35,7 +35,7 @@ const ProductsSlider = () => {
     return (
       <div className="py-12 px-4">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">منتجات منحنى</h2>
+          <h2 className="text-3xl font-bold mb-8 text-start">منتجات منحنى</h2>
           <div className="flex gap-4 justify-center">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="w-48 h-48 bg-muted animate-pulse rounded-lg" />
