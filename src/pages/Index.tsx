@@ -82,10 +82,15 @@ const Index = () => {
         </div>
 
         {/* Latest Articles */}
-        <section className="mb-12">
+        {/* <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-bold mb-8 text-start">أحدث المقالات </h2>
-          </div>
+           */}
+
+ <section className="py-12 px-4 bg-muted/30">
+      <div className="container mx-auto">
+        <h2 className="text-3xl font-bold mb-8 text-start text-primary">أحدث المقالات </h2>
+        </div>
           
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
