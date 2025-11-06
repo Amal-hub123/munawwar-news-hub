@@ -78,7 +78,9 @@ const Index = () => {
         </section>
 
         {/* Products Section */}
-        <ProductsSlider />
+        <div id="products-section">
+          <ProductsSlider />
+        </div>
 
         {/* Latest Articles */}
         <section className="mb-12">

@@ -92,37 +92,69 @@ export const Header = () => {
     }
   };
 
+  const handleProductsClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (window.location.pathname === "/") {
+      // Already on home page, just scroll
+      const productsSection = document.getElementById("products-section");
+      if (productsSection) {
+        productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      // Navigate to home page first, then scroll
+      navigate("/");
+      setTimeout(() => {
+        const productsSection = document.getElementById("products-section");
+        if (productsSection) {
+          productsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 100);
+    }
+  };
+
   const navItems = [
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
-    // { label: "الكتّاب", href: "/writers" },
-   
+    { label: "المنتجات", href: "#products", onClick: handleProductsClick },
   ];
 
   return (
     <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
-            <div>
-              <h1 className="text-2xl font-bold text-primary">منحنى</h1>
-            </div>
-          </Link>
+          {/* Logo and Navigation */}
+          <div className="flex items-center gap-8">
+            <Link to="/" className="flex items-center gap-3">
+              <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
+              <div>
+                <h1 className="text-2xl font-bold text-primary">منحنى</h1>
+              </div>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                to={item.href}
-                className="text-foreground hover:text-primary transition-colors font-medium"
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => (
+                item.onClick ? (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={item.onClick}
+                    className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    className="text-foreground hover:text-primary transition-colors font-medium"
+                  >
+                    {item.label}
+                  </Link>
+                )
+              ))}
+            </nav>
+          </div>
 
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
@@ -183,14 +215,28 @@ export const Header = () => {
             <SheetContent side="right">
               <nav className="flex flex-col gap-4 mt-8">
                 {navItems.map((item) => (
-                  <Link
-                    key={item.href}
-                    to={item.href}
-                    onClick={() => setOpen(false)}
-                    className="text-lg font-medium hover:text-primary transition-colors"
-                  >
-                    {item.label}
-                  </Link>
+                  item.onClick ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      onClick={(e) => {
+                        item.onClick(e);
+                        setOpen(false);
+                      }}
+                      className="text-lg font-medium hover:text-primary transition-colors cursor-pointer"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.href}
+                      to={item.href}
+                      onClick={() => setOpen(false)}
+                      className="text-lg font-medium hover:text-primary transition-colors"
+                    >
+                      {item.label}
+                    </Link>
+                  )
                 ))}
                 <div className="flex flex-col gap-3 mt-4">
                   {user ? (
