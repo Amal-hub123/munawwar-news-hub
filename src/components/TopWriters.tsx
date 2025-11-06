@@ -88,7 +88,7 @@ export const TopWriters = () => {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold mb-4">أفضل 5 كتّاب</h3>
+      <h3 className="text-xl font-bold mb-4">    كتّاب الموقع</h3>
       {writers.map((writer) => (
         <Card key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
