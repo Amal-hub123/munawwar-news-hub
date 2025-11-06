@@ -17,7 +17,6 @@ const ProductsSlider = () => {
         .from("products")
         .select("*")
         .order("display_order", { ascending: true });
-      
       if (error) throw error;
       return data;
     },
@@ -30,7 +29,10 @@ const ProductsSlider = () => {
           <h2 className="text-3xl font-bold mb-8 text-center">منتجات منحنى</h2>
           <div className="flex gap-4 justify-center">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="w-48 h-48 bg-muted animate-pulse rounded-lg" />
+              <div
+                key={i}
+                className="w-48 h-48 bg-muted animate-pulse rounded-lg"
+              />
             ))}
           </div>
         </div>
@@ -42,36 +44,44 @@ const ProductsSlider = () => {
 
   return (
     <section className="py-12 px-4 bg-muted/30">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-bold mb-8 text-start text-primary">منتجات المنحنى</h2>
-        
-        <Carousel
-          opts={{
-            align: "start",
-            direction: "rtl",
-          }}
-          className="w-full"
-        >
-          
-          <CarouselContent className="-mr-4">
-            {products.map((product) => (
-              <CarouselItem key={product.id} className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6">
-                <Link to={`/products/${product.id}`}>
-                  <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-48 object-cover"
-                    />
-                  </div>
-                </Link>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-                    <CarouselNext className="left-0 right-auto" />
+      <div className="container mx-auto relative">
+        <h2 className="text-3xl font-bold mb-8 text-start text-primary">
+          منتجات المنحنى
+        </h2>
 
-          <CarouselPrevious className="right-0 left-auto" />
-        </Carousel>
+        {/* الكروسل */}
+        <div className="relative">
+          {/* أزرار التنقل خارج الكروسل */}
+          <CarouselPrevious className="absolute -left-12 top-1/2 -translate-y-1/2 z-10 rtl:right-0 rtl:left-auto" />
+          <CarouselNext className="absolute -right-12 top-1/2 -translate-y-1/2 z-10 rtl:left-0 rtl:right-auto" />
+
+          <Carousel
+            opts={{
+              align: "start",
+              direction: "rtl",
+            }}
+            className="w-full"
+          >
+            <CarouselContent className="-mr-4">
+              {products.map((product) => (
+                <CarouselItem
+                  key={product.id}
+                  className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6"
+                >
+                  <Link to={`/products/${product.id}`}>
+                    <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-full h-48 object-cover"
+                      />
+                    </div>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
       </div>
     </section>
   );
