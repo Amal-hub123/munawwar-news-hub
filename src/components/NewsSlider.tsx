@@ -105,7 +105,7 @@ export const NewsSlider = () => {
             <span className="text-sm font-medium">{currentNews.author?.name}</span>
           </div>
           <span className="text-sm opacity-80">
-            {new Date(currentNews.created_at).toLocaleDateString("en-US", {
+            {new Date(currentNews.created_at).toLocaleDateString("ar-EG", {
               year: "numeric",
               month: "long",
               day: "numeric"

@@ -115,7 +115,7 @@ export const ManageArticles = () => {
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(article.status)}
                     <span className="text-xs text-muted-foreground">
-                      {new Date(article.created_at).toLocaleDateString("en-US", {
+                      {new Date(article.created_at).toLocaleDateString("ar-EG", {
                         year: "numeric",
                         month: "short",
                         day: "numeric"

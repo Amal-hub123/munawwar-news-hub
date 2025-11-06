@@ -43,7 +43,7 @@ export const TopBar = () => {
         const items = [
           ...(articles?.map(a => ({
             title: a.title,
-            date: new Date(a.created_at).toLocaleDateString("en-US", { 
+            date: new Date(a.created_at).toLocaleDateString("ar-EG", { 
               day: "numeric", 
               month: "long", 
               year: "numeric" 
@@ -53,7 +53,7 @@ export const TopBar = () => {
           })) || []),
           ...(news?.map(n => ({
             title: n.title,
-            date: new Date(n.created_at).toLocaleDateString("en-US", { 
+            date: new Date(n.created_at).toLocaleDateString("ar-EG", { 
               day: "numeric", 
               month: "long", 
               year: "numeric" 
@@ -89,7 +89,7 @@ export const TopBar = () => {
     return () => clearInterval(timer);
   }, [newsItems.length]);
 
-  const today = new Date().toLocaleDateString("en-US", {
+  const today = new Date().toLocaleDateString("ar-EG", {
     weekday: "long",
     year: "numeric",
     month: "long",
