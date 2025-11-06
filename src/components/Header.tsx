@@ -95,7 +95,7 @@ export const Header = () => {
   const navItems = [
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
-    { label: "الكتّاب", href: "/writers" },
+    // { label: "الكتّاب", href: "/writers" },
    
   ];
 
