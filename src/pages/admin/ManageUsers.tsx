@@ -16,6 +16,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Shield, UserCheck, Mail } from "lucide-react";
 
+const DEFAULT_ADMIN_EMAIL = "admin@almonhna.sa";
+
 export default function ManageUsers() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -126,6 +128,10 @@ export default function ManageUsers() {
     return user.user_roles?.some((r: any) => r.role === role);
   };
 
+  const isDefaultAdmin = (email: string) => {
+    return email === DEFAULT_ADMIN_EMAIL;
+  };
+
   if (isLoading) {
     return <div className="text-center">جاري التحميل...</div>;
   }
@@ -182,65 +188,77 @@ export default function ManageUsers() {
                             كاتب
                           </Badge>
                         )}
+                        {isDefaultAdmin(user.email) && (
+                          <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-300">
+                            محمي
+                          </Badge>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        {!hasRole(user, "admin") && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() =>
-                              addRoleMutation.mutate({
-                                userId: user.user_id,
-                                role: "admin",
-                              })
-                            }
-                          >
-                            إضافة مدير
-                          </Button>
+                        {!isDefaultAdmin(user.email) && (
+                          <>
+                            {!hasRole(user, "admin") && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  addRoleMutation.mutate({
+                                    userId: user.user_id,
+                                    role: "admin",
+                                  })
+                                }
+                              >
+                                إضافة مدير
+                              </Button>
+                            )}
+                            {hasRole(user, "admin") && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  removeRoleMutation.mutate({
+                                    userId: user.user_id,
+                                    role: "admin",
+                                  })
+                                }
+                              >
+                                إزالة مدير
+                              </Button>
+                            )}
+                            {!hasRole(user, "writer") && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  addRoleMutation.mutate({
+                                    userId: user.user_id,
+                                    role: "writer",
+                                  })
+                                }
+                              >
+                                إضافة كاتب
+                              </Button>
+                            )}
+                            {hasRole(user, "writer") && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  removeRoleMutation.mutate({
+                                    userId: user.user_id,
+                                    role: "writer",
+                                  })
+                                }
+                              >
+                                إزالة كاتب
+                              </Button>
+                            )}
+                          </>
                         )}
-                        {hasRole(user, "admin") && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() =>
-                              removeRoleMutation.mutate({
-                                userId: user.user_id,
-                                role: "admin",
-                              })
-                            }
-                          >
-                            إزالة مدير
-                          </Button>
-                        )}
-                        {!hasRole(user, "writer") && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() =>
-                              addRoleMutation.mutate({
-                                userId: user.user_id,
-                                role: "writer",
-                              })
-                            }
-                          >
-                            إضافة كاتب
-                          </Button>
-                        )}
-                        {hasRole(user, "writer") && (
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={() =>
-                              removeRoleMutation.mutate({
-                                userId: user.user_id,
-                                role: "writer",
-                              })
-                            }
-                          >
-                            إزالة كاتب
-                          </Button>
+                        {isDefaultAdmin(user.email) && (
+                          <span className="text-sm text-muted-foreground">حساب محمي - لا يمكن تعديل الصلاحيات</span>
                         )}
                         <Button
                           size="sm"
