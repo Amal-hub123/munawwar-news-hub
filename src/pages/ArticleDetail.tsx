@@ -93,7 +93,11 @@ const ArticleDetail = () => {
         <div className="flex items-center gap-6 text-muted-foreground mb-6 flex-wrap">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4" />
-            <span>{new Date(article.created_at).toLocaleDateString("ar-SA")}</span>
+            <span>{new Date(article.created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            })}</span>
           </div>
           <div className="flex items-center gap-2">
             <Eye className="w-4 h-4" />

@@ -26,7 +26,7 @@ export const ArticleCard = ({
   date,
   type,
 }: ArticleCardProps) => {
-  const formattedDate = new Date(date).toLocaleDateString("ar-SA", {
+  const formattedDate = new Date(date).toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
     day: "numeric",

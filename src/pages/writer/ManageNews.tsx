@@ -115,7 +115,11 @@ export const ManageNews = () => {
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(newsItem.status)}
                     <span className="text-xs text-muted-foreground">
-                      {new Date(newsItem.created_at).toLocaleDateString("ar-EG")}
+                      {new Date(newsItem.created_at).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "short",
+                        day: "numeric"
+                      })}
                     </span>
                   </div>
                 </div>

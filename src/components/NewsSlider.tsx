@@ -96,12 +96,21 @@ export const NewsSlider = () => {
         <p className="text-lg mb-4 line-clamp-2 opacity-90">
           {currentNews.excerpt}
         </p>
-        <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10">
-            <AvatarImage src={currentNews.author?.photo_url} alt={currentNews.author?.name} />
-            <AvatarFallback>{currentNews.author?.name?.charAt(0)}</AvatarFallback>
-          </Avatar>
-          <span className="text-sm font-medium">{currentNews.author?.name}</span>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <Avatar className="h-10 w-10">
+              <AvatarImage src={currentNews.author?.photo_url} alt={currentNews.author?.name} />
+              <AvatarFallback>{currentNews.author?.name?.charAt(0)}</AvatarFallback>
+            </Avatar>
+            <span className="text-sm font-medium">{currentNews.author?.name}</span>
+          </div>
+          <span className="text-sm opacity-80">
+            {new Date(currentNews.created_at).toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric"
+            })}
+          </span>
         </div>
       </div>
 

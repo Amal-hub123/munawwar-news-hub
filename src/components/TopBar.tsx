@@ -89,7 +89,7 @@ export const TopBar = () => {
     return () => clearInterval(timer);
   }, [newsItems.length]);
 
-  const today = new Date().toLocaleDateString("ar-SA", {
+  const today = new Date().toLocaleDateString("en-US", {
     weekday: "long",
     year: "numeric",
     month: "long",
