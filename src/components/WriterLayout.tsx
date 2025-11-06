@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LayoutDashboard, FileText, Newspaper, User, LogOut } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -15,6 +16,7 @@ export const WriterLayout = ({ children }: WriterLayoutProps) => {
   const { toast } = useToast();
   const [isWriter, setIsWriter] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<{ name: string; photo_url?: string } | null>(null);
 
   useEffect(() => {
     checkWriter();
@@ -44,6 +46,16 @@ export const WriterLayout = ({ children }: WriterLayoutProps) => {
         });
         navigate("/");
         return;
+      }
+
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("name, photo_url")
+        .eq("user_id", user.id)
+        .single();
+
+      if (profileData) {
+        setProfile({ name: profileData.name, photo_url: profileData.photo_url || undefined });
       }
 
       setIsWriter(true);
@@ -82,6 +94,18 @@ export const WriterLayout = ({ children }: WriterLayoutProps) => {
         {/* Sidebar */}
         <aside className="w-64 bg-card border-l min-h-screen p-6">
           <div className="mb-8">
+            <div className="flex items-center gap-3 mb-6 pb-6 border-b">
+              <Avatar className="h-12 w-12">
+                <AvatarImage src={profile?.photo_url} alt={profile?.name} />
+                <AvatarFallback>
+                  <User className="h-6 w-6" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <h3 className="font-semibold text-sm">{profile?.name || "الكاتب"}</h3>
+                <p className="text-xs text-muted-foreground">كاتب</p>
+              </div>
+            </div>
             <h2 className="text-2xl font-bold text-primary">لوحة الكاتب</h2>
           </div>
 
