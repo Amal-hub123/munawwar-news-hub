@@ -126,7 +126,7 @@ const ManageNews = () => {
                   <Link to={`/admin/news/preview/${item.id}`}>
                     <Button variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
-                      معاينة
+                      
                     </Button>
                   </Link>
                   {item.status === "pending" && (
@@ -159,7 +159,7 @@ const ManageNews = () => {
                     onClick={() => deleteMutation.mutate(item.id)}
                   >
                     <Trash2 className="w-4 h-4 ml-2" />
-                    حذف
+                    
                   </Button>
                 </div>
               </div>
