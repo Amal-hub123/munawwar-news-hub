@@ -46,33 +46,35 @@ const ProductsSlider = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-start text-primary">منتجات المنحنى</h2>
         
-        <Carousel
-          opts={{
-            align: "start",
-            direction: "rtl",
-          }}
-          className="w-full"
-        >
+        <div className="relative px-12">
+          <Carousel
+            opts={{
+              align: "start",
+              direction: "rtl",
+            }}
+            className="w-full"
+          >
+            
+            <CarouselContent className="-mr-4">
+              {products.map((product) => (
+                <CarouselItem key={product.id} className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6">
+                  <Link to={`/products/${product.id}`}>
+                    <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-full h-48 object-cover"
+                      />
+                    </div>
+                  </Link>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
           
-          <CarouselContent className="-mr-4">
-            {products.map((product) => (
-              <CarouselItem key={product.id} className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6">
-                <Link to={`/products/${product.id}`}>
-                  <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
-                    <img
-                      src={product.image_url}
-                      alt={product.name}
-                      className="w-full h-48 object-cover"
-                    />
-                  </div>
-                </Link>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-                    <CarouselNext className="left-0 right-auto" />
-
-          <CarouselPrevious className="right-0 left-auto" />
-        </Carousel>
+          <CarouselNext className="-left-12 right-auto" />
+          <CarouselPrevious className="-right-12 left-auto" />
+        </div>
       </div>
     </section>
   );
