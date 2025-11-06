@@ -119,7 +119,7 @@ useEffect(() => {
   });
 
   return (
-    <div className="bg-primary text-primary-foreground pt-2 px-4 border-b border-primary-foreground/10">
+    <div className="bg-primary text-primary-foreground px-4 border-b border-primary-foreground/10">
       <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-4">
   {newsItems[currentNews]?.date && (
