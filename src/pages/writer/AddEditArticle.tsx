@@ -182,14 +182,14 @@ export const AddEditArticle = () => {
             <div>
               <Label>المنتج (اختياري)</Label>
               <Select
-                value={formData.product_id}
-                onValueChange={(value) => setFormData({ ...formData, product_id: value })}
+                value={formData.product_id || "none"}
+                onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="اختر منتجاً" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">بدون منتج</SelectItem>
+                  <SelectItem value="none">بدون منتج</SelectItem>
                   {products.map((product) => (
                     <SelectItem key={product.id} value={product.id}>
                       {product.name}
