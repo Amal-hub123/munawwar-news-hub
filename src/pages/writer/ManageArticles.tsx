@@ -37,7 +37,6 @@ export const ManageArticles = () => {
     cover_image_url: "",
     content: "",
     product_id: "",
-    linkedin_url: "",
   });
 
   useEffect(() => {
@@ -141,7 +140,6 @@ export const ManageArticles = () => {
       cover_image_url: article.cover_image_url,
       content: article.content,
       product_id: article.product_id || "",
-      linkedin_url: (article as any).linkedin_url || "",
     });
     setIsDialogOpen(true);
   };
@@ -175,7 +173,6 @@ export const ManageArticles = () => {
       cover_image_url: "",
       content: "",
       product_id: "",
-      linkedin_url: "",
     });
     setEditingArticle(null);
   };
@@ -243,16 +240,6 @@ export const ManageArticles = () => {
                 onChange={(url) => setFormData({ ...formData, cover_image_url: url })}
                 label="صورة الغلاف"
               />
-
-              <div>
-                <Label>رابط LinkedIn (اختياري)</Label>
-                <Input
-                  value={formData.linkedin_url}
-                  onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
-                  placeholder="https://linkedin.com/in/..."
-                  type="url"
-                />
-              </div>
 
               <div>
                 <Label>منتج منحنى (اختياري)</Label>

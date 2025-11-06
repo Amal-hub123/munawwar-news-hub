@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface NewsItem {
-  text: string;
+  title: string;
   date: string;
-  linkedin?: string;
+  author_linkedin?: string;
+  author_twitter?: string;
 }
 
 export const TopBar = () => {
@@ -15,43 +16,62 @@ export const TopBar = () => {
   useEffect(() => {
     const fetchLatestContent = async () => {
       try {
-        // Get latest approved articles
+        // Get latest approved articles with author info
         const { data: articles } = await supabase
           .from("articles")
-          .select("title, created_at, linkedin_url")
+          .select(`
+            title, 
+            created_at,
+            author:profiles!articles_author_id_fkey(linkedin_url)
+          `)
           .eq("status", "approved")
           .order("created_at", { ascending: false })
           .limit(3);
 
-        // Get latest approved news
+        // Get latest approved news with author info
         const { data: news } = await supabase
           .from("news")
-          .select("title, created_at, linkedin_url")
+          .select(`
+            title, 
+            created_at,
+            author:profiles!news_author_id_fkey(linkedin_url)
+          `)
           .eq("status", "approved")
           .order("created_at", { ascending: false })
           .limit(3);
 
         const items = [
           ...(articles?.map(a => ({
-            text: `مقال جديد: ${a.title}`,
-            date: new Date(a.created_at).toLocaleDateString("ar-SA", { day: "numeric", month: "long", year: "numeric" }),
-            linkedin: a.linkedin_url
+            title: a.title,
+            date: new Date(a.created_at).toLocaleDateString("en-US", { 
+              day: "numeric", 
+              month: "long", 
+              year: "numeric" 
+            }),
+            author_linkedin: (a.author as any)?.linkedin_url,
           })) || []),
           ...(news?.map(n => ({
-            text: `عاجل: ${n.title}`,
-            date: new Date(n.created_at).toLocaleDateString("ar-SA", { day: "numeric", month: "long", year: "numeric" }),
-            linkedin: n.linkedin_url
+            title: n.title,
+            date: new Date(n.created_at).toLocaleDateString("en-US", { 
+              day: "numeric", 
+              month: "long", 
+              year: "numeric" 
+            }),
+            author_linkedin: (n.author as any)?.linkedin_url,
           })) || [])
         ];
+
+        // Sort all items by date
+        items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
         if (items.length > 0) {
           setNewsItems(items);
         } else {
-          setNewsItems([{ text: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "", linkedin: "" }]);
+          setNewsItems([{ title: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "" }]);
         }
       } catch (error) {
         console.error("Error fetching content:", error);
-        setNewsItems([{ text: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "", linkedin: "" }]);
+        setNewsItems([{ title: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "" }]);
       }
     };
 
@@ -83,18 +103,30 @@ export const TopBar = () => {
         
         <div className="flex-1 text-center overflow-hidden">
           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-            <span>{newsItems[currentNews]?.text}</span>
+            <span>{newsItems[currentNews]?.title}</span>
             {newsItems[currentNews]?.date && (
               <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
             )}
-            {newsItems[currentNews]?.linkedin && (
+            {newsItems[currentNews]?.author_linkedin && (
               <a
-                href={newsItems[currentNews].linkedin}
+                href={newsItems[currentNews].author_linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"
+                title="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
+              </a>
+            )}
+            {newsItems[currentNews]?.author_twitter && (
+              <a
+                href={newsItems[currentNews].author_twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors"
+                title="Twitter"
+              >
+                <Twitter className="w-4 h-4" />
               </a>
             )}
           </div>
