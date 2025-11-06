@@ -105,17 +105,25 @@ export default function ManageUsers() {
 
   const approveUserMutation = useMutation({
     mutationFn: async (userId: string) => {
-      const { error } = await supabase
+      // Update profile status to approved
+      const { error: profileError } = await supabase
         .from("profiles")
         .update({ status: "approved" })
         .eq("user_id", userId);
       
-      if (error) throw error;
+      if (profileError) throw profileError;
+
+      // Add writer role automatically when approving
+      const { error: roleError } = await supabase
+        .from("user_roles")
+        .insert({ user_id: userId, role: "writer" });
+      
+      if (roleError) throw roleError;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       toast({
-        title: "تم قبول المستخدم بنجاح",
+        title: "تم قبول المستخدم وإضافة صلاحية الكاتب",
       });
     },
     onError: (error: any) => {
