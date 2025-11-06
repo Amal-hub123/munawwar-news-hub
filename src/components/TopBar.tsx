@@ -103,6 +103,10 @@ export const TopBar = () => {
           {newsItems[currentNews]?.date && (
               <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
             )} 
+          <span class="breaking-title">
+		<span class="tie-icon-bolt breaking-icon" aria-hidden="true"></span>
+		<span class="breaking-title-text">⚡︎</span>
+	</span>
            <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
             <span>{newsItems[currentNews]?.title}</span>        
           </div>
