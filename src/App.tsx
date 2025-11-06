@@ -28,6 +28,9 @@ import WriterDashboard from "./pages/writer/Dashboard";
 import WriterManageArticles from "./pages/writer/ManageArticles";
 import WriterManageNews from "./pages/writer/ManageNews";
 import WriterProfile from "./pages/writer/Profile";
+import WriterAddEditArticle from "./pages/writer/AddEditArticle";
+import WriterAddEditNews from "./pages/writer/AddEditNews";
+import AdminAddEditProduct from "./pages/admin/AddEditProduct";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,11 +59,17 @@ const App = () => (
           <Route path="/admin/news" element={<AdminLayout><ManageNews /></AdminLayout>} />
           <Route path="/admin/writers" element={<AdminLayout><ManageWriters /></AdminLayout>} />
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
+          <Route path="/admin/products/add" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
+          <Route path="/admin/products/edit/:id" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
           <Route path="/admin/users" element={<AdminLayout><ManageUsers /></AdminLayout>} />
           <Route path="/admin/settings" element={<AdminLayout><AdminSettings /></AdminLayout>} />
           <Route path="/writer" element={<WriterLayout><WriterDashboard /></WriterLayout>} />
           <Route path="/writer/articles" element={<WriterLayout><WriterManageArticles /></WriterLayout>} />
+          <Route path="/writer/articles/add" element={<WriterLayout><WriterAddEditArticle /></WriterLayout>} />
+          <Route path="/writer/articles/edit/:id" element={<WriterLayout><WriterAddEditArticle /></WriterLayout>} />
           <Route path="/writer/news" element={<WriterLayout><WriterManageNews /></WriterLayout>} />
+          <Route path="/writer/news/add" element={<WriterLayout><WriterAddEditNews /></WriterLayout>} />
+          <Route path="/writer/news/edit/:id" element={<WriterLayout><WriterAddEditNews /></WriterLayout>} />
           <Route path="/writer/profile" element={<WriterLayout><WriterProfile /></WriterLayout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

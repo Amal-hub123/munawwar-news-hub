@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import RichTextEditor from "@/components/ui/rich-text-editor";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Plus, Trash2 } from "lucide-react";
-import { ImageUpload } from "@/components/ImageUpload";
 
 interface Article {
   id: string;
@@ -25,23 +19,10 @@ interface Article {
 
 export const ManageArticles = () => {
   const [articles, setArticles] = useState<Article[]>([]);
-  const [products, setProducts] = useState<any[]>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingArticle, setEditingArticle] = useState<Article | null>(null);
-  const [profileId, setProfileId] = useState<string>("");
   const { toast } = useToast();
-
-  const [formData, setFormData] = useState({
-    title: "",
-    excerpt: "",
-    cover_image_url: "",
-    content: "",
-    product_id: "",
-  });
 
   useEffect(() => {
     loadProfileAndArticles();
-    loadProducts();
   }, []);
 
   const loadProfileAndArticles = async () => {
@@ -55,7 +36,6 @@ export const ManageArticles = () => {
       .single();
 
     if (!profile) return;
-    setProfileId(profile.id);
 
     const { data } = await supabase
       .from("articles")
@@ -64,84 +44,6 @@ export const ManageArticles = () => {
       .order("created_at", { ascending: false });
 
     if (data) setArticles(data);
-  };
-
-  const loadProducts = async () => {
-    const { data } = await supabase.from("products").select("*").order("display_order");
-    if (data) setProducts(data);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.title || !formData.excerpt || !formData.cover_image_url) {
-      toast({
-        title: "خطأ",
-        description: "يرجى ملء جميع الحقول المطلوبة",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const articleData = {
-      ...formData,
-      product_id: formData.product_id || null,
-      author_id: profileId,
-      status: "pending" as "pending",
-    };
-
-    if (editingArticle) {
-      const { error } = await supabase
-        .from("articles")
-        .update(articleData)
-        .eq("id", editingArticle.id);
-
-      if (error) {
-        toast({
-          title: "خطأ",
-          description: "حدث خطأ أثناء تحديث المقال",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      toast({
-        title: "تم التحديث",
-        description: "تم تحديث المقال بنجاح",
-      });
-    } else {
-      const { error } = await supabase.from("articles").insert(articleData);
-
-      if (error) {
-        toast({
-          title: "خطأ",
-          description: "حدث خطأ أثناء إضافة المقال",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      toast({
-        title: "تم الإضافة",
-        description: "تم إضافة المقال بنجاح وسيتم مراجعته من قبل الإدارة",
-      });
-    }
-
-    setIsDialogOpen(false);
-    resetForm();
-    loadProfileAndArticles();
-  };
-
-  const handleEdit = (article: Article) => {
-    setEditingArticle(article);
-    setFormData({
-      title: article.title,
-      excerpt: article.excerpt,
-      cover_image_url: article.cover_image_url,
-      content: article.content,
-      product_id: article.product_id || "",
-    });
-    setIsDialogOpen(true);
   };
 
   const handleDelete = async (id: string) => {
@@ -166,16 +68,6 @@ export const ManageArticles = () => {
     loadProfileAndArticles();
   };
 
-  const resetForm = () => {
-    setFormData({
-      title: "",
-      excerpt: "",
-      cover_image_url: "",
-      content: "",
-      product_id: "",
-    });
-    setEditingArticle(null);
-  };
 
   const getStatusBadge = (status: string) => {
     const colors = {
@@ -199,91 +91,12 @@ export const ManageArticles = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">مقالاتي</h1>
-        <Dialog open={isDialogOpen} onOpenChange={(open) => {
-          setIsDialogOpen(open);
-          if (!open) resetForm();
-        }}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="w-4 h-4 ml-2" />
-              إضافة مقال جديد
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader style={{textAlign : 'right'}}>
-              <DialogTitle>{editingArticle ? "تعديل المقال" : "إضافة مقال جديد"}</DialogTitle>
-            </DialogHeader>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <Label>العنوان</Label>
-                <Input
-                  value={formData.title}
-                  onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  placeholder="عنوان المقال"
-                  required
-                />
-              </div>
-
-              <div>
-                <Label>النبذة المختصرة</Label>
-                <Textarea
-                  value={formData.excerpt}
-                  onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                  placeholder="نبذة مختصرة عن المقال"
-                  rows={3}
-                  required
-                />
-              </div>
-
-              <ImageUpload
-                value={formData.cover_image_url}
-                onChange={(url) => setFormData({ ...formData, cover_image_url: url })}
-                label="صورة الغلاف"
-              />
-
-              <div>
-                <Label>منتج منحنى (اختياري)</Label>
-                <Select
-                  value={formData.product_id || "none"}
-                  onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="اختر منتج " />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="none">مقال عام </SelectItem>
-                    {products.map((product) => (
-                      <SelectItem key={product.id} value={product.id}>
-                        {product.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div>
-                <Label>المحتوى</Label>
-                <RichTextEditor
-                  value={formData.content}
-                  onChange={(content) => setFormData({ ...formData, content })}
-                  placeholder="اكتب محتوى المقال هنا..."
-                />
-              </div>
-
-              <div className="flex gap-2 justify-end">
-                <Button type="button" variant="outline" onClick={() => {
-                  setIsDialogOpen(false);
-                  resetForm();
-                }}>
-                  إلغاء
-                </Button>
-                <Button type="submit">
-                  {editingArticle ? "تحديث" : "إضافة"}
-                </Button>
-              </div>
-            </form>
-          </DialogContent>
-        </Dialog>
+        <Link to="/writer/articles/add">
+          <Button>
+            <Plus className="w-4 h-4 ml-2" />
+            إضافة مقال جديد
+          </Button>
+        </Link>
       </div>
 
       <div className="grid gap-4">
@@ -307,9 +120,11 @@ export const ManageArticles = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" size="sm" onClick={() => handleEdit(article)}>
-                    <Pencil className="w-4 h-4" />
-                  </Button>
+                  <Link to={`/writer/articles/edit/${article.id}`}>
+                    <Button variant="outline" size="sm">
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                  </Link>
                   <Button
                     variant="outline"
                     size="sm"
