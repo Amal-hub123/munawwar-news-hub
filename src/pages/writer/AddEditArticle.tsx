@@ -180,8 +180,8 @@ export const AddEditArticle = () => {
             />
 
             <div>
-              <Label>المنتج (اختياري)</Label>
-              <Select
+              <Label>المنتج </Label>
+              <Select style={{textAlign : 'right'}}
                 value={formData.product_id || "none"}
                 onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
               >
@@ -189,7 +189,7 @@ export const AddEditArticle = () => {
                   <SelectValue placeholder="اختر منتجاً" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">بدون منتج</SelectItem>
+                  <SelectItem value="none">مقال عام </SelectItem>
                   {products.map((product) => (
                     <SelectItem key={product.id} value={product.id}>
                       {product.name}
