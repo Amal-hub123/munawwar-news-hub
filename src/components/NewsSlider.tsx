@@ -96,7 +96,7 @@ export const NewsSlider = () => {
         <p className="text-lg mb-4 line-clamp-2 opacity-90">
           {currentNews.excerpt}
         </p>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between" style={{paddingTop:'5px'}}>
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
               <AvatarImage src={currentNews.author?.photo_url} alt={currentNews.author?.name} />
