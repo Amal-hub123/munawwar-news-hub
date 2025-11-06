@@ -30,7 +30,11 @@ import WriterManageNews from "./pages/writer/ManageNews";
 import WriterProfile from "./pages/writer/Profile";
 import WriterAddEditArticle from "./pages/writer/AddEditArticle";
 import WriterAddEditNews from "./pages/writer/AddEditNews";
+import WriterPreviewArticle from "./pages/writer/PreviewArticle";
+import WriterPreviewNews from "./pages/writer/PreviewNews";
 import AdminAddEditProduct from "./pages/admin/AddEditProduct";
+import AdminPreviewArticle from "./pages/admin/PreviewArticle";
+import AdminPreviewNews from "./pages/admin/PreviewNews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,7 +60,9 @@ const App = () => (
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
           <Route path="/admin/articles" element={<AdminLayout><ManageArticles /></AdminLayout>} />
+          <Route path="/admin/articles/preview/:id" element={<AdminLayout><AdminPreviewArticle /></AdminLayout>} />
           <Route path="/admin/news" element={<AdminLayout><ManageNews /></AdminLayout>} />
+          <Route path="/admin/news/preview/:id" element={<AdminLayout><AdminPreviewNews /></AdminLayout>} />
           <Route path="/admin/writers" element={<AdminLayout><ManageWriters /></AdminLayout>} />
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
           <Route path="/admin/products/add" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
@@ -67,9 +73,11 @@ const App = () => (
           <Route path="/writer/articles" element={<WriterLayout><WriterManageArticles /></WriterLayout>} />
           <Route path="/writer/articles/add" element={<WriterLayout><WriterAddEditArticle /></WriterLayout>} />
           <Route path="/writer/articles/edit/:id" element={<WriterLayout><WriterAddEditArticle /></WriterLayout>} />
+          <Route path="/writer/articles/preview/:id" element={<WriterLayout><WriterPreviewArticle /></WriterLayout>} />
           <Route path="/writer/news" element={<WriterLayout><WriterManageNews /></WriterLayout>} />
           <Route path="/writer/news/add" element={<WriterLayout><WriterAddEditNews /></WriterLayout>} />
           <Route path="/writer/news/edit/:id" element={<WriterLayout><WriterAddEditNews /></WriterLayout>} />
+          <Route path="/writer/news/preview/:id" element={<WriterLayout><WriterPreviewNews /></WriterLayout>} />
           <Route path="/writer/profile" element={<WriterLayout><WriterProfile /></WriterLayout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

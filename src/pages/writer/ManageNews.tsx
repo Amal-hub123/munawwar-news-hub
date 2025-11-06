@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus, Trash2, Eye } from "lucide-react";
 
 interface News {
   id: string;
@@ -124,6 +124,11 @@ export const ManageNews = () => {
                   </div>
                 </div>
                 <div className="flex gap-2">
+                  <Link to={`/writer/news/preview/${newsItem.id}`}>
+                    <Button variant="outline" size="sm">
+                      <Eye className="w-4 h-4" />
+                    </Button>
+                  </Link>
                   <Link to={`/writer/news/edit/${newsItem.id}`}>
                     <Button variant="outline" size="sm">
                       <Pencil className="w-4 h-4" />

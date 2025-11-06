@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, X, Trash2 } from "lucide-react";
+import { Check, X, Trash2, Eye } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams, Link } from "react-router-dom";
 
@@ -125,6 +125,12 @@ const ManageArticles = () => {
                 </div>
 
                 <div className="flex gap-2 mt-4">
+                  <Link to={`/admin/articles/preview/${article.id}`}>
+                    <Button variant="outline" size="sm">
+                      <Eye className="w-4 h-4 ml-2" />
+                      معاينة
+                    </Button>
+                  </Link>
                   {article.status === "pending" && (
                     <>
                       <Button
