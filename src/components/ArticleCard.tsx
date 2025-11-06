@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 
 interface ArticleCardProps {
   id: string;
-  productType: string;
+  productType?: string;
   title: string;
   excerpt: string;
   coverImage: string;
@@ -34,9 +34,7 @@ export const ArticleCard = ({
   });
 
   const link = type === "article" ? `/articles/${id}` : `/news/${id}`;
-
-  // const badgeText = type === "article" ? "مقالة" : "خبر";
-  // const badgeColor = type === "article" ? "bg-secondary" : "bg-primary";
+  const badgeColor = "bg-primary";
 
   return (
     <Link to={link}>
@@ -48,10 +46,12 @@ export const ArticleCard = ({
               alt={title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
-              <Star className="w-3 h-3 ml-1" />
-              {productType}
-            </Badge>
+            {productType && (
+              <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
+                <Star className="w-3 h-3 ml-1" />
+                {productType}
+              </Badge>
+            )}
           </div>
           
           <div className="flex-1 flex flex-col justify-between min-w-0">
