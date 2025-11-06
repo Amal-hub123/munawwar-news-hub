@@ -113,9 +113,9 @@ export const Header = () => {
   };
 
   const navItems = [
+        { label: "المنتجات", href: "#products", onClick: handleProductsClick },
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
-    { label: "المنتجات", href: "#products", onClick: handleProductsClick },
   ];
 
   return (
