@@ -13,6 +13,28 @@ export const TopBar = () => {
   const [currentNews, setCurrentNews] = useState(0);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
 
+
+const [displayedText, setDisplayedText] = useState("");
+
+useEffect(() => {
+  const text = newsItems[currentNews]?.title || "";
+  let i = 0;
+  setDisplayedText(""); // نبدأ من الصفر
+
+  const interval = setInterval(() => {
+    if (i < text.length) {
+      setDisplayedText((prev) => prev + text[i]);
+      i++;
+    } else {
+      clearInterval(interval);
+    }
+  }, 60); // سرعة الكتابة (60ms لكل حرف)
+
+  return () => clearInterval(interval);
+}, [currentNews, newsItems]);
+
+
+  
   useEffect(() => {
     const fetchLatestContent = async () => {
       try {
@@ -114,7 +136,7 @@ export const TopBar = () => {
 
   {/* عنوان الخبر */}
   <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-    <span>{newsItems[currentNews]?.title}</span>
+<span className="whitespace-pre">{displayedText}</span>
   </div>
 </div>
 
