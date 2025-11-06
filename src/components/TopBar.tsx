@@ -100,17 +100,24 @@ export const TopBar = () => {
     <div className="bg-primary text-primary-foreground py-2 px-4 border-b border-primary-foreground/10">
       <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-4">
-          {newsItems[currentNews]?.date && (
-              <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
-            )} 
-          <span class="breaking-title">
-		<span class="tie-icon-bolt breaking-icon" aria-hidden="true"></span>
-		<span class="breaking-title-text">⚡︎</span>
-	</span>
-           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-            <span>{newsItems[currentNews]?.title}</span>        
-          </div>
-        </div>
+  {newsItems[currentNews]?.date && (
+    <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
+  )}
+
+  {/* ⚡︎ فاصل الشريط */}
+  <span
+    className="bg-yellow-400 text-black font-bold px-3 py-1 rounded-full text-sm shadow-md"
+    aria-hidden="true"
+  >
+    ⚡︎
+  </span>
+
+  {/* عنوان الخبر */}
+  <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
+    <span>{newsItems[currentNews]?.title}</span>
+  </div>
+</div>
+
         
         {/* <div className="flex-1 text-center overflow-hidden">
           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
