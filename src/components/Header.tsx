@@ -47,7 +47,6 @@ export const Header = () => {
   };
 
   const navItems = [
-    { label: "الرئيسية", href: "/" },
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
     { label: "الكتّاب", href: "/writers" },
@@ -60,7 +59,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover border-2 border-primary" />
+            <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
             <div>
               <h1 className="text-2xl font-bold text-primary">منحنى</h1>
             </div>
