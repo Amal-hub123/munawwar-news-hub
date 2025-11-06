@@ -210,7 +210,7 @@ export const ManageArticles = () => {
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-            <DialogHeader>
+            <DialogHeader style={{textAlign : 'right'}}>
               <DialogTitle>{editingArticle ? "تعديل المقال" : "إضافة مقال جديد"}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4">
