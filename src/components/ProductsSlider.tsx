@@ -57,7 +57,7 @@ const ProductsSlider = () => {
             
             <CarouselContent className="-mr-4">
               {products.map((product) => (
-                <CarouselItem key={product.id} className="pr-2 basis-1/2 md:basis-1/3 lg:basis-1/6">
+                <CarouselItem key={product.id} className="pr-4 pl-0 basis-1/2 md:basis-1/3 lg:basis-1/6">
                   <Link to={`/products/${product.id}`}>
                     <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                       <img
