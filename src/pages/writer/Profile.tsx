@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "@/components/ImageUpload";
 
 export const WriterProfile = () => {
   const { toast } = useToast();
@@ -146,15 +147,11 @@ export const WriterProfile = () => {
               </p>
             </div>
 
-            <div>
-              <Label>رابط الصورة الشخصية</Label>
-              <Input
-                value={formData.photo_url}
-                onChange={(e) => setFormData({ ...formData, photo_url: e.target.value })}
-                placeholder="https://example.com/photo.jpg"
-                type="url"
-              />
-            </div>
+            <ImageUpload
+              value={formData.photo_url}
+              onChange={(url) => setFormData({ ...formData, photo_url: url })}
+              label="الصورة الشخصية"
+            />
 
             <div>
               <Label>رابط حساب LinkedIn</Label>

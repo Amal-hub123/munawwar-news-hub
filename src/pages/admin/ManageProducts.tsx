@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Plus, Trash2, Edit } from "lucide-react";
+import { ImageUpload } from "@/components/ImageUpload";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import {
@@ -143,16 +144,11 @@ const ManageProducts = () => {
                   placeholder="وصف المنتج"
                 />
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">رابط الصورة</label>
-                <Input
-                  value={formData.image_url}
-                  onChange={(e) =>
-                    setFormData({ ...formData, image_url: e.target.value })
-                  }
-                  placeholder="https://..."
-                />
-              </div>
+              <ImageUpload
+                value={formData.image_url}
+                onChange={(url) => setFormData({ ...formData, image_url: url })}
+                label="صورة المنتج"
+              />
               <div>
                 <label className="block text-sm font-medium mb-1">ترتيب العرض</label>
                 <Input

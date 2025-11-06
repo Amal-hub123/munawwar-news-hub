@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import RichTextEditor from "@/components/ui/rich-text-editor";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Plus, Trash2 } from "lucide-react";
+import { ImageUpload } from "@/components/ImageUpload";
 
 interface News {
   id: string;
@@ -224,16 +225,11 @@ export const ManageNews = () => {
                 />
               </div>
 
-              <div>
-                <Label>رابط صورة الغلاف</Label>
-                <Input
-                  value={formData.cover_image_url}
-                  onChange={(e) => setFormData({ ...formData, cover_image_url: e.target.value })}
-                  placeholder="https://example.com/image.jpg"
-                  type="url"
-                  required
-                />
-              </div>
+              <ImageUpload
+                value={formData.cover_image_url}
+                onChange={(url) => setFormData({ ...formData, cover_image_url: url })}
+                label="صورة الغلاف"
+              />
 
               <div>
                 <Label>رابط LinkedIn (اختياري)</Label>
