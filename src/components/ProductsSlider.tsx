@@ -46,7 +46,7 @@ const ProductsSlider = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-start text-primary">منتجات المنحنى</h2>
         
-        <div className="relative px-12">
+        <div className="relative ">
           <Carousel
             opts={{
               align: "start",
@@ -57,7 +57,7 @@ const ProductsSlider = () => {
             
             <CarouselContent className="-mr-4">
               {products.map((product) => (
-                <CarouselItem key={product.id} className=" basis-1/2 md:basis-1/3 lg:basis-1/6">
+                <CarouselItem key={product.id} className="pr-4 basis-1/2 md:basis-1/3 lg:basis-1/6">
                   <Link to={`/products/${product.id}`}>
                     <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow cursor-pointer">
                       <img
