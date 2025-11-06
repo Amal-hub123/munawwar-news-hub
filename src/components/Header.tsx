@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, User, LogOut } from "lucide-react";
+import { Menu, User, LogOut, LayoutDashboard } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   Sheet,
@@ -23,20 +23,57 @@ import { useToast } from "@/hooks/use-toast";
 export const Header = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [userRole, setUserRole] = useState(null);
   const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        loadUserProfile(session.user.id);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
+      if (session?.user) {
+        loadUserProfile(session.user.id);
+      } else {
+        setProfile(null);
+        setUserRole(null);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
+
+  const loadUserProfile = async (userId: string) => {
+    try {
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+      
+      if (profileData) {
+        setProfile(profileData);
+      }
+
+      const { data: roleData } = await supabase
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId)
+        .single();
+      
+      if (roleData) {
+        setUserRole(roleData.role);
+      }
+    } catch (error) {
+      console.error("Error loading profile:", error);
+    }
+  };
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -44,6 +81,14 @@ export const Header = () => {
       title: "تم تسجيل الخروج بنجاح",
     });
     navigate("/");
+  };
+
+  const handleDashboardClick = () => {
+    if (userRole === "admin") {
+      navigate("/admin/dashboard");
+    } else if (userRole === "writer") {
+      navigate("/writer/dashboard");
+    }
   };
 
   const navItems = [
@@ -85,7 +130,7 @@ export const Header = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                     <Avatar className="h-10 w-10">
-                      <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email} />
+                      <AvatarImage src={profile?.photo_url} alt={profile?.name || user.email} />
                       <AvatarFallback>
                         <User className="h-5 w-5" />
                       </AvatarFallback>
@@ -95,13 +140,19 @@ export const Header = () => {
                 <DropdownMenuContent align="end" className="w-56">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
-                      <p className="text-sm font-medium leading-none">الحساب</p>
+                      <p className="text-sm font-medium leading-none">{profile?.name || "الحساب"}</p>
                       <p className="text-xs leading-none text-muted-foreground">
                         {user.email}
                       </p>
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
+                  {userRole && (
+                    <DropdownMenuItem onClick={handleDashboardClick}>
+                      <LayoutDashboard className="ml-2 h-4 w-4" />
+                      <span>لوحة التحكم</span>
+                    </DropdownMenuItem>
+                  )}
                   <DropdownMenuItem onClick={handleSignOut}>
                     <LogOut className="ml-2 h-4 w-4" />
                     <span>تسجيل الخروج</span>
@@ -142,7 +193,12 @@ export const Header = () => {
                 <div className="flex flex-col gap-3 mt-4">
                   {user ? (
                     <>
-                      <span className="text-sm text-muted-foreground px-3">{user.email}</span>
+                      <span className="text-sm text-muted-foreground px-3">{profile?.name || user.email}</span>
+                      {userRole && (
+                        <Button onClick={() => { handleDashboardClick(); setOpen(false); }} variant="outline">
+                          لوحة التحكم
+                        </Button>
+                      )}
                       <Button onClick={() => { handleSignOut(); setOpen(false); }} variant="outline">
                         تسجيل الخروج
                       </Button>
