@@ -50,7 +50,7 @@ export const Header = () => {
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
     { label: "الكتّاب", href: "/writers" },
-    { label: "منتجاتنا", href: "/products" },
+   
   ];
 
   return (
