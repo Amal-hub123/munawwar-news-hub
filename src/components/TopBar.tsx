@@ -103,14 +103,14 @@ export const TopBar = () => {
           {newsItems[currentNews]?.date && (
               <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
             )}
-           
+           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
+            <span>{newsItems[currentNews]?.title}</span>        
+          </div>
         </div>
         
         <div className="flex-1 text-center overflow-hidden">
           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-            <span>{newsItems[currentNews]?.title}</span>
-           
-           
+            <span>{newsItems[currentNews]?.title}</span>        
           </div>
         </div>
 
