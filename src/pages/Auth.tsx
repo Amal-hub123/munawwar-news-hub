@@ -199,7 +199,7 @@ const Auth = () => {
                   <TabsTrigger value="signup">حساب جديد</TabsTrigger>
                 </TabsList>
 
-                <TabsContent value="signin">
+                <TabsContent value="signin" style={{textAlign : 'right'}}>
                   <form onSubmit={handleSignIn} className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="signin-email">البريد الإلكتروني</Label>
