@@ -1,12 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, User, LogOut } from "lucide-react";
 import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import logo from "@/assets/logo.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -73,16 +82,40 @@ export const Header = () => {
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
             {user ? (
-              <>
-                <span className="text-sm text-muted-foreground">{user.email}</span>
-                <Button onClick={handleSignOut} variant="outline">
-                  تسجيل الخروج
-                </Button>
-              </>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="relative h-10 w-10 rounded-full">
+                    <Avatar className="h-10 w-10">
+                      <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email} />
+                      <AvatarFallback>
+                        <User className="h-5 w-5" />
+                      </AvatarFallback>
+                    </Avatar>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">الحساب</p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="ml-2 h-4 w-4" />
+                    <span>تسجيل الخروج</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <>
                 <Button asChild variant="outline">
                   <Link to="/auth">تسجيل الدخول</Link>
+                </Button>
+                <Button asChild>
+                  <Link to="/register">اكتب معنا</Link>
                 </Button>
               </>
             )}
@@ -120,6 +153,11 @@ export const Header = () => {
                       <Button asChild variant="outline">
                         <Link to="/auth" onClick={() => setOpen(false)}>
                           تسجيل الدخول
+                        </Link>
+                      </Button>
+                      <Button asChild>
+                        <Link to="/register" onClick={() => setOpen(false)}>
+                          اكتب معنا
                         </Link>
                       </Button>
                     </>
