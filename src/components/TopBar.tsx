@@ -102,7 +102,7 @@ export const TopBar = () => {
         <div className="flex items-center gap-4">
           {newsItems[currentNews]?.date && (
               <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
-            )}
+            )} 
            <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
             <span>{newsItems[currentNews]?.title}</span>        
           </div>
