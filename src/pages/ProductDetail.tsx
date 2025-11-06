@@ -73,12 +73,13 @@ const ProductDetail = () => {
       <Header />
       
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg p-8 mb-8 shadow-md">
+        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <img
+              style={{width:'8rem'}}
               src={product.image_url}
               alt={product.name}
-              className="w-64 h-64 object-cover rounded-lg"
+              className=" object-cover rounded-lg"
             />
             
             <div className="flex-1 text-center md:text-right">
