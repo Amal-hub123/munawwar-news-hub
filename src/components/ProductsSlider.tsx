@@ -70,10 +70,11 @@ const ProductsSlider = () => {
                 </CarouselItem>
               ))}
             </CarouselContent>
+             <CarouselNext className="-left-12 right-auto" />
+          <CarouselPrevious className="-right-12 left-auto" />
           </Carousel>
           
-          <CarouselNext className="-left-12 right-auto" />
-          <CarouselPrevious className="-right-12 left-auto" />
+         
         </div>
       </div>
     </section>
