@@ -112,11 +112,11 @@ export const TopBar = () => {
           </div>
         </div>
         
-        <div className="flex-1 text-center overflow-hidden">
+        {/* <div className="flex-1 text-center overflow-hidden">
           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
             <span>{newsItems[currentNews]?.title}</span>        
           </div>
-        </div>
+        </div> */}
 
         <div className="flex items-center gap-3">
            {newsItems[currentNews]?.author_twitter && (
