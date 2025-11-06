@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Calendar } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -11,6 +12,10 @@ interface NewsItem {
   excerpt: string;
   cover_image_url: string;
   created_at: string;
+  author: {
+    name: string;
+    photo_url?: string;
+  };
 }
 
 export const NewsSlider = () => {
@@ -27,7 +32,10 @@ export const NewsSlider = () => {
     try {
       const { data, error } = await supabase
         .from("news")
-        .select("*")
+        .select(`
+          *,
+          author:profiles!news_author_id_fkey(name, photo_url)
+        `)
         .eq("status", "approved")
         .order("created_at", { ascending: false })
         .limit(5);
@@ -88,11 +96,12 @@ export const NewsSlider = () => {
         <p className="text-lg mb-4 line-clamp-2 opacity-90">
           {currentNews.excerpt}
         </p>
-        <div className="flex items-center gap-2 text-sm opacity-80">
-          <Calendar className="h-4 w-4" />
-          <span>
-            {new Date(currentNews.created_at).toLocaleDateString("ar-SA")}
-          </span>
+        <div className="flex items-center gap-3">
+          <Avatar className="h-10 w-10">
+            <AvatarImage src={currentNews.author?.photo_url} alt={currentNews.author?.name} />
+            <AvatarFallback>{currentNews.author?.name?.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <span className="text-sm font-medium">{currentNews.author?.name}</span>
         </div>
       </div>
 

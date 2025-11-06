@@ -181,7 +181,7 @@ export const AddEditArticle = () => {
 
             <div>
               <Label>المنتج </Label>
-              <Select className="text-right"
+              <Select
                 value={formData.product_id || "none"}
                 onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
               >
