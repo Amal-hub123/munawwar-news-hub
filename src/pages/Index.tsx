@@ -44,7 +44,6 @@ const Index = () => {
           )
         `)
         .eq("status", "approved")
-        .is("product_id", null)
         .order("created_at", { ascending: false })
         .limit(20);
 
