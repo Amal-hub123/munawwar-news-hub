@@ -23,7 +23,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      // التسجيل في النظام
+      // التسجيل في النظام - الـ trigger سيضيف البيانات تلقائياً
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -38,32 +38,15 @@ const Register = () => {
       if (authError) throw authError;
 
       if (authData.user) {
-        // إضافة ملف الكاتب
-        const { error: profileError } = await supabase
-          .from("profiles")
-          .insert([
-            {
-              user_id: authData.user.id,
-              name,
-              email,
-              bio,
-              status: 'pending',
-            },
-          ]);
+        // تحديث النبذة التعريفية
+        if (bio) {
+          const { error: updateError } = await supabase
+            .from("profiles")
+            .update({ bio })
+            .eq("user_id", authData.user.id);
 
-        if (profileError) throw profileError;
-
-        // إضافة دور الكاتب
-        const { error: roleError } = await supabase
-          .from("user_roles")
-          .insert([
-            {
-              user_id: authData.user.id,
-              role: 'writer',
-            },
-          ]);
-
-        if (roleError) throw roleError;
+          if (updateError) console.error("Error updating bio:", updateError);
+        }
 
         toast({
           title: "تم التسجيل بنجاح",
