@@ -82,7 +82,7 @@ const ManageNews = () => {
     <div>
       <h1 className="text-3xl font-bold mb-8">إدارة الأخبار</h1>
 
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {news?.map((item) => (
           <Card key={item.id} className="p-6">
             <div className="flex gap-4">
