@@ -138,7 +138,7 @@ export const Header = () => {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-56" style={{justifySelf:'right'}}>
+                <DropdownMenuContent align="start" className="w-56" style={{textAlign:'right'}}>
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">{profile?.name || "الحساب"}</p>
@@ -150,13 +150,14 @@ export const Header = () => {
                   <DropdownMenuSeparator />
                   {userRole && (
                     <DropdownMenuItem onClick={handleDashboardClick} style={{justifySelf:'right'}}>
-                      <LayoutDashboard className="ml-2 h-4 w-4" />
                       <span>لوحة التحكم</span>
+                                            <LayoutDashboard className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem onClick={handleSignOut} style={{justifySelf:'right'}}>
-                    <LogOut className="ml-2 h-4 w-4" />
                     <span>تسجيل الخروج</span>
+                                        <LogOut className="ml-2 h-4 w-4" />
+
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
