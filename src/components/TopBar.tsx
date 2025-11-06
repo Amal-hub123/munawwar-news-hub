@@ -128,7 +128,7 @@ useEffect(() => {
 
   {/* ⚡︎ فاصل الشريط */}
   <span
-    className="bg-yellow-400 text-black font-bold px-3 py-1 rounded-full text-sm shadow-md"
+    className="bg-yellow-400 text-black font-bold px-3 py-1 text-sm shadow-md"
     aria-hidden="true"
   >
     ⚡︎
