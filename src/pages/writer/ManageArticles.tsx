@@ -248,10 +248,10 @@ export const ManageArticles = () => {
                   onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="اختر منتج (اختياري)" />
+                    <SelectValue placeholder="اختر منتج " />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">بدون منتج</SelectItem>
+                    <SelectItem value="none">مقال عام </SelectItem>
                     {products.map((product) => (
                       <SelectItem key={product.id} value={product.id}>
                         {product.name}
