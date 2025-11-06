@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText, Newspaper, Clock, CheckCircle } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { FileText, Newspaper, Clock, CheckCircle, User } from "lucide-react";
 
 export const WriterDashboard = () => {
   const [stats, setStats] = useState({
@@ -12,6 +13,7 @@ export const WriterDashboard = () => {
     approvedArticles: 0,
     approvedNews: 0,
   });
+  const [profile, setProfile] = useState<{ name: string; photo_url?: string } | null>(null);
 
   useEffect(() => {
     loadStats();
@@ -23,11 +25,12 @@ export const WriterDashboard = () => {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("id")
+      .select("id, name, photo_url")
       .eq("user_id", user.id)
       .single();
 
     if (!profile) return;
+    setProfile({ name: profile.name, photo_url: profile.photo_url || undefined });
 
     const [articles, news] = await Promise.all([
       supabase.from("articles").select("status").eq("author_id", profile.id),
@@ -49,9 +52,17 @@ export const WriterDashboard = () => {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-bold mb-2">لوحة التحكم</h1>
-        <p className="text-muted-foreground">مرحباً بك في لوحة تحكم الكاتب</p>
+      <div className="flex items-center gap-4">
+        <Avatar className="h-20 w-20">
+          <AvatarImage src={profile?.photo_url} alt={profile?.name} />
+          <AvatarFallback>
+            <User className="h-10 w-10" />
+          </AvatarFallback>
+        </Avatar>
+        <div>
+          <h1 className="text-3xl font-bold mb-2">{profile?.name || "الكاتب"}</h1>
+          <p className="text-muted-foreground">مرحباً بك في لوحة تحكم الكاتب</p>
+        </div>
       </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

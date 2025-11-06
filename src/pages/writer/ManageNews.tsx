@@ -257,10 +257,15 @@ export const ManageNews = () => {
         {news.map((newsItem) => (
           <Card key={newsItem.id}>
             <CardHeader>
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-4">
+                <img
+                  src={newsItem.cover_image_url}
+                  alt={newsItem.title}
+                  className="w-32 h-24 object-cover rounded-lg"
+                />
                 <div className="flex-1">
                   <CardTitle className="text-xl mb-2">{newsItem.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{newsItem.excerpt}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{newsItem.excerpt}</p>
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(newsItem.status)}
                     <span className="text-xs text-muted-foreground">

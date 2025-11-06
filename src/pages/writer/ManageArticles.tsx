@@ -290,10 +290,15 @@ export const ManageArticles = () => {
         {articles.map((article) => (
           <Card key={article.id}>
             <CardHeader>
-              <div className="flex justify-between items-start">
+              <div className="flex justify-between items-start gap-4">
+                <img
+                  src={article.cover_image_url}
+                  alt={article.title}
+                  className="w-32 h-24 object-cover rounded-lg"
+                />
                 <div className="flex-1">
                   <CardTitle className="text-xl mb-2">{article.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{article.excerpt}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{article.excerpt}</p>
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(article.status)}
                     <span className="text-xs text-muted-foreground">
