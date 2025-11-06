@@ -165,6 +165,7 @@ export type Database = {
           phone: string | null
           photo_url: string | null
           status: Database["public"]["Enums"]["content_status"]
+          twitter_url: string | null
           updated_at: string
           user_id: string
         }
@@ -178,6 +179,7 @@ export type Database = {
           phone?: string | null
           photo_url?: string | null
           status?: Database["public"]["Enums"]["content_status"]
+          twitter_url?: string | null
           updated_at?: string
           user_id: string
         }
@@ -191,6 +193,7 @@ export type Database = {
           phone?: string | null
           photo_url?: string | null
           status?: Database["public"]["Enums"]["content_status"]
+          twitter_url?: string | null
           updated_at?: string
           user_id?: string
         }

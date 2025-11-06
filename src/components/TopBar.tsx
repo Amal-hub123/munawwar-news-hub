@@ -22,7 +22,7 @@ export const TopBar = () => {
           .select(`
             title, 
             created_at,
-            author:profiles!articles_author_id_fkey(linkedin_url)
+            author:profiles!articles_author_id_fkey(linkedin_url, twitter_url)
           `)
           .eq("status", "approved")
           .order("created_at", { ascending: false })
@@ -34,7 +34,7 @@ export const TopBar = () => {
           .select(`
             title, 
             created_at,
-            author:profiles!news_author_id_fkey(linkedin_url)
+            author:profiles!news_author_id_fkey(linkedin_url, twitter_url)
           `)
           .eq("status", "approved")
           .order("created_at", { ascending: false })
@@ -49,6 +49,7 @@ export const TopBar = () => {
               year: "numeric" 
             }),
             author_linkedin: (a.author as any)?.linkedin_url,
+            author_twitter: (a.author as any)?.twitter_url,
           })) || []),
           ...(news?.map(n => ({
             title: n.title,
@@ -58,6 +59,7 @@ export const TopBar = () => {
               year: "numeric" 
             }),
             author_linkedin: (n.author as any)?.linkedin_url,
+            author_twitter: (n.author as any)?.twitter_url,
           })) || [])
         ];
 

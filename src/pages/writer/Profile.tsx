@@ -18,6 +18,7 @@ export const WriterProfile = () => {
     bio: "",
     photo_url: "",
     linkedin_url: "",
+    twitter_url: "",
   });
 
   useEffect(() => {
@@ -42,6 +43,7 @@ export const WriterProfile = () => {
         bio: profile.bio || "",
         photo_url: profile.photo_url || "",
         linkedin_url: profile.linkedin_url || "",
+        twitter_url: profile.twitter_url || "",
       });
     }
   };
@@ -72,6 +74,7 @@ export const WriterProfile = () => {
         bio: formData.bio,
         photo_url: formData.photo_url,
         linkedin_url: formData.linkedin_url,
+        twitter_url: formData.twitter_url,
       })
       .eq("user_id", user.id);
 
@@ -159,6 +162,16 @@ export const WriterProfile = () => {
                 value={formData.linkedin_url}
                 onChange={(e) => setFormData({ ...formData, linkedin_url: e.target.value })}
                 placeholder="https://linkedin.com/in/username"
+                type="url"
+              />
+            </div>
+
+            <div>
+              <Label>رابط حساب Twitter</Label>
+              <Input
+                value={formData.twitter_url}
+                onChange={(e) => setFormData({ ...formData, twitter_url: e.target.value })}
+                placeholder="https://twitter.com/username"
                 type="url"
               />
             </div>
