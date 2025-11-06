@@ -181,17 +181,17 @@ export const AddEditArticle = () => {
 
             <div>
               <Label>المنتج </Label>
-              <Select style={{justifyContent : 'right'}}
+              <Select className="text-right"
                 value={formData.product_id || "none"}
                 onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="اختر منتجاً" />
+                <SelectTrigger className="text-right">
+                  <SelectValue placeholder="اختر منتجاً" className="text-right" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="none">مقال عام </SelectItem>
+                  <SelectItem className="text-right" value="none">مقال عام </SelectItem>
                   {products.map((product) => (
-                    <SelectItem key={product.id} value={product.id}>
+                    <SelectItem className="text-right" key={product.id} value={product.id}>
                       {product.name}
                     </SelectItem>
                   ))}
