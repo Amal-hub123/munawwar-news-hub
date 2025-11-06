@@ -137,7 +137,7 @@ export const Header = () => {
                     </Avatar>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuContent align="start" className="w-56">
                   <DropdownMenuLabel className="font-normal">
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">{profile?.name || "الحساب"}</p>
@@ -153,7 +153,7 @@ export const Header = () => {
                       <span>لوحة التحكم</span>
                     </DropdownMenuItem>
                   )}
-                  <DropdownMenuItem onClick={handleSignOut}>
+                  <DropdownMenuItem onClick={handleSignOut} style={{justifySelf:'right'}}>
                     <LogOut className="ml-2 h-4 w-4" />
                     <span>تسجيل الخروج</span>
                   </DropdownMenuItem>
