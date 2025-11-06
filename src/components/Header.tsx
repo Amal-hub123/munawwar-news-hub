@@ -86,9 +86,9 @@ export const Header = () => {
 
   const handleDashboardClick = () => {
     if (userRole === "admin") {
-      navigate("/admin/dashboard");
+      navigate("/admin");
     } else if (userRole === "writer") {
-      navigate("/writer/dashboard");
+      navigate("/writer");
     }
   };
 
