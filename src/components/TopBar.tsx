@@ -18,6 +18,11 @@ const [displayedText, setDisplayedText] = useState("");
 
 useEffect(() => {
   const text = newsItems[currentNews]?.title || "";
+   // إذا ما في نص، ما نكمل
+  if (!text) {
+    setDisplayedText("");
+    return;
+  }
   let i = 0;
   setDisplayedText(""); // نبدأ من الصفر
 
