@@ -21,6 +21,7 @@ import ManageWriters from "./pages/admin/ManageWriters";
 import ManageProducts from "./pages/admin/ManageProducts";
 import ManageUsers from "./pages/admin/ManageUsers";
 import AdminSettings from "./pages/admin/Settings";
+import Setup from "./pages/Setup";
 import AdminLayout from "./components/AdminLayout";
 import WriterLayout from "./components/WriterLayout";
 import WriterDashboard from "./pages/writer/Dashboard";
@@ -39,8 +40,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/register" element={<Register />} />
+        <Route path="/setup" element={<Setup />} />
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/register" element={<Register />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/:id" element={<ArticleDetail />} />
           <Route path="/news" element={<News />} />
