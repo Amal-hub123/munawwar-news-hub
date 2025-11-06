@@ -84,9 +84,6 @@ export const Header = () => {
                 <Button asChild variant="outline">
                   <Link to="/auth">تسجيل الدخول</Link>
                 </Button>
-                <Button asChild>
-                  <Link to="/register">اكتب معنا</Link>
-                </Button>
               </>
             )}
           </div>
@@ -123,11 +120,6 @@ export const Header = () => {
                       <Button asChild variant="outline">
                         <Link to="/auth" onClick={() => setOpen(false)}>
                           تسجيل الدخول
-                        </Link>
-                      </Button>
-                      <Button asChild>
-                        <Link to="/register" onClick={() => setOpen(false)}>
-                          اكتب معنا
                         </Link>
                       </Button>
                     </>
