@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog } from "lucide-react";
+import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog, Settings } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface AdminLayoutProps {
@@ -66,6 +66,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: "/admin/writers", icon: Users, label: "الكتاب" },
     { path: "/admin/products", icon: Package, label: "المنتجات" },
     { path: "/admin/users", icon: UserCog, label: "المستخدمين" },
+    { path: "/admin/settings", icon: Settings, label: "الإعدادات" },
   ];
 
   if (loading) {
