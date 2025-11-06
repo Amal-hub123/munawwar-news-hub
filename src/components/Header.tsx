@@ -139,7 +139,7 @@ export const Header = () => {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-56" style={{textAlign:'right'}}>
-                  <DropdownMenuLabel className="font-normal">
+                  <DropdownMenuLabel className="font-normal" style={{textAlign:'right'}}>
                     <div className="flex flex-col space-y-1">
                       <p className="text-sm font-medium leading-none">{profile?.name || "الحساب"}</p>
                       <p className="text-xs leading-none text-muted-foreground">
