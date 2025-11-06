@@ -100,27 +100,22 @@ export const TopBar = () => {
     <div className="bg-primary text-primary-foreground py-2 px-4 border-b border-primary-foreground/10">
       <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-4">
-          <span className="font-semibold">{today}</span>
+          {newsItems[currentNews]?.date && (
+              <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
+            )}
+           
         </div>
         
         <div className="flex-1 text-center overflow-hidden">
           <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
             <span>{newsItems[currentNews]?.title}</span>
-            {newsItems[currentNews]?.date && (
-              <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
-            )}
-            {newsItems[currentNews]?.author_linkedin && (
-              <a
-                href={newsItems[currentNews].author_linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-                title="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            )}
-            {newsItems[currentNews]?.author_twitter && (
+           
+           
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+           {newsItems[currentNews]?.author_twitter && (
               <a
                 href={newsItems[currentNews].author_twitter}
                 target="_blank"
@@ -131,19 +126,18 @@ export const TopBar = () => {
                 <Twitter className="w-4 h-4" />
               </a>
             )}
-          </div>
-        </div>
 
-        <div className="flex items-center gap-3">
-          <a href="#" className="hover:text-accent transition-colors">
-            <Facebook className="w-4 h-4" />
-          </a>
-          <a href="#" className="hover:text-accent transition-colors">
-            <Twitter className="w-4 h-4" />
-          </a>
-          <a href="#" className="hover:text-accent transition-colors">
-            <Instagram className="w-4 h-4" />
-          </a>
+           {newsItems[currentNews]?.author_linkedin && (
+              <a
+                href={newsItems[currentNews].author_linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-accent transition-colors"
+                title="LinkedIn"
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+            )}
         </div>
       </div>
     </div>
