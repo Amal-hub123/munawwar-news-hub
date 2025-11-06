@@ -17,7 +17,7 @@ const ManageWriters = () => {
     queryFn: async () => {
       let query = supabase
         .from("profiles")
-        .select("*")
+        .select("*, user_id")
         .order("created_at", { ascending: false });
 
       if (statusFilter !== "all") {
@@ -31,7 +31,7 @@ const ManageWriters = () => {
   });
 
   const updateStatusMutation = useMutation({
-    mutationFn: async ({ id, status, email }: { id: string; status: "approved" | "pending" | "rejected"; email: string }) => {
+    mutationFn: async ({ id, status, email, userId }: { id: string; status: "approved" | "pending" | "rejected"; email: string; userId: string }) => {
       const { error } = await supabase
         .from("profiles")
         .update({ status })
@@ -40,10 +40,17 @@ const ManageWriters = () => {
       if (error) throw error;
 
       if (status === "approved") {
-        // TODO: Call edge function to send email with credentials
-        await supabase.functions.invoke("send-writer-credentials", {
-          body: { email, profileId: id },
-        });
+        // Add writer role automatically upon approval
+        const { error: roleError } = await supabase
+          .from("user_roles")
+          .insert({
+            user_id: userId,
+            role: "writer",
+          });
+
+        if (roleError && roleError.code !== "23505") { // Ignore duplicate key error
+          throw roleError;
+        }
       }
 
       return { id, status };
@@ -126,6 +133,7 @@ const ManageWriters = () => {
                         id: writer.id,
                         status: "approved",
                         email: writer.email,
+                        userId: writer.user_id,
                       })
                     }
                   >
@@ -140,6 +148,7 @@ const ManageWriters = () => {
                         id: writer.id,
                         status: "rejected",
                         email: writer.email,
+                        userId: writer.user_id,
                       })
                     }
                   >

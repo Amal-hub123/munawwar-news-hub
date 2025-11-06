@@ -47,7 +47,7 @@ const Register = () => {
         return;
       }
 
-      const { error: signUpError } = await supabase.auth.signUp({
+      const { data: authData, error: signUpError } = await supabase.auth.signUp({
         email: formData.email,
         password: Math.random().toString(36).slice(-12),
         options: {
@@ -59,6 +59,20 @@ const Register = () => {
       });
 
       if (signUpError) throw signUpError;
+
+      // Update profile with additional information
+      if (authData.user) {
+        const { error: profileError } = await supabase
+          .from("profiles")
+          .update({
+            phone: formData.phone,
+            bio: formData.bio,
+            linkedin_url: formData.linkedin || null,
+          })
+          .eq("user_id", authData.user.id);
+
+        if (profileError) throw profileError;
+      }
 
       toast({
         title: "تم إرسال الطلب بنجاح",
