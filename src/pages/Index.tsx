@@ -98,6 +98,7 @@ const Index = () => {
                 <ArticleCard
                   key={article.id}
                   id={article.id}
+                  productType={article.title}
                   title={article.title}
                   excerpt={article.excerpt}
                   coverImage={article.cover_image_url}
