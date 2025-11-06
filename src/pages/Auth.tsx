@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -14,7 +13,6 @@ import { Header } from "@/components/Header";
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
   const [resetLoading, setResetLoading] = useState(false);
@@ -63,37 +61,6 @@ const Auth = () => {
     } catch (error: any) {
       toast({
         title: "خطأ في تسجيل الدخول",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { name },
-          emailRedirectTo: `${window.location.origin}/`,
-        },
-      });
-
-      if (error) throw error;
-
-      toast({
-        title: "تم إنشاء الحساب بنجاح",
-        description: "يمكنك الآن تسجيل الدخول",
-      });
-    } catch (error: any) {
-      toast({
-        title: "خطأ في إنشاء الحساب",
         description: error.message,
         variant: "destructive",
       });
@@ -171,7 +138,7 @@ const Auth = () => {
                 {isRecoveryMode ? "إعادة تعيين كلمة المرور" : "مرحباً بك في منحنى"}
               </CardTitle>
               <CardDescription>
-                {isRecoveryMode ? "أدخل كلمة المرور الجديدة" : "سجل الدخول أو أنشئ حساباً جديداً"}
+                {isRecoveryMode ? "أدخل كلمة المرور الجديدة" : "سجل الدخول إلى حسابك"}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -193,110 +160,62 @@ const Auth = () => {
                   </Button>
                 </form>
               ) : (
-                <Tabs defaultValue="signin" className="w-full">
-                <TabsList className="grid w-full grid-cols-2">
-                  <TabsTrigger value="signin">تسجيل الدخول</TabsTrigger>
-                  <TabsTrigger value="signup">حساب جديد</TabsTrigger>
-                </TabsList>
-
-                <TabsContent value="signin" style={{textAlign : 'right'}}>
-                  <form onSubmit={handleSignIn} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signin-email">البريد الإلكتروني</Label>
-                      <Input
-                        id="signin-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signin-password">كلمة المرور</Label>
-                      <Input
-                        id="signin-password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? "جاري التحميل..." : "تسجيل الدخول"}
-                    </Button>
-                    
-                    <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
-                      <DialogTrigger asChild>
-                        <Button variant="link" className="w-full mt-2">
-                          نسيت كلمة المرور؟
+                <form onSubmit={handleSignIn} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="signin-email">البريد الإلكتروني</Label>
+                    <Input
+                      id="signin-email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="signin-password">كلمة المرور</Label>
+                    <Input
+                      id="signin-password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? "جاري التحميل..." : "تسجيل الدخول"}
+                  </Button>
+                  
+                  <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button variant="link" className="w-full mt-2">
+                        نسيت كلمة المرور؟
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>إعادة تعيين كلمة المرور</DialogTitle>
+                        <DialogDescription>
+                          أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور
+                        </DialogDescription>
+                      </DialogHeader>
+                      <form onSubmit={handleResetPassword} className="space-y-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="reset-email">البريد الإلكتروني</Label>
+                          <Input
+                            id="reset-email"
+                            type="email"
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
+                            required
+                          />
+                        </div>
+                        <Button type="submit" className="w-full" disabled={resetLoading}>
+                          {resetLoading ? "جاري الإرسال..." : "إرسال رابط إعادة التعيين"}
                         </Button>
-                      </DialogTrigger>
-                      <DialogContent>
-                        <DialogHeader>
-                          <DialogTitle>إعادة تعيين كلمة المرور</DialogTitle>
-                          <DialogDescription>
-                            أدخل بريدك الإلكتروني وسنرسل لك رابط لإعادة تعيين كلمة المرور
-                          </DialogDescription>
-                        </DialogHeader>
-                        <form onSubmit={handleResetPassword} className="space-y-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="reset-email">البريد الإلكتروني</Label>
-                            <Input
-                              id="reset-email"
-                              type="email"
-                              value={resetEmail}
-                              onChange={(e) => setResetEmail(e.target.value)}
-                              required
-                            />
-                          </div>
-                          <Button type="submit" className="w-full" disabled={resetLoading}>
-                            {resetLoading ? "جاري الإرسال..." : "إرسال رابط إعادة التعيين"}
-                          </Button>
-                        </form>
-                      </DialogContent>
-                    </Dialog>
-                  </form>
-                </TabsContent>
-
-                <TabsContent value="signup">
-                  <form onSubmit={handleSignUp} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-name">الاسم</Label>
-                      <Input
-                        id="signup-name"
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-email">البريد الإلكتروني</Label>
-                      <Input
-                        id="signup-email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="signup-password">كلمة المرور</Label>
-                      <Input
-                        id="signup-password"
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                        minLength={6}
-                      />
-                    </div>
-                    <Button type="submit" className="w-full" disabled={loading}>
-                      {loading ? "جاري التحميل..." : "إنشاء حساب"}
-                    </Button>
-                  </form>
-                </TabsContent>
-              </Tabs>
+                      </form>
+                    </DialogContent>
+                  </Dialog>
+                </form>
               )}
             </CardContent>
           </Card>
