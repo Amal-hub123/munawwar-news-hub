@@ -24,6 +24,8 @@ export default function ManageUsers() {
 
   const { data: users, isLoading } = useQuery({
     queryKey: ["users"],
+    staleTime: 0,
+    refetchOnWindowFocus: true,
     queryFn: async () => {
       // First get all profiles
       const { data: profiles, error: profilesError } = await supabase
