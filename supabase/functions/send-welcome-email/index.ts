@@ -113,7 +113,7 @@ Deno.serve(async (req) => {
     const html = createWelcomeEmail(name, siteUrl)
 
     const { data, error } = await resend.emails.send({
-      from: 'المنحنى <noreply@almonhana.sa>',
+      from: 'المنحنى <amal.hemmo@gmail.com>',
       to: [email],
       subject: 'مرحباً بك في المنحنى - تم قبول طلبك',
       html,
