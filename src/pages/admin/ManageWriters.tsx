@@ -31,7 +31,7 @@ const ManageWriters = () => {
   });
 
   const updateStatusMutation = useMutation({
-    mutationFn: async ({ id, status, email, userId }: { id: string; status: "approved" | "pending" | "rejected"; email: string; userId: string }) => {
+    mutationFn: async ({ id, status, email, userId, name }: { id: string; status: "approved" | "pending" | "rejected"; email: string; userId: string; name: string }) => {
       const { error } = await supabase
         .from("profiles")
         .update({ status })
@@ -50,6 +50,19 @@ const ManageWriters = () => {
 
         if (roleError && roleError.code !== "23505") { // Ignore duplicate key error
           throw roleError;
+        }
+
+        // Send welcome email
+        try {
+          const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
+            body: { email, name },
+          });
+
+          if (emailError) {
+            console.error('Failed to send welcome email:', emailError);
+          }
+        } catch (emailErr) {
+          console.error('Error sending welcome email:', emailErr);
         }
       }
 
@@ -134,6 +147,7 @@ const ManageWriters = () => {
                         status: "approved",
                         email: writer.email,
                         userId: writer.user_id,
+                        name: writer.name,
                       })
                     }
                   >
@@ -149,6 +163,7 @@ const ManageWriters = () => {
                         status: "rejected",
                         email: writer.email,
                         userId: writer.user_id,
+                        name: writer.name,
                       })
                     }
                   >
