@@ -14,7 +14,18 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, UserCheck, Mail } from "lucide-react";
+import { Shield, UserCheck, Trash2 } from "lucide-react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 const DEFAULT_ADMIN_EMAIL = "admin@almonhna.sa";
 
@@ -160,18 +171,47 @@ export default function ManageUsers() {
     },
   });
 
-  const resetPasswordMutation = useMutation({
-    mutationFn: async (email: string) => {
-      const { error } = await supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: `${window.location.origin}/auth`,
-      });
+  const deleteUserMutation = useMutation({
+    mutationFn: async ({ profileId, userId }: { profileId: string; userId: string }) => {
+      // Delete articles by this user
+      const { error: articlesError } = await supabase
+        .from("articles")
+        .delete()
+        .eq("author_id", profileId);
       
-      if (error) throw error;
+      if (articlesError) throw articlesError;
+
+      // Delete news by this user
+      const { error: newsError } = await supabase
+        .from("news")
+        .delete()
+        .eq("author_id", profileId);
+      
+      if (newsError) throw newsError;
+
+      // Delete user roles
+      const { error: rolesError } = await supabase
+        .from("user_roles")
+        .delete()
+        .eq("user_id", userId);
+      
+      if (rolesError) throw rolesError;
+
+      // Delete profile
+      const { error: profileError } = await supabase
+        .from("profiles")
+        .delete()
+        .eq("id", profileId);
+      
+      if (profileError) throw profileError;
+
+      return { profileId };
     },
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
       toast({
-        title: "تم الإرسال",
-        description: "تم إرسال رابط إعادة تعيين كلمة المرور إلى البريد الإلكتروني",
+        title: "تم الحذف بنجاح",
+        description: "تم حذف المستخدم وجميع محتوياته",
       });
     },
     onError: (error: any) => {
@@ -338,14 +378,47 @@ export default function ManageUsers() {
                             {isDefaultAdmin(user.email) && (
                               <span className="text-sm text-muted-foreground">حساب محمي - لا يمكن تعديل الصلاحيات</span>
                             )}
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => resetPasswordMutation.mutate(user.email)}
-                            >
-                              <Mail className="w-4 h-4" />
-                              إعادة تعيين كلمة المرور
-                            </Button>
+                            {!isDefaultAdmin(user.email) && (
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button variant="destructive" size="sm">
+                                    <Trash2 className="w-4 h-4 ml-1" />
+                                    حذف
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>هل أنت متأكد؟</AlertDialogTitle>
+                                    <AlertDialogDescription className="text-right">
+                                      سيتم حذف المستخدم <strong>{user.name}</strong> نهائياً بما في ذلك:
+                                      <ul className="list-disc list-inside mt-2 space-y-1">
+                                        <li>جميع المقالات المنشورة</li>
+                                        <li>جميع الأخبار المنشورة</li>
+                                        <li>صلاحيات الوصول</li>
+                                        <li>الملف الشخصي</li>
+                                      </ul>
+                                      <p className="mt-2 text-destructive font-semibold">
+                                        هذا الإجراء لا يمكن التراجع عنه!
+                                      </p>
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>إلغاء</AlertDialogCancel>
+                                    <AlertDialogAction
+                                      onClick={() =>
+                                        deleteUserMutation.mutate({
+                                          profileId: user.id,
+                                          userId: user.user_id,
+                                        })
+                                      }
+                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                    >
+                                      حذف نهائياً
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
                           </>
                         )}
                       </div>
