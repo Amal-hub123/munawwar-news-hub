@@ -99,8 +99,8 @@ const WriterDetail = () => {
       <TopBar />
       <Header />
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg p-8 mb-8 shadow-md">
+      <div className="container mx-auto px-2 py-4">
+        <div className="bg-card rounded-lg p-8 mb-3 shadow-md">
           <div className="flex items-start gap-6">
             {writer.photo_url ? (
               <img
@@ -116,6 +116,7 @@ const WriterDetail = () => {
             
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
+              <div>
               {writer.bio && (
                 <p className="text-muted-foreground mb-4">{writer.bio}</p>
               )}
@@ -130,7 +131,10 @@ const WriterDetail = () => {
                     <Linkedin className="w-6 h-6" />
                   </a>
                 )}
+               
               </div>
+</div>
+              
             </div>
           </div>
         </div>
