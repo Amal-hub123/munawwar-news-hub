@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
@@ -12,6 +12,7 @@ const WriterDetail = () => {
   const { id } = useParams();
   const [filter, setFilter] = useState<"all" | "articles" | "news">("all");
 
+  // ✅ جلب بيانات الكاتب
   const { data: writer, isLoading: writerLoading } = useQuery({
     queryKey: ["writer", id],
     queryFn: async () => {
@@ -27,11 +28,11 @@ const WriterDetail = () => {
     },
   });
 
+  // ✅ جلب المقالات
   const { data: articles } = useQuery({
     queryKey: ["writer-articles", id, filter],
     queryFn: async () => {
       if (filter === "news") return [];
-      
       const { data, error } = await supabase
         .from("articles")
         .select(`
@@ -47,11 +48,11 @@ const WriterDetail = () => {
     },
   });
 
+  // ✅ جلب الأخبار
   const { data: news } = useQuery({
     queryKey: ["writer-news", id, filter],
     queryFn: async () => {
       if (filter === "articles") return [];
-      
       const { data, error } = await supabase
         .from("news")
         .select(`
@@ -67,6 +68,7 @@ const WriterDetail = () => {
     },
   });
 
+  // ✅ حالة التحميل
   if (writerLoading) {
     return (
       <div className="min-h-screen bg-background">
@@ -82,6 +84,7 @@ const WriterDetail = () => {
     );
   }
 
+  // ✅ في حال لم يتم العثور على الكاتب
   if (!writer) {
     return (
       <div className="min-h-screen bg-background">
@@ -94,14 +97,15 @@ const WriterDetail = () => {
     );
   }
 
+  // ✅ العرض الرئيسي
   return (
     <div className="min-h-screen bg-background">
       <TopBar />
       <Header />
-      
+
       <div className="container mx-auto px-2 py-4">
         <div className="bg-card rounded-lg p-8 mb-3 shadow-md">
-          <div className="flex items-start gap-6">
+          <div className="flex flex-col sm:flex-row items-start gap-6">
             {writer.photo_url ? (
               <img
                 src={writer.photo_url}
@@ -113,29 +117,31 @@ const WriterDetail = () => {
                 <User className="w-16 h-16 text-primary" />
               </div>
             )}
-            
+
             <div className="flex-1">
-  <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
-  {writer.bio && (
-    <div className="flex justify-between items-center mb-4">
-      <p className="text-muted-foreground">{writer.bio}</p>
-      {writer.linkedin_url && (
-        <a
-          href={writer.linkedin_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary hover:text-primary/80 transition-colors"
-        >
-          <Linkedin className="w-6 h-6" />
-        </a>
-      )}
-    </div>
-  )}
-</div>
+              <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
+              {writer.bio && (
+                <div className="flex justify-between items-center mb-4">
+                  <p className="text-muted-foreground line-clamp-2">
+                    {writer.bio}
+                  </p>
+                  {writer.linkedin_url && (
+                    <a
+                      href={writer.linkedin_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:text-primary/80 transition-colors"
+                    >
+                      <Linkedin className="w-6 h-6" />
+                    </a>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>
 
+        {/* ✅ أزرار الفلترة */}
         <div className="mb-6">
           <div className="flex gap-4 justify-center">
             <Button
@@ -159,38 +165,41 @@ const WriterDetail = () => {
           </div>
         </div>
 
+        {/* ✅ عرض المقالات والأخبار */}
         <div className="grid md:grid-cols-2 gap-6">
-          {filter !== "news" && articles?.map((article) => (
-            <ArticleCard
-              key={article.id}
-              id={article.id}
-              title={article.title}
-              excerpt={article.excerpt}
-              coverImage={article.cover_image_url}
-              author={{
-                name: article.profiles.name,
-                photo: article.profiles.photo_url || undefined,
-              }}
-              date={article.created_at}
-              type="article"
-            />
-          ))}
-          
-          {filter !== "articles" && news?.map((item) => (
-            <ArticleCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              excerpt={item.excerpt}
-              coverImage={item.cover_image_url}
-              author={{
-                name: item.profiles.name,
-                photo: item.profiles.photo_url || undefined,
-              }}
-              date={item.created_at}
-              type="news"
-            />
-          ))}
+          {filter !== "news" &&
+            articles?.map((article) => (
+              <ArticleCard
+                key={article.id}
+                id={article.id}
+                title={article.title}
+                excerpt={article.excerpt}
+                coverImage={article.cover_image_url}
+                author={{
+                  name: article.profiles?.name,
+                  photo: article.profiles?.photo_url || undefined,
+                }}
+                date={article.created_at}
+                type="article"
+              />
+            ))}
+
+          {filter !== "articles" &&
+            news?.map((item) => (
+              <ArticleCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                excerpt={item.excerpt}
+                coverImage={item.cover_image_url}
+                author={{
+                  name: item.profiles?.name,
+                  photo: item.profiles?.photo_url || undefined,
+                }}
+                date={item.created_at}
+                type="news"
+              />
+            ))}
         </div>
       </div>
     </div>
