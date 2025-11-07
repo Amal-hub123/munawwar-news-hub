@@ -115,26 +115,23 @@ const WriterDetail = () => {
             )}
             
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
-              <div>
-              {writer.bio && (
-                <p className="text-muted-foreground mb-4">{writer.bio}</p>
-              )}
-              <div className="flex gap-4">
-                {writer.linkedin_url && (
-                  <a
-                    href={writer.linkedin_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:text-primary/80 transition-colors"
-                  >
-                    <Linkedin className="w-6 h-6" />
-                  </a>
-                )}
-               
-              </div>
+  <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
+  {writer.bio && (
+    <div className="flex justify-between items-center mb-4">
+      <p className="text-muted-foreground">{writer.bio}</p>
+      {writer.linkedin_url && (
+        <a
+          href={writer.linkedin_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary hover:text-primary/80 transition-colors"
+        >
+          <Linkedin className="w-6 h-6" />
+        </a>
+      )}
+    </div>
+  )}
 </div>
-              
             </div>
           </div>
         </div>
