@@ -9,7 +9,6 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-
 const ProductsSlider = () => {
   const { data: products, isLoading } = useQuery({
     queryKey: ["products"],
