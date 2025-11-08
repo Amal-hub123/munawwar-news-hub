@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 
+
 const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
