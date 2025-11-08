@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Linkedin, User } from "lucide-react";
+import { Linkedin, User, Twitter } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -11,6 +11,7 @@ interface Writer {
   name: string;
   photo_url?: string;
   linkedin_url?: string;
+  twitter_url?: string;
   bio?: string;
   article_count: number;
 }
@@ -52,7 +53,7 @@ export const TopWriters = () => {
 
       const { data: profiles, error: profilesError } = await supabase
         .from("profiles")
-        .select("id, name, photo_url, linkedin_url, bio")
+        .select("id, name, photo_url, linkedin_url, twitter_url, bio")
         .in("id", topAuthorIds)
         .eq("status", "approved");
 
@@ -104,21 +105,33 @@ export const TopWriters = () => {
                   <h4 className="font-semibold hover:text-primary transition-colors">
                     {writer.name}
                   </h4>
-                  <p className="text-xs text-muted-foreground line-clamp-2">
-                    {writer.bio || "كاتب متميز"}
+                  <p className="text-xs text-muted-foreground line-clamp-1">
+                    {writer.bio ? writer.bio.split(' ').slice(0, 5).join(' ') + (writer.bio.split(' ').length > 5 ? '...' : '') : "كاتب متميز"}
                   </p>
                 </div>
               </Link>
-              {writer.linkedin_url && (
-                <a
-                  href={writer.linkedin_url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-primary hover:text-accent transition-colors"
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              )}
+              <div className="flex gap-2">
+                {writer.twitter_url && (
+                  <a
+                    href={writer.twitter_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-accent transition-colors"
+                  >
+                    <Twitter className="h-5 w-5" />
+                  </a>
+                )}
+                {writer.linkedin_url && (
+                  <a
+                    href={writer.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-accent transition-colors"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                )}
+              </div>
             </div>
           </CardContent>
         </Card>

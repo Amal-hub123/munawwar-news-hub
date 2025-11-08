@@ -53,10 +53,10 @@ export const WriterProfile = () => {
     setLoading(true);
 
     // Validate bio length
-    if (formData.bio && formData.bio.length > 150) {
+    if (formData.bio && formData.bio.length > 300) {
       toast({
         title: "خطأ",
-        description: "النبذة يجب ألا تتعدى 150 حرف",
+        description: "النبذة يجب ألا تتعدى 300 حرف",
         variant: "destructive",
       });
       setLoading(false);
@@ -137,16 +137,16 @@ export const WriterProfile = () => {
             </div>
 
             <div>
-              <Label>نبذة عنك (حد أقصى 150 حرف)</Label>
+              <Label>نبذة عنك (حد أقصى 300 حرف)</Label>
               <Textarea
                 value={formData.bio}
                 onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                 placeholder="نبذة مختصرة عنك"
                 rows={3}
-                maxLength={150}
+                maxLength={300}
               />
               <p className="text-xs text-muted-foreground mt-1">
-                {formData.bio.length} / 150 حرف
+                {formData.bio.length} / 300 حرف
               </p>
             </div>
 

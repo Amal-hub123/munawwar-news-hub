@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
-import { User, Linkedin } from "lucide-react";
+import { User, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArticleCard } from "@/components/ArticleCard";
@@ -122,22 +122,32 @@ const WriterDetail = () => {
             <div className="flex-1">
               <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
               {writer.bio && (
-                <div className="flex justify-between items-center mb-4">
-                  <p className="text-muted-foreground line-clamp-2">
-                    {writer.bio}
-                  </p>
-                  {writer.linkedin_url && (
-                    <a
-                      href={writer.linkedin_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:text-primary/80 transition-colors"
-                    >
-                      <Linkedin className="w-6 h-6" />
-                    </a>
-                  )}
-                </div>
+                <p className="text-muted-foreground mb-4">
+                  {writer.bio}
+                </p>
               )}
+              <div className="flex gap-3">
+                {writer.twitter_url && (
+                  <a
+                    href={writer.twitter_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                )}
+                {writer.linkedin_url && (
+                  <a
+                    href={writer.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:text-primary/80 transition-colors"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                )}
+              </div>
             </div>
           </div>
         </div>
