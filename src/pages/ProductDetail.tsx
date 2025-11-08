@@ -91,7 +91,7 @@ const ProductDetail = () => {
           </div>
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 text-center">المقالات المتعلقة</h2>
+        <h2 className="text-3xl font-bold mb-6 text-start pt-6">المقالات المتعلقة</h2>
         
         {articles && articles.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-6">
