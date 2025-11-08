@@ -105,52 +105,48 @@ const WriterDetail = () => {
 
       <div className="container mx-auto px-6 py-4">
         <div className="bg-secondary rounded-lg p-3 mb-3 shadow-md">
-          <div className="flex items-start gap-6">
+          <div className="flex items-center gap-4 mb-4">
             {writer.photo_url ? (
               <img
                 src={writer.photo_url}
                 alt={writer.name}
-                className="w-32 h-32 rounded-full object-cover"
+                className="w-20 h-20 sm:w-32 sm:h-32 rounded-full object-cover flex-shrink-0"
               />
             ) : (
-              <div className="w-32 h-32 rounded-full bg-white/10 flex items-center justify-center">
-                <User className="w-16 h-16 text-white" />
+              <div className="w-20 h-20 sm:w-32 sm:h-32 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                <User className="w-10 h-10 sm:w-16 sm:h-16 text-white" />
               </div>
             )}
-
-            <div className="flex-1 p-4">
-                            <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
-
-              {writer.bio && (
-  <div className="flex items-center justify-between mb-4">
-    <p className="text-white/90">{writer.bio}</p>
-    <div className="flex gap-3">
-      {writer.twitter_url && (
-        <a
-          href={writer.twitter_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white hover:text-white/80 transition-colors"
-        >
-          <Twitter className="w-6 h-6" />
-        </a>
-      )}
-      {writer.linkedin_url && (
-        <a
-          href={writer.linkedin_url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-white hover:text-white/80 transition-colors"
-        >
-          <Linkedin className="w-6 h-6" />
-        </a>
-      )}
-    </div>
-  </div>
-)}
-
-            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-white">{writer.name}</h1>
           </div>
+
+          {writer.bio && (
+            <div className="space-y-3">
+              <p className="text-white/90">{writer.bio}</p>
+              <div className="flex gap-3">
+                {writer.twitter_url && (
+                  <a
+                    href={writer.twitter_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-white/80 transition-colors"
+                  >
+                    <Twitter className="w-6 h-6" />
+                  </a>
+                )}
+                {writer.linkedin_url && (
+                  <a
+                    href={writer.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white hover:text-white/80 transition-colors"
+                  >
+                    <Linkedin className="w-6 h-6" />
+                  </a>
+                )}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* ✅ أزرار الفلترة */}
