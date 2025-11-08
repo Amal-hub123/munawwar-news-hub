@@ -113,6 +113,7 @@ const Register = () => {
                   onChange={(e) => setBio(e.target.value)}
                   rows={4}
                   maxLength={300}
+                  required
                 />
                 <p className="text-xs text-muted-foreground">
                   {bio.length} / 300 حرف
