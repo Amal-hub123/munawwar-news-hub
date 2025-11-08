@@ -117,9 +117,9 @@ const WriterDetail = () => {
                 <User className="w-16 h-16 text-white" />
               </div>
             )}
+              <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
 
             <div className="flex-1 p-4">
-              <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
               {writer.bio && (
   <div className="flex items-center justify-between mb-4">
     <p className="text-white/90">{writer.bio}</p>
