@@ -199,7 +199,7 @@ export const Header = () => {
                   <Link to="/auth">تسجيل الدخول</Link>
                 </Button>
                 <Button asChild>
-                  <Link to="/register">اكتب معنا</Link>
+                  <Link to="/register">سجل عبر</Link>
                 </Button>
               </>
             )}
