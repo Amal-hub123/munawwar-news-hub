@@ -187,9 +187,9 @@ const Auth = () => {
                   
                   <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
                     <DialogTrigger asChild>
-                      <Button variant="link" className="w-full mt-2">
+                      {/* <Button variant="link" className="w-full mt-2">
                         نسيت كلمة المرور؟
-                      </Button>
+                      </Button> */}
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
