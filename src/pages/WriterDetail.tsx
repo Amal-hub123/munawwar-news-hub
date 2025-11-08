@@ -105,7 +105,7 @@ const WriterDetail = () => {
       <Header />
 
       <div className="container mx-auto px-2 py-4">
-        <div className="bg-card rounded-lg p-8 mb-3 shadow-md">
+        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             {writer.photo_url ? (
               <img
