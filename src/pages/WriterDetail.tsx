@@ -154,7 +154,7 @@ const WriterDetail = () => {
         </div>
 
         {/* ✅ أزرار الفلترة */}
-        <div className="mb-6">
+        <div className="my-6">
           <div className="flex gap-4 justify-center">
             <Button
               variant={filter === "all" ? "default" : "outline"}
