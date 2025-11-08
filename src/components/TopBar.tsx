@@ -134,7 +134,7 @@ export const TopBar = () => {
   });
 
   return (
-    <div className="bg-primary-foreground text-primary px-4 border-b border-primary/10">
+    <div className="bg-secondary text-secondary-foreground px-4 border-b border-secondary-foreground/10">
       <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-4">
   {newsItems[currentNews]?.date && (
