@@ -35,6 +35,8 @@ export const ArticleCard = ({
 
   const link = type === "article" ? `/articles/${id}` : `/news/${id}`;
   const badgeColor = "bg-primary";
+  
+  const truncatedExcerpt = excerpt.length > 50 ? excerpt.substring(0, 50) + "..." : excerpt;
 
   return (
     <Link to={link}>
@@ -60,7 +62,7 @@ export const ArticleCard = ({
                 {title}
               </h3>
               <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
-                {excerpt}
+                {truncatedExcerpt}
               </p>
             </div>
             
