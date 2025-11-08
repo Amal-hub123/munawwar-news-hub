@@ -23,7 +23,7 @@ useEffect(() => {
     setDisplayedText("");
     return;
   }
-  let i = -1;
+  let i = 0;
   setDisplayedText(""); // نبدأ من الصفر
 
   const interval = setInterval(() => {
