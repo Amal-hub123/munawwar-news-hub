@@ -138,7 +138,7 @@ export const TopBar = () => {
       <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
         <div className="flex items-center gap-4">
   {newsItems[currentNews]?.date && (
-    <span className="text-xs opacity-80">• {newsItems[currentNews].date}</span>
+    <span className="text-xs opacity-80"> {newsItems[currentNews].date}</span>
   )}
 
   {/* ⚡︎ فاصل الشريط */}
