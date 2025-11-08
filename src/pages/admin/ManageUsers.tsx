@@ -381,10 +381,10 @@ export default function ManageUsers() {
                             {!isDefaultAdmin(user.email) && (
                               <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                  <Button variant="destructive" size="sm">
+                                  {/* <Button variant="destructive" size="sm">
                                     <Trash2 className="w-4 h-4 ml-1" />
                                     حذف
-                                  </Button>
+                                  </Button> */}
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                   <AlertDialogHeader>
