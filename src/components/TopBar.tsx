@@ -12,33 +12,6 @@ interface NewsItem {
 export const TopBar = () => {
   const [currentNews, setCurrentNews] = useState(0);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
-
-
-const [displayedText, setDisplayedText] = useState("");
-
-useEffect(() => {
-  const text = newsItems[currentNews]?.title || "";
-   // إذا ما في نص، ما نكمل
-  if (!text) {
-    setDisplayedText("");
-    return;
-  }
-  let i = 0;
-  setDisplayedText(""); // نبدأ من الصفر
-
-  const interval = setInterval(() => {
-    if (i < text.length) {
-      setDisplayedText((prev) => prev + text[i]);
-      i++;
-    } else {
-      clearInterval(interval);
-    }
-  }, 60); // سرعة الكتابة (60ms لكل حرف)
-
-  return () => clearInterval(interval);
-}, [currentNews, newsItems]);
-
-
   
   useEffect(() => {
     const fetchLatestContent = async () => {
@@ -147,7 +120,7 @@ useEffect(() => {
 
   {/* عنوان الخبر */}
   <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-<span className="whitespace-pre">{displayedText}</span>
+<span className="whitespace-pre">{newsItems[currentNews]?.title}</span>
   </div>
 </div>
 
