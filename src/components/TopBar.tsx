@@ -68,26 +68,32 @@ useEffect(() => {
           .limit(3);
 
         const items = [
-          ...(articles?.map(a => ({
-            title: a.title,
-            date: new Date(a.created_at).toLocaleDateString("ar-EG", { 
-              day: "numeric", 
-              month: "long", 
-              year: "numeric" 
-            }),
-            author_linkedin: (a.author as any)?.linkedin_url,
-            author_twitter: (a.author as any)?.twitter_url,
-          })) || []),
-          ...(news?.map(n => ({
-            title: n.title,
-            date: new Date(n.created_at).toLocaleDateString("ar-EG", { 
-              day: "numeric", 
-              month: "long", 
-              year: "numeric" 
-            }),
-            author_linkedin: (n.author as any)?.linkedin_url,
-            author_twitter: (n.author as any)?.twitter_url,
-          })) || [])
+          ...(articles?.map(a => {
+            const author = Array.isArray(a.author) ? a.author[0] : a.author;
+            return {
+              title: a.title,
+              date: new Date(a.created_at).toLocaleDateString("ar-EG", { 
+                day: "numeric", 
+                month: "long", 
+                year: "numeric" 
+              }),
+              author_linkedin: author?.linkedin_url || undefined,
+              author_twitter: author?.twitter_url || undefined,
+            };
+          }) || []),
+          ...(news?.map(n => {
+            const author = Array.isArray(n.author) ? n.author[0] : n.author;
+            return {
+              title: n.title,
+              date: new Date(n.created_at).toLocaleDateString("ar-EG", { 
+                day: "numeric", 
+                month: "long", 
+                year: "numeric" 
+              }),
+              author_linkedin: author?.linkedin_url || undefined,
+              author_twitter: author?.twitter_url || undefined,
+            };
+          }) || [])
         ];
 
         // Sort all items by date
