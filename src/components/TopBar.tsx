@@ -12,6 +12,8 @@ interface NewsItem {
 export const TopBar = () => {
   const [currentNews, setCurrentNews] = useState(0);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
+  const [displayedText, setDisplayedText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   
   useEffect(() => {
     const fetchLatestContent = async () => {
@@ -86,14 +88,43 @@ export const TopBar = () => {
     fetchLatestContent();
   }, []);
 
+  // Typewriter effect
   useEffect(() => {
-    if (newsItems.length === 0) return;
+    const text = newsItems[currentNews]?.title || "";
+    if (!text) {
+      setDisplayedText("");
+      return;
+    }
+
+    setIsTyping(true);
+    setDisplayedText("");
+    let currentIndex = 0;
+
+    const typingInterval = setInterval(() => {
+      if (currentIndex < text.length) {
+        setDisplayedText(text.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        setIsTyping(false);
+        clearInterval(typingInterval);
+      }
+    }, 50);
+
+    return () => {
+      clearInterval(typingInterval);
+      setIsTyping(false);
+    };
+  }, [currentNews, newsItems]);
+
+  // Auto-advance news
+  useEffect(() => {
+    if (newsItems.length === 0 || isTyping) return;
     
     const timer = setInterval(() => {
       setCurrentNews((prev) => (prev + 1) % newsItems.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
-  }, [newsItems.length]);
+  }, [newsItems.length, isTyping]);
 
   const today = new Date().toLocaleDateString("ar-EG", {
     weekday: "long",
@@ -119,8 +150,9 @@ export const TopBar = () => {
   </span>
 
   {/* عنوان الخبر */}
-  <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-<span className="whitespace-pre">{newsItems[currentNews]?.title}</span>
+  <div className="flex items-center justify-center gap-2">
+    <span className="whitespace-pre font-medium">{displayedText}</span>
+    {isTyping && <span className="animate-pulse">|</span>}
   </div>
 </div>
 
