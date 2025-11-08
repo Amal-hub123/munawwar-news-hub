@@ -104,7 +104,7 @@ const WriterDetail = () => {
       <Header />
 
       <div className="container mx-auto px-2 py-4">
-        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
+        <div className="bg-secondary rounded-lg p-3 mb-3 shadow-md">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             {writer.photo_url ? (
               <img
@@ -113,23 +113,23 @@ const WriterDetail = () => {
                 className="w-32 h-32 rounded-full object-cover"
               />
             ) : (
-              <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center">
-                <User className="w-16 h-16 text-primary" />
+              <div className="w-32 h-32 rounded-full bg-white/10 flex items-center justify-center">
+                <User className="w-16 h-16 text-white" />
               </div>
             )}
 
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-2">{writer.name}</h1>
+              <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
               {writer.bio && (
   <div className="flex items-center justify-between mb-4">
-    <p className="text-muted-foreground">{writer.bio}</p>
+    <p className="text-white/90">{writer.bio}</p>
     <div className="flex gap-3">
       {writer.twitter_url && (
         <a
           href={writer.twitter_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-primary hover:text-primary/80 transition-colors"
+          className="text-white hover:text-white/80 transition-colors"
         >
           <Twitter className="w-6 h-6" />
         </a>
@@ -139,7 +139,7 @@ const WriterDetail = () => {
           href={writer.linkedin_url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-primary hover:text-primary/80 transition-colors"
+          className="text-white hover:text-white/80 transition-colors"
         >
           <Linkedin className="w-6 h-6" />
         </a>
