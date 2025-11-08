@@ -83,7 +83,7 @@ export const NewsSlider = () => {
       <img
         src={currentNews.cover_image_url}
         alt={currentNews.title}
-        className="absolute inset-0 w-full h-full object-cover"
+        className="absolute inset-0 w-full h-full object-contain sm:object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
       
