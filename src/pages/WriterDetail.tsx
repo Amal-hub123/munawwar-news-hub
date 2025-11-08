@@ -8,7 +8,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArticleCard } from "@/components/ArticleCard";
 
-
 const WriterDetail = () => {
   const { id } = useParams();
   const [filter, setFilter] = useState<"all" | "articles" | "news">("all");
