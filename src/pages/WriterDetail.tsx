@@ -103,7 +103,7 @@ const WriterDetail = () => {
       <TopBar />
       <Header />
 
-      <div className="container mx-auto px-2 py-4">
+      <div className="container mx-auto px-5 py-4">
         <div className="bg-secondary rounded-lg p-3 mb-3 shadow-md">
           <div className="flex flex-col sm:flex-row items-start gap-6">
             {writer.photo_url ? (
@@ -118,7 +118,7 @@ const WriterDetail = () => {
               </div>
             )}
 
-            <div className="flex-1">
+            <div className="flex-1 p-4">
               <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
               {writer.bio && (
   <div className="flex items-center justify-between mb-4">
