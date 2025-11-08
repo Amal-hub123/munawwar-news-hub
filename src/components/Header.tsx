@@ -127,7 +127,7 @@ export const Header = () => {
             <Link to="/" className="flex items-center gap-3">
               <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
               <div>
-                <h1 className="text-2xl font-bold text-primary">منحنى</h1>
+                <h1 className="text-2xl font-bold text-primary">المنحنى</h1>
               </div>
             </Link>
 
