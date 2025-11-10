@@ -25,7 +25,7 @@ export const Header = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [profile, setProfile] = useState(null);
-  const [userRole, setUserRole] = useState(null);
+  const [userRoles, setUserRoles] = useState<string[]>([]);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -43,7 +43,7 @@ export const Header = () => {
         loadUserProfile(session.user.id);
       } else {
         setProfile(null);
-        setUserRole(null);
+        setUserRoles([]);
       }
     });
 
@@ -62,14 +62,13 @@ export const Header = () => {
         setProfile(profileData);
       }
 
-      const { data: roleData } = await supabase
+      const { data: rolesData } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", userId)
-        .single();
+        .eq("user_id", userId);
       
-      if (roleData) {
-        setUserRole(roleData.role);
+      if (rolesData) {
+        setUserRoles(rolesData.map(r => r.role));
       }
     } catch (error) {
       console.error("Error loading profile:", error);
@@ -84,13 +83,6 @@ export const Header = () => {
     navigate("/");
   };
 
-  const handleDashboardClick = () => {
-    if (userRole === "admin") {
-      navigate("/admin");
-    } else if (userRole === "writer") {
-      navigate("/writer");
-    }
-  };
 
   const handleProductsClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -180,10 +172,16 @@ export const Header = () => {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  {userRole && (
-                    <DropdownMenuItem onClick={handleDashboardClick} style={{justifySelf:'right'}}>
-                      <span>لوحة التحكم</span>
-                                            <LayoutDashboard className="ml-2 h-4 w-4" />
+                  {userRoles.includes("admin") && (
+                    <DropdownMenuItem onClick={() => navigate("/admin")} style={{justifySelf:'right'}}>
+                      <span>لوحة تحكم الأدمن</span>
+                      <LayoutDashboard className="ml-2 h-4 w-4" />
+                    </DropdownMenuItem>
+                  )}
+                  {userRoles.includes("writer") && (
+                    <DropdownMenuItem onClick={() => navigate("/writer")} style={{justifySelf:'right'}}>
+                      <span>لوحة تحكم الكاتب</span>
+                      <LayoutDashboard className="ml-2 h-4 w-4" />
                     </DropdownMenuItem>
                   )}
                   <DropdownMenuItem onClick={handleSignOut} style={{justifySelf:'right'}}>
@@ -242,9 +240,14 @@ export const Header = () => {
                   {user ? (
                     <>
                       <span className="text-sm text-muted-foreground px-3">{profile?.name || user.email}</span>
-                      {userRole && (
-                        <Button onClick={() => { handleDashboardClick(); setOpen(false); }} variant="outline">
-                          لوحة التحكم
+                      {userRoles.includes("admin") && (
+                        <Button onClick={() => { navigate("/admin"); setOpen(false); }} variant="outline">
+                          لوحة تحكم الأدمن
+                        </Button>
+                      )}
+                      {userRoles.includes("writer") && (
+                        <Button onClick={() => { navigate("/writer"); setOpen(false); }} variant="outline">
+                          لوحة تحكم الكاتب
                         </Button>
                       )}
                       <Button onClick={() => { handleSignOut(); setOpen(false); }} variant="outline">
