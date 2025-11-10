@@ -111,7 +111,7 @@ export const Header = () => {
   ];
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
+    <header style={{backgroundColor:'#f6f4ee'}} className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Navigation */}
