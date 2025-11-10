@@ -84,7 +84,7 @@ const ProductDetail = () => {
     />
 
     {/* النص */}
-    <div className="flex-1 text-right w-full">
+    <div className="flex-1 text-right w-full" style={{color :'#f6f4ee'}}>
       <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{product.name}</h1>
       {product.description && (
         <p className="text-sm md:text-lg ">{product.description}</p>
