@@ -75,7 +75,7 @@ const ProductDetail = () => {
       
       <div className="container mx-auto px-4 py-8">
        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
-  <div className="flex flex-row-reverse md:flex-row items-start md:items-center gap-4 md:gap-8">
+  <div className="flex flex-row md:flex-row items-start md:items-center gap-4 md:gap-8">
     {/* الصورة */}
     <img
       src={product.image_url}
@@ -84,7 +84,7 @@ const ProductDetail = () => {
     />
 
     {/* النص */}
-    <div className="flex-1 text-left md:text-right w-full">
+    <div className="flex-1 text-right w-full">
       <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{product.name}</h1>
       {product.description && (
         <p className="text-sm md:text-lg text-muted-foreground">{product.description}</p>
