@@ -91,7 +91,7 @@ export const TopWriters = () => {
     <div className="space-y-4">
       <h3 className="text-xl font-bold mb-4">    كتّاب الموقع</h3>
       {writers.map((writer) => (
-        <Card style={{borderRadius:'30px'}} key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
+        <Card  key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
           <CardContent className="p-4">
             <div className="flex items-center gap-3">
               <Link to={`/writers/${writer.id}`} className="flex items-center gap-3 flex-1">
