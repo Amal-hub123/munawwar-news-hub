@@ -16,7 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import logo from "@/assets/finalLogo.png";
+import finalLogo from "@/assets/finalLogo.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -117,7 +117,7 @@ export const Header = () => {
           {/* Logo and Navigation */}
           <div className="flex items-center gap-8">
             <Link to="/" className="flex items-center gap-3">
-              {/* <img src={logo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
+              {/* <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
               <div>
                 <h1 className="text-2xl font-bold text-primary">المنحنى</h1>
               </div> */}
