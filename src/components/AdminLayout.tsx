@@ -9,6 +9,7 @@ interface AdminLayoutProps {
   children: ReactNode;
 }
 
+
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const location = useLocation();
