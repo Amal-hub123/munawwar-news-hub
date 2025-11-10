@@ -53,7 +53,7 @@ const Products = () => {
                   to={`/products/${product.id}`}
                   className="group"
                 >
-                  <div className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                  <div style={{borderRadius:'70px'}} className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                     <div className="aspect-square overflow-hidden">
                       <img
                         src={product.image_url}
