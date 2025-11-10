@@ -154,7 +154,7 @@ All colors MUST be HSL.
     background-color: #f6f4ee !important;
     border-radius:30px !important;
 }
-  .bg-primary{
+  .bg-primary ,.bg-secondary{
      background-color:  #00343a  !important;
     color : #f6f4ee !important;
   }
