@@ -45,7 +45,7 @@ const ProductDetail = () => {
       <div className="min-h-screen bg-background">
         <TopBar />
         <Header />
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-6 py-8">
           <div className="animate-pulse space-y-4">
             <div className="h-64 bg-muted rounded-lg" />
             <div className="h-8 bg-muted rounded w-3/4" />
