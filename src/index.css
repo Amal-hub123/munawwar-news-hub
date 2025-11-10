@@ -145,4 +145,7 @@ All colors MUST be HSL.
   html {
     direction: rtl;
   }
+  .bg-background{
+    background-color: #f6f4ee !important;
+}
 }
