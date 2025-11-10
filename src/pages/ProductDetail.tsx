@@ -73,7 +73,7 @@ const ProductDetail = () => {
       <Header />
       
       <div className="container mx-auto px-8 py-8">
-       <div className=" rounded-lg p-3 mb-3 shadow-md" style={{backgroundColor:'#00343a !important'}}>
+       <div className=" rounded-lg p-3 mb-3 shadow-md" style={{backgroundColor:'#00343a'}}>
   <div className="flex flex-row md:flex-row items-start md:items-center gap-4 md:gap-8">
     {/* الصورة */}
     <img
