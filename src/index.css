@@ -153,5 +153,6 @@ All colors MUST be HSL.
 }
   .bg-card{
     background-color: #f6f4ee !important;
+    border-radius:30px !important;
 }
 }
