@@ -75,22 +75,25 @@ const ProductDetail = () => {
 
       
       <div className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
-          <div className="flex flex-col-reverse md:flex-row items-start md:items-center gap-4 md:gap-8">
-             <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-32 h-32 object-cover rounded-lg"
-            />
-            <div className="flex-1 text-right w-full">
-              <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-              {product.description && (
-                <p className="text-lg text-muted-foreground">{product.description}</p>
-              )}
-            </div>
-            
-           
-          </div>
+       <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
+  <div className="flex flex-row-reverse md:flex-row items-start md:items-center gap-4 md:gap-8">
+    {/* الصورة */}
+    <img
+      src={product.image_url}
+      alt={product.name}
+      className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg"
+    />
+
+    {/* النص */}
+    <div className="flex-1 text-left md:text-right w-full">
+      <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{product.name}</h1>
+      {product.description && (
+        <p className="text-sm md:text-lg text-muted-foreground">{product.description}</p>
+      )}
+    </div>
+  </div>
+</div>
+
         </div>
 
         <h2 className="text-3xl font-bold mb-6 text-start pt-6">المقالات ذات الصلة</h2>
