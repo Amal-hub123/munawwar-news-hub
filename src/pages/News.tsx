@@ -60,7 +60,7 @@ const News = () => {
       <TopBar />
       <Header />
       
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-8 py-12">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">جميع الأخبار</h1>
           <p className="text-muted-foreground">تابع آخر الأخبار والتحديثات على منحنى</p>
