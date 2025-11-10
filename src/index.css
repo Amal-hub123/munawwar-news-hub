@@ -156,5 +156,6 @@ All colors MUST be HSL.
 }
   .bg-primary{
      background-color:  #00343a  !important;
+    color : #f6f4ee !important;
   }
 }
