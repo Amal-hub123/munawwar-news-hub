@@ -73,7 +73,7 @@ const ProductDetail = () => {
       <Header />
 
       
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-8 py-8">
        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
   <div className="flex flex-row md:flex-row items-start md:items-center gap-4 md:gap-8">
     {/* الصورة */}
@@ -95,7 +95,7 @@ const ProductDetail = () => {
 
         </div>
 
-        <h2 className="text-3xl font-bold mb-6 px-4 text-start pt-6">المقالات ذات الصلة</h2>
+        <h2 className="text-3xl font-bold mb-6 px-8 text-start pt-6">المقالات ذات الصلة</h2>
         
         {articles && articles.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-6">
