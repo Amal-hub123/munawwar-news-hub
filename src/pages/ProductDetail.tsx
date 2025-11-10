@@ -72,26 +72,23 @@ const ProductDetail = () => {
       <TopBar />
       <Header />
       
-      <div className="container mx-auto px-4 py-8">
-        <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
-          <div className="flex flex-col md:flex-row items-center gap-8">
-            <img
-              style={{width:'8rem'}}
-              src={product.image_url}
-              alt={product.name}
-              className=" object-cover rounded-lg"
-            />
-            
-            <div className="flex-1 text-center md:text-right">
-              <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
-              {product.description && (
-                <p className="text-lg text-muted-foreground">{product.description}</p>
-              )}
-            </div>
-          </div>
-        </div>
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <img
+          src={product.image_url}
+          alt={product.name}
+          className="w-full h-96 object-cover rounded-lg mb-6"
+        />
 
-        <h2 className="text-3xl font-bold mb-6 text-start pt-6">المقالات ذات الصلة</h2>
+        <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
+        
+        {product.description && (
+          <p className="text-xl text-muted-foreground mb-6">{product.description}</p>
+        )}
+
+      </div>
+
+      <div className="container mx-auto px-4 py-8">
+        <h2 className="text-3xl font-bold mb-6 text-start">المقالات ذات الصلة</h2>
         
         {articles && articles.length > 0 ? (
           <div className="grid md:grid-cols-2 gap-6">
