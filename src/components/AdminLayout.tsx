@@ -88,6 +88,15 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           </div>
 
           <nav className="space-y-2">
+ <Button
+              variant="ghost"
+              className="w-full justify-start mt-4"
+              onClick={() => navigate("/")}
+            >
+              <Home className="w-5 h-5 ml-3" />
+              العودة للرئيسية
+            </Button>
+            
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -105,14 +114,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
               );
             })}
 
-            <Button
-              variant="ghost"
-              className="w-full justify-start mt-4"
-              onClick={() => navigate("/")}
-            >
-              <Home className="w-5 h-5 ml-3" />
-              العودة للرئيسية
-            </Button>
+           
 
             <Button
               variant="ghost"
