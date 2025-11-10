@@ -83,11 +83,6 @@ const Index = () => {
         </div>
 
         {/* Latest Articles */}
-        {/* <section className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-          <h2 className="text-3xl font-bold mb-8 text-start">أحدث المقالات </h2>
-           */}
-
  <section className="py-12  bg-muted/30">
       <div className="container " style={{paddingRight:'1rem'}}>
         <h2 className="text-3xl font-bold mb-8 text-start text-primary" style={{color :'#00343a'}}>أحدث المقالات </h2>
