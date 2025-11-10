@@ -3,7 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LayoutDashboard, FileText, Newspaper, User, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, Newspaper, User, LogOut, Settings, Home } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface WriterLayoutProps {
@@ -127,6 +127,15 @@ export const WriterLayout = ({ children }: WriterLayoutProps) => {
                 </Link>
               );
             })}
+
+            <Button
+              variant="ghost"
+              className="w-full justify-start mt-4"
+              onClick={() => navigate("/")}
+            >
+              <Home className="w-5 h-5 ml-3" />
+              العودة للرئيسية
+            </Button>
 
             <Button
               variant="ghost"

@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog, Settings } from "lucide-react";
+import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog, Settings, Home } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface AdminLayoutProps {
@@ -104,6 +104,15 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                 </Link>
               );
             })}
+
+            <Button
+              variant="ghost"
+              className="w-full justify-start mt-4"
+              onClick={() => navigate("/")}
+            >
+              <Home className="w-5 h-5 ml-3" />
+              العودة للرئيسية
+            </Button>
 
             <Button
               variant="ghost"
