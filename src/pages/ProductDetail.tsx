@@ -71,7 +71,6 @@ const ProductDetail = () => {
     <div className="min-h-screen bg-background">
       <TopBar />
       <Header />
-
       
       <div className="container mx-auto px-8 py-8">
        <div className="bg-card rounded-lg p-3 mb-3 shadow-md" style={{backgroundColor:'#00343a !important'}}>
