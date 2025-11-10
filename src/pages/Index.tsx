@@ -77,7 +77,7 @@ const Index = () => {
         </section>
 
         {/* Products Section */}
-        <div id="products-section" style={{backgroundColor:'#296d78'}}>
+        <div id="products-section" style={{backgroundColor:'#00343a'}}>
           <ProductsSlider />
         </div>
 
