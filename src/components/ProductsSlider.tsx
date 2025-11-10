@@ -54,7 +54,7 @@ const ProductsSlider = () => {
             className="w-full"
           >
             
-            <CarouselContent className=" ml-2 mr-4">
+            <CarouselContent className=" ml-2 mr-2">
               {products.map((product) => (
                 <CarouselItem key={product.id} className="pr-4 pl-0 basis-1/2 md:basis-1/3 lg:basis-1/6">
                   <Link to={`/products/${product.id}`}>
