@@ -75,6 +75,11 @@ const ProductDetail = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="bg-card rounded-lg p-3 mb-3 shadow-md">
           <div className="flex flex-col-reverse md:flex-row items-start md:items-center gap-4 md:gap-8">
+             <img
+              src={product.image_url}
+              alt={product.name}
+              className="w-32 h-32 object-cover rounded-lg"
+            />
             <div className="flex-1 text-right w-full">
               <h1 className="text-4xl font-bold mb-4">{product.name}</h1>
               {product.description && (
@@ -82,11 +87,7 @@ const ProductDetail = () => {
               )}
             </div>
             
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-32 h-32 object-cover rounded-lg"
-            />
+           
           </div>
         </div>
 
