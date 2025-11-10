@@ -55,7 +55,7 @@ const Products = () => {
                   className="group"
                 >
                   <div  className="bg-card rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
-                    <div className="aspect-square overflow-hidden" style={{borderRadius:'70px'}}>
+                    <div className="aspect-square overflow-hidden" style={{borderRadius:'70px !important'}}>
                       <img
                         src={product.image_url}
                         alt={product.name}
