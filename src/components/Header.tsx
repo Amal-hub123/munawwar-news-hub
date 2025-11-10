@@ -122,6 +122,7 @@ export const Header = () => {
                 <h1 className="text-2xl font-bold text-primary">المنحنى</h1>
               </div> */}
               <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
+              
             </Link>
 
             {/* Desktop Navigation */}
