@@ -79,7 +79,7 @@ const ProductDetail = () => {
     <img
       src={product.image_url}
       alt={product.name}
-      className="w-24 h-24 md:w-32 md:h-32 object-cover rounded-lg"
+      className="w-24 h-24 md:w-32 md:h-32 object-cover " style={{borderRadius:'30px'}}
     />
 
     {/* النص */}
