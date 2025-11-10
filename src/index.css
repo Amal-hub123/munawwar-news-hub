@@ -149,4 +149,7 @@ All colors MUST be HSL.
   .bg-background{
     background-color: #f6f4ee !important;
 }
+  .bg-card{
+    background-color: #f6f4ee !important;
+}
 }
