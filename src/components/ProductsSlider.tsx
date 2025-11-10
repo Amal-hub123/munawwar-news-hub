@@ -43,7 +43,7 @@ const ProductsSlider = () => {
   return (
     <section className="py-12 px-4 " >
       <div className="container " style={{paddingRight:'1rem'}}>
-        <h2 className="text-3xl font-bold mb-8 text-start" style={{color :'#f6f4ee '}}>منتجات المنحنى </h2>
+        <h2 className="text-3xl font-bold mb-8 text-start" style={{color :'#f6f4ee '}}>منتجات المنحنى *-*</h2>
         
         <div className="relative ">
           <Carousel
