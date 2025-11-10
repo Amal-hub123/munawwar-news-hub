@@ -28,6 +28,7 @@ export const Header = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
