@@ -44,7 +44,7 @@ const Products = () => {
       <Header />
       <main className="min-h-screen py-12 px-4">
         <div className="container mx-auto">
-          <h1 className="text-4xl font-bold mb-8 text-center text-primary">منتجات منحنى امل حمو</h1>
+          <h1 className="text-4xl font-bold mb-8 text-center text-primary">منتجات منحنى </h1>
 
           
           {products && products.length > 0 ? (
@@ -55,7 +55,7 @@ const Products = () => {
                   to={`/products/${product.id}`}
                   className="group"
                 >
-                  <div style={{borderRadius:'70px'}} className="bg-card overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
+                  <div  className="bg-card overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
                     <div className="aspect-square overflow-hidden" >
                       <img
                         src={product.image_url}
