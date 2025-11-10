@@ -139,6 +139,7 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
     font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     direction: rtl;
+        background-color: #f6f4ee !important;
   }
 
   html {
