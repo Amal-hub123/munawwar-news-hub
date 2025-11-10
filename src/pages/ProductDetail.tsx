@@ -5,6 +5,7 @@ import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { ArticleCard } from "@/components/ArticleCard";
 
+
 const ProductDetail = () => {
   const { id } = useParams();
 
