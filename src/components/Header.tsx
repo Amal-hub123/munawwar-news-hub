@@ -132,7 +132,7 @@ export const Header = () => {
                     key={item.href}
                     href={item.href}
                     onClick={item.onClick}
-                    className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer"
+                    className="text-foreground  transition-colors font-medium cursor-pointer"
                   >
                     {item.label}
                   </a>
@@ -140,7 +140,7 @@ export const Header = () => {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className="text-foreground hover:text-primary transition-colors font-medium"
+                    className="text-foreground  transition-colors font-medium"
                   >
                     {item.label}
                   </Link>
