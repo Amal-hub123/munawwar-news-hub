@@ -19,7 +19,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import finalLogo1 from "@/assets/finalLogo1.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-
 export const Header = () => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState(null);
