@@ -116,6 +116,7 @@ export const TopWriters = () => {
                     href={writer.twitter_url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    style={{marginTop : '2.2px'}}
                     className="text-primary hover:text-accent transition-colors"
                   >
                     <X className="h-5 w-5" />
