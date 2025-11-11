@@ -182,6 +182,7 @@ export const AddEditArticle = () => {
             <div>
               <Label>المنتج </Label>
               <Select
+                style={{    justifyContent: 'right'}}
                 value={formData.product_id || "none"}
                 onValueChange={(value) => setFormData({ ...formData, product_id: value === "none" ? "" : value })}
               >
