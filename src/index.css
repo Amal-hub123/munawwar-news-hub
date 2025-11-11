@@ -163,6 +163,6 @@ All colors MUST be HSL.
     color : #f6f4ee !important;
   }
   .border-primary{
-    border-primary:#00343a !important;
+    border-color:#00343a !important;
   }
 }
