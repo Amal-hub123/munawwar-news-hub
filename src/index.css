@@ -162,4 +162,7 @@ All colors MUST be HSL.
      background-color:  #00343a  !important;
     color : #f6f4ee !important;
   }
+  .border-primary{
+    border-primary:#00343a;
+  }
 }
