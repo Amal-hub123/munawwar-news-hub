@@ -170,7 +170,7 @@ export const TopBar = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-accent transition-colors"
-                title="Twitter"
+                title="X"
               >
                 <X className="w-4 h-4" />
               </a>
