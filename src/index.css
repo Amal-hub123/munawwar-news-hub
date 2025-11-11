@@ -156,7 +156,7 @@ All colors MUST be HSL.
 }
   .bg-card1{
     background-color: #f6f4ee !important;
-    border-radius:70px !important;
+    border-radius:60px !important;
 }
   .bg-primary ,.bg-secondary{
      background-color:  #00343a  !important;
