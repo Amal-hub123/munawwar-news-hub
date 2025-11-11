@@ -130,6 +130,7 @@ const WriterDetail = () => {
                       href={writer.twitter_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      style={{marginTop : '2.2px'}}
                       className="text-white hover:text-white/80 transition-colors"
                     >
                       <X className="w-6 h-6" />
