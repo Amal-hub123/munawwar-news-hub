@@ -58,7 +58,7 @@ export const ArticleCard = ({
           
           <div className="flex-1 flex flex-col justify-between min-w-0">
             <div>
-              <h3 className="text-xl font-bold leading-tight line-clamp-2 group-hover:text-primary transition-colors mb-2">
+              <h3 className="text-xl font-bold leading-tight line-clamp-2  transition-colors mb-2">
                 {title}
               </h3>
               <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
