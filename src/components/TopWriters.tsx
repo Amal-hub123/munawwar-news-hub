@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Linkedin, User, Twitter } from "lucide-react";
+import { Linkedin, User, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 
@@ -118,7 +118,7 @@ export const TopWriters = () => {
                     rel="noopener noreferrer"
                     className="text-primary hover:text-accent transition-colors"
                   >
-                    <Twitter className="h-5 w-5" />
+                    <X className="h-5 w-5" />
                   </a>
                 )}
                 {writer.linkedin_url && (
