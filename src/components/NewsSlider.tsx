@@ -79,12 +79,12 @@ export const NewsSlider = () => {
   const currentNews = news[currentIndex];
 
   return (
-    <div className="relative h-[500px] rounded-lg overflow-hidden group" style={{borderRadius:'90px'}}>
-      <img
-        src={currentNews.cover_image_url}
-        alt={currentNews.title}
-        className="absolute inset-0 w-full h-full object-contain sm:object-cover"
-      />
+  <div className="relative h-[500px] sm:h-[400px] xs:h-[300px] rounded-[90px] overflow-hidden">
+  <img
+    src={currentNews.cover_image_url}
+    alt={currentNews.title}
+    className="absolute inset-0 w-full h-full object-cover object-center"
+  />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
       
       <div className="absolute bottom-0 right-0 left-0 p-8 text-white">
