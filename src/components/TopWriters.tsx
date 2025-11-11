@@ -102,7 +102,7 @@ export const TopWriters = () => {
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex-1">
-                  <h4 className="font-semibold hover:text-primary transition-colors">
+                  <h4 className="font-semibold  transition-colors">
                     {writer.name}
                   </h4>
                   <p className="text-xs text-muted-foreground line-clamp-1">
