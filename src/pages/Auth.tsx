@@ -135,7 +135,7 @@ const Auth = () => {
           <Card>
             <CardHeader className="text-center">
               <CardTitle className="text-2xl">
-                {isRecoveryMode ? "إعادة تعيين كلمة المرور" : "مرحباً بك في المنحنى"}
+                {isRecoveryMode ? "إعادة تعيين كلمة المرور" : "مرحباً بك في المُنحنى"}
               </CardTitle>
               <CardDescription>
                 {isRecoveryMode ? "أدخل كلمة المرور الجديدة" : "سجل الدخول إلى حسابك"}
