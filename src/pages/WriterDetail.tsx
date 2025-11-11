@@ -3,11 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
-import { User, Linkedin } from "lucide-react";
+import { User, Linkedin, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArticleCard } from "@/components/ArticleCard";
-import xIcon from "@/assets/x-icon.png";
 
 const WriterDetail = () => {
   const { id } = useParams();
@@ -131,9 +130,9 @@ const WriterDetail = () => {
                       href={writer.twitter_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:opacity-80 transition-opacity"
+                      className="text-white hover:text-white/80 transition-colors"
                     >
-                      <img src={xIcon} alt="X" className="w-6 h-6" />
+                      <X className="w-6 h-6" />
                     </a>
                   )}
                   {writer.linkedin_url && (
@@ -176,9 +175,9 @@ const WriterDetail = () => {
                         href={writer.twitter_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:opacity-80 transition-opacity"
+                        className="text-white hover:text-white/80 transition-colors"
                       >
-                        <img src={xIcon} alt="X" className="w-6 h-6" />
+                        <X className="w-6 h-6" />
                       </a>
                     )}
                     {writer.linkedin_url && (

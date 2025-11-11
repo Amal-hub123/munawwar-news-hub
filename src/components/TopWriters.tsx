@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Linkedin, User } from "lucide-react";
+import { Linkedin, User, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import xIcon from "@/assets/x-icon.png";
 
 interface Writer {
   id: string;
@@ -117,9 +116,9 @@ export const TopWriters = () => {
                     href={writer.twitter_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:opacity-80 transition-opacity"
+                    className="text-primary hover:text-accent transition-colors"
                   >
-                    <img src={xIcon} alt="X" className="h-5 w-5" />
+                    <X className="h-5 w-5" />
                   </a>
                 )}
                 {writer.linkedin_url && (

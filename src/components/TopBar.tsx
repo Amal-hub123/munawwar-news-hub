@@ -1,7 +1,6 @@
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Facebook, X, Instagram, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import xIcon from "@/assets/x-icon.png";
 
 interface NewsItem {
   title: string;
@@ -170,10 +169,10 @@ export const TopBar = () => {
                 href={newsItems[currentNews].author_twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-80 transition-opacity"
+                className="hover:text-accent transition-colors"
                 title="X"
               >
-                <img src={xIcon} alt="X" className="w-4 h-4" />
+                <X className="w-4 h-4" />
               </a>
             )}
 
