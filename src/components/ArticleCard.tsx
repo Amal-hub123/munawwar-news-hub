@@ -66,22 +66,23 @@ export const ArticleCard = ({
               </p>
             </div>
             
-            <div className="flex items-center justify-between pt-3 mt-auto">
-              <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 border-2 border-primary">
-                  <AvatarImage src={author.photo} alt={author.name} />
-                  <AvatarFallback className="bg-primary text-primary-foreground">
-                    <User className="h-4 w-4" />
-                  </AvatarFallback>
-                </Avatar>
-                <span className="text-sm font-medium text-foreground">{author.name}</span>
-              </div>
-              
-              <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                <Calendar className="h-3 w-3" />
-                <span>{formattedDate}</span>
-              </div>
-            </div>
+           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 mt-auto">
+  <div className="flex items-center gap-2">
+    <Avatar className="h-8 w-8 border-2 border-primary">
+      <AvatarImage src={author.photo} alt={author.name} />
+      <AvatarFallback className="bg-primary text-primary-foreground">
+        <User className="h-4 w-4" />
+      </AvatarFallback>
+    </Avatar>
+    <span className="text-sm font-medium text-foreground">{author.name}</span>
+  </div>
+
+  <div className="flex items-center gap-1 text-xs text-muted-foreground mt-2 sm:mt-0">
+    <Calendar className="h-3 w-3" />
+    <span>{formattedDate}</span>
+  </div>
+</div>
+
           </div>
         </div>
       </Card>
