@@ -63,7 +63,7 @@ const News = () => {
       <main className="container mx-auto px-8 py-12">
         <div className="mb-8">
           <h1 className="text-4xl font-bold mb-2">جميع الأخبار</h1>
-          <p className="text-muted-foreground">تابع آخر الأخبار والتحديثات على منحنى</p>
+          <p className="text-muted-foreground">تابع آخر الأخبار والتحديثات على المُنحنى</p>
         </div>
 
         {loading ? (
