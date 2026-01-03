@@ -104,18 +104,18 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="bio">نبذة عنك (حد أقصى 300 حرف)</Label>
+                <Label htmlFor="bio">نبذة عنك (حد أقصى 150 حرف)</Label>
                 <Textarea
                   id="bio"
                   placeholder="اكتب نبذة مختصرة عنك وعن خبراتك"
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   rows={4}
-                  maxLength={300}
+                  maxLength={150}
                   required
                 />
                 <p className="text-xs text-muted-foreground">
-                  {bio.length} / 300 حرف
+                  {bio.length} / 150 حرف
                 </p>
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
