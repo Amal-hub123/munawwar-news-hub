@@ -1,6 +1,9 @@
 import { Resend } from 'https://esm.sh/resend@2.0.0'
 
-const resend = new Resend(Deno.env.get('RESEND_API_KEY') as string)
+const resendApiKey = Deno.env.get('RESEND_API_KEY')
+console.log('RESEND_API_KEY configured:', !!resendApiKey)
+
+const resend = new Resend(resendApiKey)
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
