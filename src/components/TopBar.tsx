@@ -1,4 +1,4 @@
-import { Facebook, X, Instagram, Linkedin } from "lucide-react";
+import { X, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -126,67 +126,55 @@ export const TopBar = () => {
     return () => clearInterval(timer);
   }, [newsItems.length, isTyping]);
 
-  const today = new Date().toLocaleDateString("ar-EG", {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-
   return (
-    <div className="bg-secondary text-secondary-foreground px-4 border-b border-secondary-foreground/10">
-      <div className="container mx-auto flex items-center justify-between gap-4 text-sm">
-        <div className="flex items-center gap-4">
-  {newsItems[currentNews]?.date && (
-    <span className="text-xs opacity-80"> {newsItems[currentNews].date}</span>
-  )}
+    <div className="bg-secondary text-secondary-foreground px-2 sm:px-4 py-2 border-b border-secondary-foreground/10">
+      <div className="container mx-auto flex items-center justify-between gap-2 sm:gap-4 text-xs sm:text-sm">
+        {/* ⚡︎ فاصل الشريط */}
+        <span
+          className="bg-yellow-400 text-black font-bold px-2 sm:px-3 py-1 text-xs sm:text-sm shadow-md shrink-0"
+          aria-hidden="true"
+        >
+          ⚡︎
+        </span>
 
-  {/* ⚡︎ فاصل الشريط */}
-  <span
-    className="bg-yellow-400 text-black font-bold px-3 py-1 text-sm shadow-md"
-    aria-hidden="true"
-  >
-    ⚡︎
-  </span>
+        {/* عنوان الخبر */}
+        <div className="flex-1 flex items-center gap-2 min-w-0 overflow-hidden">
+          <span className="truncate font-medium leading-relaxed">{displayedText}</span>
+          {isTyping && <span className="animate-pulse shrink-0">|</span>}
+        </div>
 
-  {/* عنوان الخبر */}
-  <div className="flex items-center justify-center gap-2">
-    <span className="whitespace-pre font-medium">{displayedText}</span>
-    {isTyping && <span className="animate-pulse">|</span>}
-  </div>
-</div>
+        {/* التاريخ - مخفي على الجوال */}
+        {newsItems[currentNews]?.date && (
+          <span className="hidden md:block text-xs opacity-80 shrink-0 whitespace-nowrap">
+            {newsItems[currentNews].date}
+          </span>
+        )}
 
-        
-        {/* <div className="flex-1 text-center overflow-hidden">
-          <div className="animate-in slide-in-from-top duration-500 flex items-center justify-center gap-2">
-            <span>{newsItems[currentNews]?.title}</span>        
-          </div>
-        </div> */}
+        {/* روابط التواصل */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {newsItems[currentNews]?.author_twitter && (
+            <a
+              href={newsItems[currentNews].author_twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+              title="X"
+            >
+              <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            </a>
+          )}
 
-        <div className="flex items-center gap-3">
-           {newsItems[currentNews]?.author_twitter && (
-              <a
-                href={newsItems[currentNews].author_twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-                title="X"
-              >
-                <X className="w-4 h-4" />
-              </a>
-            )}
-
-           {newsItems[currentNews]?.author_linkedin && (
-              <a
-                href={newsItems[currentNews].author_linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-accent transition-colors"
-                title="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
-              </a>
-            )}
+          {newsItems[currentNews]?.author_linkedin && (
+            <a
+              href={newsItems[currentNews].author_linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+              title="LinkedIn"
+            >
+              <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            </a>
+          )}
         </div>
       </div>
     </div>
