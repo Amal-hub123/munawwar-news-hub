@@ -98,7 +98,7 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const { email, name } = await req.json()
+    const { email, name, siteUrl: customSiteUrl } = await req.json()
 
     if (!email || !name) {
       return new Response(
@@ -109,13 +109,14 @@ Deno.serve(async (req) => {
 
     console.log('Sending welcome email to:', email)
 
-    const siteUrl = Deno.env.get('SUPABASE_URL')?.replace('.supabase.co', '.lovable.app') || 'https://almonhna.lovable.app'
+    // Use provided siteUrl or fallback
+    const siteUrl = customSiteUrl || 'https://almonhna.lovable.app'
     const html = createWelcomeEmail(name, siteUrl)
 
     const { data, error } = await resend.emails.send({
-      from: 'المنحنى <amal.hemmo@gmail.com>',
+      from: 'المنحنى <onboarding@resend.dev>',
       to: [email],
-      subject: 'مرحباً بك في المنحنى - تم قبول طلبك',
+      subject: '🎉 مرحباً بك في المنحنى - تم قبول طلبك!',
       html,
     })
 

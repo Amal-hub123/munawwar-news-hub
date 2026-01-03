@@ -115,7 +115,7 @@ export default function ManageUsers() {
   });
 
   const approveUserMutation = useMutation({
-    mutationFn: async (userId: string) => {
+    mutationFn: async ({ userId, email, name }: { userId: string; email: string; name: string }) => {
       // Update profile status to approved
       const { error: profileError } = await supabase
         .from("profiles")
@@ -130,11 +130,28 @@ export default function ManageUsers() {
         .insert({ user_id: userId, role: "writer" });
       
       if (roleError) throw roleError;
+
+      // Send welcome email
+      try {
+        const siteUrl = window.location.origin;
+        const { error: emailError } = await supabase.functions.invoke('send-welcome-email', {
+          body: { email, name, siteUrl }
+        });
+        
+        if (emailError) {
+          console.error('Failed to send welcome email:', emailError);
+          // Don't throw - approval succeeded, email is secondary
+        }
+      } catch (emailErr) {
+        console.error('Email sending error:', emailErr);
+        // Don't throw - approval succeeded, email is secondary
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["users"] });
       toast({
-        title: "تم قبول المستخدم وإضافة صلاحية الكاتب",
+        title: "تم قبول المستخدم بنجاح! ✨",
+        description: "تم إرسال بريد ترحيبي للمستخدم",
       });
     },
     onError: (error: any) => {
@@ -301,7 +318,11 @@ export default function ManageUsers() {
                             <Button
                               size="sm"
                               variant="default"
-                              onClick={() => approveUserMutation.mutate(user.user_id)}
+                              onClick={() => approveUserMutation.mutate({ 
+                                userId: user.user_id, 
+                                email: user.email, 
+                                name: user.name 
+                              })}
                             >
                               قبول
                             </Button>
