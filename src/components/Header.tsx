@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import finalLogo1 from "@/assets/finalLogo1.png";
+import finalLogo from "@/assets/logo.svg";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 export const Header = () => {
@@ -120,7 +121,7 @@ export const Header = () => {
               <div>
                 <h1 className="text-2xl font-bold text-primary">المنحنى</h1>
               </div> */}
-              <img src={finalLogo1} alt="منحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
+              <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
               
             </Link>
 
