@@ -9,7 +9,6 @@ interface NewsItem {
   author_twitter?: string;
 }
 
-
 export const TopBar = () => {
   const [currentNews, setCurrentNews] = useState(0);
   const [newsItems, setNewsItems] = useState<NewsItem[]>([]);
