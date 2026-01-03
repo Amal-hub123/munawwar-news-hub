@@ -127,7 +127,7 @@ export const TopBar = () => {
   }, [newsItems.length, isTyping]);
 
   return (
-    <div className="bg-secondary text-secondary-foreground px-2 sm:px-4 py-2 border-b border-secondary-foreground/10">
+    <div className="bg-secondary text-secondary-foreground px-2 sm:px-4 border-b border-secondary-foreground/10">
       <div className="container mx-auto flex items-center justify-between gap-2 sm:gap-4 text-xs sm:text-sm">
         {/* ⚡︎ فاصل الشريط */}
         <span
