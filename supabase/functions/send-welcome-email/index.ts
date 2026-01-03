@@ -1,9 +1,5 @@
-import { Resend } from 'https://esm.sh/resend@2.0.0'
-
-const resendApiKey = Deno.env.get('RESEND_API_KEY')
-console.log('RESEND_API_KEY configured:', !!resendApiKey)
-
-const resend = new Resend(resendApiKey)
+const sendgridApiKey = Deno.env.get('SENDGRID_API_KEY')
+console.log('SENDGRID_API_KEY configured:', !!sendgridApiKey)
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -104,9 +100,18 @@ Deno.serve(async (req) => {
     const { email, name, siteUrl: customSiteUrl } = await req.json()
 
     if (!email || !name) {
+      console.error('Missing required fields: email or name')
       return new Response(
         JSON.stringify({ error: 'Email and name are required' }),
         { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    if (!sendgridApiKey) {
+      console.error('SENDGRID_API_KEY is not configured')
+      return new Response(
+        JSON.stringify({ error: 'SendGrid API key not configured' }),
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       )
     }
 
@@ -116,22 +121,45 @@ Deno.serve(async (req) => {
     const siteUrl = customSiteUrl || 'https://almonhna.lovable.app'
     const html = createWelcomeEmail(name, siteUrl)
 
-    const { data, error } = await resend.emails.send({
-      from: 'المنحنى <onboarding@resend.dev>',
-      to: [email],
-      subject: '🎉 مرحباً بك في المنحنى - تم قبول طلبك!',
-      html,
+    // Send email using SendGrid API
+    const response = await fetch('https://api.sendgrid.com/v3/mail/send', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${sendgridApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        personalizations: [
+          {
+            to: [{ email: email }],
+            subject: '🎉 مرحباً بك في المنحنى - تم قبول طلبك!',
+          },
+        ],
+        from: {
+          email: 'noreply@almonhna.com', // يجب أن يكون هذا الإيميل موثق في SendGrid
+          name: 'المنحنى',
+        },
+        content: [
+          {
+            type: 'text/html',
+            value: html,
+          },
+        ],
+      }),
     })
 
-    if (error) {
-      console.error('Resend error:', error)
-      throw error
+    console.log('SendGrid response status:', response.status)
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.error('SendGrid error:', errorText)
+      throw new Error(`SendGrid error: ${response.status} - ${errorText}`)
     }
 
-    console.log('Email sent successfully:', data)
+    console.log('Email sent successfully via SendGrid')
 
     return new Response(
-      JSON.stringify({ success: true, data }),
+      JSON.stringify({ success: true }),
       {
         status: 200,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
