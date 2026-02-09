@@ -30,6 +30,7 @@ const RichTextEditor = ({ value, onChange, placeholder, height = "400px" }: Rich
     });
   };
 
+  
   return (
     <div className="w-full" dir="rtl">
       <Editor
