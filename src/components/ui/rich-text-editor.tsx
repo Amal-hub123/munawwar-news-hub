@@ -34,7 +34,7 @@ const RichTextEditor = ({ value, onChange, placeholder, height = "400px" }: Rich
     <div className="w-full" dir="rtl">
       <Editor
         ref={editorRef}
-        apiKey="uh4hkuw1dtsm5pf9rnr7q5l0za8ejikdwxs20o7z2yxqprz6"
+        apiKey="2uibwmvxe3qeqqwn7al4jw9rd1xkvgmbq4hzv76dpqriwus5"
         value={value}
         onEditorChange={handleEditorChange}
         init={{
