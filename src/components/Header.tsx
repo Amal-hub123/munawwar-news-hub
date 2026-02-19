@@ -104,8 +104,24 @@ export const Header = () => {
     }
   };
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+  e.preventDefault();
+
+  if (window.location.pathname === "/") {
+    // إذا أصلاً في الهوم → بس scroll لفوق
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    // إذا مش في الهوم → روح عالهوم وبعدين اطلع لفوق
+    navigate("/");
+
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
+  }
+};
+
   const navItems = [
-     { label: "الرئيسية", href: "/" },
+     { label: "الرئيسية", href: "/" , onClick: handleLogoClick},
         { label: "الأعمدة ", href: "#products", onClick: handleProductsClick },
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
@@ -117,7 +133,7 @@ export const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Navigation */}
           <div className="flex items-center gap-8">
-            <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            <Link onClick={handleLogoClick}
               to="/" className="flex items-center gap-3">
               <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
               
