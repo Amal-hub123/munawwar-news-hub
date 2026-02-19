@@ -164,4 +164,26 @@ All colors MUST be HSL.
   .border-primary{
     border-color:#00343a !important;
   }
+
+  /* Force site font on all article/news content rendered from editor */
+  .prose * {
+    font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  }
+
+  .prose p,
+  .prose span,
+  .prose div,
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6,
+  .prose li,
+  .prose a,
+  .prose blockquote,
+  .prose td,
+  .prose th {
+    font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  }
 }
