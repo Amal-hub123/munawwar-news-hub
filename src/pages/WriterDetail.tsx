@@ -114,14 +114,14 @@ const WriterDetail = () => {
                 />
               ) : (
                 <div className="w-20 h-20 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                  <User className="w-10 h-10 text-white" />
+                  <User className="w-10 h-10 " />
                 </div>
               )}
-              <h1 className="text-2xl font-bold text-white">{writer.name}</h1>
+              <h1 className="text-2xl font-bold ">{writer.name}</h1>
             </div>
             {writer.bio && (
               <div className="space-y-3">
-                <p className="text-white/90">{writer.bio}</p>
+                <p >{writer.bio}</p>
                 <div className="flex gap-3">
                   {writer.twitter_url && (
                     <a
@@ -129,7 +129,7 @@ const WriterDetail = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{marginTop : '2.2px'}}
-                      className="text-white hover:text-white/80 transition-colors"
+                      className=" hover:text-white/80 transition-colors"
                     >
                       <X className="w-6 h-6" />
                     </a>
@@ -139,7 +139,7 @@ const WriterDetail = () => {
                       href={writer.linkedin_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white hover:text-white/80 transition-colors"
+                      className=" hover:text-white/80 transition-colors"
                     >
                       <Linkedin className="w-6 h-6" />
                     </a>
@@ -159,22 +159,22 @@ const WriterDetail = () => {
               />
             ) : (
               <div className="w-32 h-32 rounded-full bg-white/10 flex items-center justify-center">
-                <User className="w-16 h-16 text-white" />
+                <User className="w-16 h-16 " />
               </div>
             )}
 
             <div className="flex-1 p-4">
-              <h1 className="text-3xl font-bold mb-2 text-white">{writer.name}</h1>
+              <h1 className="text-3xl font-bold mb-2 ">{writer.name}</h1>
               {writer.bio && (
                 <div className="flex items-center justify-between mb-4">
-                  <p className="text-white/90">{writer.bio}</p>
+                  <p >{writer.bio}</p>
                   <div className="flex gap-3">
                     {writer.twitter_url && (
                       <a
                         href={writer.twitter_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-white/80 transition-colors"
+                        className=" hover:text-white/80 transition-colors"
                       >
                         <X className="w-6 h-6" />
                       </a>
@@ -184,7 +184,7 @@ const WriterDetail = () => {
                         href={writer.linkedin_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:text-white/80 transition-colors"
+                        className=" hover:text-white/80 transition-colors"
                       >
                         <Linkedin className="w-6 h-6" />
                       </a>
