@@ -102,9 +102,8 @@ const WriterDetail = () => {
     <div className="min-h-screen bg-background">
       <TopBar />
       <Header />
-
       <div className="container mx-auto px-6 py-4">
-        <div className="bg-secondary rounded-lg p-3 mb-3 shadow-md">
+        <div style={{backgroundColor :'#f1ede8' , color : '#00343a'}} className=" rounded-lg p-3 mb-3 shadow-md">
           {/* Mobile Layout */}
           <div className="sm:hidden">
             <div className="flex items-center gap-4 mb-4">
