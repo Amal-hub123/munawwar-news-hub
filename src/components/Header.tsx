@@ -143,14 +143,15 @@ export const Header = () => {
             <nav className="hidden md:flex items-center gap-6">
               {navItems.map((item) => (
                 item.onClick ? (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={item.onClick}
-                    className="text-foreground  transition-colors font-medium cursor-pointer"
-                  >
-                    {item.label}
-                  </a>
+                 <Link
+  key={item.href}
+  to={item.href}
+  onClick={item.onClick}
+  className="text-foreground transition-colors font-medium"
+>
+  {item.label}
+</Link>
+
                 ) : (
                   <Link
                     key={item.href}
