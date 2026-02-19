@@ -77,11 +77,11 @@ export const TopBar = () => {
         if (items.length > 0) {
           setNewsItems(items);
         } else {
-          setNewsItems([{ title: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "" }]);
+          setNewsItems([{ title: "مرحباً بكم في منحنى ", date: "" }]);
         }
       } catch (error) {
         console.error("Error fetching content:", error);
-        setNewsItems([{ title: "مرحباً بكم في منحنى - موقع إخباري شامل", date: "" }]);
+        setNewsItems([{ title: "مرحباً بكم في منحنى ", date: "" }]);
       }
     };
 
@@ -152,9 +152,8 @@ export const TopBar = () => {
 
         {/* روابط التواصل */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          {newsItems[currentNews]?.author_twitter && (
             <a
-              href={newsItems[currentNews].author_twitter}
+              href="https://x.com/Al_monhna"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -162,11 +161,9 @@ export const TopBar = () => {
             >
               <X className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </a>
-          )}
 
-          {newsItems[currentNews]?.author_linkedin && (
             <a
-              href={newsItems[currentNews].author_linkedin}
+              href="https://www.linkedin.com/company/moderneconomyc/"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
@@ -174,7 +171,6 @@ export const TopBar = () => {
             >
               <Linkedin className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </a>
-          )}
         </div>
       </div>
     </div>
