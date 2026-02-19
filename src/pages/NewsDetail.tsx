@@ -129,7 +129,7 @@ const NewsDetail = () => {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6">{news.excerpt}</p>
-          <div dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }} />
+          <div className="site-content" dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }} />
         </div>
       </article>
     </div>
