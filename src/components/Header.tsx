@@ -121,7 +121,7 @@ export const Header = () => {
 };
 
   const navItems = [
-     { label: "الرئيسية أمل", href: "/" , onClick: handleLogoClick},
+     { label: "الرئيسية ", href: "/" , onClick: handleLogoClick },
         { label: "الأعمدة ", href: "#products", onClick: handleProductsClick },
     { label: "الأخبار", href: "/news" },
     { label: "المقالات", href: "/articles" },
