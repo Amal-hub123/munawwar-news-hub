@@ -116,11 +116,8 @@ export const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo and Navigation */}
           <div className="flex items-center gap-8">
-            <Link to="/" className="flex items-center gap-3">
-              {/* <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" />
-              <div>
-                <h1 className="text-2xl font-bold text-primary">المنحنى</h1>
-              </div> */}
+            <Link onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              to="/" className="flex items-center gap-3">
               <img src={finalLogo} alt="منحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
               
             </Link>
