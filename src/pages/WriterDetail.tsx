@@ -96,7 +96,6 @@ const WriterDetail = () => {
       </div>
     );
   }
-
   // ✅ العرض الرئيسي
   return (
     <div className="min-h-screen bg-background">
