@@ -1,4 +1,5 @@
 import { useParams, Link } from "react-router-dom";
+import { cleanContentFont } from "@/lib/cleanContent";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
@@ -128,7 +129,7 @@ const NewsDetail = () => {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6">{news.excerpt}</p>
-          <div dangerouslySetInnerHTML={{ __html: news.content }} />
+          <div dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }} />
         </div>
       </article>
     </div>
