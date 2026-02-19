@@ -26,7 +26,7 @@ const Products = () => {
         <Header />
         <main className="min-h-screen py-12 px-4">
           <div className="container mx-auto">
-            <h1 className="text-4xl font-bold mb-8 text-center">منتجات منحنى</h1>
+            <h1 className="text-4xl font-bold mb-8 text-center">الأعمدة  </h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="bg-muted animate-pulse rounded-lg h-64" />
@@ -44,7 +44,7 @@ const Products = () => {
       <Header />
       <main className="min-h-screen py-12 px-4">
         <div className="container mx-auto">
-          <h1 className="text-4xl font-bold mb-8 text-center text-primary">منتجات منحنى </h1>
+          <h1 className="text-4xl font-bold mb-8 text-center text-primary">الأعمدة   </h1>
 
           
           {products && products.length > 0 ? (
@@ -78,7 +78,7 @@ const Products = () => {
               ))}
             </div>
           ) : (
-            <p className="text-center text-muted-foreground text-xl">لا توجد منتجات متاحة حالياً</p>
+            <p className="text-center text-muted-foreground text-xl">لا توجد أعمدة  متاحة حالياً</p>
           )}
         </div>
       </main>
