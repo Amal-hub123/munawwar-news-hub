@@ -31,10 +31,10 @@ export const NewsSlider = () => {
   const fetchNews = async () => {
     try {
       const { data, error } = await supabase
-        .from("news")
+        .from("articles")
         .select(`
           *,
-          author:profiles!news_author_id_fkey(name, photo_url)
+          author:profiles!articles_author_id_fkey(name, photo_url)
         `)
         .eq("status", "approved")
         .order("created_at", { ascending: false })
@@ -88,7 +88,7 @@ export const NewsSlider = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
       
       <div className="absolute bottom-0 right-0 left-0 p-8 text-white">
-        <Link to={`/news/${currentNews.id}`}>
+        <Link to={`/articles/${currentNews.id}`}>
           <h2 className="text-3xl md:text-4xl font-bold mb-4 hover:text-accent transition-colors">
             {currentNews.title}
           </h2>
