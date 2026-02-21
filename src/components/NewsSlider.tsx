@@ -79,7 +79,7 @@ export const NewsSlider = () => {
   const currentNews = news[currentIndex];
 
   return (
-  <div className="relative h-[500px] sm:h-[400px] xs:h-[300px] rounded-[90px] overflow-hidden">
+  <div style={{borderRadius : '30px'}} className="relative h-[500px] sm:h-[400px] xs:h-[300px] overflow-hidden">
   <img
     src={currentNews.cover_image_url}
     alt={currentNews.title}
