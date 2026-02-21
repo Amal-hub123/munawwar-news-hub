@@ -159,6 +159,7 @@ const ManageArticles = () => {
                       </Button>
                     </>
                   )}
+                  <div className="relative group inline-block">
                   <Button
                     variant="outline"
                     size="sm"
@@ -166,6 +167,10 @@ const ManageArticles = () => {
                   >
                     <Trash2 className="w-4 h-4 ml-2" />
                        </Button>
+                   <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+    عرض المقال
+  </span>
+</div>
                 </div>
               </div>
             </div>
