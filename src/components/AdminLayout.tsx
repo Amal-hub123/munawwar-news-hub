@@ -63,7 +63,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const menuItems = [
     { path: "/admin", icon: LayoutDashboard, label: "لوحة التحكم" },
     { path: "/admin/articles", icon: FileText, label: "المقالات" },
-    { path: "/admin/news", icon: Newspaper, label: "الأخبار" },
+    { path: "/admin/news", icon: Newspaper, label: "خدماتنا" },
     { path: "/admin/products", icon: Package, label: "المنتجات" },
     { path: "/admin/users", icon: UserCog, label: "المستخدمين" },
     { path: "/admin/settings", icon: Settings, label: "الإعدادات" },

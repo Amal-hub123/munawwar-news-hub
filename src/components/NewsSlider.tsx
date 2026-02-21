@@ -45,7 +45,7 @@ export const NewsSlider = () => {
     } catch (error: any) {
       toast({
         title: "خطأ",
-        description: "فشل تحميل الأخبار",
+        description: "فشل تحميل خدماتنا",
         variant: "destructive",
       });
     } finally {

@@ -78,7 +78,7 @@ export const WriterDashboard = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">إجمالي الأخبار</CardTitle>
+            <CardTitle className="text-sm font-medium">إجمالي الخدمات</CardTitle>
             <Newspaper className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -98,7 +98,7 @@ export const WriterDashboard = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">أخبار قيد المراجعة</CardTitle>
+            <CardTitle className="text-sm font-medium">خدمات قيد المراجعة</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -118,7 +118,7 @@ export const WriterDashboard = () => {
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">أخبار موافق عليها</CardTitle>
+            <CardTitle className="text-sm font-medium">خدمات موافق عليها</CardTitle>
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>

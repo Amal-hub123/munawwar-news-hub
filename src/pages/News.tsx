@@ -47,7 +47,7 @@ const News = () => {
     } catch (error: any) {
       toast({
         title: "خطأ",
-        description: "فشل تحميل الأخبار",
+        description: "فشل تحميل خدماتنا",
         variant: "destructive",
       });
     } finally {
@@ -62,8 +62,8 @@ const News = () => {
       
       <main className="container mx-auto px-8 py-12">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">جميع الأخبار</h1>
-          <p className="text-muted-foreground">تابع آخر الأخبار والتحديثات على المُنحنى</p>
+          <h1 className="text-4xl font-bold mb-2">جميع خدماتنا</h1>
+          <p className="text-muted-foreground">تابع آخر خدماتنا والتحديثات على المُنحنى</p>
         </div>
 
         {loading ? (
@@ -74,7 +74,7 @@ const News = () => {
           </div>
         ) : news.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground text-lg">لا توجد أخبار منشورة حالياً</p>
+            <p className="text-muted-foreground text-lg">لا توجد خدمات منشورة حالياً</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

@@ -70,7 +70,7 @@ const AdminAddEditNews = () => {
       if (error) {
         toast({
           title: "خطأ",
-          description: "حدث خطأ أثناء تحديث الخبر",
+          description: "حدث خطأ أثناء تحديث الخدمة",
           variant: "destructive",
         });
         return;
@@ -78,7 +78,7 @@ const AdminAddEditNews = () => {
 
       toast({
         title: "تم التحديث",
-        description: "تم تحديث الخبر بنجاح",
+        description: "تم تحديث الخدمة بنجاح",
       });
     }
 
@@ -95,12 +95,12 @@ const AdminAddEditNews = () => {
         >
           <ArrowRight className="w-5 h-5" />
         </Button>
-        <h1 className="text-3xl font-bold">تعديل الخبر</h1>
+        <h1 className="text-3xl font-bold">تعديل الخدمة</h1>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>بيانات الخبر</CardTitle>
+          <CardTitle>بيانات الخدمة</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -109,7 +109,7 @@ const AdminAddEditNews = () => {
               <Input
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="عنوان الخبر"
+                placeholder="عنوان الخدمة"
                 required
               />
             </div>
@@ -119,7 +119,7 @@ const AdminAddEditNews = () => {
               <Textarea
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                placeholder="نبذة مختصرة عن الخبر"
+                placeholder="نبذة مختصرة عن الخدمة"
                 rows={3}
                 required
               />
@@ -136,7 +136,7 @@ const AdminAddEditNews = () => {
               <RichTextEditor
                 value={formData.content}
                 onChange={(content) => setFormData({ ...formData, content })}
-                placeholder="اكتب محتوى الخبر هنا..."
+                placeholder="اكتب محتوى الخدمة هنا..."
               />
             </div>
 

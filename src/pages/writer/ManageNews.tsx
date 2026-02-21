@@ -47,14 +47,14 @@ export const ManageNews = () => {
 
 
   const handleDelete = async (id: string) => {
-    if (!confirm("هل أنت متأكد من حذف هذا الخبر؟")) return;
+    if (!confirm("هل أنت متأكد من حذف هذه الخدمة؟")) return;
 
     const { error } = await supabase.from("news").delete().eq("id", id);
 
     if (error) {
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء حذف الخبر",
+        description: "حدث خطأ أثناء حذف الخدمة",
         variant: "destructive",
       });
       return;
@@ -62,7 +62,7 @@ export const ManageNews = () => {
 
     toast({
       title: "تم الحذف",
-      description: "تم حذف الخبر بنجاح",
+      description: "تم حذف الخدمة بنجاح",
     });
 
     loadProfileAndNews();
@@ -90,11 +90,11 @@ export const ManageNews = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold">أخباري</h1>
+        <h1 className="text-3xl font-bold">خدماتي</h1>
         <Link to="/writer/news/add">
           <Button>
             <Plus className="w-4 h-4 ml-2" />
-            إضافة خبر جديد
+            إضافة خدمة جديدة
           </Button>
         </Link>
       </div>

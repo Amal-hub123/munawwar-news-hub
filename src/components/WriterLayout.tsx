@@ -74,7 +74,7 @@ export const WriterLayout = ({ children }: WriterLayoutProps) => {
   const menuItems = [
     { path: "/writer", icon: LayoutDashboard, label: "لوحة التحكم" },
     { path: "/writer/articles", icon: FileText, label: "مقالاتي" },
-    { path: "/writer/news", icon: Newspaper, label: "أخباري" },
+    { path: "/writer/news", icon: Newspaper, label: "خدماتي" },
     { path: "/writer/profile", icon: User, label: "الملف الشخصي" },
     { path: "/writer/settings", icon: Settings, label: "الإعدادات" },
   ];

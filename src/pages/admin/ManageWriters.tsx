@@ -278,7 +278,7 @@ const ManageWriters = () => {
                             سيتم حذف الكاتب <strong>{writer.name}</strong> نهائياً بما في ذلك:
                             <ul className="list-disc list-inside mt-2 space-y-1">
                               <li>جميع المقالات المنشورة</li>
-                              <li>جميع الأخبار المنشورة</li>
+                              <li>جميع الخدمات المنشورة</li>
                               <li>صلاحيات الوصول</li>
                               <li>الملف الشخصي</li>
                             </ul>
