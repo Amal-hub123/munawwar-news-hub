@@ -133,7 +133,7 @@ const ManageArticles = () => {
                   <Link to={`/admin/articles/edit/${article.id}`}>
                     <Button variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
-                      تعديل
+                      
                     </Button>
                   </Link>
                   {article.status === "pending" && (
