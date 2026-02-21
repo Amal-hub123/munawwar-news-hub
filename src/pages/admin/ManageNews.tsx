@@ -124,12 +124,12 @@ const ManageNews = () => {
 
                 <div className="flex gap-2 mt-4">
                   <Link to={`/admin/news/preview/${item.id}`}>
-                    <Button variant="outline" size="sm">
+                    <Button className="pl-1 hover:bg-gray-200 hover:text-black" variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                   <Link to={`/admin/news/edit/${item.id}`}>
-                    <Button variant="outline" size="sm">
+                    <Button className="pl-1 hover:bg-gray-200 hover:text-black" variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
                       
                     </Button>
@@ -137,6 +137,7 @@ const ManageNews = () => {
                   {item.status === "pending" && (
                     <>
                       <Button
+                        className="p-1"
                         variant="default"
                         size="sm"
                         onClick={() =>
@@ -147,6 +148,7 @@ const ManageNews = () => {
                         قبول
                       </Button>
                       <Button
+                        className="p-1"
                         variant="destructive"
                         size="sm"
                         onClick={() =>
@@ -159,6 +161,7 @@ const ManageNews = () => {
                     </>
                   )}
                   <Button
+                    className="pl-1 hover:bg-gray-200 hover:text-black"
                     variant="outline"
                     size="sm"
                     onClick={() => deleteMutation.mutate(item.id)}
