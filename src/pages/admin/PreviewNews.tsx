@@ -44,11 +44,11 @@ const PreviewNews = () => {
   if (!news) {
     return (
       <div className="max-w-4xl mx-auto p-6 text-center">
-        <p className="text-muted-foreground">الخبر غير موجود</p>
+        <p className="text-muted-foreground">الخدمة غير موجودة</p>
         <Link to="/admin/news">
           <Button className="mt-4">
             <ArrowRight className="w-4 h-4 ml-2" />
-            العودة للأخبار
+            العودة لخدماتنا
           </Button>
         </Link>
       </div>
@@ -67,7 +67,7 @@ const PreviewNews = () => {
         <Link to="/admin/news">
           <Button variant="outline">
             <ArrowRight className="w-4 h-4 ml-2" />
-            العودة للأخبار
+            العودة لخدماتنا
           </Button>
         </Link>
       </div>

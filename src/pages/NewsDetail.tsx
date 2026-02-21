@@ -67,7 +67,7 @@ const NewsDetail = () => {
         <TopBar />
         <Header />
         <div className="container mx-auto px-4 py-8 text-center">
-          <h1 className="text-2xl font-bold">الخبر غير موجود</h1>
+          <h1 className="text-2xl font-bold">الخدمة غير موجودة</h1>
         </div>
       </div>
     );

@@ -95,10 +95,10 @@ const AdminDashboard = () => {
 
   const statCards = [
     { title: "المقالات", count: stats?.articles, icon: FileText, color: "text-blue-500", link: "/admin/articles" },
-    { title: "الأخبار", count: stats?.news, icon: Newspaper, color: "text-green-500", link: "/admin/news" },
+    { title: "خدماتنا", count: stats?.news, icon: Newspaper, color: "text-green-500", link: "/admin/news" },
     { title: "الكتاب", count: stats?.writers, icon: Users, color: "text-purple-500", link: "/admin/writers" },
     { title: "مقالات معلقة", count: stats?.pendingArticles, icon: Clock, color: "text-orange-500", link: "/admin/articles?status=pending" },
-    { title: "أخبار معلقة", count: stats?.pendingNews, icon: Clock, color: "text-orange-500", link: "/admin/news?status=pending" },
+    { title: "خدمات معلقة", count: stats?.pendingNews, icon: Clock, color: "text-orange-500", link: "/admin/news?status=pending" },
     { title: "كتاب معلقين", count: stats?.pendingWriters, icon: Clock, color: "text-red-500", link: "/admin/writers?status=pending" },
   ];
 

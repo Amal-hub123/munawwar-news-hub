@@ -47,13 +47,13 @@ const ManageNews = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-stats"] });
       toast({
         title: "تم التحديث بنجاح",
-        description: "تم تحديث حالة الخبر",
+        description: "تم تحديث حالة الخدمة",
       });
     },
     onError: () => {
       toast({
         title: "خطأ",
-        description: "حدث خطأ أثناء تحديث حالة الخبر",
+        description: "حدث خطأ أثناء تحديث حالة الخدمة",
         variant: "destructive",
       });
     },
@@ -69,7 +69,7 @@ const ManageNews = () => {
       queryClient.invalidateQueries({ queryKey: ["admin-stats"] });
       toast({
         title: "تم الحذف بنجاح",
-        description: "تم حذف الخبر",
+        description: "تم حذف الخدمة",
       });
     },
   });
@@ -80,7 +80,7 @@ const ManageNews = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold mb-8">إدارة الأخبار</h1>
+      <h1 className="text-3xl font-bold mb-8">إدارة خدماتنا</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {news?.map((item) => (

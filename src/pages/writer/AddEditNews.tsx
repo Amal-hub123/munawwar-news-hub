@@ -86,7 +86,7 @@ export const AddEditNews = () => {
       if (error) {
         toast({
           title: "خطأ",
-          description: "حدث خطأ أثناء تحديث الخبر",
+          description: "حدث خطأ أثناء تحديث الخدمة",
           variant: "destructive",
         });
         return;
@@ -94,7 +94,7 @@ export const AddEditNews = () => {
 
       toast({
         title: "تم التحديث",
-        description: "تم تحديث الخبر بنجاح",
+        description: "تم تحديث الخدمة بنجاح",
       });
     } else {
       const { error } = await supabase.from("news").insert(newsData);
@@ -102,7 +102,7 @@ export const AddEditNews = () => {
       if (error) {
         toast({
           title: "خطأ",
-          description: "حدث خطأ أثناء إضافة الخبر",
+          description: "حدث خطأ أثناء إضافة الخدمة",
           variant: "destructive",
         });
         return;
@@ -110,7 +110,7 @@ export const AddEditNews = () => {
 
       toast({
         title: "تم الإضافة",
-        description: "تم إضافة الخبر بنجاح وسيتم مراجعته من قبل الإدارة",
+        description: "تم إضافة الخدمة بنجاح وسيتم مراجعتها من قبل الإدارة",
       });
     }
 
@@ -127,12 +127,12 @@ export const AddEditNews = () => {
         >
           <ArrowRight className="w-5 h-5" />
         </Button>
-        <h1 className="text-3xl font-bold">{id ? "تعديل الخبر" : "إضافة خبر جديد"}</h1>
+        <h1 className="text-3xl font-bold">{id ? "تعديل الخدمة" : "إضافة خدمة جديدة"}</h1>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>بيانات الخبر</CardTitle>
+          <CardTitle>بيانات الخدمة</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -141,7 +141,7 @@ export const AddEditNews = () => {
               <Input
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="عنوان الخبر"
+                placeholder="عنوان الخدمة"
                 required
               />
             </div>
@@ -151,7 +151,7 @@ export const AddEditNews = () => {
               <Textarea
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                placeholder="نبذة مختصرة عن الخبر"
+                placeholder="نبذة مختصرة عن الخدمة"
                 rows={3}
                 required
               />
@@ -168,7 +168,7 @@ export const AddEditNews = () => {
               <RichTextEditor
                 value={formData.content}
                 onChange={(content) => setFormData({ ...formData, content })}
-                placeholder="اكتب محتوى الخبر هنا..."
+                placeholder="اكتب محتوى الخدمة هنا..."
               />
             </div>
 

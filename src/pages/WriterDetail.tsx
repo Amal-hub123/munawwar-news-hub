@@ -215,7 +215,7 @@ const WriterDetail = () => {
               variant={filter === "news" ? "default" : "outline"}
               onClick={() => setFilter("news")}
             >
-              الأخبار
+              خدماتنا
             </Button>
           </div>
         </div>
