@@ -149,7 +149,7 @@ const ManageArticles = () => {
                   {article.status === "pending" && (
                     <>
                       <Button
-                        className="p-1"
+                        className="p-2"
                         variant="default"
                         size="sm"
                         onClick={() =>
@@ -160,7 +160,7 @@ const ManageArticles = () => {
                         قبول
                       </Button>
                       <Button
-                        className="p-1"
+                        className="p-2"
                         variant="destructive"
                         size="sm"
                         onClick={() =>
