@@ -148,10 +148,10 @@ const ArticleDetail = () => {
     site-content
     [&_*]:!font-sans
     [&_*]:!text-gray-900
-    [&_p]:!text-[15px]
     [&_h1]:!text-3xl
     [&_h2]:!text-2xl
     [&_h3]:!text-xl
+    [&_*]:!text-[15px]
   "
   dangerouslySetInnerHTML={{ __html: article.content }}
 />
