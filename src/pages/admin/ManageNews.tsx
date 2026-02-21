@@ -131,7 +131,7 @@ const ManageNews = () => {
                   <Link to={`/admin/news/edit/${item.id}`}>
                     <Button variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
-                      تعديل
+                      
                     </Button>
                   </Link>
                   {item.status === "pending" && (
