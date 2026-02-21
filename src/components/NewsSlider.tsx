@@ -18,6 +18,7 @@ interface NewsItem {
   };
 }
 
+
 export const NewsSlider = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
