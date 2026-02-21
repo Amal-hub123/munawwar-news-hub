@@ -85,7 +85,7 @@ export const NewsSlider = () => {
     alt={currentNews.title}
     className="absolute inset-0 w-full h-full object-fill object-center"
   />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
       
       <div className="absolute bottom-0 right-0 left-0 p-8 text-white">
         <Link to={`/articles/${currentNews.id}`}>
