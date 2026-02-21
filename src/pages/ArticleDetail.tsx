@@ -153,6 +153,7 @@ const ArticleDetail = () => {
     [&_h3]:!text-xl
     [&_*]:!text-[15px]
   "
+        style={{padding:"5px" , backgroundColor:"#f5f0e1d1"}}
   dangerouslySetInnerHTML={{ __html: article.content }}
 />
         </div>
