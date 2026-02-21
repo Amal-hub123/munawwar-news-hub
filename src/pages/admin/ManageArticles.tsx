@@ -34,6 +34,7 @@ const ManageArticles = () => {
     },
   });
 
+  
   const updateStatusMutation = useMutation({
     mutationFn: async ({ id, status }: { id: string; status: "approved" | "pending" | "rejected" }) => {
       const { error } = await supabase
