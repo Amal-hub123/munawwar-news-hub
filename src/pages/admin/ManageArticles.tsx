@@ -126,16 +126,26 @@ const ManageArticles = () => {
                 </div>
 
                 <div className="flex gap-2 mt-4">
-                  <Link title="عرض " to={`/admin/articles/preview/${article.id}`}>
+                  <div className="relative group inline-block">
+                  <Link  to={`/admin/articles/preview/${article.id}`}>
                     <Button className="pl-1" variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
+                     <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+                      عرض 
+                    </span>
+                  </div>
+                  <div className="relative group inline-block">
                   <Link title="تعديل " to={`/admin/articles/edit/${article.id}`}>
                     <Button className="pl-1" variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
+                   <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+                      تعديل 
+                    </span>
+                  </div>
                   {article.status === "pending" && (
                     <>
                       <Button
@@ -169,9 +179,9 @@ const ManageArticles = () => {
                     <Trash2 className="w-4 h-4 ml-2" />
                        </Button>
                    <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
-    عرض المقال
-  </span>
-</div>
+                    حذف 
+                  </span>
+                </div>
                 </div>
               </div>
             </div>
