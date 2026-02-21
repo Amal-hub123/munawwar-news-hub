@@ -125,15 +125,14 @@ const ManageArticles = () => {
                 </div>
 
                 <div className="flex gap-2 mt-4">
-                  <Link to={`/admin/articles/preview/${article.id}`}>
+                  <Link title="عرض " to={`/admin/articles/preview/${article.id}`}>
                     <Button variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
-                  <Link to={`/admin/articles/edit/${article.id}`}>
+                  <Link title="تعديل " to={`/admin/articles/edit/${article.id}`}>
                     <Button variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
-                      
                     </Button>
                   </Link>
                   {article.status === "pending" && (
