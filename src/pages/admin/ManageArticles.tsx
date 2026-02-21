@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Check, X, Trash2, Eye } from "lucide-react";
+import { Check, X, Trash2, Eye, Pencil } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useSearchParams, Link } from "react-router-dom";
 
@@ -128,7 +128,13 @@ const ManageArticles = () => {
                   <Link to={`/admin/articles/preview/${article.id}`}>
                     <Button variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
-                        </Button>
+                    </Button>
+                  </Link>
+                  <Link to={`/admin/articles/edit/${article.id}`}>
+                    <Button variant="outline" size="sm">
+                      <Pencil className="w-4 h-4 ml-2" />
+                      تعديل
+                    </Button>
                   </Link>
                   {article.status === "pending" && (
                     <>
