@@ -126,7 +126,7 @@ const ManageArticles = () => {
 
                 <div className="flex gap-2 mt-4">
                   <Link title="عرض " to={`/admin/articles/preview/${article.id}`}>
-                    <Button variant="outline" size="sm">
+                    <Button className="pl-1 pr-7" variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
