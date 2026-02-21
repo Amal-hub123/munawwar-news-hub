@@ -123,17 +123,27 @@ const ManageNews = () => {
                 </div>
 
                 <div className="flex gap-2 mt-4">
+                  <div className="relative group inline-block">
                   <Link to={`/admin/news/preview/${item.id}`}>
                     <Button className="pl-1 hover:bg-gray-200 hover:text-black" variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
+                     <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+    عرض 
+  </span>
+</div>
+                    <div className="relative group inline-block">
                   <Link to={`/admin/news/edit/${item.id}`}>
                     <Button className="pl-1 hover:bg-gray-200 hover:text-black" variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
                       
                     </Button>
                   </Link>
+                       <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+    تعديل 
+  </span>
+</div>
                   {item.status === "pending" && (
                     <>
                       <Button
@@ -160,6 +170,7 @@ const ManageNews = () => {
                       </Button>
                     </>
                   )}
+                      <div className="relative group inline-block">
                   <Button
                     className="pl-1 hover:bg-gray-200 hover:text-black"
                     variant="outline"
@@ -169,6 +180,10 @@ const ManageNews = () => {
                     <Trash2 className="w-4 h-4 ml-2" />
                     
                   </Button>
+                         <span className="absolute bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs px-2 py-1 rounded">
+    حذف 
+  </span>
+</div>
                 </div>
               </div>
             </div>
