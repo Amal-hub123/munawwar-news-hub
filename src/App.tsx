@@ -36,6 +36,8 @@ import WriterSettings from "./pages/writer/Settings";
 import AdminAddEditProduct from "./pages/admin/AddEditProduct";
 import AdminPreviewArticle from "./pages/admin/PreviewArticle";
 import AdminPreviewNews from "./pages/admin/PreviewNews";
+import AdminEditArticle from "./pages/admin/AddEditArticle";
+import AdminEditNews from "./pages/admin/AddEditNews";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -62,8 +64,10 @@ const App = () => (
           <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
           <Route path="/admin/articles" element={<AdminLayout><ManageArticles /></AdminLayout>} />
           <Route path="/admin/articles/preview/:id" element={<AdminLayout><AdminPreviewArticle /></AdminLayout>} />
+          <Route path="/admin/articles/edit/:id" element={<AdminLayout><AdminEditArticle /></AdminLayout>} />
           <Route path="/admin/news" element={<AdminLayout><ManageNews /></AdminLayout>} />
           <Route path="/admin/news/preview/:id" element={<AdminLayout><AdminPreviewNews /></AdminLayout>} />
+          <Route path="/admin/news/edit/:id" element={<AdminLayout><AdminEditNews /></AdminLayout>} />
           <Route path="/admin/writers" element={<AdminLayout><ManageWriters /></AdminLayout>} />
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
           <Route path="/admin/products/add" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
