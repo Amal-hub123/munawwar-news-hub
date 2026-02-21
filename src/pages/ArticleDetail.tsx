@@ -141,7 +141,19 @@ const ArticleDetail = () => {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6">{article.excerpt}</p>
-          <div className="site-content" style={{padding:"5px" , backgroundColor:"#f5f0e1d1" , fontSize :"15px !important"}} dangerouslySetInnerHTML={{ __html: cleanContentFont(article.content) }} />
+          {/* <div className="site-content" style={{padding:"5px" , backgroundColor:"#f5f0e1d1" , fontSize :"15px !important"}} dangerouslySetInnerHTML={{ __html: cleanContentFont(article.content) }} /> */}
+      <div
+  className="
+    site-content
+    [&_*]:!font-sans
+    [&_*]:!text-gray-900
+    [&_p]:!text-[15px]
+    [&_h1]:!text-3xl
+    [&_h2]:!text-2xl
+    [&_h3]:!text-xl
+  "
+  dangerouslySetInnerHTML={{ __html: article.content }}
+/>
         </div>
       </article>
     </div>
