@@ -127,12 +127,12 @@ const ManageArticles = () => {
 
                 <div className="flex gap-2 mt-4">
                   <Link title="عرض " to={`/admin/articles/preview/${article.id}`}>
-                    <Button className="pl-1 pr-7" variant="outline" size="sm">
+                    <Button className="pl-1" variant="outline" size="sm">
                       <Eye className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
                   <Link title="تعديل " to={`/admin/articles/edit/${article.id}`}>
-                    <Button variant="outline" size="sm">
+                    <Button className="pl-1" variant="outline" size="sm">
                       <Pencil className="w-4 h-4 ml-2" />
                     </Button>
                   </Link>
@@ -161,7 +161,7 @@ const ManageArticles = () => {
                     </>
                   )}
                   <div className="relative group inline-block">
-                  <Button
+                  <Button className="pl-1"
                     variant="outline"
                     size="sm"
                     onClick={() => deleteMutation.mutate(article.id)}
