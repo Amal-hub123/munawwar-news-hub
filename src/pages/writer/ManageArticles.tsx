@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Pencil, Plus, Trash2, Eye, RefreshCw } from "lucide-react";
+import { Pencil, Plus, Trash2, Eye } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -138,24 +138,16 @@ export const ManageArticles = () => {
                     </button>
                   )}
                 </div>
-                <div className="flex flex-col gap-2">
-                  <div className="flex gap-2">
-                    <Link to={`/writer/articles/preview/${article.id}`}>
-                      <Button variant="outline" size="sm"><Eye className="w-4 h-4" /></Button>
-                    </Link>
-                    <Link to={`/writer/articles/edit/${article.id}`}>
-                      <Button variant="outline" size="sm"><Pencil className="w-4 h-4" /></Button>
-                    </Link>
-                    <Button variant="outline" size="sm" onClick={() => handleDelete(article.id)}>
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
-                  </div>
-                  {article.status === "rejected" && (
-                    <Button size="sm" variant="default" onClick={() => handleResubmit(article.id)} className="w-full">
-                      <RefreshCw className="w-4 h-4 ml-1" />
-                      إعادة إرسال
-                    </Button>
-                  )}
+                <div className="flex gap-2">
+                  <Link to={`/writer/articles/preview/${article.id}`}>
+                    <Button variant="outline" size="sm"><Eye className="w-4 h-4" /></Button>
+                  </Link>
+                  <Link to={`/writer/articles/edit/${article.id}`}>
+                    <Button variant="outline" size="sm"><Pencil className="w-4 h-4" /></Button>
+                  </Link>
+                  <Button variant="outline" size="sm" onClick={() => handleDelete(article.id)}>
+                    <Trash2 className="w-4 h-4" />
+                  </Button>
                 </div>
               </div>
             </CardHeader>
