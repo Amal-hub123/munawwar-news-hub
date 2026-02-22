@@ -17,6 +17,7 @@ export const AddEditNews = () => {
   const [profileId, setProfileId] = useState<string>("");
   const { toast } = useToast();
 
+  const [newsStatus, setNewsStatus] = useState<string>("");
   const [formData, setFormData] = useState({
     title: "",
     excerpt: "",
@@ -49,6 +50,7 @@ export const AddEditNews = () => {
         .single();
 
       if (news) {
+        setNewsStatus(news.status);
         setFormData({
           title: news.title,
           excerpt: news.excerpt,
@@ -177,7 +179,7 @@ export const AddEditNews = () => {
                 إلغاء
               </Button>
               <Button type="submit">
-                {id ? "تحديث" : "إضافة"}
+                {id ? (newsStatus === "rejected" ? "إعادة إرسال" : "تحديث") : "إضافة"}
               </Button>
             </div>
           </form>
