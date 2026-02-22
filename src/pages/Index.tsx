@@ -69,13 +69,13 @@ const Index = () => {
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
        <section className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-  <div>
-    <NewsSlider />
-  </div>
-  <div>
-    <TopWriters />
-  </div>
-</section>
+        <div>
+          <NewsSlider />
+        </div>
+        <div>
+          <TopWriters />
+        </div>
+      </section>
 
         {/* Products Section */}
         <div id="products-section" style={{backgroundColor:'#f1ede8'}}>
