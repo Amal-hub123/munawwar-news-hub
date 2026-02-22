@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Pencil, Plus, Trash2, Eye } from "lucide-react";
+import { Pencil, Plus, Trash2, Eye, RefreshCw } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface News {
   id: string;
@@ -13,11 +19,13 @@ interface News {
   cover_image_url: string;
   content: string;
   status: string;
+  rejection_reason: string | null;
   created_at: string;
 }
 
 export const ManageNews = () => {
   const [news, setNews] = useState<News[]>([]);
+  const [rejectionPopup, setRejectionPopup] = useState<{ open: boolean; reason: string }>({ open: false, reason: "" });
   const { toast } = useToast();
 
   useEffect(() => {
@@ -45,29 +53,34 @@ export const ManageNews = () => {
     if (data) setNews(data);
   };
 
-
   const handleDelete = async (id: string) => {
     if (!confirm("هل أنت متأكد من حذف هذه الخدمة؟")) return;
 
     const { error } = await supabase.from("news").delete().eq("id", id);
 
     if (error) {
-      toast({
-        title: "خطأ",
-        description: "حدث خطأ أثناء حذف الخدمة",
-        variant: "destructive",
-      });
+      toast({ title: "خطأ", description: "حدث خطأ أثناء حذف الخدمة", variant: "destructive" });
       return;
     }
 
-    toast({
-      title: "تم الحذف",
-      description: "تم حذف الخدمة بنجاح",
-    });
-
+    toast({ title: "تم الحذف", description: "تم حذف الخدمة بنجاح" });
     loadProfileAndNews();
   };
 
+  const handleResubmit = async (id: string) => {
+    const { error } = await supabase
+      .from("news")
+      .update({ status: "pending" as any, rejection_reason: null })
+      .eq("id", id);
+
+    if (error) {
+      toast({ title: "خطأ", description: "حدث خطأ أثناء إعادة الإرسال", variant: "destructive" });
+      return;
+    }
+
+    toast({ title: "تم الإرسال", description: "تم إعادة إرسال الخدمة للمراجعة" });
+    loadProfileAndNews();
+  };
 
   const getStatusBadge = (status: string) => {
     const colors = {
@@ -104,49 +117,59 @@ export const ManageNews = () => {
           <Card key={newsItem.id}>
             <CardHeader>
               <div className="flex justify-between items-start gap-4">
-                <img
-                  src={newsItem.cover_image_url}
-                  alt={newsItem.title}
-                  className="w-32 h-24 object-cover rounded-lg"
-                />
+                <img src={newsItem.cover_image_url} alt={newsItem.title} className="w-32 h-24 object-cover rounded-lg" />
                 <div className="flex-1">
                   <CardTitle className="text-xl mb-2">{newsItem.title}</CardTitle>
                   <p className="text-sm text-muted-foreground line-clamp-2">{newsItem.excerpt}</p>
                   <div className="flex items-center gap-2 mt-2">
                     {getStatusBadge(newsItem.status)}
                     <span className="text-xs text-muted-foreground">
-                      {new Date(newsItem.created_at).toLocaleDateString("ar-EG", {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric"
-                      })}
+                      {new Date(newsItem.created_at).toLocaleDateString("ar-EG", { year: "numeric", month: "short", day: "numeric" })}
                     </span>
                   </div>
+
+                  {newsItem.status === "rejected" && newsItem.rejection_reason && (
+                    <button
+                      onClick={() => setRejectionPopup({ open: true, reason: newsItem.rejection_reason! })}
+                      className="mt-2 text-sm text-red-600 hover:text-red-800 underline cursor-pointer"
+                    >
+                      عرض سبب الرفض
+                    </button>
+                  )}
                 </div>
-                <div className="flex gap-2">
-                  <Link to={`/writer/news/preview/${newsItem.id}`}>
-                    <Button variant="outline" size="sm">
-                      <Eye className="w-4 h-4" />
+                <div className="flex flex-col gap-2">
+                  <div className="flex gap-2">
+                    <Link to={`/writer/news/preview/${newsItem.id}`}>
+                      <Button variant="outline" size="sm"><Eye className="w-4 h-4" /></Button>
+                    </Link>
+                    <Link to={`/writer/news/edit/${newsItem.id}`}>
+                      <Button variant="outline" size="sm"><Pencil className="w-4 h-4" /></Button>
+                    </Link>
+                    <Button variant="outline" size="sm" onClick={() => handleDelete(newsItem.id)}>
+                      <Trash2 className="w-4 h-4" />
                     </Button>
-                  </Link>
-                  <Link to={`/writer/news/edit/${newsItem.id}`}>
-                    <Button variant="outline" size="sm">
-                      <Pencil className="w-4 h-4" />
+                  </div>
+                  {newsItem.status === "rejected" && (
+                    <Button size="sm" variant="default" onClick={() => handleResubmit(newsItem.id)} className="w-full">
+                      <RefreshCw className="w-4 h-4 ml-1" />
+                      إعادة إرسال
                     </Button>
-                  </Link>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleDelete(newsItem.id)}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
+                  )}
                 </div>
               </div>
             </CardHeader>
           </Card>
         ))}
       </div>
+
+      <Dialog open={rejectionPopup.open} onOpenChange={(open) => setRejectionPopup({ ...rejectionPopup, open })}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>سبب الرفض</DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-muted-foreground" dir="rtl">{rejectionPopup.reason}</p>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
