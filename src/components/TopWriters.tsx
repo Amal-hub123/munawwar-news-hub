@@ -89,55 +89,68 @@ export const TopWriters = () => {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-xl font-bold mb-4">    كتّاب المُنحنى</h3>
-      {writers.map((writer) => (
-        <Card  key={writer.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <Link to={`/writers/${writer.id}`} className="flex items-center gap-3 flex-1">
-                <Avatar className="h-12 w-12">
-                  <AvatarImage src={writer.photo_url} alt={writer.name} />
-                  <AvatarFallback>
-                    <User className="h-6 w-6" />
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1">
-                  <h4 className="font-semibold  transition-colors">
-                    {writer.name}
-                  </h4>
-                  <p className="text-xs text-muted-foreground line-clamp-1">
-                    {writer.bio ? writer.bio.split(' ').slice(0, 5).join(' ') + (writer.bio.split(' ').length > 5 ? '...' : '') : "كاتب متميز"}
-                  </p>
-                </div>
-              </Link>
-              <div className="flex gap-2">
-                {writer.twitter_url && (
-                  <a
-                    href={writer.twitter_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{marginTop : '2.2px', color :'#00343a'}}
-                    className=" hover:text-accent transition-colors"
-                  >
-                    <X className="h-5 w-5" />
-                  </a>
-                )}
-                {writer.linkedin_url && (
-                  <a
-                    href={writer.linkedin_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color :'#00343a'}}
-                    className=" hover:text-accent transition-colors"
-                  >
-                    <Linkedin className="h-5 w-5" />
-                  </a>
-                )}
+  <h3 className="text-xl font-bold mb-4">كتّاب المُنحنى</h3>
+
+  <div className="grid grid-cols-2 gap-4">
+    {writers.slice(0, 8).map((writer) => (
+      <Card
+        key={writer.id}
+        className="overflow-hidden hover:shadow-lg transition-shadow"
+      >
+        <CardContent className="p-4">
+          <div className="flex items-center gap-3">
+            <Link
+              to={`/writers/${writer.id}`}
+              className="flex items-center gap-3 flex-1"
+            >
+              <Avatar className="h-12 w-12">
+                <AvatarImage src={writer.photo_url} alt={writer.name} />
+                <AvatarFallback>
+                  <User className="h-6 w-6" />
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1">
+                <h4 className="font-semibold transition-colors">
+                  {writer.name}
+                </h4>
+                <p className="text-xs text-muted-foreground line-clamp-1">
+                  {writer.bio
+                    ? writer.bio.split(' ').slice(0, 5).join(' ') +
+                      (writer.bio.split(' ').length > 5 ? '...' : '')
+                    : 'كاتب متميز'}
+                </p>
               </div>
+            </Link>
+
+            <div className="flex gap-2">
+              {writer.twitter_url && (
+                <a
+                  href={writer.twitter_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ marginTop: '2.2px', color: '#00343a' }}
+                  className="hover:text-accent transition-colors"
+                >
+                  <X className="h-5 w-5" />
+                </a>
+              )}
+              {writer.linkedin_url && (
+                <a
+                  href={writer.linkedin_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: '#00343a' }}
+                  className="hover:text-accent transition-colors"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              )}
             </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
+          </div>
+        </CardContent>
+      </Card>
+    ))}
+  </div>
+</div>
   );
 };
