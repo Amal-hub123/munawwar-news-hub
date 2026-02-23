@@ -41,7 +41,7 @@ const ProductsSlider = () => {
   if (!products || products.length === 0) return null;
 
   return (
-    <section className="py-12 px-4 " >
+    <section className="py-12 px-4 rounded" >
       <div className="container " style={{paddingRight:'1rem'}}>
         <h2 className="text-3xl font-bold mb-8 text-start" style={{color :'#00343a'}}>الأعمدة  </h2>
         
