@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { Calendar, User, Star } from "lucide-react";
+import { Calendar, User, Star, Share2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { useToast } from "@/hooks/use-toast";
 
 interface ArticleCardProps {
   id: string;
@@ -27,6 +28,7 @@ export const ArticleCard = ({
   date,
   type,
 }: ArticleCardProps) => {
+  const { toast } = useToast();
   const formattedDate = new Date(date).toLocaleDateString("ar-EG", {
     year: "numeric",
     month: "long",
@@ -38,18 +40,30 @@ export const ArticleCard = ({
   
   const truncatedExcerpt = excerpt.length > 50 ? excerpt.substring(0, 50) + "..." : excerpt;
 
+  const handleShare = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const fullUrl = `${window.location.origin}${link}`;
+    navigator.clipboard.writeText(fullUrl).then(() => {
+      toast({
+        title: "تم النسخ",
+        description: "تم نسخ رابط المقال بنجاح",
+      });
+    });
+  };
+
   return (
     <Link to={link}>
       <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border-0">
         <div className="flex flex-row gap-4 p-4">
-           <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-md bg-gray-50 relative">
+           <div className="w-32 h-32 flex-shrink-0 overflow-hidden rounded-md bg-muted relative">
             <img
               src={coverImage}
               alt={title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
             {productType && (
-              <Badge className={`absolute top-2 right-2 ${badgeColor} text-white border-0`}>
+              <Badge className={`absolute top-2 right-2 ${badgeColor} text-primary-foreground border-0`}>
                 <Star className="w-3 h-3 ml-1" />
                 {productType}
               </Badge>
@@ -58,7 +72,7 @@ export const ArticleCard = ({
           
           <div className="flex-1 flex flex-col justify-between min-w-0">
             <div>
-              <h3 className="text-xl font-bold leading-tight line-clamp-2  transition-colors mb-2">
+              <h3 className="text-xl font-bold leading-tight line-clamp-2 transition-colors mb-2">
                 {title}
               </h3>
               <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
@@ -77,9 +91,18 @@ export const ArticleCard = ({
     <span className="text-sm font-medium text-foreground">{author.name}</span>
   </div>
 
-  <div className="flex items-center gap-1 text-xs text-muted-foreground mt-2 sm:mt-0 pr-2">
-    <Calendar className="h-3 w-3" />
-    <span>{formattedDate}</span>
+  <div className="flex items-center gap-3 mt-2 sm:mt-0">
+    <div className="flex items-center gap-1 text-xs text-muted-foreground pr-2">
+      <Calendar className="h-3 w-3" />
+      <span>{formattedDate}</span>
+    </div>
+    <button
+      onClick={handleShare}
+      className="p-1.5 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-primary"
+      title="مشاركة"
+    >
+      <Share2 className="h-4 w-4" />
+    </button>
   </div>
 </div>
 
