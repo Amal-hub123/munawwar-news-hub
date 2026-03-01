@@ -4,8 +4,9 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
-import { Calendar, User, Eye } from "lucide-react";
-import { useEffect } from "react";
+import { Calendar, User, Eye, Share2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ShareButton } from "@/components/ShareDialog";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -101,10 +102,6 @@ const ArticleDetail = () => {
               day: "numeric"
             })}</span>
           </div>
-          {/* <div className="flex items-center gap-2">
-            <Eye className="w-4 h-4" />
-            <span>{article.views || 0} مشاهدة</span>
-          </div> */}
           {article.products && (
             <Link
               to={`/products/${article.products.id}`}
@@ -113,6 +110,12 @@ const ArticleDetail = () => {
               {article.products.name}
             </Link>
           )}
+          <ShareButton
+            url={window.location.href}
+            title={article.title}
+            iconSize={20}
+            className="mr-auto"
+          />
         </div>
 
         <Link
