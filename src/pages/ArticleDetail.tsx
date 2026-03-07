@@ -98,7 +98,7 @@ const ArticleDetail = () => {
     };
   }, [article, id]);
 
-
+  useEffect(() => {
     if (article) {
       const incrementViews = async () => {
         await supabase
