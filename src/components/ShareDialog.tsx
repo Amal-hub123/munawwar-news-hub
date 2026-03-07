@@ -46,10 +46,12 @@ interface ShareDialogProps {
   onOpenChange: (open: boolean) => void;
   url: string;
   title: string;
+  shareUrl?: string; // OG-enabled URL for social platforms
 }
 
-export const ShareDialog = ({ open, onOpenChange, url, title }: ShareDialogProps) => {
+export const ShareDialog = ({ open, onOpenChange, url, title, shareUrl }: ShareDialogProps) => {
   const [copied, setCopied] = useState(false);
+  const socialUrl = shareUrl || url;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url).then(() => {
@@ -59,7 +61,7 @@ export const ShareDialog = ({ open, onOpenChange, url, title }: ShareDialogProps
   };
 
   const handlePlatformShare = (getUrl: (url: string, title: string) => string) => {
-    window.open(getUrl(url, title), "_blank", "noopener,noreferrer,width=600,height=400");
+    window.open(getUrl(socialUrl, title), "_blank", "noopener,noreferrer,width=600,height=400");
   };
 
   return (
@@ -121,11 +123,12 @@ export const ShareDialog = ({ open, onOpenChange, url, title }: ShareDialogProps
 interface ShareButtonProps {
   url: string;
   title: string;
+  shareUrl?: string;
   className?: string;
   iconSize?: number;
 }
 
-export const ShareButton = ({ url, title, className = "", iconSize = 16 }: ShareButtonProps) => {
+export const ShareButton = ({ url, title, shareUrl, className = "", iconSize = 16 }: ShareButtonProps) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -141,7 +144,7 @@ export const ShareButton = ({ url, title, className = "", iconSize = 16 }: Share
       >
         <Share2 style={{ width: iconSize, height: iconSize }} />
       </button>
-      <ShareDialog open={open} onOpenChange={setOpen} url={url} title={title} />
+      <ShareDialog open={open} onOpenChange={setOpen} url={url} title={title} shareUrl={shareUrl} />
     </>
   );
 };

@@ -36,6 +36,7 @@ export const ArticleCard = ({
 
   const link = type === "article" ? `/articles/${id}` : `/news/${id}`;
   const fullUrl = `${window.location.origin}${link}`;
+  const ogShareUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/og-share?type=${type}&id=${id}`;
   const badgeColor = "bg-primary";
   
   const truncatedExcerpt = excerpt.length > 50 ? excerpt.substring(0, 50) + "..." : excerpt;
@@ -85,7 +86,7 @@ export const ArticleCard = ({
                     <Calendar className="h-3 w-3" />
                     <span>{formattedDate}</span>
                   </div>
-                  <ShareButton url={fullUrl} title={title} />
+                  <ShareButton url={fullUrl} title={title} shareUrl={ogShareUrl} />
                 </div>
               </div>
             </div>
