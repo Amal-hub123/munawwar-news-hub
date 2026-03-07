@@ -12,6 +12,41 @@ import { ArticleCard } from "@/components/ArticleCard";
 const ArticleDetail = () => {
   const { id } = useParams();
 
+  // Dynamic OG meta tags for social crawlers
+  useEffect(() => {
+    if (!article) return;
+    const setMeta = (property: string, content: string) => {
+      let el = document.querySelector(`meta[property="${property}"]`) || document.querySelector(`meta[name="${property}"]`);
+      if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(property.startsWith("og:") || property.startsWith("twitter:") ? "property" : "name", property);
+        document.head.appendChild(el);
+      }
+      el.setAttribute("content", content);
+    };
+    const articleUrl = `https://almonhna.sa/articles/${id}`;
+    document.title = `${article.title} - المُنحنى`;
+    setMeta("description", article.excerpt);
+    setMeta("og:type", "article");
+    setMeta("og:title", article.title);
+    setMeta("og:description", article.excerpt);
+    setMeta("og:image", article.cover_image_url);
+    setMeta("og:url", articleUrl);
+    setMeta("og:site_name", "المُنحنى");
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", article.title);
+    setMeta("twitter:description", article.excerpt);
+    setMeta("twitter:image", article.cover_image_url);
+
+    return () => {
+      document.title = "المُنحنى";
+      ["og:type","og:title","og:description","og:image","og:url","twitter:title","twitter:description","twitter:image"].forEach(p => {
+        const el = document.querySelector(`meta[property="${p}"]`) || document.querySelector(`meta[name="${p}"]`);
+        if (el) el.remove();
+      });
+    };
+  }, [article, id]);
+
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
     queryFn: async () => {
@@ -137,9 +172,8 @@ const ArticleDetail = () => {
             </Link>
           )}
           <ShareButton
-            url={window.location.href}
+            url={`https://almonhna.sa/articles/${id}`}
             title={article.title}
-            shareUrl={`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/og-share?type=article&id=${id}`}
             iconSize={20}
             className="mr-auto"
           />
