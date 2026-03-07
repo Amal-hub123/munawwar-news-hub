@@ -46,6 +46,7 @@ interface ShareDialogProps {
   onOpenChange: (open: boolean) => void;
   url: string;
   title: string;
+  shareUrl?: string; // OG-enabled URL for social platforms
 }
 
 export const ShareDialog = ({ open, onOpenChange, url, title }: ShareDialogProps) => {
