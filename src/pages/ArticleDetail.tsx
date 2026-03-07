@@ -5,8 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Eye, Share2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ShareButton } from "@/components/ShareDialog";
+import { ArticleCard } from "@/components/ArticleCard";
 
 const ArticleDetail = () => {
   const { id } = useParams();
@@ -35,6 +36,31 @@ const ArticleDetail = () => {
 
       if (error) throw error;
       return data;
+    },
+  });
+
+  const { data: relatedArticles } = useQuery({
+    queryKey: ["related-articles", article?.author_id, id],
+    enabled: !!article?.author_id,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("articles")
+        .select(`
+          *,
+          profiles:author_id (
+            id,
+            name,
+            photo_url
+          )
+        `)
+        .eq("author_id", article!.author_id)
+        .eq("status", "approved")
+        .neq("id", id!)
+        .limit(6);
+
+      if (error) throw error;
+      // Shuffle and take 3
+      return (data || []).sort(() => Math.random() - 0.5).slice(0, 3);
     },
   });
 
@@ -162,6 +188,29 @@ const ArticleDetail = () => {
 />
         </div>
       </article>
+
+      {relatedArticles && relatedArticles.length > 0 && (
+        <section className="container mx-auto px-4 pb-12 max-w-4xl">
+          <h2 className="text-2xl font-bold mb-6 border-b border-border pb-3">مقالات أخرى للكاتب</h2>
+          <div className="grid gap-4">
+            {relatedArticles.map((related: any) => (
+              <ArticleCard
+                key={related.id}
+                id={related.id}
+                title={related.title}
+                excerpt={related.excerpt}
+                coverImage={related.cover_image_url}
+                author={{
+                  name: related.profiles?.name || "",
+                  photo: related.profiles?.photo_url || undefined,
+                }}
+                date={related.created_at}
+                type="article"
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   );
 };
