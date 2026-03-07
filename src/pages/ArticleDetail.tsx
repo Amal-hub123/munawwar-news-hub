@@ -139,6 +139,7 @@ const ArticleDetail = () => {
           <ShareButton
             url={window.location.href}
             title={article.title}
+            shareUrl={`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/og-share?type=article&id=${id}`}
             iconSize={20}
             className="mr-auto"
           />
