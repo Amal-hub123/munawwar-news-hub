@@ -33,8 +33,9 @@ export const ArticleCard = ({
     month: "long",
     day: "numeric",
   });
-  const link = type === "article" ? `articles&id=${id}` : `news&id=${id}`;
-  const fullUrl = `https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=${link}`;
+  const link = type === "article" ? `/articles/${id}` : `/news/${id}`;
+  const shareLink = type === "article" ? `articles&id=${id}` : `/news&id=${id}`;
+  const fullUrl = `https://www.almonhna.sa${link}`;
   const badgeColor = "bg-primary";
   
   const truncatedExcerpt = excerpt.length > 50 ? excerpt.substring(0, 50) + "..." : excerpt;
@@ -84,7 +85,7 @@ export const ArticleCard = ({
                     <Calendar className="h-3 w-3" />
                     <span>{formattedDate}</span>
                   </div>
-                  <ShareButton url={fullUrl} title={title} />
+                  <ShareButton url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=${shareLink}`} title={title} />
                 </div>
               </div>
             </div>
