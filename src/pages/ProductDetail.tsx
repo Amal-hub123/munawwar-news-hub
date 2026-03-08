@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { ArticleCard } from "@/components/ArticleCard";
+import { ShareButton } from "@/components/ShareDialog";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -89,6 +90,12 @@ const ProductDetail = () => {
         <p className="text-sm md:text-lg ">{product.description}</p>
       )}
     </div>
+    <ShareButton
+      url={`https://almonhna.sa/products/${id}`}
+      title={product.name}
+      iconSize={20}
+      className="mt-2 md:mt-0"
+    />
   </div>
 </div>
 
