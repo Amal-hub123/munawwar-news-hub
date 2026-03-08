@@ -35,7 +35,7 @@ export const ArticleCard = ({
     day: "numeric",
   });
   const link = type === "article" ? `/articles/${id}` : `/news/${id}`;
-  const shareLink = type === "article" ? `articles&id=${id}` : `/news&id=${id}`;
+const shareLink = type  === "article" ? "article" :  "news"; 
   const fullUrl = `https://www.almonhna.sa${link}`;
   const badgeColor = "bg-primary";
   
@@ -86,8 +86,10 @@ export const ArticleCard = ({
                     <Calendar className="h-3 w-3" />
                     <span>{formattedDate}</span>
                   </div>
-                  <ShareButton url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=${shareLink}`} title={title} />
-                </div>
+<ShareButton
+  url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=${shareLink}&id=${id}`}
+  title={title}
+/>                </div>
               </div>
             </div>
           </div>
