@@ -80,11 +80,12 @@ Deno.serve(async (req) => {
 
   return new Response(html, {
     status: 200,
-    headers: new Headers({
-      ...corsHeaders,
-      "Content-Type": "text/html; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    }),
+    headers: {
+      "access-control-allow-origin": "*",
+      "access-control-allow-methods": "GET",
+      "content-type": "text/html; charset=utf-8",
+      "cache-control": "public, max-age=3600",
+    },
   });
 });
 
