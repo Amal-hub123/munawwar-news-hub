@@ -75,7 +75,7 @@ const ArticleDetail = () => {
       }
       el.setAttribute("content", content);
     };
-    const articleUrl = `https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=article&id=${id}`;
+    const articleUrl = `https://www.almonhna.sa/articles/${id}`;
     document.title = `${article.title} - المُنحنى`;
     setMeta("description", article.excerpt);
     setMeta("og:type", "article");
