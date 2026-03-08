@@ -86,10 +86,11 @@ const shareLink = type  === "article" ? "articles" :  "news";
                     <Calendar className="h-3 w-3" />
                     <span>{formattedDate}</span>
                   </div>
-<ShareButton
-  url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=articles&id=${id}`}
-  title={title}
-/>                </div>
+                    <ShareButton
+                      url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=articles&id=${id}`}
+                      title={title}
+                    />             
+                </div>
               </div>
             </div>
           </div>
