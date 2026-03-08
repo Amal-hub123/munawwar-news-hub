@@ -89,7 +89,7 @@ export const ShareDialog = ({ open, onOpenChange, url, displayUrl, title }: Shar
         <div className="flex items-center gap-2 bg-muted rounded-lg p-2 mt-2">
           <input
             type="text"
-            value={url}
+            value={shownUrl}
             readOnly
             className="flex-1 bg-transparent text-sm text-foreground outline-none px-2 truncate"
             dir="ltr"
