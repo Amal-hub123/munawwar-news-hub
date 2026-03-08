@@ -68,7 +68,7 @@ Deno.serve(async (req) => {
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(data.title)}">
   <meta name="twitter:description" content="${escapeHtml(data.excerpt)}">
-  <meta name="twitter:image" content="${escapeHtml(data.cover_image_url)}">
+  <meta name="twitter:image" content="${data.cover_image_url}">
 
   <meta http-equiv="refresh" content="0;url=${redirectUrl}">
   <script>window.location.href = "${redirectUrl}";</script>
