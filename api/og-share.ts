@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 const SITE_URL = "https://almonhna.sa";
 const SITE_NAME = "المُنحنى";
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.VITE_SUPABASE_PUBLISHABLE_KEY || "";
+const supabaseUrl = process.env.VITE_SUPABASE_URL || "https://jkaccydmonmsarrsgajk.supabase.co";
+const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImprYWNjeWRtb25tc2FycnNnYWprIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIxMjczMzgsImV4cCI6MjA3NzcwMzMzOH0.j8_uxJC7FUipBCCCaTwpjZVWKOyU-tejiPswV6492CE";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   let type = (req.query.type as string)?.toLowerCase();
