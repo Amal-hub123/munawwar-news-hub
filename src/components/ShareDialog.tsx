@@ -49,8 +49,9 @@ interface ShareDialogProps {
   title: string;
 }
 
-export const ShareDialog = ({ open, onOpenChange, url, title }: ShareDialogProps) => {
+export const ShareDialog = ({ open, onOpenChange, url, displayUrl, title }: ShareDialogProps) => {
   const [copied, setCopied] = useState(false);
+  const shownUrl = displayUrl || url;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(url).then(() => {
