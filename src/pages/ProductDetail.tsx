@@ -4,6 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { ArticleCard } from "@/components/ArticleCard";
+import { ShareButton } from "@/components/ShareDialog";
 
 const ProductDetail = () => {
   const { id } = useParams();
