@@ -45,6 +45,7 @@ interface ShareDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   url: string;
+  displayUrl?: string;
   title: string;
 }
 
