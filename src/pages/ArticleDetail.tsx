@@ -172,7 +172,7 @@ const ArticleDetail = () => {
             </Link>
           )}
           <ShareButton
-            url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=article&id=${id}`}
+            url={`https://jkaccydmonmsarrsgajk.supabase.co/functions/v1/og-share?type=articles&id=${id}`}
             title={article.title}
             iconSize={20}
             className="mr-auto"
