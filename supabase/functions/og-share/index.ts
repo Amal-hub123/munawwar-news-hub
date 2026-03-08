@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Methods": "GET",
 };
 
-const SITE_URL = "https://www.almonhna.sa";
+const SITE_URL = "https://almonhna.sa";
 const SITE_NAME = "المُنحنى";
 
 Deno.serve(async (req) => {
