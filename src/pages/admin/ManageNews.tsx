@@ -33,6 +33,7 @@ const ManageNews = () => {
           *,
           profiles:author_id (name)
         `)
+        .order("approved_at", { ascending: false })
         .order("created_at", { ascending: false });
 
       if (statusFilter !== "all") {
