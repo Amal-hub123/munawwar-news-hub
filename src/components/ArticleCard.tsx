@@ -91,11 +91,13 @@ const shareLink = type  === "article" ? "articles" :  "news";
                 <Calendar className="h-3 w-3" />
                 <span>{formattedDate}</span>
               </div>
+              
               <ShareButton
                 url={`https://almonhna.sa/api/og-share?type=${shareLink}&id=${id}&v=1`}
                 displayUrl={fullUrl}
                 title={title}
               />
+              
             </div>
           </div>
         </div>
