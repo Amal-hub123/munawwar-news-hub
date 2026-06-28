@@ -44,20 +44,24 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
-  <title>${escape(data.title)} - ${SITE_NAME}</title>
+  <title>${escape(data.title)} | ${SITE_NAME}</title>
   <meta name="description" content="${escape(data.excerpt)}">
   <meta property="og:type" content="article">
-  <meta property="og:title" content="${escape(data.title)}">
+  <meta property="og:title" content="${escape(data.title)} | ${SITE_NAME}">
   <meta property="og:description" content="${escape(data.excerpt)}">
   <meta property="og:image" content="${data.cover_image_url}">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="${escape(data.title)}">
   <meta property="og:url" content="${redirectUrl}">
   <meta property="og:site_name" content="${SITE_NAME}">
+  <meta property="og:locale" content="ar_AR">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escape(data.title)}">
+  <meta name="twitter:title" content="${escape(data.title)} | ${SITE_NAME}">
   <meta name="twitter:description" content="${escape(data.excerpt)}">
   <meta name="twitter:image" content="${data.cover_image_url}">
+  <link rel="icon" href="${SITE_URL}/favicon.ico">
+  <link rel="apple-touch-icon" href="${SITE_URL}/favicon.ico">
   <meta http-equiv="refresh" content="0;url=${redirectUrl}">
 </head>
 <body>
