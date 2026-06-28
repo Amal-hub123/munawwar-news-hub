@@ -67,7 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   <meta name="twitter:image" content="${data.cover_image_url}">
 
   <link rel="icon" href="${SITE_URL}/logoIcon.png">
-  <meta http-equiv="refresh" content="0;url=${redirectUrl}">
+  /* <meta http-equiv="refresh" content="0;url=${redirectUrl}">*/
 </head>
 <body>
   <p>جاري التحويل...</p>
