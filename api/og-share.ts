@@ -249,11 +249,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const supabase = createClient(supabaseUrl, supabaseKey);
-    const { data } = await supabase
+    // Hard 1.2s timeout so WhatsApp/Facebook crawlers never wait on Supabase.
+    const query = supabase
       .from(table)
       .select("title, excerpt, cover_image_url")
       .eq("id", id)
       .single();
+    const timeout = new Promise<{ data: null }>((resolve) =>
+      setTimeout(() => resolve({ data: null }), 1200),
+    );
+    const { data } = (await Promise.race([query, timeout])) as { data: any };
     if (data) {
       title = data.title || title;
       description = data.excerpt || description;
@@ -266,7 +271,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const html = buildHtml({ title, description, image, url: redirectUrl });
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  // Cache HTML briefly so crawlers re-fetch reasonably; allow CDN revalidation.
-  res.setHeader("Cache-Control", "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400");
+  // Cache HTML so crawlers get instant responses on repeat fetches.
+  res.setHeader("Cache-Control", "public, max-age=600, s-maxage=86400, stale-while-revalidate=604800");
   return res.status(200).send(html);
+
 }
