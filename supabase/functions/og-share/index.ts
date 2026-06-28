@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-const SITE_URL = "https://almonhna.sa";
+const SITE_URL = "https://www.almonhna.sa";
 const SITE_NAME = "المُنحنى";
 const FALLBACK_IMAGE = `${SITE_URL}/Monhanalogowithbackground.png`;
 
@@ -20,12 +20,22 @@ function normalizeImage(raw?: string | null): string {
   try {
     const u = new URL(url);
     u.search = "";
-    u.pathname = u.pathname.replace("/storage/v1/object/sign/", "/storage/v1/object/public/");
+    u.pathname = u.pathname
+      .replace("/storage/v1/object/sign/", "/storage/v1/object/public/")
+      .replace("/storage/v1/render/image/public/", "/storage/v1/object/public/");
+    if (u.pathname.startsWith("/storage/v1/object/public/")) {
+      u.pathname = u.pathname.replace(
+        "/storage/v1/object/public/",
+        "/storage/v1/render/image/public/",
+      );
+      u.search = "?width=1200&height=630&resize=cover&quality=75";
+    }
     return u.toString();
   } catch {
     return FALLBACK_IMAGE;
   }
 }
+
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);

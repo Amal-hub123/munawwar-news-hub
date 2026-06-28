@@ -141,7 +141,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from '@supabase/supabase-js';
 
-const SITE_URL = "https://almonhna.sa";
+const SITE_URL = "https://www.almonhna.sa";
 const SITE_NAME = "المُنحنى";
 const FALLBACK_IMAGE = `${SITE_URL}/Monhanalogowithbackground.png`;
 
@@ -151,26 +151,37 @@ const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUz
 const escape = (s: string) =>
   (s || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-// Make sure the image URL is a direct, public, non-signed URL.
-// - strips query strings (removes signed-URL tokens)
+// Normalize + transform image URL:
+// - strips signed-URL tokens
 // - converts signed paths to public paths
+// - for Supabase Storage images, uses the render/image endpoint to deliver
+//   a compressed 1200x630 JPEG (well under 300KB) optimized for OG crawlers
 // - falls back to default OG image if unusable
 function normalizeImage(raw?: string | null): string {
   if (!raw || typeof raw !== "string") return FALLBACK_IMAGE;
-  let url = raw.trim();
-  if (!url) return FALLBACK_IMAGE;
-  if (!/^https?:\/\//i.test(url)) return FALLBACK_IMAGE;
+  const url = raw.trim();
+  if (!url || !/^https?:\/\//i.test(url)) return FALLBACK_IMAGE;
   try {
     const u = new URL(url);
-    // drop any token/query params (signed URLs)
     u.search = "";
-    // convert "/storage/v1/object/sign/..." to "/storage/v1/object/public/..."
-    u.pathname = u.pathname.replace("/storage/v1/object/sign/", "/storage/v1/object/public/");
+    u.pathname = u.pathname
+      .replace("/storage/v1/object/sign/", "/storage/v1/object/public/")
+      .replace("/storage/v1/render/image/public/", "/storage/v1/object/public/");
+    // If it's a Supabase Storage public object, switch to the on-the-fly
+    // image transformer so WhatsApp/Facebook always receive a small, fast image.
+    if (u.pathname.startsWith("/storage/v1/object/public/")) {
+      u.pathname = u.pathname.replace(
+        "/storage/v1/object/public/",
+        "/storage/v1/render/image/public/",
+      );
+      u.search = "?width=1200&height=630&resize=cover&quality=75";
+    }
     return u.toString();
   } catch {
     return FALLBACK_IMAGE;
   }
 }
+
 
 function buildHtml(opts: {
   title: string;
@@ -238,11 +249,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   try {
     const supabase = createClient(supabaseUrl, supabaseKey);
-    const { data } = await supabase
+    // Hard 1.2s timeout so WhatsApp/Facebook crawlers never wait on Supabase.
+    const query = supabase
       .from(table)
       .select("title, excerpt, cover_image_url")
       .eq("id", id)
       .single();
+    const timeout = new Promise<{ data: null }>((resolve) =>
+      setTimeout(() => resolve({ data: null }), 1200),
+    );
+    const { data } = (await Promise.race([query, timeout])) as { data: any };
     if (data) {
       title = data.title || title;
       description = data.excerpt || description;
@@ -255,7 +271,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const html = buildHtml({ title, description, image, url: redirectUrl });
 
   res.setHeader("Content-Type", "text/html; charset=utf-8");
-  // Cache HTML briefly so crawlers re-fetch reasonably; allow CDN revalidation.
-  res.setHeader("Cache-Control", "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400");
+  // Cache HTML so crawlers get instant responses on repeat fetches.
+  res.setHeader("Cache-Control", "public, max-age=600, s-maxage=86400, stale-while-revalidate=604800");
   return res.status(200).send(html);
+
 }
