@@ -156,43 +156,90 @@ All colors MUST be HSL.
     @apply bg-background text-foreground;
     font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     direction: rtl;
-        background-color: #f6f4ee !important;
   }
 
   html {
     direction: rtl;
+  }
+
+  /* ==== Light theme surfaces ==== */
+  html:not(.dark),
+  html:not(.dark) body,
+  html:not(.dark) .bg-background,
+  html:not(.dark) .bg-card,
+  html:not(.dark) .bg-card1 {
     background-color: #f6f4ee !important;
   }
-  
-  .bg-background{
-    background-color: #f6f4ee !important;
-}
-  .bg-card{
-    background-color: #f6f4ee !important;
-}
-  .bg-card1{
-    background-color: #f6f4ee !important;
-    border-radius:30px !important;
-}
-  .bg-primary ,.bg-secondary{
-     background-color:  #00343a  !important;
-    color : #f6f4ee !important;
+
+  .bg-card1 {
+    border-radius: 30px !important;
   }
-  .border-primary{
-    border-color:#00343a !important;
+
+  html:not(.dark) .bg-primary,
+  html:not(.dark) .bg-secondary {
+    background-color: #00343a !important;
+    color: #f6f4ee !important;
+  }
+
+  html:not(.dark) .border-primary {
+    border-color: #00343a !important;
+  }
+
+  /* ==== Dark theme surfaces ==== */
+  .dark,
+  .dark body {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  .dark .bg-background {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  .dark .bg-card,
+  .dark .bg-card1 {
+    background-color: hsl(var(--card)) !important;
+  }
+
+  .dark .bg-primary,
+  .dark .bg-secondary {
+    background-color: hsl(var(--secondary)) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  .dark .border-primary {
+    border-color: hsl(var(--primary)) !important;
+  }
+
+  /* ==== Reusable themed helpers (replace hardcoded inline colors) ==== */
+  .surface-alt {
+    background-color: #f1ede8;
+  }
+
+  .dark .surface-alt {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+  }
+
+  .text-brand {
+    color: #00343a;
+  }
+
+  .dark .text-brand {
+    color: hsl(var(--primary));
   }
 
   /* Force site font on all article/news content rendered from editor */
-  /* .site-content,
+  .site-content,
   .site-content * {
-    font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-  } */
-  /* Force site font on all article/news content rendered from editor */
-.site-content,
-.site-content * {
-  font-family: 'IBM Plex Sans Arabic' !important;
-  font-weight: 400 !important;
-}
+    font-family: 'IBM Plex Sans Arabic' !important;
+    font-weight: 400 !important;
+  }
+
+  .dark .site-content,
+  .dark .site-content * {
+    color: hsl(var(--foreground)) !important;
+    background-color: transparent !important;
+  }
 
   /* Preserve bold for headings and strong elements */
   .site-content h1,
@@ -206,3 +253,4 @@ All colors MUST be HSL.
     font-weight: 700 !important;
   }
 }
+

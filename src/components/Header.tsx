@@ -18,6 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import finalLogo1 from "@/assets/finalLogo1.png";
 import finalLogo from "@/assets/logo.svg";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 export const Header = () => {
@@ -132,7 +133,7 @@ export const Header = () => {
   ];
 
   return (
-    <header style={{backgroundColor:'#f6f4ee'}} className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
+    <header className="bg-card border-b border-border sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-20">
           {/* Logo and Navigation */}
@@ -172,6 +173,7 @@ export const Header = () => {
           
           {/* Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -226,6 +228,9 @@ export const Header = () => {
           </div>
 
           {/* Mobile Menu */}
+          <div className="flex items-center md:hidden">
+            <ThemeToggle />
+          </div>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">

@@ -74,7 +74,7 @@ const ProductDetail = () => {
       <Header />
       
       <div className="container mx-auto px-8 py-8">
-       <div className=" rounded-lg p-3 mb-3 shadow-md" style={{backgroundColor:'#f1ede8',borderRadius:'20px'}}>
+       <div className="surface-alt rounded-lg p-3 mb-3 shadow-md" style={{borderRadius:'20px'}}>
   <div className="flex flex-row md:flex-row items-start md:items-center gap-4 md:gap-8">
     {/* الصورة */}
     <img
@@ -84,7 +84,7 @@ const ProductDetail = () => {
     />
 
     {/* النص */}
-    <div className="flex-1 text-right w-full" style={{color :'#00343a'}}>
+    <div className="flex-1 text-right w-full text-brand">
       <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-4">{product.name}</h1>
       {product.description && (
         <p className="text-sm md:text-lg ">{product.description}</p>
