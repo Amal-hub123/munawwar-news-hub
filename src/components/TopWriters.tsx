@@ -127,7 +127,7 @@ export const TopWriters = () => {
                   href={writer.twitter_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ marginTop: '2.2px', color: '#00343a' }}
+                  style={{ marginTop: '2.2px' }}
                   className="hover:text-accent transition-colors"
                 >
                   <X className="h-5 w-5" />
@@ -138,7 +138,7 @@ export const TopWriters = () => {
                   href={writer.linkedin_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{ color: '#00343a' }}
+                  
                   className="hover:text-accent transition-colors"
                 >
                   <Linkedin className="h-5 w-5" />

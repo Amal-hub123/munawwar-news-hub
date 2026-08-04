@@ -78,14 +78,14 @@ const Index = () => {
       </section>
 
         {/* Products Section */}
-        <div className="rounded-xl" id="products-section" style={{backgroundColor:'#f1ede8'}}>
+        <div className="rounded-xl surface-alt" id="products-section">
           <ProductsSlider />
         </div>
 
         {/* Latest Articles */}
  <section className="py-12  bg-muted/30">
       <div className="container " style={{paddingRight:'1rem'}}>
-        <h2 className="text-3xl font-bold mb-8 text-start text-primary" style={{color :'#00343a'}}>أحدث المقالات </h2>
+        <h2 className="text-3xl font-bold mb-8 text-start text-brand">أحدث المقالات </h2>
         </div>
           
           {loading ? (
