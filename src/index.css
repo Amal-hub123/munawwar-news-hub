@@ -154,7 +154,7 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Greta Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     direction: rtl;
   }
 
@@ -228,10 +228,9 @@ All colors MUST be HSL.
     color: hsl(var(--primary));
   }
 
-  /* Force site font on all article/news content rendered from editor */
+  /* Article/news content rendered from editor inherits the site font */
   .site-content,
   .site-content * {
-    font-family: 'IBM Plex Sans Arabic' !important;
     font-weight: 400 !important;
   }
 

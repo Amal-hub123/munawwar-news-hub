@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ['Greta Arabic', 'sans-serif'],
+        sans: ['IBM Plex Sans Arabic', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

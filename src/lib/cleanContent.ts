@@ -1,6 +1,6 @@
 /**
  * Removes font-family declarations from HTML content
- * so the site's default font (Greta Arabic) is always used.
+ * so the site's default font (IBM Plex Sans Arabic) is always used.
  * Handles: inline style attributes (double/single quotes) and <font face=""> tags.
  */
 export function cleanContentFont(html: string): string {
