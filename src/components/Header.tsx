@@ -18,6 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import finalLogo1 from "@/assets/finalLogo1.png";
 import finalLogo from "@/assets/logo.svg";
+import logoDark from "@/assets/logo-dark.png.asset.json";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
