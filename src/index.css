@@ -226,6 +226,12 @@ All colors MUST be HSL.
     font-weight: 400 !important;
   }
 
+  .site-content, .site-content * 
+  { 
+    font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+  }
+
+  
   .dark .site-content,
   .dark .site-content * {
     color: hsl(var(--foreground)) !important;
@@ -260,6 +266,8 @@ All colors MUST be HSL.
     line-height: 1.9;
   }
 
+
+  
   .article-body *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
     font-size: inherit !important;
     line-height: 1.9 !important;
