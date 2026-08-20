@@ -83,7 +83,7 @@ const Index = () => {
         </div>
 
         {/* Latest Articles */}
- <section className="py-12  bg-muted/30 rounded-xl">
+ <section className="py-7  bg-muted/30 rounded-xl">
       <div className="container " style={{paddingRight:'1rem'}}>
         <h2 className="text-3xl font-bold mb-8 text-start text-brand">أحدث المقالات </h2>
         </div>
