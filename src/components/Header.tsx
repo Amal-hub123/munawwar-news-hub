@@ -18,6 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import finalLogo1 from "@/assets/finalLogo1.png";
 import finalLogo from "@/assets/logo.svg";
+import logoDark from "@/assets/logo-dark.png.asset.json";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -140,7 +141,8 @@ export const Header = () => {
           <div className="flex items-center gap-8">
             <Link onClick={handleLogoClick}
               to="/" className="flex items-center gap-3">
-              <img src={finalLogo} alt="المُنحنى" className="h-14 w-14 rounded-full object-cover" style={{width: '11rem'}} />
+              <img src={finalLogo} alt="المُنحنى" className="h-14 w-14 rounded-full object-cover dark:hidden" style={{width: '11rem'}} />
+              <img src={logoDark.url} alt="المُنحنى" className="h-14 w-14 rounded-full object-contain hidden dark:block" style={{width: '11rem'}} />
               
             </Link>
 
