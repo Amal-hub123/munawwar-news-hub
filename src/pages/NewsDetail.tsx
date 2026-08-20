@@ -6,12 +6,14 @@ import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Eye } from "lucide-react";
 import { ShareButton } from "@/components/ShareDialog";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
+import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
 
 const NewsDetail = () => {
   const { id } = useParams();
+  const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
 
   const { data: news, isLoading } = useQuery({
     queryKey: ["news", id],
@@ -149,7 +151,14 @@ const NewsDetail = () => {
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6" style={{textAlign: "justify"}}>{news.excerpt}</p>
-          <div className="site-content" dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }} />
+          <div className="flex justify-end mb-3">
+            <TextZoomControl value={fontSize} onChange={setFontSize} />
+          </div>
+          <div
+            className="site-content article-body article-surface"
+            style={{ padding: "5px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
+            dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }}
+          />
         </div>
       </article>
     </div>

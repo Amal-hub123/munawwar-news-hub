@@ -5,16 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Eye, Share2 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/ShareDialog";
 import { ArticleCard } from "@/components/ArticleCard";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
+import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
 
 
 
 const ArticleDetail = () => {
   const { id } = useParams();
+  const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
 
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
