@@ -5,16 +5,18 @@ import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Eye, Share2 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ShareButton } from "@/components/ShareDialog";
 import { ArticleCard } from "@/components/ArticleCard";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
+import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
 
 
 
 const ArticleDetail = () => {
   const { id } = useParams();
+  const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
 
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
@@ -247,12 +249,16 @@ const ArticleDetail = () => {
         
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6"  style={{textAlign: "justify"}}>{article.excerpt}</p>
+          <div className="flex justify-end mb-3">
+            <TextZoomControl value={fontSize} onChange={setFontSize} />
+          </div>
           <div
-            className="site-content  [&_*]:!text-gray-900 [&_h1]:!text-3xl [&_h2]:!text-2xl [&_h3]:!text-xl [&_*]:!text-[17px] [&_*]:!leading-[1.9]"
-            style={{padding:"5px", borderRadius: "20px" , backgroundColor:"#f5f0e1d1"}}
+            className="site-content article-body article-surface"
+            style={{ padding: "5px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
         </div>
+
       </article>
 
       {relatedArticles && relatedArticles.length > 0 && (

@@ -243,5 +243,33 @@ All colors MUST be HSL.
   .site-content b {
     font-weight: 700 !important;
   }
+
+  /* ==== Article reading surface ==== */
+  .article-surface {
+    background-color: #f5f0e1d1;
+  }
+
+  .dark .article-surface {
+    background-color: hsl(var(--card));
+  }
+
+  /* ==== Adjustable article text size ==== */
+  .article-body {
+    font-size: var(--article-font-size, 17px);
+    line-height: 1.9;
+  }
+
+  .article-body *:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) {
+    font-size: inherit !important;
+    line-height: 1.9 !important;
+  }
+
+  .article-body h1 { font-size: 1.8em !important; }
+  .article-body h2 { font-size: 1.5em !important; }
+  .article-body h3 { font-size: 1.25em !important; }
+  .article-body h4,
+  .article-body h5,
+  .article-body h6 { font-size: 1.1em !important; }
 }
+
 
