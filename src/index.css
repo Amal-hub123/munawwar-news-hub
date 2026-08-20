@@ -249,8 +249,9 @@ All colors MUST be HSL.
     background-color: #f5f0e1d1;
   }
 
-  .dark .article-surface {
-    background-color: hsl(var(--card));
+  .dark .article-surface,
+  .dark .bg-card.article-surface {
+    background-color: hsl(192 18% 19%) !important;
   }
 
   /* ==== Adjustable article text size ==== */
