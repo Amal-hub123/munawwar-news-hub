@@ -78,7 +78,7 @@ const Index = () => {
       </section>
 
         {/* Products Section */}
-        <div className="rounded-xl surface-alt mb-10" id="products-section">
+        <div className="rounded-xl surface-alt mb-7" id="products-section">
           <ProductsSlider />
         </div>
 
