@@ -163,6 +163,13 @@ All colors MUST be HSL.
     background-color: hsl(var(--background)) !important;
   }
 
+
+  html:not(.dark) .bg-background,
+ {
+    background-color: hsl(43deg 31% 95% / 61%) !important;
+  }
+
+
   .bg-card1 {
     border-radius: 30px !important;
   }
