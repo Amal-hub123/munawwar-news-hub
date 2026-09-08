@@ -81,8 +81,16 @@ export const AddEditArticle = () => {
           content: article.content,
           product_id: article.product_id || "",
         });
+        const saved = await loadArticleExtras(id);
+        setExtras({ ...saved, sequencePoints: parseSequencePoints((article as any).sequence_points) });
       }
     }
+  };
+
+  const insertMarker = (anchorKey: string, question: string) => {
+    const marker = `<div class="knowledge-link-block" data-knowledge-link="${anchorKey}">${question || "وصلة معرفية"}</div>`;
+    setFormData((prev) => ({ ...prev, content: `${prev.content || ""}${marker}` }));
+    toast({ title: "تمت الإضافة", description: "أُدرجت الوصلة في نهاية المحتوى، يمكنك تحريكها داخل المحرر" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -97,11 +105,14 @@ export const AddEditArticle = () => {
       return;
     }
 
+    const sequence = extras.sequencePoints.map((p) => p.trim()).filter(Boolean);
+
     const articleData = {
       ...formData,
       product_id: formData.product_id || null,
       author_id: profileId,
       status: "pending" as "pending",
+      sequence_points: sequence.length >= 3 ? sequence.slice(0, 5) : [],
     };
 
     if (id) {
@@ -119,12 +130,18 @@ export const AddEditArticle = () => {
         return;
       }
 
+      await saveArticleExtras(id, extras);
+
       toast({
         title: "تم التحديث",
         description: "تم تحديث المقال بنجاح",
       });
     } else {
-      const { error } = await supabase.from("articles").insert(articleData);
+      const { data: inserted, error } = await supabase
+        .from("articles")
+        .insert(articleData)
+        .select("id")
+        .single();
 
       if (error) {
         toast({
@@ -135,6 +152,8 @@ export const AddEditArticle = () => {
         return;
       }
 
+      if (inserted?.id) await saveArticleExtras(inserted.id, extras);
+
       toast({
         title: "تم الإضافة",
         description: "تم إضافة المقال بنجاح وسيتم مراجعته من قبل الإدارة",
@@ -143,6 +162,7 @@ export const AddEditArticle = () => {
 
     navigate("/writer/articles");
   };
+
 
   return (
     <div className="space-y-6">
