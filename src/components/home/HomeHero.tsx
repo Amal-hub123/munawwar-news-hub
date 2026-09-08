@@ -64,13 +64,13 @@ export const HomeHero = () => {
   return (
     <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="editorial-hero">
       <div className="hero-ambient-line" aria-hidden="true" />
-      <div className="container relative z-10 mx-auto grid min-h-[calc(100svh-7rem)] items-center gap-8 px-6 pb-24 pt-12 lg:grid-cols-12 lg:gap-12 lg:py-16">
+      <div className="container relative z-10 mx-auto grid min-h-[min(70svh,40rem)] items-center gap-8 px-6 pb-16 pt-8 lg:grid-cols-12 lg:gap-12 lg:py-10">
         <div className="relative z-20 lg:col-span-7">
           <div className="mb-7 flex items-center gap-4 text-brand/70">
             <span className="h-px w-12 bg-current" />
             <span className="text-xs font-semibold">تجربة معرفية تفاعلية</span>
           </div>
-          <div className="relative min-h-[15rem] sm:min-h-[18rem] lg:min-h-[25rem]">
+          <div className="relative min-h-[9rem] sm:min-h-[10rem] lg:min-h-[13rem]">
             {PHRASES.map((phrase, phraseIndex) => (
               <h1 key={phrase} aria-hidden={phraseIndex !== index} className={`hero-title ${phraseIndex === index ? "is-active" : ""}`}>{phrase}</h1>
             ))}
@@ -81,7 +81,7 @@ export const HomeHero = () => {
             ))}
           </div>
         </div>
-        <div key={index} className="hero-visual-enter relative z-10 h-[42vh] min-h-[330px] lg:col-span-5 lg:h-[68vh]">
+        <div key={index} className="hero-visual-enter relative z-10 h-[32vh] min-h-[240px] lg:col-span-5 lg:h-[46vh]">
           <Scene index={index} x={pointer.x} y={pointer.y} />
         </div>
       </div>
