@@ -44,7 +44,12 @@ import AdminPreviewArticle from "./pages/admin/PreviewArticle";
 import AdminPreviewNews from "./pages/admin/PreviewNews";
 import AdminEditArticle from "./pages/admin/AddEditArticle";
 import AdminEditNews from "./pages/admin/AddEditNews";
+import ManageCategories from "./pages/admin/ManageCategories";
+import ManageDailyStories from "./pages/admin/ManageDailyStories";
+import ManageAudienceQuestions from "./pages/admin/ManageAudienceQuestions";
+import ManageTimelines from "./pages/admin/ManageTimelines";
 import NotFound from "./pages/NotFound";
+
 
 
 const queryClient = new QueryClient();
@@ -83,7 +88,12 @@ const App = () => (
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
           <Route path="/admin/products/add" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
           <Route path="/admin/products/edit/:id" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
+          <Route path="/admin/categories" element={<AdminLayout><ManageCategories /></AdminLayout>} />
+          <Route path="/admin/daily-stories" element={<AdminLayout><ManageDailyStories /></AdminLayout>} />
+          <Route path="/admin/questions" element={<AdminLayout><ManageAudienceQuestions /></AdminLayout>} />
+          <Route path="/admin/timelines" element={<AdminLayout><ManageTimelines /></AdminLayout>} />
           <Route path="/admin/store" element={<AdminLayout><ManageStoreProducts /></AdminLayout>} />
+
           <Route path="/admin/store/add" element={<AdminLayout><AddEditStoreProduct /></AdminLayout>} />
           <Route path="/admin/store/edit/:id" element={<AdminLayout><AddEditStoreProduct /></AdminLayout>} />
           <Route path="/admin/store/requests" element={<AdminLayout><ManageProductRequests /></AdminLayout>} />

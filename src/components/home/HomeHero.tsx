@@ -118,7 +118,7 @@ export const HomeHero = () => {
       ref={sectionRef}
       onMouseMove={onMouseMove}
       onMouseLeave={() => setPointer({ x: 0, y: 0 })}
-      className="relative min-h-[88vh] md:min-h-[92vh] flex items-center overflow-hidden surface-alt"
+      className="relative min-h-[72vh] md:min-h-[80vh] flex items-center overflow-hidden surface-alt"
     >
       {/* ambient visual scene */}
       <div
@@ -158,13 +158,14 @@ export const HomeHero = () => {
         <button
           type="button"
           onClick={startStory}
-          className="group mt-10 md:mt-16 inline-flex flex-col items-start gap-3 text-brand"
+          className="group mt-10 md:mt-14 inline-flex flex-col items-start gap-3 text-brand"
         >
           <span className="text-lg font-semibold group-hover:opacity-80 transition-opacity">ابدأ الحكاية</span>
-          <span className="relative block h-14 w-px bg-current/40 overflow-hidden">
-            <span className="absolute inset-x-0 top-0 h-6 bg-current ambient-float" />
+          <span className="relative block h-14 w-[2px] bg-brand/25 overflow-hidden rounded-full">
+            <span className="absolute inset-x-0 top-0 h-6 bg-brand ambient-float rounded-full" />
           </span>
         </button>
+
       </div>
     </section>
   );
