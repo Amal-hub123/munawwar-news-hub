@@ -44,7 +44,12 @@ import AdminPreviewArticle from "./pages/admin/PreviewArticle";
 import AdminPreviewNews from "./pages/admin/PreviewNews";
 import AdminEditArticle from "./pages/admin/AddEditArticle";
 import AdminEditNews from "./pages/admin/AddEditNews";
+import ManageCategories from "./pages/admin/ManageCategories";
+import ManageDailyStories from "./pages/admin/ManageDailyStories";
+import ManageAudienceQuestions from "./pages/admin/ManageAudienceQuestions";
+import ManageTimelines from "./pages/admin/ManageTimelines";
 import NotFound from "./pages/NotFound";
+
 
 
 const queryClient = new QueryClient();
