@@ -218,30 +218,57 @@ const ArticleDetail = () => {
     );
   }
 
-  
+  const sequencePoints = parseSequencePoints((article as any).sequence_points);
+  const minutes = readingTimeMinutes(article.content || "");
+
   return (
     <div className="min-h-screen bg-background">
       <TopBar />
       <Header />
-      
+
       <article className="container mx-auto px-4 py-8 max-w-4xl">
-        <img
-          src={article.cover_image_url}
-          alt={article.title}
-          className="w-full h-96 object-cover  mb-6"
-          style ={{borderRadius: "20px"}}
-        />
+        {categories && categories.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {categories.map((c: any) => (
+              <Link
+                key={c.id}
+                to={`/articles?category=${encodeURIComponent(c.slug)}`}
+                className="text-xs px-3 py-1 rounded-full bg-primary/15 text-brand hover:bg-primary/25 transition-colors"
+              >
+                {c.name}
+              </Link>
+            ))}
+          </div>
+        )}
 
-        <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
+        <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
-        <div className="flex items-center gap-6 text-muted-foreground mb-6 flex-wrap">
+        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6" style={{ textAlign: "justify" }}>
+          {article.excerpt}
+        </p>
+
+        <div className="flex items-center gap-5 text-muted-foreground mb-6 flex-wrap">
+          <Link to={`/writers/${article.profiles.id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            {article.profiles.photo_url ? (
+              <img src={article.profiles.photo_url} alt={article.profiles.name} className="w-9 h-9 rounded-full object-cover" />
+            ) : (
+              <span className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
+                <User className="w-4 h-4 text-primary" />
+              </span>
+            )}
+            <span className="font-medium text-foreground">{article.profiles.name}</span>
+          </Link>
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4" />
-            <span>{new Date(article.created_at).toLocaleDateString("ar-EG", {
+            <span>{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", {
               year: "numeric",
               month: "long",
               day: "numeric"
             })}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            <span>{minutes} دقيقة قراءة</span>
           </div>
           {article.products && (
             <Link
@@ -274,44 +301,39 @@ const ArticleDetail = () => {
           />
         </div>
 
-        <Link
-          to={`/writers/${article.profiles.id}`}
-          className="flex items-center gap-3 mb-8 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
-        >
-          {article.profiles.photo_url ? (
-            <img
-              src={article.profiles.photo_url}
-              alt={article.profiles.name}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="w-6 h-6 text-primary" />
-            </div>
-          )}
-          <div>
-            <p className="font-semibold">{article.profiles.name}</p>
-            {article.profiles.bio && (
-              <p className="text-sm text-muted-foreground line-clamp-1">
-                {article.profiles.bio}
-              </p>
-            )}
-          </div>
-        </Link>
-        
+        <div className="overflow-hidden zoom-media mb-6" style={{ borderRadius: "20px" }}>
+          <img
+            src={article.cover_image_url}
+            alt={article.title}
+            className="w-full h-72 md:h-96 object-cover"
+          />
+        </div>
+
+        <ArticleSequence points={sequencePoints} contentRef={contentRef} />
+
         <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-muted-foreground mb-6"  style={{textAlign: "justify"}}>{article.excerpt}</p>
           <div className="flex justify-end mb-3">
             <TextZoomControl value={fontSize} onChange={setFontSize} />
           </div>
-          <div
-            className="site-content article-body article-surface"
-            style={{ padding: "15px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
-            dangerouslySetInnerHTML={{ __html: article.content }}
+          <ArticleContent
+            html={article.content}
+            links={(knowledgeLinks || []) as any}
+            fontSize={fontSize}
+            contentRef={contentRef}
           />
         </div>
 
       </article>
+
+      <StoryContinues items={(continuations || []) as any} />
+
+      <AuthorCard
+        id={article.profiles.id}
+        name={article.profiles.name}
+        photo={article.profiles.photo_url}
+        bio={article.profiles.bio}
+      />
+
 
       {relatedArticles && relatedArticles.length > 0 && (
         <section className="container mx-auto px-4 pb-12 max-w-4xl">
