@@ -239,6 +239,17 @@ export const AddEditArticle = () => {
               />
             </div>
 
+            <div className="pt-4 border-t border-border">
+              <ArticleExtras
+                value={extras}
+                onChange={setExtras}
+                currentArticleId={id}
+                onInsertMarker={insertMarker}
+              />
+            </div>
+
+
+
             <div className="flex gap-2 justify-end">
               <Button type="button" variant="outline" onClick={() => navigate("/writer/articles")}>
                 إلغاء
