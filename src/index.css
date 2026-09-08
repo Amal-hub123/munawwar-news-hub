@@ -379,11 +379,11 @@ All colors MUST be HSL.
 .hero-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 1.1s var(--editorial-ease); will-change: transform; }
 .hero-photo-wash { position: absolute; inset: 0; background: linear-gradient(90deg, hsl(var(--background) / .12) 0%, hsl(var(--background) / .68) 46%, hsl(var(--background) / .96) 100%); }
 .hero-fine-line { position: absolute; z-index: 2; inset-inline: -5%; top: 63%; height: 16%; border-top: 1px solid hsl(var(--foreground) / .2); border-radius: 50%; transform: rotate(-2deg); }
-.hero-copy { width: min(47rem, 62vw); margin-inline-start: auto; }
+.hero-copy { width: min(50rem, 64vw); margin-inline-start: auto; }
 .hero-eyebrow { display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; color: hsl(var(--foreground) / .72); font-size: .78rem; font-weight: 600; }
 .hero-eyebrow span { width: 3rem; height: 1px; background: hsl(var(--primary)); }
-.hero-phrases { position: relative; min-height: 27rem; }
-.hero-title { position: absolute; inset: 0; max-width: 12ch; color: hsl(var(--foreground)); font-size: clamp(3rem, 6vw, 6.6rem); line-height: 1.25; opacity: 0; transform: translateY(28px); clip-path: inset(0 0 100% 0); transition: opacity 1.1s ease, transform 1.15s var(--editorial-ease), clip-path 1.15s var(--editorial-ease); }
+.hero-phrases { position: relative; min-height: 33rem; }
+.hero-title { position: absolute; inset: 0; max-width: 13ch; color: hsl(var(--foreground)); font-size: clamp(3rem, 5.4vw, 5.9rem); line-height: 1.25; opacity: 0; transform: translateY(28px); clip-path: inset(0 0 100% 0); transition: opacity 1.1s ease, transform 1.15s var(--editorial-ease), clip-path 1.15s var(--editorial-ease); }
 .hero-title em { color: hsl(var(--primary)); font-style: normal; }
 .hero-title.is-active { opacity: 1; transform: none; clip-path: inset(0); }
 .hero-pagination { display: flex; align-items: center; gap: .6rem; margin-top: 1rem; }
