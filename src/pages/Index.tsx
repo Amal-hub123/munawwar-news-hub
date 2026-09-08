@@ -14,14 +14,14 @@ import Reveal from "@/components/motion/Reveal";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-clip">
       <TopBar />
       <Header />
 
       <main>
         <HomeHero />
 
-        <div id="home-flow">
+        <div id="home-flow" className="editorial-home">
           <DailyStory />
           <ColumnsTrail />
           <LatestArticles />
@@ -29,9 +29,16 @@ const Index = () => {
           <HomeTimelines />
 
           {/* خدماتنا */}
-          <section className="py-14 md:py-20">
+          <section className="editorial-services-section py-16 md:py-24">
             <div className="container mx-auto px-6">
-              <Reveal>
+              <Reveal variant="clip">
+                <div className="mb-8 md:mb-10 flex items-end justify-between gap-5">
+                  <div>
+                    <p className="editorial-kicker">نافذة أخرى</p>
+                    <h2 className="editorial-heading mt-2">خدماتنا</h2>
+                  </div>
+                  <span className="editorial-index">٠٦</span>
+                </div>
                 <NewsSlider />
               </Reveal>
             </div>

@@ -7,13 +7,14 @@ interface RevealProps {
   delay?: number;
   as?: ElementType;
   once?: boolean;
+  variant?: "rise" | "clip" | "scale" | "side";
 }
 
 /**
  * Light scroll-reveal wrapper. Uses IntersectionObserver only (no libraries),
  * and respects prefers-reduced-motion through the CSS layer.
  */
-export const Reveal = ({ children, className, delay = 0, as, once = true }: RevealProps) => {
+export const Reveal = ({ children, className, delay = 0, as, once = true, variant = "rise" }: RevealProps) => {
   const Tag = (as || "div") as ElementType;
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -45,7 +46,7 @@ export const Reveal = ({ children, className, delay = 0, as, once = true }: Reve
   return (
     <Tag
       ref={ref as any}
-      className={cn("reveal", visible && "is-visible", className)}
+      className={cn("reveal", `reveal-${variant}`, visible && "is-visible", className)}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}
