@@ -64,10 +64,10 @@ export const HomeHero = () => {
         <path className="wave-front" d="M0 252 C300 195 520 300 800 245 C1070 195 1260 262 1440 218 L1440 320 L0 320 Z" />
       </svg>
 
-      <button type="button" onClick={start} className="calm-hero-cue" aria-label="انزل لتقرأ الحكاية">
+      {/* <button type="button" onClick={start} className="calm-hero-cue" aria-label="انزل لتقرأ الحكاية">
         <span>انزل لتقرأ الحكاية</span>
         <ChevronDown className="h-5 w-5" />
-      </button>
+      </button> */}
     </section>
   );
 };
