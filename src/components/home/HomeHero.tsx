@@ -1,56 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowDown } from "lucide-react";
+import heroImage from "@/assets/home-editorial-hero.jpg";
 
 const PHRASES = [
-  "الاقتصاد ليس مجرد رقم، بل حكاية مجتمع.",
-  "الإنسان يعيش نتيجة الرقم قبل أن يعرفه.",
-  "ماذا لو بدأنا من الإنسان؟",
+  <>الاقتصاد ليس مُجرّد رقم، بل حكاية <em>مُجتمع</em>، نرويها بسرديّة مُختلفة.</>,
+  <>الإنسان يعيش نتيجة <em>الرقم</em> قبل أن يعرفه.</>,
+  <>ماذا لو بدأنا من <em>الإنسان؟</em></>,
 ];
-
-const Scene = ({ index, x, y }: { index: number; x: number; y: number }) => {
-  const move = (depth: number) => ({ transform: `translate3d(${x * depth}px, ${y * depth}px, 0)` });
-  return (
-    <div className="hero-scene" aria-hidden="true">
-      <div className="hero-scene-disc" style={move(9)} />
-      <svg viewBox="0 0 620 720" className="absolute inset-0 h-full w-full overflow-visible">
-        {index === 0 && (
-          <>
-            <g className="hero-lines" style={move(17)}>
-              {[0, 1, 2, 3, 4].map((i) => <path key={i} d={`M-30 ${570 - i * 70} C130 ${400 - i * 28} 330 ${650 - i * 62} 680 ${240 - i * 28}`} />)}
-            </g>
-            <g style={move(28)}><circle cx="425" cy="238" r="74" className="hero-solid" /><circle cx="425" cy="238" r="13" className="hero-gold ambient-pulse-slow" /></g>
-          </>
-        )}
-        {index === 1 && (
-          <>
-            <g className="hero-bars" style={move(14)}>{Array.from({ length: 8 }).map((_, i) => <rect key={i} x={75 + i * 61} y={490 - (i % 4) * 65} width="30" height={90 + (i % 4) * 65} rx="15" />)}</g>
-            <path className="hero-focus-line" style={move(24)} d="M72 530 C220 440 315 210 560 174" />
-            <circle cx="344" cy="290" r="55" className="hero-ring" style={move(30)} />
-          </>
-        )}
-        {index === 2 && (
-          <>
-            <g className="hero-orbits" style={move(14)}>{[90, 145, 205, 270].map((r) => <circle key={r} cx="315" cy="350" r={r} />)}</g>
-            <path className="hero-focus-line" style={move(26)} d="M28 502 C220 525 250 315 365 342 C470 367 485 190 650 166" />
-            <circle cx="315" cy="350" r="18" className="hero-gold ambient-pulse-slow" style={move(34)} />
-          </>
-        )}
-      </svg>
-      <span className="hero-scene-number">٠{index + 1}</span>
-    </div>
-  );
-};
 
 export const HomeHero = () => {
   const [index, setIndex] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [scrollShift, setScrollShift] = useState(0);
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) return;
-    const id = window.setInterval(() => setIndex((value) => (value + 1) % PHRASES.length), 6500);
-    return () => window.clearInterval(id);
+    const phraseTimer = window.setInterval(() => setIndex((value) => (value + 1) % PHRASES.length), 6500);
+    let frame = 0;
+    const onScroll = () => {
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const height = ref.current?.offsetHeight || window.innerHeight;
+        setScrollShift(Math.min(window.scrollY / height, 1));
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.clearInterval(phraseTimer);
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
   const move = (event: React.MouseEvent) => {
@@ -60,29 +41,28 @@ export const HomeHero = () => {
   };
 
   const start = () => document.getElementById("story-of-the-day")?.scrollIntoView({ behavior: "smooth" });
+  const imageTransform = `translate3d(${pointer.x * -10}px, ${pointer.y * -7 + scrollShift * 34}px, 0) scale(${1.045 + scrollShift * 0.025})`;
 
   return (
     <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="editorial-hero">
-      <div className="hero-ambient-line" aria-hidden="true" />
-      <div className="container relative z-10 mx-auto grid min-h-[calc(100svh-7rem)] items-center gap-8 px-6 pb-24 pt-12 lg:grid-cols-12 lg:gap-12 lg:py-16">
-        <div className="relative z-20 lg:col-span-7">
-          <div className="mb-7 flex items-center gap-4 text-brand/70">
-            <span className="h-px w-12 bg-current" />
-            <span className="text-xs font-semibold">تجربة معرفية تفاعلية</span>
-          </div>
-          <div className="relative min-h-[15rem] sm:min-h-[18rem] lg:min-h-[25rem]">
+      <div className="hero-photo" aria-hidden="true">
+        <img src={heroImage} alt="" width={1920} height={1080} style={{ transform: imageTransform }} />
+      </div>
+      <div className="hero-photo-wash" aria-hidden="true" />
+      <div className="hero-fine-line" aria-hidden="true" />
+      <div className="container relative z-10 mx-auto flex min-h-[calc(100svh-7rem)] items-center px-6 pb-28 pt-16">
+        <div className="hero-copy">
+          <div className="hero-eyebrow"><span /><p>وراء الأرقام، مُجتمع</p></div>
+          <div className="hero-phrases">
             {PHRASES.map((phrase, phraseIndex) => (
-              <h1 key={phrase} aria-hidden={phraseIndex !== index} className={`hero-title ${phraseIndex === index ? "is-active" : ""}`}>{phrase}</h1>
+              <h1 key={phraseIndex} aria-hidden={phraseIndex !== index} className={`hero-title ${phraseIndex === index ? "is-active" : ""}`}>{phrase}</h1>
             ))}
           </div>
-          <div className="mt-4 flex items-center gap-3" aria-label="اختيار العبارة">
+          <div className="hero-pagination" aria-label="اختيار العبارة">
             {PHRASES.map((_, dotIndex) => (
               <button key={dotIndex} type="button" aria-label={`العبارة ${dotIndex + 1}`} onClick={() => setIndex(dotIndex)} className={`hero-dot ${dotIndex === index ? "is-active" : ""}`} />
             ))}
           </div>
-        </div>
-        <div key={index} className="hero-visual-enter relative z-10 h-[42vh] min-h-[330px] lg:col-span-5 lg:h-[68vh]">
-          <Scene index={index} x={pointer.x} y={pointer.y} />
         </div>
       </div>
       <button type="button" onClick={start} className="hero-scroll-cue" aria-label="ابدأ الحكاية">
