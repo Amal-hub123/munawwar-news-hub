@@ -375,8 +375,8 @@ All colors MUST be HSL.
 
 .calm-hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: min(88svh, 44rem); padding: 5rem 1.5rem 9rem; background: hsl(var(--background)); }
 .calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
-.calm-hero-orbs .orb-gold { top: -5rem; inset-inline-end: 3rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
-.calm-hero-orbs .orb-teal { top: -8rem; inset-inline-end: 7rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
+.calm-hero-orbs .orb-gold { top: -3rem; right: 5rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
+.calm-hero-orbs .orb-teal { top: -6rem; right: 1.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
 .calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
 .calm-hero-stage { position: relative; z-index: 4; display: grid; width: min(56rem, 100%); place-items: center; }
 .calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: center; color: hsl(var(--foreground)); font-size: clamp(1.35rem, 2.9vw, 2.35rem); font-weight: 700; line-height: 1.85; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
