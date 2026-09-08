@@ -1,45 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 
-const PHRASES = [
-  "الاقتصاد ليس مجرد رقم، بل حكاية مجتمع.",
-  "الإنسان يعيش نتيجة الرقم قبل أن يعرفه.",
-  "ماذا لو بدأنا من الإنسان؟",
+interface Phrase { lead: string; mark: string; mid: string; mark2?: string; tail: string; }
+
+const PHRASES: Phrase[] = [
+  { lead: "", mark: "الاقتصاد", mid: " ليس مُجرّد رقم، بل حكاية ", mark2: "مُجتمع", tail: "، نرويها بسرديّة مُختلفة." },
+  { lead: "", mark: "الإنسان", mid: " يعيش نتيجة ", mark2: "الرقم", tail: " قبل أن يعرفه." },
+  { lead: "ماذا لو بدأنا من ", mark: "الإنسان", mid: "", tail: "؟" },
 ];
-
-const Scene = ({ index, x, y }: { index: number; x: number; y: number }) => {
-  const move = (depth: number) => ({ transform: `translate3d(${x * depth}px, ${y * depth}px, 0)` });
-  return (
-    <div className="hero-scene" aria-hidden="true">
-      <div className="hero-scene-disc" style={move(9)} />
-      <svg viewBox="0 0 620 720" className="absolute inset-0 h-full w-full overflow-visible">
-        {index === 0 && (
-          <>
-            <g className="hero-lines" style={move(17)}>
-              {[0, 1, 2, 3, 4].map((i) => <path key={i} d={`M-30 ${570 - i * 70} C130 ${400 - i * 28} 330 ${650 - i * 62} 680 ${240 - i * 28}`} />)}
-            </g>
-            <g style={move(28)}><circle cx="425" cy="238" r="74" className="hero-solid" /><circle cx="425" cy="238" r="13" className="hero-gold ambient-pulse-slow" /></g>
-          </>
-        )}
-        {index === 1 && (
-          <>
-            <g className="hero-bars" style={move(14)}>{Array.from({ length: 8 }).map((_, i) => <rect key={i} x={75 + i * 61} y={490 - (i % 4) * 65} width="30" height={90 + (i % 4) * 65} rx="15" />)}</g>
-            <path className="hero-focus-line" style={move(24)} d="M72 530 C220 440 315 210 560 174" />
-            <circle cx="344" cy="290" r="55" className="hero-ring" style={move(30)} />
-          </>
-        )}
-        {index === 2 && (
-          <>
-            <g className="hero-orbits" style={move(14)}>{[90, 145, 205, 270].map((r) => <circle key={r} cx="315" cy="350" r={r} />)}</g>
-            <path className="hero-focus-line" style={move(26)} d="M28 502 C220 525 250 315 365 342 C470 367 485 190 650 166" />
-            <circle cx="315" cy="350" r="18" className="hero-gold ambient-pulse-slow" style={move(34)} />
-          </>
-        )}
-      </svg>
-      <span className="hero-scene-number">٠{index + 1}</span>
-    </div>
-  );
-};
 
 export const HomeHero = () => {
   const [index, setIndex] = useState(0);
@@ -49,7 +17,7 @@ export const HomeHero = () => {
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (media.matches) return;
-    const id = window.setInterval(() => setIndex((value) => (value + 1) % PHRASES.length), 6500);
+    const id = window.setInterval(() => setIndex((value) => (value + 1) % PHRASES.length), 12000);
     return () => window.clearInterval(id);
   }, []);
 
@@ -60,35 +28,46 @@ export const HomeHero = () => {
   };
 
   const start = () => document.getElementById("story-of-the-day")?.scrollIntoView({ behavior: "smooth" });
+  const shift = (depth: number) => ({ transform: `translate3d(${pointer.x * depth}px, ${pointer.y * depth}px, 0)` });
 
   return (
-    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="editorial-hero">
-      <div className="hero-ambient-line" aria-hidden="true" />
-      <div className="container relative z-10 mx-auto grid min-h-[min(70svh,40rem)] items-center gap-8 px-6 pb-16 pt-8 lg:grid-cols-12 lg:gap-12 lg:py-10">
-        <div className="relative z-20 lg:col-span-7">
-          <div className="mb-7 flex items-center gap-4 text-brand/70">
-            <span className="h-px w-12 bg-current" />
-            <span className="text-xs font-semibold">تجربة معرفية تفاعلية</span>
-          </div>
-          <div className="relative min-h-[9rem] sm:min-h-[10rem] lg:min-h-[13rem]">
-            {PHRASES.map((phrase, phraseIndex) => (
-              <h1 key={phrase} aria-hidden={phraseIndex !== index} className={`hero-title ${phraseIndex === index ? "is-active" : ""}`}>{phrase}</h1>
-            ))}
-          </div>
-          <div className="mt-4 flex items-center gap-3" aria-label="اختيار العبارة">
-            {PHRASES.map((_, dotIndex) => (
-              <button key={dotIndex} type="button" aria-label={`العبارة ${dotIndex + 1}`} onClick={() => setIndex(dotIndex)} className={`hero-dot ${dotIndex === index ? "is-active" : ""}`} />
-            ))}
-          </div>
-        </div>
-        <div key={index} className="hero-visual-enter relative z-10 h-[32vh] min-h-[240px] lg:col-span-5 lg:h-[46vh]">
-          <Scene index={index} x={pointer.x} y={pointer.y} />
-        </div>
+    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="calm-hero">
+      <div className="calm-hero-orbs" aria-hidden="true">
+        <span className="orb orb-gold" style={shift(10)} />
+        <span className="orb orb-teal" style={shift(16)} />
       </div>
-      <button type="button" onClick={start} className="hero-scroll-cue" aria-label="ابدأ الحكاية">
-        <span>ابدأ الحكاية</span><span className="hero-scroll-circle"><ArrowDown className="h-4 w-4" /></span>
+      <div className="calm-hero-dots" aria-hidden="true">
+        {Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ top: `${(i * 37) % 70 + 6}%`, insetInlineStart: `${(i * 61) % 92 + 3}%`, animationDelay: `${i * 0.4}s` }} />)}
+      </div>
+
+      <div className="calm-hero-stage">
+        {PHRASES.map((phrase, i) => (
+          <h1 key={i} aria-hidden={i !== index} className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}>
+            {phrase.lead}
+            <em className="mark">{phrase.mark}</em>
+            {phrase.mid}
+            {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
+            {phrase.tail}
+          </h1>
+        ))}
+      </div>
+
+      <div className="calm-hero-dotsnav" aria-label="اختيار العبارة">
+        {PHRASES.map((_, i) => (
+          <button key={i} type="button" aria-label={`العبارة ${i + 1}`} onClick={() => setIndex(i)} className={`hero-dot ${i === index ? "is-active" : ""}`} />
+        ))}
+      </div>
+
+      <svg className="calm-hero-wave" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+        <path className="wave-back" d="M0 190 C260 120 470 250 760 190 C1030 135 1230 205 1440 150 L1440 320 L0 320 Z" />
+        <path className="wave-mid" d="M0 220 C280 155 500 275 780 215 C1050 160 1250 232 1440 182 L1440 320 L0 320 Z" />
+        <path className="wave-front" d="M0 252 C300 195 520 300 800 245 C1070 195 1260 262 1440 218 L1440 320 L0 320 Z" />
+      </svg>
+
+      <button type="button" onClick={start} className="calm-hero-cue" aria-label="انزل لتقرأ الحكاية">
+        <span>انزل لتقرأ الحكاية</span>
+        <ChevronDown className="h-5 w-5" />
       </button>
-      <div className="hero-bottom-curve" aria-hidden="true" />
     </section>
   );
 };
