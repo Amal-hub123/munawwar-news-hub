@@ -11,6 +11,13 @@ import RichTextEditor from "@/components/ui/rich-text-editor";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowRight } from "lucide-react";
 import { ImageUpload } from "@/components/ImageUpload";
+import ArticleExtras, {
+  ArticleExtrasValue,
+  emptyExtras,
+  loadArticleExtras,
+  saveArticleExtras,
+} from "@/components/editor/ArticleExtras";
+import { parseSequencePoints } from "@/lib/articleExtras";
 
 interface Product {
   id: string;
@@ -22,6 +29,7 @@ const AdminAddEditArticle = () => {
   const { id } = useParams();
   const [products, setProducts] = useState<Product[]>([]);
   const [authorId, setAuthorId] = useState<string>("");
+  const [extras, setExtras] = useState<ArticleExtrasValue>(emptyExtras);
   const { toast } = useToast();
 
   const [formData, setFormData] = useState({
@@ -31,6 +39,7 @@ const AdminAddEditArticle = () => {
     content: "",
     product_id: "",
   });
+
 
   useEffect(() => {
     loadData();

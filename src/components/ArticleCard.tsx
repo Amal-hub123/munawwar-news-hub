@@ -18,6 +18,8 @@ interface ArticleCardProps {
   };
   date: string;
   type: "article" | "news";
+  categories?: string[];
+  sequencePoints?: string[];
 }
 
 export const ArticleCard = ({
@@ -28,7 +30,10 @@ export const ArticleCard = ({
   author,
   date,
   type,
+  categories,
+  sequencePoints,
 }: ArticleCardProps) => {
+
   const formattedDate = new Date(date).toLocaleDateString("ar-EG", {
     year: "numeric",
     month: "long",
@@ -67,13 +72,32 @@ const shareLink = type  === "article" ? "articles" :  "news";
         
         <div className="flex-1 flex flex-col justify-between min-w-0">
           <Link to={link}>
+            {categories && categories.length > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {categories.slice(0, 3).map((c) => (
+                  <span key={c} className="text-[11px] px-2 py-0.5 rounded-full bg-primary/15 text-brand">{c}</span>
+                ))}
+              </div>
+            )}
             <h3 className="text-xl font-bold leading-tight line-clamp-2 transition-colors mb-2">
               {title}
             </h3>
             <p className="text-muted-foreground text-sm line-clamp-2 leading-relaxed">
               {truncatedExcerpt}
             </p>
+            {sequencePoints && sequencePoints.length > 0 && (
+              <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 mt-2">
+                {sequencePoints.slice(0, 5).map((p, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground">
+                    {i > 0 && <span className="opacity-50">←</span>}
+                    <span>{p}</span>
+                  </span>
+                ))}
+              </div>
+            )}
           </Link>
+          
+
           
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 mt-auto">
             <Link to={link} className="flex items-center gap-2">
