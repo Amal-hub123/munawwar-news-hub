@@ -1,22 +1,25 @@
 import { useParams, Link } from "react-router-dom";
-import { cleanContentFont } from "@/lib/cleanContent";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
-import { Calendar, User, Eye, Share2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Calendar, User, Clock } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { ShareButton } from "@/components/ShareDialog";
 import { ArticleCard } from "@/components/ArticleCard";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
 import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
-
-
+import ArticleContent from "@/components/article/ArticleContent";
+import ArticleSequence from "@/components/article/ArticleSequence";
+import StoryContinues from "@/components/article/StoryContinues";
+import AuthorCard from "@/components/article/AuthorCard";
+import { parseSequencePoints, readingTimeMinutes } from "@/lib/articleExtras";
 
 const ArticleDetail = () => {
   const { id } = useParams();
   const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
@@ -45,6 +48,54 @@ const ArticleDetail = () => {
     },
   });
 
+  const { data: categories } = useQuery({
+    queryKey: ["article-categories", id],
+    enabled: !!id,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("article_categories")
+        .select("categories:category_id ( id, name, slug )")
+        .eq("article_id", id!);
+      if (error) throw error;
+      return (data || []).map((r: any) => r.categories).filter(Boolean);
+    },
+  });
+
+  const { data: knowledgeLinks } = useQuery({
+    queryKey: ["article-knowledge-links", id],
+    enabled: !!id,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("article_knowledge_links")
+        .select(`
+          id, anchor_key, question, target_article_id,
+          target:target_article_id ( id, title, status, cover_image_url )
+        `)
+        .eq("article_id", id!);
+      if (error) throw error;
+      return (data || []) as any[];
+    },
+  });
+
+  const { data: continuations } = useQuery({
+    queryKey: ["article-continuations", id],
+    enabled: !!id,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("article_continuations")
+        .select(`
+          id, display_order,
+          target:target_article_id ( id, title, excerpt, cover_image_url, status )
+        `)
+        .eq("article_id", id!)
+        .order("display_order", { ascending: true });
+      if (error) throw error;
+      return (data || [])
+        .map((r: any) => r.target)
+        .filter((t: any) => t && t.status === "approved");
+    },
+  });
+
   const { data: relatedArticles } = useQuery({
     queryKey: ["related-articles", article?.author_id, id],
     enabled: !!article?.author_id,
@@ -69,6 +120,7 @@ const ArticleDetail = () => {
       return (data || []).sort(() => Math.random() - 0.5).slice(0, 3);
     },
   });
+
   // Dynamic OG meta tags for social crawlers
   useEffect(() => {
     if (!article) return;
