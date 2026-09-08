@@ -196,7 +196,10 @@ const WriterDetail = () => {
           </div>
         </div>
 
+        {id && <WriterKnowledgeProfile writerId={id} />}
+
         {/* ✅ أزرار الفلترة */}
+
         <div className="my-6">
           <div className="flex gap-4 justify-center">
             <Button
