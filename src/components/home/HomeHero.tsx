@@ -1,172 +1,94 @@
 import { useEffect, useRef, useState } from "react";
+import { ArrowDown } from "lucide-react";
 
 const PHRASES = [
-  "الاقتصاد ليس مجرد رقم، بل حكاية مجتمع، نرويها بسردية مختلفة.",
+  "الاقتصاد ليس مجرد رقم، بل حكاية مجتمع.",
   "الإنسان يعيش نتيجة الرقم قبل أن يعرفه.",
   "ماذا لو بدأنا من الإنسان؟",
 ];
 
-const DURATION = 6000;
-
-/** Each phrase gets its own quiet visual scene. */
-const Scene = ({ index, mx, my }: { index: number; mx: number; my: number }) => {
-  const t = (depth: number) => ({
-    transform: `translate3d(${mx * depth}px, ${my * depth}px, 0)`,
-  });
-
-  if (index === 0) {
-    return (
-      <svg viewBox="0 0 600 600" className="w-full h-full" aria-hidden="true">
-        <g style={t(18)} opacity="0.5">
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <path
-              key={i}
-              d={`M -40 ${420 - i * 34} C 140 ${330 - i * 40}, 300 ${470 - i * 26}, 640 ${250 - i * 34}`}
-              fill="none"
-              stroke="currentColor"
-              strokeWidth={i === 2 ? 2.2 : 1}
-              opacity={i === 2 ? 0.9 : 0.32}
-            />
-          ))}
-        </g>
-        <circle cx="430" cy="215" r="7" fill="currentColor" style={t(30)} className="ambient-pulse-slow" />
-      </svg>
-    );
-  }
-
-  if (index === 1) {
-    return (
-      <svg viewBox="0 0 600 600" className="w-full h-full" aria-hidden="true">
-        <g style={t(12)} opacity="0.35">
-          {Array.from({ length: 11 }).map((_, i) => (
-            <rect
-              key={i}
-              x={60 + i * 44}
-              y={430 - (i % 4) * 46 - 40}
-              width="20"
-              height={(i % 4) * 46 + 70}
-              rx="10"
-              fill="currentColor"
-              opacity={i === 6 ? 0.95 : 0.25}
-            />
-          ))}
-        </g>
-        <g style={t(26)}>
-          <circle cx="345" cy="245" r="26" fill="none" stroke="currentColor" strokeWidth="1.5" opacity="0.8" />
-          <circle cx="345" cy="245" r="9" fill="currentColor" className="ambient-pulse-slow" />
-        </g>
-      </svg>
-    );
-  }
-
+const Scene = ({ index, x, y }: { index: number; x: number; y: number }) => {
+  const move = (depth: number) => ({ transform: `translate3d(${x * depth}px, ${y * depth}px, 0)` });
   return (
-    <svg viewBox="0 0 600 600" className="w-full h-full" aria-hidden="true">
-      <g style={t(14)} opacity="0.4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <circle key={i} cx="300" cy="300" r={70 + i * 52} fill="none" stroke="currentColor" strokeWidth="1" opacity={0.5 - i * 0.07} />
-        ))}
-      </g>
-      <g style={t(30)}>
-        <path d="M 300 300 C 380 240, 430 300, 520 210" fill="none" stroke="currentColor" strokeWidth="2" opacity="0.85" />
-        <circle cx="300" cy="300" r="10" fill="currentColor" className="ambient-pulse-slow" />
-      </g>
-    </svg>
+    <div className="hero-scene" aria-hidden="true">
+      <div className="hero-scene-disc" style={move(9)} />
+      <svg viewBox="0 0 620 720" className="absolute inset-0 h-full w-full overflow-visible">
+        {index === 0 && (
+          <>
+            <g className="hero-lines" style={move(17)}>
+              {[0, 1, 2, 3, 4].map((i) => <path key={i} d={`M-30 ${570 - i * 70} C130 ${400 - i * 28} 330 ${650 - i * 62} 680 ${240 - i * 28}`} />)}
+            </g>
+            <g style={move(28)}><circle cx="425" cy="238" r="74" className="hero-solid" /><circle cx="425" cy="238" r="13" className="hero-gold ambient-pulse-slow" /></g>
+          </>
+        )}
+        {index === 1 && (
+          <>
+            <g className="hero-bars" style={move(14)}>{Array.from({ length: 8 }).map((_, i) => <rect key={i} x={75 + i * 61} y={490 - (i % 4) * 65} width="30" height={90 + (i % 4) * 65} rx="15" />)}</g>
+            <path className="hero-focus-line" style={move(24)} d="M72 530 C220 440 315 210 560 174" />
+            <circle cx="344" cy="290" r="55" className="hero-ring" style={move(30)} />
+          </>
+        )}
+        {index === 2 && (
+          <>
+            <g className="hero-orbits" style={move(14)}>{[90, 145, 205, 270].map((r) => <circle key={r} cx="315" cy="350" r={r} />)}</g>
+            <path className="hero-focus-line" style={move(26)} d="M28 502 C220 525 250 315 365 342 C470 367 485 190 650 166" />
+            <circle cx="315" cy="350" r="18" className="hero-gold ambient-pulse-slow" style={move(34)} />
+          </>
+        )}
+      </svg>
+      <span className="hero-scene-number">٠{index + 1}</span>
+    </div>
   );
 };
 
 export const HomeHero = () => {
   const [index, setIndex] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    const id = window.setInterval(() => setIndex((i) => (i + 1) % PHRASES.length), DURATION);
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (media.matches) return;
+    const id = window.setInterval(() => setIndex((value) => (value + 1) % PHRASES.length), 6500);
     return () => window.clearInterval(id);
   }, []);
 
-  useEffect(() => {
-    let frame = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => setScrollY(window.scrollY));
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  const onMouseMove = (e: React.MouseEvent) => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    setPointer({
-      x: (e.clientX - rect.left) / rect.width - 0.5,
-      y: (e.clientY - rect.top) / rect.height - 0.5,
-    });
+  const move = (event: React.MouseEvent) => {
+    const box = ref.current?.getBoundingClientRect();
+    if (!box) return;
+    setPointer({ x: (event.clientX - box.left) / box.width - 0.5, y: (event.clientY - box.top) / box.height - 0.5 });
   };
 
-  const startStory = () => {
-    const target = document.getElementById("story-of-the-day") || document.getElementById("home-flow");
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
+  const start = () => document.getElementById("story-of-the-day")?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section
-      ref={sectionRef}
-      onMouseMove={onMouseMove}
-      onMouseLeave={() => setPointer({ x: 0, y: 0 })}
-      className="relative min-h-[72vh] md:min-h-[80vh] flex items-center overflow-hidden surface-alt"
-    >
-      {/* ambient visual scene */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-0 w-full md:w-[58%] text-brand opacity-70"
-        style={{ transform: `translateY(${scrollY * -0.06}px)` }}
-      >
-        <div key={index} className="w-full h-full hero-phrase-enter">
-          <Scene index={index} mx={pointer.x * 1.6} my={pointer.y * 1.6} />
-        </div>
-      </div>
-
-      <div className="container mx-auto px-6 relative">
-        <div
-          className="max-w-3xl"
-          style={{ transform: `translateY(${scrollY * -0.02}px)` }}
-        >
-          <span className="inline-block text-sm tracking-[0.3em] text-brand/70 mb-6">المُنحنى</span>
-
-          <div className="relative min-h-[190px] sm:min-h-[210px] md:min-h-[260px]">
-            {PHRASES.map((phrase, i) => (
-              <h1
-                key={phrase}
-                aria-hidden={i !== index}
-                className="absolute inset-0 text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.5] text-brand transition-opacity duration-1000"
-                style={{
-                  opacity: i === index ? 1 : 0,
-                  transform: i === index ? "translateY(0)" : "translateY(10px)",
-                  transitionProperty: "opacity, transform",
-                }}
-              >
-                {phrase}
-              </h1>
+    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="editorial-hero">
+      <div className="hero-ambient-line" aria-hidden="true" />
+      <div className="container relative z-10 mx-auto grid min-h-[calc(100svh-7rem)] items-center gap-8 px-6 pb-24 pt-12 lg:grid-cols-12 lg:gap-12 lg:py-16">
+        <div className="relative z-20 lg:col-span-7">
+          <div className="mb-7 flex items-center gap-4 text-brand/70">
+            <span className="h-px w-12 bg-current" />
+            <span className="text-xs font-semibold">تجربة معرفية تفاعلية</span>
+          </div>
+          <div className="relative min-h-[15rem] sm:min-h-[18rem] lg:min-h-[25rem]">
+            {PHRASES.map((phrase, phraseIndex) => (
+              <h1 key={phrase} aria-hidden={phraseIndex !== index} className={`hero-title ${phraseIndex === index ? "is-active" : ""}`}>{phrase}</h1>
+            ))}
+          </div>
+          <div className="mt-4 flex items-center gap-3" aria-label="اختيار العبارة">
+            {PHRASES.map((_, dotIndex) => (
+              <button key={dotIndex} type="button" aria-label={`العبارة ${dotIndex + 1}`} onClick={() => setIndex(dotIndex)} className={`hero-dot ${dotIndex === index ? "is-active" : ""}`} />
             ))}
           </div>
         </div>
-
-        <button
-          type="button"
-          onClick={startStory}
-          className="group mt-10 md:mt-14 inline-flex flex-col items-start gap-3 text-brand"
-        >
-          <span className="text-lg font-semibold group-hover:opacity-80 transition-opacity">ابدأ الحكاية</span>
-          <span className="relative block h-14 w-[2px] bg-brand/25 overflow-hidden rounded-full">
-            <span className="absolute inset-x-0 top-0 h-6 bg-brand ambient-float rounded-full" />
-          </span>
-        </button>
-
+        <div key={index} className="hero-visual-enter relative z-10 h-[42vh] min-h-[330px] lg:col-span-5 lg:h-[68vh]">
+          <Scene index={index} x={pointer.x} y={pointer.y} />
+        </div>
       </div>
+      <button type="button" onClick={start} className="hero-scroll-cue" aria-label="ابدأ الحكاية">
+        <span>ابدأ الحكاية</span><span className="hero-scroll-circle"><ArrowDown className="h-4 w-4" /></span>
+      </button>
+      <div className="hero-bottom-curve" aria-hidden="true" />
     </section>
   );
 };
