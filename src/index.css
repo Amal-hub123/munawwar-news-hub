@@ -373,24 +373,26 @@ All colors MUST be HSL.
 .site-nav-link::after { content: ""; position: absolute; inset-inline: 0; bottom: -.45rem; height: 1px; background: hsl(var(--primary)); transform: scaleX(0); transition: transform .35s ease; }
 .site-nav-link:hover::after { transform: scaleX(1); }
 
-.editorial-hero { position: relative; min-height: min(78svh, 46rem); overflow: hidden; background: hsl(var(--background)); }
-.hero-ambient-line { position: absolute; inset: 7% -12% auto; height: 56%; border: 1px solid hsl(var(--foreground) / .12); border-radius: 50%; transform: rotate(-9deg); animation: hero-orbit 18s ease-in-out infinite alternate; }
-.hero-title { position: absolute; inset: 0; max-width: 15ch; color: hsl(var(--foreground)); font-size: clamp(1.7rem, 3.2vw, 3.1rem); line-height: 1.3; opacity: 0; transform: translateY(35px); clip-path: inset(0 0 100% 0); transition: opacity 1s ease, transform 1.1s var(--editorial-ease), clip-path 1.1s var(--editorial-ease); }
-.hero-title.is-active { opacity: 1; transform: none; clip-path: inset(0); }
-.hero-scene { position: absolute; inset: 0; color: hsl(var(--foreground)); }
-.hero-scene-disc { position: absolute; inset: 7% 8% 8% 2%; border-radius: 48% 52% 42% 58% / 52% 43% 57% 48%; background: hsl(var(--card)); border: 1px solid hsl(var(--border) / .7); animation: scene-breathe 9s ease-in-out infinite alternate; }
-.hero-lines path, .hero-focus-line, .hero-orbits circle { fill: none; stroke: currentColor; stroke-width: 1.4; opacity: .45; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2s var(--editorial-ease) forwards; }
-.hero-bars rect { fill: hsl(var(--foreground)); opacity: .13; }
-.hero-solid { fill: hsl(var(--foreground)); opacity: .88; }
-.hero-gold { fill: hsl(var(--primary)); }
-.hero-ring { fill: none; stroke: hsl(var(--primary)); stroke-width: 2; }
-.hero-scene-number { position: absolute; inset-inline-end: 4%; top: 5%; color: hsl(var(--primary)); font-size: 2.4rem; font-weight: 300; opacity: .65; }
-.hero-visual-enter { animation: scene-enter 1s var(--editorial-ease) both; }
+.calm-hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: min(88svh, 44rem); padding: 5rem 1.5rem 9rem; background: hsl(var(--background)); }
+.calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
+.calm-hero-orbs .orb-gold { top: -3rem; right: 5rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
+.calm-hero-orbs .orb-teal { top: -6rem; right: 1.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
+.calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
+.calm-hero-stage { position: relative; z-index: 4; display: grid; width: min(56rem, 100%); place-items: center; }
+.calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: center; color: hsl(var(--foreground)); font-size: clamp(1.35rem, 2.9vw, 2.35rem); font-weight: 700; line-height: 1.85; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
+.calm-hero-phrase.is-active { opacity: 1; transform: none; }
+.calm-hero-phrase .mark { font-style: normal; color: hsl(var(--secondary)); white-space: nowrap; padding: 0 .12em; background-image: linear-gradient(hsl(var(--primary) / .5), hsl(var(--primary) / .5)); background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; }
+.dark .calm-hero-phrase .mark { color: hsl(var(--primary)); }
+.calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
 .hero-dot.is-active { width: 3.5rem; background: hsl(var(--primary)); }
-.hero-scroll-cue { position: absolute; z-index: 20; bottom: 2rem; left: 50%; display: flex; align-items: center; gap: 1rem; color: hsl(var(--foreground)); transform: translateX(-50%); }
-.hero-scroll-circle { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid hsl(var(--foreground) / .35); border-radius: 50%; animation: scroll-cue 2.4s ease-in-out infinite; }
-.hero-bottom-curve { position: absolute; bottom: -4rem; left: -5%; width: 110%; height: 7rem; border-radius: 50% 50% 0 0; background: hsl(var(--secondary)); }
+.calm-hero-wave { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(9rem, 22vw, 15rem); }
+.calm-hero-wave path { transition: transform 1s var(--editorial-ease); }
+.calm-hero-wave .wave-back { fill: hsl(var(--secondary) / .35); }
+.calm-hero-wave .wave-mid { fill: hsl(var(--secondary) / .65); }
+.calm-hero-wave .wave-front { fill: hsl(var(--secondary)); }
+.calm-hero-cue { position: absolute; z-index: 6; bottom: 1.6rem; left: 50%; display: flex; flex-direction: column; align-items: center; gap: .4rem; color: hsl(var(--secondary-foreground) / .85); font-size: .75rem; transform: translateX(-50%); }
+.calm-hero-cue svg { animation: scroll-cue 2.4s ease-in-out infinite; }
 
 .daily-story-section { position: relative; margin-top: -1px; padding: 4.5rem 0 4rem; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); }
 .daily-story-section .editorial-heading, .daily-story-section .editorial-kicker { color: inherit; }
@@ -526,7 +528,7 @@ All colors MUST be HSL.
 
 @media (max-width: 640px) {
   .site-header-inner { height: 4.25rem; }.site-logo { width: 8.7rem; height: 3rem; }
-  .editorial-hero { min-height: min(72svh, 34rem); }.hero-title { font-size: clamp(1.5rem, 6.4vw, 2.1rem); }.hero-scene-number { font-size: 2rem; }.hero-scroll-cue { bottom: 1rem; }
+  .calm-hero { min-height: min(82svh, 32rem); padding: 3.5rem 1.25rem 7rem; }.calm-hero-phrase { font-size: clamp(1.15rem, 5.2vw, 1.6rem); line-height: 1.9; }.calm-hero-orbs .orb-gold { width: 9rem; height: 9rem; }.calm-hero-orbs .orb-teal { width: 8rem; height: 8rem; }
   .daily-story-section, .journey-section, .latest-editorial, .mosaic-section, .timelines-section, .writers-section, .ask-editorial-section, .question-transform-section { padding-top: 5rem; padding-bottom: 5rem; }
   .daily-story-media { height: 17rem; }.daily-story-copy { margin-inline: .7rem; }.daily-story-copy h3 { font-size: 1.35rem; }.story-stop-copy small { display: none; }
   .journey-track-wrap { min-height: 24rem; }.journey-track { gap: 1.5rem; }.journey-node { flex-basis: 58vw; }.journey-node-1, .journey-node-3 { margin-top: 3rem; }
