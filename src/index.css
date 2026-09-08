@@ -157,7 +157,6 @@ All colors MUST be HSL.
   /* ==== Light theme surfaces ==== */
   html:not(.dark),
   html:not(.dark) body,
-  html:not(.dark) .bg-background,
   html:not(.dark) .bg-card,
   html:not(.dark) .bg-card1 {
     background-color: hsl(var(--background)) !important;
