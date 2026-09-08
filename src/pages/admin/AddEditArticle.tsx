@@ -68,8 +68,16 @@ const AdminAddEditArticle = () => {
           content: article.content,
           product_id: article.product_id || "",
         });
+        const saved = await loadArticleExtras(id);
+        setExtras({ ...saved, sequencePoints: parseSequencePoints((article as any).sequence_points) });
       }
     }
+  };
+
+  const insertMarker = (anchorKey: string, question: string) => {
+    const marker = `<div class="knowledge-link-block" data-knowledge-link="${anchorKey}">${question || "وصلة معرفية"}</div>`;
+    setFormData((prev) => ({ ...prev, content: `${prev.content || ""}${marker}` }));
+    toast({ title: "تمت الإضافة", description: "أُدرجت الوصلة في نهاية المحتوى، يمكنك تحريكها داخل المحرر" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -85,6 +93,8 @@ const AdminAddEditArticle = () => {
     }
 
     if (id) {
+      const sequence = extras.sequencePoints.map((p) => p.trim()).filter(Boolean);
+
       const { error } = await supabase
         .from("articles")
         .update({
@@ -93,6 +103,7 @@ const AdminAddEditArticle = () => {
           cover_image_url: formData.cover_image_url,
           content: formData.content,
           product_id: formData.product_id || null,
+          sequence_points: sequence.length >= 3 ? sequence.slice(0, 5) : [],
         })
         .eq("id", id);
 
@@ -105,6 +116,8 @@ const AdminAddEditArticle = () => {
         return;
       }
 
+      await saveArticleExtras(id, extras);
+
       toast({
         title: "تم التحديث",
         description: "تم تحديث المقال بنجاح",
@@ -113,6 +126,7 @@ const AdminAddEditArticle = () => {
 
     navigate("/admin/articles");
   };
+
 
   return (
     <div className="space-y-6">
