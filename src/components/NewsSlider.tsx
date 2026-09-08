@@ -4,7 +4,6 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 
 interface NewsItem {
   id: string;
@@ -23,7 +22,6 @@ export const NewsSlider = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-  const { toast } = useToast();
 
   useEffect(() => {
     fetchNews();
@@ -44,11 +42,7 @@ export const NewsSlider = () => {
       if (error) throw error;
       setNews(data || []);
     } catch (error: any) {
-      toast({
-        title: "خطأ",
-        description: "فشل تحميل خدماتنا",
-        variant: "destructive",
-      });
+      console.error("Error loading services:", error);
     } finally {
       setLoading(false);
     }
@@ -71,11 +65,13 @@ export const NewsSlider = () => {
     setCurrentIndex((prev) => (prev + 1) % news.length);
   };
 
-  if (loading || news.length === 0) {
+  if (loading) {
     return (
       <div className="relative h-[500px] bg-muted animate-pulse rounded-lg" />
     );
   }
+
+  if (news.length === 0) return null;
 
   const currentNews = news[currentIndex];
 
