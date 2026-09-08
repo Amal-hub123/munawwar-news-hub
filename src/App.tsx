@@ -88,7 +88,12 @@ const App = () => (
           <Route path="/admin/products" element={<AdminLayout><ManageProducts /></AdminLayout>} />
           <Route path="/admin/products/add" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
           <Route path="/admin/products/edit/:id" element={<AdminLayout><AdminAddEditProduct /></AdminLayout>} />
+          <Route path="/admin/categories" element={<AdminLayout><ManageCategories /></AdminLayout>} />
+          <Route path="/admin/daily-stories" element={<AdminLayout><ManageDailyStories /></AdminLayout>} />
+          <Route path="/admin/questions" element={<AdminLayout><ManageAudienceQuestions /></AdminLayout>} />
+          <Route path="/admin/timelines" element={<AdminLayout><ManageTimelines /></AdminLayout>} />
           <Route path="/admin/store" element={<AdminLayout><ManageStoreProducts /></AdminLayout>} />
+
           <Route path="/admin/store/add" element={<AdminLayout><AddEditStoreProduct /></AdminLayout>} />
           <Route path="/admin/store/edit/:id" element={<AdminLayout><AddEditStoreProduct /></AdminLayout>} />
           <Route path="/admin/store/requests" element={<AdminLayout><ManageProductRequests /></AdminLayout>} />
