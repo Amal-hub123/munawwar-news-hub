@@ -7,6 +7,8 @@ import { User, Linkedin, X } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArticleCard } from "@/components/ArticleCard";
+import WriterKnowledgeProfile from "@/components/writer/WriterKnowledgeProfile";
+
 
 const WriterDetail = () => {
   const { id } = useParams();
