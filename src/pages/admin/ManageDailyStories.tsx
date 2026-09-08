@@ -169,7 +169,7 @@ const ManageDailyStories = () => {
   const payload = (d: StoryDraft) => ({
     article_id: d.article_id,
     badge: d.badge || null,
-    stops: d.stops.filter((s) => s.title.trim()),
+    stops: d.stops.filter((s) => s.title.trim()).map((s) => ({ title: s.title, description: s.description || "" })) as any,
     starts_at: d.starts_at ? new Date(d.starts_at).toISOString() : null,
     ends_at: d.ends_at ? new Date(d.ends_at).toISOString() : null,
     is_active: d.is_active,
