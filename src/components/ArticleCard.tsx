@@ -18,6 +18,8 @@ interface ArticleCardProps {
   };
   date: string;
   type: "article" | "news";
+  categories?: string[];
+  sequencePoints?: string[];
 }
 
 export const ArticleCard = ({
@@ -28,7 +30,10 @@ export const ArticleCard = ({
   author,
   date,
   type,
+  categories,
+  sequencePoints,
 }: ArticleCardProps) => {
+
   const formattedDate = new Date(date).toLocaleDateString("ar-EG", {
     year: "numeric",
     month: "long",
