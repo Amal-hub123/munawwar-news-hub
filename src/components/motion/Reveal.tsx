@@ -14,7 +14,7 @@ interface RevealProps {
  * Light scroll-reveal wrapper. Uses IntersectionObserver only (no libraries),
  * and respects prefers-reduced-motion through the CSS layer.
  */
-export const Reveal = ({ children, className, delay = 0, as, once = true, variant = "rise" }: RevealProps) => {
+export const Reveal = ({ children, className, delay = 0, as, once = false, variant = "rise" }: RevealProps) => {
   const Tag = (as || "div") as ElementType;
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -37,7 +37,7 @@ export const Reveal = ({ children, className, delay = 0, as, once = true, varian
           }
         });
       },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      { threshold: 0.08, rootMargin: "-6% 0px -12% 0px" },
     );
     observer.observe(el);
     return () => observer.disconnect();
