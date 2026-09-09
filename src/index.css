@@ -571,6 +571,8 @@ All colors MUST be HSL.
 @keyframes story-media-breathe { from { transform: translateY(0); } to { transform: translateY(-7px); } }
 @keyframes story-image-drift { from { transform: scale(1.025) translateX(0); } to { transform: scale(1.075) translateX(-1.2%); } }
 @keyframes phrase-soft { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes journey-curve-float { from { transform: translateY(3px) scaleX(1.01); } to { transform: translateY(-5px) scaleX(1.035); } }
+@keyframes journey-dot-pulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.22); } }
 
 @media (max-width: 900px) {
   .editorial-heading { font-size: 1.65rem; }.section-heading-row { margin-bottom: 2rem; }
@@ -586,7 +588,7 @@ All colors MUST be HSL.
   .daily-story-section::before { top: -2.75rem; height: 4rem; clip-path: ellipse(68% 55% at 50% 100%); }
   .journey-section, .latest-editorial, .mosaic-section, .timelines-section, .writers-section, .ask-editorial-section, .question-transform-section { padding-top: 5rem; padding-bottom: 5rem; }
   .daily-story-composition { grid-template-columns: 1fr; }.daily-story-media { order: 1; min-height: 13.5rem; height: 13.5rem; }.daily-story-copy { order: 2; padding: 1.5rem; }.daily-story-copy h3 { font-size: 1.25rem; }.story-stop-copy small { display: none; }
-  .journey-track-wrap { min-height: 24rem; }.journey-track { gap: 1.5rem; }.journey-node { flex-basis: 58vw; }.journey-node-1, .journey-node-3 { margin-top: 3rem; }
+  .journey-track-wrap { min-height: 22rem; }.journey-curve { top: 6.6rem; width: 150%; height: 9rem; }.journey-track { gap: 2.5rem; }.journey-node { flex-basis: 9.5rem; }.journey-node-0, .journey-node-2 { margin-top: .25rem; }.journey-node-1, .journey-node-3 { margin-top: 9.25rem; }.journey-label { font-size: .74rem; }
   .latest-editorial { clip-path: polygon(0 1.5rem, 100% 0, 100% calc(100% - 1.5rem), 0 100%); }.latest-lead-media { height: 17rem; }.latest-lead-copy { width: 92%; margin-top: -4rem; padding: 1.4rem; }.latest-secondary { gap: 2rem .8rem; }.latest-item-2 .latest-item-media { height: 13rem; }.latest-item:not(.latest-item-2) .latest-item-media { height: 8rem; }.latest-item-copy h3 { font-size: .95rem; }
   .mosaic-layout { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 7rem; }.mosaic-xl, .mosaic-wide { grid-column: span 2; }.mosaic-tall, .mosaic-medium, .mosaic-small { grid-column: span 1; }.mosaic-cell strong { font-size: 1.1rem; }
   .timeline-journey { gap: 1.5rem; }.timeline-stop { width: 72vw; }.timeline-stop-1, .timeline-stop-3 { margin-top: 3.5rem; }
@@ -623,6 +625,8 @@ All colors MUST be HSL.
   .daily-story-section::after,
   .daily-story-media,
   .daily-story-media img { animation: none !important; }
+  .journey-curve,
+  .journey-stem i { animation: none !important; }
   .draw-line { stroke-dashoffset: 0 !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
