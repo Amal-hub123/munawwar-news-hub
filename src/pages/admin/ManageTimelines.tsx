@@ -172,7 +172,7 @@ const ManageTimelines = () => {
                     </div>
                     <div>
                       <Label className="text-xs">نوع العرض</Label>
-                      <Select value={t.timeline_type} onValueChange={(v) => patch(t.id, { timeline_type: v })}>
+                      <Select dir="rtl" value={t.timeline_type} onValueChange={(v) => patch(t.id, { timeline_type: v })}>
                         <SelectTrigger className="h-9 text-right"><SelectValue /></SelectTrigger>
                         <SelectContent>
                           <SelectItem className="text-right" value="interactive">خط تفاعلي</SelectItem>
