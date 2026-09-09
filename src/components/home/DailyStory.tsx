@@ -29,7 +29,7 @@ export const DailyStory = () => {
     <section id="story-of-the-day" className="daily-story-section">
       <div className="container mx-auto px-6">
 <Reveal variant="side" className="relative z-20 mb-8 -translate-y-4 flex items-end justify-between gap-6 md:mb-12">
-  <div><p className="editorial-kicker">اليوم على المُنحنى</p><h2 className="editorial-heading mt-2">حكاية اليوم</h2></div>
+  <div><h4 className="editorial-kicker"> على المُنحنى</h4><h2 className="editorial-heading mt-2">مقال اليوم</h2></div>
           {story.badge && <span className="story-badge">{story.badge}</span>}
         </Reveal>
         {stops.length > 0 && (
