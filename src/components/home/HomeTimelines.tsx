@@ -40,7 +40,7 @@ export const HomeTimelines = () => {
           <p className="section-hint">اسحب لتتبع الخط</p>
         </Reveal>
 
-        <Reveal variant="side" className="mt-6 flex flex-wrap justify-end gap-2 md:gap-3">
+        <Reveal variant="side" className="mt-6 flex flex-wrap justify-start gap-2 md:gap-3" dir="rtl">
           {visible.map((t: any) => {
             const color = t.color || "#00343A";
             const isActive = t.id === active.id;
