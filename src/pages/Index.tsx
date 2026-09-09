@@ -9,7 +9,6 @@ import CategoryMosaic from "@/components/home/CategoryMosaic";
 import HomeTimelines from "@/components/home/HomeTimelines";
 import WritersTrail from "@/components/home/WritersTrail";
 import AskSection from "@/components/home/AskSection";
-import QuestionsBecameContent from "@/components/home/QuestionsBecameContent";
 import Reveal from "@/components/motion/Reveal";
 
 const Index = () => {
@@ -46,7 +45,6 @@ const Index = () => {
 
           <WritersTrail />
           <AskSection />
-          <QuestionsBecameContent />
         </div>
       </main>
     </div>
