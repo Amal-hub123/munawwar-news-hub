@@ -421,7 +421,7 @@ All colors MUST be HSL.
 .daily-story-section::after { content: ""; position: absolute; z-index: -1; inset-inline: 0; top: 0; height: 8rem; pointer-events: none; background: hsl(175.38deg 31.71% 24.12%) / .75), transparent); animation: transition-wash 9s ease-in-out infinite alternate; }
 .daily-story-section > .container { opacity: var(--story-opacity, .18); transform: translateY(calc((1 - var(--story-enter, 0)) * 2rem)); transition: opacity .16s linear, transform .16s linear; }
 .daily-story-section .editorial-heading, .daily-story-section .editorial-kicker { color: inherit; }
-.story-badge { border: 1px solid hsl(var(--primary) / .65); padding: .4rem .85rem; color: hsl(var(--primary)); font-size: .7rem; }
+.story-badge { border: 1px solid hsl(0, 0%, 99%); padding: .4rem .85rem; color: hsl(0, 0%, 95.1%); font-size: .7rem; }
 .daily-story-composition { position: relative; display: grid; grid-template-columns: minmax(19rem, .88fr) minmax(0, 1.12fr); direction: ltr; align-items: stretch; min-height: 20rem; overflow: hidden; border: 1px solid hsl(var(--border) / .55); border-radius: .5rem; color: hsl(var(--foreground)); background: hsl(var(--card)); box-shadow: 0 22px 60px hsl(var(--foreground) / .12); transition: transform .7s var(--editorial-ease), box-shadow .7s ease; }
 .daily-story-composition:hover { transform: translateY(-5px); box-shadow: 0 30px 75px hsl(var(--foreground) / .18); }
 .daily-story-media { order: 1; min-height: 20rem; overflow: hidden; animation: story-media-breathe 10s ease-in-out infinite alternate; }
