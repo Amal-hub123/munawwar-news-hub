@@ -520,7 +520,7 @@ All colors MUST be HSL.
 .mosaic-count { margin-top: .6rem; font-size: .72rem; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
 .mosaic-cell:hover .mosaic-count { opacity: 1; transform: none; }
 
-.timelines-section { padding: 4.5rem 0; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); }
+.timelines-section { padding: 4.5rem 0; color: hsl(175.38deg 31.71% 24.12%); background: hsl(var(--secondary)); }
 .timelines-section .editorial-heading, .timelines-section .editorial-kicker, .timelines-section h3 { color: inherit; }
 .timeline-journey-wrap { position: relative; min-height: 19rem; }
 .timeline-journey-line { position: absolute; top: 1.5rem; width: 100%; height: 10rem; }
