@@ -5,9 +5,9 @@ import { supabase } from "@/integrations/supabase/client";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { Reveal } from "@/components/motion/Reveal";
 
-const InteractiveTimeline = ({ stops }: { stops: any[] }) => {
+const InteractiveTimeline = ({ stops, color }: { stops: any[]; color: string }) => {
   const { ref, handlers } = useDragScroll<HTMLDivElement>(); const [active, setActive] = useState<string | null>(stops[0]?.id || null);
-  return <div className="timeline-journey-wrap"><svg className="timeline-journey-line" viewBox="0 0 1200 180" preserveAspectRatio="none"><path pathLength="1" d="M0 125 C190 15 320 155 505 80 C710 -5 835 170 1200 36" /></svg><div ref={ref} {...handlers} dir="rtl" className="drag-scroll timeline-journey">{stops.map((stop, i) => { const body = <div className={`timeline-stop timeline-stop-${i % 4} ${active === stop.id ? "is-active" : ""}`} onMouseEnter={() => setActive(stop.id)} onClick={() => setActive(stop.id)}><span className="timeline-dot">{String(i + 1).padStart(2, "0")}</span>{stop.image_url && <div className="timeline-stop-image"><img src={stop.image_url} alt={stop.title} loading="lazy" draggable={false} /></div>}<div className="timeline-stop-copy">{stop.label && <small>{stop.label}</small>}<h4>{stop.title}</h4>{stop.description && <p>{stop.description}</p>}</div></div>; return stop.article_id && stop.articles?.status === "approved" ? <Link key={stop.id} to={`/articles/${stop.article_id}`} draggable={false}>{body}</Link> : <div key={stop.id}>{body}</div>; })}<span className="w-12 shrink-0" /></div></div>;
+  return <div className="timeline-journey-wrap" style={{ ["--timeline-color" as any]: color }}><svg className="timeline-journey-line" viewBox="0 0 1200 180" preserveAspectRatio="none"><path pathLength="1" d="M0 125 C190 15 320 155 505 80 C710 -5 835 170 1200 36" /></svg><div ref={ref} {...handlers} dir="rtl" className="drag-scroll timeline-journey">{stops.map((stop, i) => { const body = <div className={`timeline-stop timeline-stop-${i % 4} ${active === stop.id ? "is-active" : ""}`} onMouseEnter={() => setActive(stop.id)} onClick={() => setActive(stop.id)}><span className="timeline-dot">{String(i + 1).padStart(2, "0")}</span>{stop.image_url && <div className="timeline-stop-image"><img src={stop.image_url} alt={stop.title} loading="lazy" draggable={false} /></div>}<div className="timeline-stop-copy">{stop.label && <small>{stop.label}</small>}<h4>{stop.title}</h4>{stop.description && <p>{stop.description}</p>}</div></div>; return stop.article_id && stop.articles?.status === "approved" ? <Link key={stop.id} to={`/articles/${stop.article_id}`} draggable={false}>{body}</Link> : <div key={stop.id}>{body}</div>; })}<span className="w-12 shrink-0" /></div></div>;
 };
 const ImageTimeline = ({ timeline }: { timeline: any }) => { const { ref, handlers } = useDragScroll<HTMLDivElement>(); if (!timeline.image_url) return null; return <div ref={ref} {...handlers} className="drag-scroll image-timeline-stage"><img src={timeline.image_url} alt={timeline.title} loading="lazy" draggable={false} /></div>; };
 
@@ -41,21 +41,22 @@ export const HomeTimelines = () => {
         </Reveal>
 
         <Reveal variant="side" className="mt-6 flex flex-wrap justify-end gap-2 md:gap-3">
-          {visible.map((t: any) => (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setActiveId(t.id)}
-              aria-pressed={t.id === active.id}
-              className={`rounded-lg px-4 py-2 text-sm transition-colors md:text-base ${
-                t.id === active.id
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "bg-muted text-foreground/80 hover:bg-muted/70"
-              }`}
-            >
-              {t.title}
-            </button>
-          ))}
+          {visible.map((t: any) => {
+            const color = t.color || "#00343A";
+            const isActive = t.id === active.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setActiveId(t.id)}
+                aria-pressed={isActive}
+                style={isActive ? { background: color, color: "#fff", borderColor: color } : { color, borderColor: color }}
+                className="rounded-lg border px-4 py-2 text-sm transition-colors md:text-base"
+              >
+                {t.title}
+              </button>
+            );
+          })}
         </Reveal>
       </div>
 
@@ -70,7 +71,7 @@ export const HomeTimelines = () => {
             <ImageTimeline timeline={active} />
           </div>
         ) : (
-          <InteractiveTimeline key={active.id} stops={stops} />
+          <InteractiveTimeline key={active.id} stops={stops} color={active.color || "#00343A"} />
         )}
       </Reveal>
     </section>
