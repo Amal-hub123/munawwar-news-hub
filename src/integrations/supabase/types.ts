@@ -677,6 +677,7 @@ export type Database = {
       }
       timelines: {
         Row: {
+          color: string
           created_at: string
           description: string | null
           display_order: number
@@ -688,6 +689,7 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          color?: string
           created_at?: string
           description?: string | null
           display_order?: number
@@ -699,6 +701,7 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          color?: string
           created_at?: string
           description?: string | null
           display_order?: number
