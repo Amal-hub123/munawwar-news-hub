@@ -46,6 +46,7 @@ export const HomeHero = () => {
       frame = window.requestAnimationFrame(() => {
         const progress = Math.min(1, Math.max(0, window.scrollY / Math.max(hero.offsetHeight * 0.72, 1)));
         hero.style.setProperty("--hero-scroll", String(progress));
+        document.getElementById("story-of-the-day")?.style.setProperty("--story-enter", String(progress));
         if (window.scrollY > 24) setIsLeaving(true);
         else if (window.scrollY <= 2) setIsLeaving(false);
       });
