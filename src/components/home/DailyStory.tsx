@@ -35,7 +35,7 @@ export const DailyStory = () => {
         <div className="daily-story-composition">
 
  {stops.length > 0 && (
-            <Reveal delay={220} className="story-timeline">
+            <Reveal delay={220} className="story-timeline mb-10">
               <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 72 C180 10 330 95 480 45 C610 0 690 55 800 20" /></svg>
               <ol>
                 {stops.map((stop, i) => (
