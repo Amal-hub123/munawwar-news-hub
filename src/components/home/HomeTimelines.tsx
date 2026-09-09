@@ -71,7 +71,7 @@ export const HomeTimelines = () => {
             <ImageTimeline timeline={active} />
           </div>
         ) : (
-          <InteractiveTimeline key={active.id} stops={stops} />
+          <InteractiveTimeline key={active.id} stops={stops} color={active.color || "#00343A"} />
         )}
       </Reveal>
     </section>
