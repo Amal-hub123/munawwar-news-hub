@@ -32,9 +32,7 @@ export const DailyStory = () => {
   <div><p className="editorial-kicker">اليوم على المُنحنى</p><h2 className="editorial-heading mt-2">حكاية اليوم</h2></div>
           {story.badge && <span className="story-badge">{story.badge}</span>}
         </Reveal>
-        <div className="daily-story-composition">
-
- {stops.length > 0 && (
+        {stops.length > 0 && (
             <Reveal delay={220} className="story-timeline mb-10">
               <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 72 C180 10 330 95 480 45 C610 0 690 55 800 20" /></svg>
               <ol>
@@ -48,7 +46,9 @@ export const DailyStory = () => {
             </Reveal>
           )}
 
- <Reveal delay={130} variant="side" className="daily-story-copy">
+        <div className="daily-story-composition">
+
+          <Reveal delay={130} variant="side" className="daily-story-copy">
             <span className="editorial-index">٠١</span>
             <h3>{article.title}</h3>
             <p>{article.excerpt}</p>
@@ -65,8 +65,6 @@ export const DailyStory = () => {
               <span className="daily-story-shade" />
             </Link>
           </Reveal>
-         
-         
         </div>
       </div>
     </section>
