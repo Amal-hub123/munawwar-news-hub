@@ -8,10 +8,10 @@ const sequence = (value: unknown): string[] => Array.isArray(value) ? (value as 
 const SequenceLine = ({ points }: { points: string[] }) => points.length ? <div className="article-sequence-mini" aria-label="تسلسل المقال">{points.slice(0, 3).map((point, i) => <span key={`${point}-${i}`} title={point} />)}</div> : null;
 
 export const LatestArticles = () => {
-  const { data: articles, isLoading } = useQuery({ queryKey: ["home-latest-articles"], queryFn: async () => { const { data, error } = await supabase.from("articles").select(`id, title, excerpt, cover_image_url, created_at, approved_at, sequence_points, profiles:author_id (id, name, photo_url)`).eq("status", "approved").order("approved_at", { ascending: false, nullsFirst: false }).order("created_at", { ascending: false }).limit(4); if (error) throw error; return data || []; } });
+  const { data: articles, isLoading } = useQuery({ queryKey: ["home-latest-articles"], queryFn: async () => { const { data, error } = await supabase.from("articles").select(`id, title, excerpt, cover_image_url, created_at, approved_at, sequence_points, profiles:author_id (id, name, photo_url)`).eq("status", "approved").order("approved_at", { ascending: false, nullsFirst: false }).order("created_at", { ascending: false }).limit(5); if (error) throw error; return data || []; } });
   if (isLoading) return <section className="latest-editorial"><div className="container mx-auto h-[34rem] animate-pulse bg-muted/30 px-6" /></section>;
   if (!articles?.length) return null;
-  const [lead, ...rest] = articles as any[];
+  const [,lead, ...rest] = articles as any[];
   return (
     <section className="latest-editorial">
       <div className="container mx-auto px-6">
