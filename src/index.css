@@ -416,9 +416,9 @@ All colors MUST be HSL.
 .calm-hero-cue:hover { color: hsl(var(--primary)); background: transparent; }
 .calm-hero-cue svg { animation: scroll-cue 2.4s ease-in-out infinite; }
 
-.daily-story-section { position: relative; z-index: 2; margin-top: -2.75rem; padding: 7.25rem 0 4rem; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); isolation: isolate; }
-.daily-story-section::before { content: ""; position: absolute; z-index: -1; inset-inline: -3%; top: -3.5rem; height: 5.25rem; background: hsl(var(--secondary)); clip-path: ellipse(58% 54% at 50% 100%); animation: story-bridge-breathe 13s ease-in-out infinite alternate; transform-origin: bottom center; }
-.daily-story-section::after { content: ""; position: absolute; z-index: -1; inset-inline: 0; top: 0; height: 8rem; pointer-events: none; background: linear-gradient(180deg, hsl(var(--hero-wave-front) / .75), transparent); animation: transition-wash 9s ease-in-out infinite alternate; }
+.daily-story-section { position: relative; z-index: 2; margin-top: -2.75rem; padding: 7.25rem 0 4rem; color: hsl(var(--secondary-foreground)); background: hsl(175.38deg 31.71% 24.12%); isolation: isolate; }
+.daily-story-section::before { content: ""; position: absolute; z-index: -1; inset-inline: -3%; top: -3.5rem; height: 5.25rem; background: hsl(175.38deg 31.71% 24.12%); clip-path: ellipse(58% 54% at 50% 100%); animation: story-bridge-breathe 13s ease-in-out infinite alternate; transform-origin: bottom center; }
+.daily-story-section::after { content: ""; position: absolute; z-index: -1; inset-inline: 0; top: 0; height: 8rem; pointer-events: none; background: hsl(175.38deg 31.71% 24.12%) / .75), transparent); animation: transition-wash 9s ease-in-out infinite alternate; }
 .daily-story-section > .container { opacity: var(--story-opacity, .18); transform: translateY(calc((1 - var(--story-enter, 0)) * 2rem)); transition: opacity .16s linear, transform .16s linear; }
 .daily-story-section .editorial-heading, .daily-story-section .editorial-kicker { color: inherit; }
 .story-badge { border: 1px solid hsl(var(--primary) / .65); padding: .4rem .85rem; color: hsl(var(--primary)); font-size: .7rem; }
