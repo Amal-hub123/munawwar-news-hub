@@ -505,7 +505,7 @@ All colors MUST be HSL.
 .latest-card-actions { display: flex; align-items: center; gap: 0; margin-inline-start: auto; }
 .latest-card-actions button { width: 2rem; height: 2rem; padding: 0; }
 .latest-card-actions button span { font-size: .62rem; }
-.latest-card-categories { display: flex; gap: .35rem; padding: 0 1.25rem .8rem; }
+.latest-card-categories { display: flex; gap: .35rem; }
 .latest-card-categories span { padding: .2rem .48rem; border-radius: 999px; color: hsl(var(--primary)); background: hsl(var(--primary) / .1); font-size: .58rem; }
 
 .mosaic-section { padding: 4.5rem 0; background-image : radial-gradient(hsl(var(--secondary) / .13) 1px,transparent 1px); background-size:14px 14px;}
