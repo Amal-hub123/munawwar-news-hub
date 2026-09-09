@@ -477,7 +477,7 @@ All colors MUST be HSL.
 .journey-node-1 .journey-stem i, .journey-node-3 .journey-stem i { top: -.42rem; bottom: auto; }
 .journey-node-1 .journey-label, .journey-node-3 .journey-label { top: -2.25rem; }
 
-.latest-editorial { padding: 4.5rem 0 5rem; background-color: hsl(var(--card)); background-image: radial-gradient(hsl(var(--secondary) / .1) 1px, transparent 1px); background-size: 14px 14px; clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%); }
+.latest-editorial { padding: 4.5rem 0 5rem; background-color: hsl(var(--card)); background-image: radial-gradient(hsl(var(--secondary) / .1) 1px, transparent 1px); background-size: 14px 14px; }
 .latest-card-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem; }
 .latest-card-reveal { height: 100%; }
 .latest-article-card { position: relative; display: flex; min-height: 17rem; height: 100%; flex-direction: column; overflow: hidden; border: 1px solid hsl(var(--border)); border-radius: 1rem; background: hsl(var(--background)); box-shadow: 0 12px 30px hsl(var(--foreground) / .06); transition: transform .55s var(--editorial-ease), box-shadow .55s ease, border-color .4s ease; animation: latest-card-idle 7s ease-in-out infinite; }
