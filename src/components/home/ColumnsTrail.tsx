@@ -18,9 +18,10 @@ export const ColumnsTrail = () => {
         <div ref={ref} {...handlers} dir="rtl" className="drag-scroll journey-track">
           {products.map((product: any, i: number) => (
             <Reveal key={product.id} delay={i * 70} variant="scale" className={`journey-node journey-node-${i % 4}`}>
-              <Link to={`/products/${product.id}`} draggable={false} className="group block">
+              <Link to={`/products/${product.id}`} draggable={false} className="journey-card group">
+                <span className="journey-stem" aria-hidden="true"><i /></span>
                 <div className="journey-image"><img src={product.image_url} alt={product.name} loading="lazy" draggable={false} /></div>
-                <span className="journey-number">{String(i + 1).padStart(2, "0")}</span>
+                <span className="journey-label">{product.name}</span>
               </Link>
             </Reveal>
           ))}
