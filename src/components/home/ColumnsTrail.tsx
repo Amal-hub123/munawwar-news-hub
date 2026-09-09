@@ -21,7 +21,7 @@ export const ColumnsTrail = () => {
               <Link to={`/products/${product.id}`} draggable={false} className="journey-card group">
                 <span className="journey-stem" aria-hidden="true"><i /></span>
                 <div className="journey-image"><img src={product.image_url} alt={product.name} loading="lazy" draggable={false} /></div>
-                <span className="journey-label">{product.name}</span>
+                {/* <span className="journey-label">{product.name}</span> */}
               </Link>
             </Reveal>
           ))}
