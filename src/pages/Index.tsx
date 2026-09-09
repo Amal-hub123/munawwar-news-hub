@@ -29,7 +29,7 @@ const Index = () => {
           <HomeTimelines />
 
           {/* خدماتنا */}
-          <section className="editorial-services-section py-16 md:py-24">
+          {/* <section className="editorial-services-section py-16 md:py-24">
             <div className="container mx-auto px-6">
               <Reveal variant="clip">
                 <div className="mb-8 md:mb-10 flex items-end justify-between gap-5">
@@ -42,7 +42,7 @@ const Index = () => {
                 <NewsSlider />
               </Reveal>
             </div>
-          </section>
+          </section> */}
 
           <WritersTrail />
           <AskSection />
