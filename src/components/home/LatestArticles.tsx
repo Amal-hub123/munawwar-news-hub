@@ -73,13 +73,14 @@ export const LatestArticles = () => {
                       <strong>{article.profiles?.name}</strong>
                     </Link>
                     <time dateTime={article.approved_at || article.created_at}>{date}</time>
+                                      {categories.length > 0 && <div className="latest-card-categories">{categories.slice(0, 3).map((category: string) => <span key={category}>{category}</span>)}</div>}
+
                     <div className="latest-card-actions">
                       <ShareButton url={`https://www.almonhna.sa/api/og-share?type=articles&id=${article.id}&v=1`} displayUrl={publicUrl} title={article.title} />
                       <BookmarkButton size="sm" item={{ id: article.id, type: "article", title: article.title, excerpt: article.excerpt, coverImage: article.cover_image_url, authorName: article.profiles?.name || "" }} />
                       <LikeButton contentId={article.id} contentType="article" />
                     </div>
                   </footer>
-                  {categories.length > 0 && <div className="latest-card-categories">{categories.slice(0, 3).map((category: string) => <span key={category}>{category}</span>)}</div>}
                 </article>
               </Reveal>
             );
