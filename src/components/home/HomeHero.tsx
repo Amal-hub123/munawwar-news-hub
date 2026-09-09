@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 interface Phrase { lead: string; mark: string; mid: string; mark2?: string; tail: string; }
 
 const PHRASES: Phrase[] = [
-  { lead: "", mark: "الاقتصاد", mid: " ليس مُجرّد رقم، بل حكاية ", mark2: "مُجتمع", tail: "، نرويها بسرديّة مُختلفة." },
-  { lead: "", mark: "الإنسان", mid: " يعيش نتيجة ", mark2: "الرقم", tail: " قبل أن يعرفه." },
+  { lead: "", mark: "الاقتصاد", mid: " ليس مُجرّد رقم، بل حكاية ", mark2: "مُجتمع", tail: "، نرويها بسرديّة مُختلفة" },
+  { lead: "", mark: "الإنسان", mid: " يعيش نتيجة ", mark2: "الرقم", tail: " قبل أن يعرفه" },
   { lead: "ماذا لو بدأنا من ", mark: "الإنسان", mid: "", tail: "؟" },
 ];
 
@@ -87,11 +87,11 @@ export const HomeHero = () => {
         <span className="orb orb-gold" style={shift(10)} />
         <span className="orb orb-teal" style={shift(16)} />
       </div>
-      <div className="calm-hero-dots" aria-hidden="true">
+      <div className="calm-hero-dots hide" aria-hidden="true">
         {Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ top: `${(i * 37) % 70 + 6}%`, insetInlineStart: `${(i * 61) % 92 + 3}%`, animationDelay: `${i * 0.4}s` }} />)}
       </div>
 
-      <div className="calm-hero-stage">
+      <div className="calm-hero-stage mb-5 pb-5">
         {PHRASES.map((phrase, i) => (
           <h1 key={i} aria-hidden={i !== index} className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}>
             {phrase.lead}
@@ -103,7 +103,7 @@ export const HomeHero = () => {
         ))}
       </div>
 
-      <div className="calm-hero-dotsnav" aria-label="اختيار العبارة">
+      <div className="calm-hero-dotsnav mb-5 pb-5" aria-label="اختيار العبارة">
         {PHRASES.map((_, i) => (
           <button key={i} type="button" aria-label={`العبارة ${i + 1}`} onClick={() => setIndex(i)} className={`hero-dot ${i === index ? "is-active" : ""}`} />
         ))}
