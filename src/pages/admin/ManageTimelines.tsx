@@ -77,10 +77,10 @@ const ManageTimelines = () => {
   const addTimeline = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
-    const minOrder = timelines.reduce((m, _t, i) => Math.min(m, i), 0);
+    const { data: first } = await supabase.from("timelines").select("display_order").order("display_order").limit(1).maybeSingle();
     const { data, error } = await supabase
       .from("timelines")
-      .insert({ title: newTitle.trim(), display_order: minOrder - 1 })
+      .insert({ title: newTitle.trim(), display_order: (first?.display_order ?? 0) - 1 })
       .select("id")
       .single();
     if (error) {
