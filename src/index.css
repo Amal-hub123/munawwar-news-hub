@@ -451,7 +451,7 @@ All colors MUST be HSL.
 .journey-track-wrap, .writers-track-wrap { position: relative; min-height: 19rem; }
 .journey-track-wrap { min-height: 25rem; }
 .journey-curve, .writers-curve { position: absolute; z-index: 0; top: 3.5rem; width: 110%; height: 11rem; color: hsl(var(--primary) / .55); }
-.journey-curve { top: 7.4rem; left: 4.2%; height: 10rem; color: hsl(var(--secondary) / .48); overflow: visible; animation: journey-curve-float 9s ease-in-out infinite alternate; }
+.journey-curve { top: 7.4rem; left: 0; width: 100%; height: 10rem; color: hsl(var(--secondary) / .48); overflow: visible; animation: journey-curve-float 9s ease-in-out infinite alternate; }
 .journey-curve path { stroke-width: 4; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2.2s .15s var(--editorial-ease) forwards; }
 .journey-track, .writers-track { position: relative; z-index: 2; align-items: flex-start; gap: 1.75rem; padding: 1rem max(1.5rem, calc((100vw - 1400px)/2 + 1.5rem)) 2rem; }
 .journey-track { gap: clamp(2rem, 4vw, 4.5rem); min-height: 24rem; padding-top: 0; }
@@ -459,20 +459,23 @@ All colors MUST be HSL.
 .journey-node-0, .journey-node-2 { margin-top: .5rem; }
 .journey-node-1, .journey-node-3 { margin-top: 10.5rem; }
 .journey-card { position: relative; display: flex; flex-direction: column; align-items: center; }
-.journey-image { position: relative; z-index: 2; width: 100%; aspect-ratio: 1 / 1; padding: .42rem; overflow: hidden; border: 2px solid hsl(var(--secondary)); border-radius: 1.35rem; background: hsl(var(--background)); box-shadow: 0 14px 34px hsl(var(--foreground) / .09); transition: transform .55s var(--editorial-ease), box-shadow .45s ease; }
+.journey-image { position: relative; z-index: 2; width: 100%; aspect-ratio: 1 / 1; padding: .42rem; overflow: hidden; border: 2px solid hsl(var(--secondary)); border-radius: 1.35rem; background: hsl(var(--background)); box-shadow: 0 14px 34px hsl(var(--foreground) / .09); transition: transform .55s var(--editorial-ease), box-shadow .45s ease; animation: journey-card-idle 5.8s ease-in-out infinite; }
+.journey-node:nth-child(2n) .journey-image { animation-delay: -1.7s; }
+.journey-node:nth-child(3n) .journey-image { animation-delay: -3.4s; }
 .journey-node:nth-child(3n + 2) .journey-image { border-color: hsl(var(--primary)); }
 .journey-node:nth-child(3n) .journey-image { border-color: hsl(var(--accent)); }
 .journey-image::after { content: ""; position: absolute; inset: .42rem; z-index: 2; border: 1px solid hsl(var(--background) / .72); border-radius: .9rem; pointer-events: none; }
 .journey-image img { width: 100%; height: 100%; border-radius: .9rem; object-fit: cover; transition: transform .8s var(--editorial-ease), filter .6s ease; }
 .journey-node:hover .journey-image { transform: translateY(-6px) rotate(-1deg); box-shadow: 0 20px 45px hsl(var(--foreground) / .16); }
 .journey-node:hover img { transform: scale(1.07); }
-.journey-label { position: relative; z-index: 3; max-width: 100%; margin-top: .65rem; color: hsl(var(--foreground)); font-size: .78rem; font-weight: 700; text-align: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.journey-label { position: absolute; z-index: 3; top: calc(100% + 4.15rem); left: 50%; width: max-content; max-width: 11rem; color: hsl(var(--foreground)); font-size: .78rem; font-weight: 700; line-height: 1.55; text-align: center; transform: translateX(-50%); }
 .journey-stem { position: absolute; z-index: 1; left: 50%; top: 100%; width: 1px; height: 3.15rem; background: hsl(var(--secondary) / .5); transform: translateX(-50%); }
 .journey-stem i { position: absolute; left: 50%; bottom: -.42rem; width: .82rem; height: .82rem; border: 3px solid hsl(var(--background)); border-radius: 50%; background: hsl(var(--secondary)); box-shadow: 0 0 0 1px hsl(var(--secondary) / .25); transform: translateX(-50%); animation: journey-dot-pulse 3.8s ease-in-out infinite; }
 .journey-node:nth-child(3n + 2) .journey-stem, .journey-node:nth-child(3n + 2) .journey-stem i { background: hsl(var(--primary)); }
 .journey-node:nth-child(3n) .journey-stem, .journey-node:nth-child(3n) .journey-stem i { background: hsl(var(--accent)); }
 .journey-node-1 .journey-stem, .journey-node-3 .journey-stem { top: auto; bottom: 100%; }
 .journey-node-1 .journey-stem i, .journey-node-3 .journey-stem i { top: -.42rem; bottom: auto; }
+.journey-node-1 .journey-label, .journey-node-3 .journey-label { top: -2.25rem; }
 
 .latest-editorial { padding: 4.5rem 0 5rem; background: hsl(var(--card)); clip-path: polygon(0 2rem, 100% 0, 100% calc(100% - 2rem), 0 100%); }
 .latest-composition { display: grid; grid-template-columns: 1.22fr .78fr; gap: clamp(1.5rem, 3vw, 3rem); }
@@ -573,6 +576,7 @@ All colors MUST be HSL.
 @keyframes phrase-soft { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 @keyframes journey-curve-float { from { transform: translateY(3px) scaleX(1.01); } to { transform: translateY(-5px) scaleX(1.035); } }
 @keyframes journey-dot-pulse { 0%, 100% { transform: translateX(-50%) scale(1); } 50% { transform: translateX(-50%) scale(1.22); } }
+@keyframes journey-card-idle { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -5px; rotate: -.35deg; } }
 
 @media (max-width: 900px) {
   .editorial-heading { font-size: 1.65rem; }.section-heading-row { margin-bottom: 2rem; }
@@ -588,7 +592,7 @@ All colors MUST be HSL.
   .daily-story-section::before { top: -2.75rem; height: 4rem; clip-path: ellipse(68% 55% at 50% 100%); }
   .journey-section, .latest-editorial, .mosaic-section, .timelines-section, .writers-section, .ask-editorial-section, .question-transform-section { padding-top: 5rem; padding-bottom: 5rem; }
   .daily-story-composition { grid-template-columns: 1fr; }.daily-story-media { order: 1; min-height: 13.5rem; height: 13.5rem; }.daily-story-copy { order: 2; padding: 1.5rem; }.daily-story-copy h3 { font-size: 1.25rem; }.story-stop-copy small { display: none; }
-  .journey-track-wrap { min-height: 22rem; }.journey-curve { top: 6.6rem; width: 150%; height: 9rem; }.journey-track { gap: 2.5rem; }.journey-node { flex-basis: 9.5rem; }.journey-node-0, .journey-node-2 { margin-top: .25rem; }.journey-node-1, .journey-node-3 { margin-top: 9.25rem; }.journey-label { font-size: .74rem; }
+  .journey-track-wrap { min-height: 22rem; }.journey-curve { top: 6.6rem; width: 100%; height: 9rem; }.journey-track { gap: 2.5rem; }.journey-node { flex-basis: 9.5rem; }.journey-node-0, .journey-node-2 { margin-top: .25rem; }.journey-node-1, .journey-node-3 { margin-top: 9.25rem; }.journey-label { max-width: 9.5rem; font-size: .74rem; }
   .latest-editorial { clip-path: polygon(0 1.5rem, 100% 0, 100% calc(100% - 1.5rem), 0 100%); }.latest-lead-media { height: 17rem; }.latest-lead-copy { width: 92%; margin-top: -4rem; padding: 1.4rem; }.latest-secondary { gap: 2rem .8rem; }.latest-item-2 .latest-item-media { height: 13rem; }.latest-item:not(.latest-item-2) .latest-item-media { height: 8rem; }.latest-item-copy h3 { font-size: .95rem; }
   .mosaic-layout { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 7rem; }.mosaic-xl, .mosaic-wide { grid-column: span 2; }.mosaic-tall, .mosaic-medium, .mosaic-small { grid-column: span 1; }.mosaic-cell strong { font-size: 1.1rem; }
   .timeline-journey { gap: 1.5rem; }.timeline-stop { width: 72vw; }.timeline-stop-1, .timeline-stop-3 { margin-top: 3.5rem; }
@@ -626,6 +630,7 @@ All colors MUST be HSL.
   .daily-story-media,
   .daily-story-media img { animation: none !important; }
   .journey-curve,
+  .journey-image,
   .journey-stem i { animation: none !important; }
   .draw-line { stroke-dashoffset: 0 !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
