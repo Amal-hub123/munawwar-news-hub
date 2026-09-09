@@ -41,21 +41,22 @@ export const HomeTimelines = () => {
         </Reveal>
 
         <Reveal variant="side" className="mt-6 flex flex-wrap justify-end gap-2 md:gap-3">
-          {visible.map((t: any) => (
-            <button
-              key={t.id}
-              type="button"
-              onClick={() => setActiveId(t.id)}
-              aria-pressed={t.id === active.id}
-              className={`rounded-lg px-4 py-2 text-sm transition-colors md:text-base ${
-                t.id === active.id
-                  ? "bg-primary text-primary-foreground shadow-sm"
-                  : "bg-muted text-foreground/80 hover:bg-muted/70"
-              }`}
-            >
-              {t.title}
-            </button>
-          ))}
+          {visible.map((t: any) => {
+            const color = t.color || "#00343A";
+            const isActive = t.id === active.id;
+            return (
+              <button
+                key={t.id}
+                type="button"
+                onClick={() => setActiveId(t.id)}
+                aria-pressed={isActive}
+                style={isActive ? { background: color, color: "#fff", borderColor: color } : { color, borderColor: color }}
+                className="rounded-lg border px-4 py-2 text-sm transition-colors md:text-base"
+              >
+                {t.title}
+              </button>
+            );
+          })}
         </Reveal>
       </div>
 
