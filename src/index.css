@@ -549,13 +549,26 @@ All colors MUST be HSL.
 .writers-track-wrap { min-height: 23rem; }
 .writers-curve { top: 5rem; height: 13rem; }
 .writers-track { gap: 2rem; }
-.writer-point { flex: 0 0 clamp(10rem, 14vw, 13rem); }
+.writer-point { flex: 0 0 clamp(12rem, 17vw, 15rem); }
 .writer-point-1, .writer-point-3 { margin-top: 3rem; }
-.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border: double; border-color: #00343a;  color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
+.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border-radius: .9rem; border: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
 .writer-portrait img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); transition: transform .8s var(--editorial-ease), filter .5s ease; }
 .writer-point:hover .writer-portrait { transform: translateY(-8px) rotate(1deg); }.writer-point:hover img { transform: scale(1.06); filter: saturate(1); }
-.writer-info { position: relative; width: 90%; margin: -2rem auto 0; padding: .8rem .9rem; background: hsl(var(--background) / .93); backdrop-filter: blur(10px); }
-.writer-info > span { color: hsl(var(--primary)); font-size: .68rem; }.writer-info h3 { font-size: 1rem; }.writer-info p { max-height: 0; overflow: hidden; color: hsl(var(--muted-foreground)); font-size: .74rem; line-height: 1.6; opacity: 0; transition: max-height .45s ease, opacity .45s ease, margin .45s ease; }.writer-point:hover .writer-info p { max-height: 5rem; margin: .5rem 0; opacity: 1; }.writer-info small { color: hsl(var(--muted-foreground)); font-size: .66rem; }
+.writer-info { position: relative; width: 94%; margin: -2rem auto 0; padding: .95rem 1rem 1rem; border: 1px solid hsl(var(--border)); border-radius: .85rem; background: hsl(var(--background) / .96); backdrop-filter: blur(10px); box-shadow: 0 10px 26px -22px hsl(var(--foreground) / .5); animation: writer-card-idle 7s ease-in-out infinite; transition: transform .45s var(--editorial-ease), box-shadow .45s ease; }
+.writer-point:nth-child(even) .writer-info { animation-delay: -3.5s; }
+.writer-point:hover .writer-info { transform: translateY(-6px); box-shadow: 0 18px 34px -22px hsl(var(--foreground) / .55); }
+.writer-info h3 { font-size: 1rem; }
+.writer-info p { max-height: 0; overflow: hidden; color: hsl(var(--muted-foreground)); font-size: .74rem; line-height: 1.6; opacity: 0; transition: max-height .45s ease, opacity .45s ease, margin .45s ease; }
+.writer-point:hover .writer-info p { max-height: 5rem; margin: .5rem 0; opacity: 1; }
+.writer-topics { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .55rem; }
+.writer-topic { padding: .18rem .6rem; border-radius: 999px; font-size: .66rem; line-height: 1.6; transition: transform .35s var(--editorial-ease); }
+.writer-point:hover .writer-topic { transform: translateY(-2px); }
+.writer-socials { display: flex; gap: .55rem; margin-top: .6rem; padding-top: .55rem; border-top: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); }
+.writer-socials a { display: grid; place-items: center; width: 1.75rem; height: 1.75rem; border-radius: 999px; border: 1px solid hsl(var(--border)); transition: color .3s ease, transform .3s var(--editorial-ease), border-color .3s ease; }
+.writer-socials a:hover { color: hsl(var(--primary)); border-color: hsl(var(--primary)); transform: translateY(-2px) scale(1.06); }
+@keyframes writer-card-idle { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@media (prefers-reduced-motion: reduce) { .writer-info { animation: none; } }
+
 
 .ask-editorial-section { position: relative; overflow: hidden; padding: 5rem 0; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); }
 .ask-orbit { position: absolute; width: 70vw; height: 70vw; top: -35vw; left: -12vw; border: 1px solid hsl(var(--primary) / .3); border-radius: 50%; }
