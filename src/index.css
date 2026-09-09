@@ -509,15 +509,15 @@ All colors MUST be HSL.
 .latest-card-categories span { padding: .2rem .48rem; border-radius: 999px; color: hsl(var(--primary)); background: hsl(var(--primary) / .1); font-size: .58rem; }
 
 .mosaic-section { padding: 4.5rem 0; }
-.mosaic-layout { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 5rem; gap: .6rem; }
+.mosaic-layout { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; grid-auto-rows: 5rem; gap: .45rem; padding: .45rem; overflow: hidden; border: 1px solid hsl(var(--border)); border-radius: .65rem; background: hsl(var(--card)); box-shadow: 0 14px 34px hsl(var(--foreground) / .06); }
 .mosaic-reveal { min-width: 0; }
-.mosaic-xl { grid-column: span 3; grid-row: span 3; }.mosaic-tall { grid-column: span 2; grid-row: span 3; }.mosaic-wide { grid-column: span 3; grid-row: span 2; }.mosaic-medium { grid-column: span 2; grid-row: span 2; }.mosaic-small { grid-column: span 1; grid-row: span 2; }
-.mosaic-cell { position: relative; display: flex; height: 100%; flex-direction: column; justify-content: flex-end; overflow: hidden; padding: 1rem; border: 1px solid hsl(var(--border)); background: hsl(var(--card)); transition: transform .55s var(--editorial-ease), opacity .45s ease, background .45s ease; }
+.mosaic-xl { grid-column: 3 / 5; grid-row: 1 / 3; }.mosaic-wide { grid-column: 1 / 3; grid-row: 1 / 2; }.mosaic-tall { grid-column: 2 / 3; grid-row: 2 / 4; }.mosaic-medium { grid-column: 1 / 2; grid-row: 2 / 3; }.mosaic-small { grid-column: 1 / 2; grid-row: 3 / 4; }.mosaic-fill { grid-column: 3 / 5; grid-row: 3 / 4; }
+.mosaic-cell { position: relative; display: flex; height: 100%; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 1rem; border: 1px solid hsl(var(--foreground) / .45); border-radius: .45rem; text-align: center; box-shadow: inset 0 1px hsl(var(--background) / .18); transition: transform .55s var(--editorial-ease), opacity .45s ease, filter .45s ease, box-shadow .45s ease; }
 .mosaic-layout.has-active .mosaic-cell:not(.is-active) { opacity: .42; transform: scale(.97); }
-.mosaic-cell.is-active { z-index: 2; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); transform: scale(1.025); }
-.mosaic-cell strong { font-size: clamp(.95rem, 1.3vw, 1.25rem); line-height: 1.3; }
-.mosaic-order { position: absolute; top: 1rem; inset-inline-end: 1rem; color: hsl(var(--primary)); font-size: .7rem; }
-.mosaic-count { margin-top: .6rem; font-size: .72rem; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
+.mosaic-cell.is-active { z-index: 2; filter: saturate(1.08) brightness(1.04); transform: scale(1.018); box-shadow: 0 10px 24px hsl(var(--foreground) / .16), inset 0 1px hsl(var(--background) / .22); }
+.mosaic-cell strong { font-size: clamp(.95rem, 1.35vw, 1.3rem); line-height: 1.35; }
+.mosaic-order { position: absolute; top: .65rem; inset-inline-end: .75rem; font-size: .62rem; opacity: .58; }
+.mosaic-count { margin-top: .4rem; font-size: .68rem; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
 .mosaic-cell:hover .mosaic-count { opacity: 1; transform: none; }
 
 .timelines-section { padding: 4.5rem 0; color: #fff; background: hsl(175.38deg 31.71% 24.12%); }
@@ -596,7 +596,7 @@ All colors MUST be HSL.
   .editorial-heading { font-size: 1.65rem; }.section-heading-row { margin-bottom: 2rem; }
   .daily-story-composition { grid-template-columns: minmax(16rem, .9fr) minmax(0, 1.1fr); min-height: 18rem; }.daily-story-media { min-height: 18rem; }.daily-story-copy { padding: 1.75rem; }.story-timeline { margin-top: 1rem; overflow-x: auto; }.story-timeline ol { width: 42rem; }
   .latest-card-main { grid-template-columns: minmax(0, 1fr) 8.2rem; }.latest-card-media { height: 8.2rem; }
-  .mosaic-layout { grid-template-columns: repeat(4, 1fr); }.mosaic-xl { grid-column: span 3; }.mosaic-tall { grid-column: span 1; }.mosaic-wide { grid-column: span 2; }
+  .mosaic-layout { grid-template-columns: repeat(4, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -608,7 +608,7 @@ All colors MUST be HSL.
   .daily-story-composition { grid-template-columns: 1fr; }.daily-story-media { order: 1; min-height: 13.5rem; height: 13.5rem; }.daily-story-copy { order: 2; padding: 1.5rem; }.daily-story-copy h3 { font-size: 1.25rem; }.story-stop-copy small { display: none; }
   .journey-track-wrap { min-height: 22rem; }.journey-curve { top: 6.6rem; width: 100%; height: 9rem; }.journey-track { gap: 2.5rem; }.journey-node { flex-basis: 9.5rem; }.journey-node-0, .journey-node-2 { margin-top: .25rem; }.journey-node-1, .journey-node-3 { margin-top: 9.25rem; }.journey-label { max-width: 9.5rem; font-size: .74rem; }
   .latest-card-grid { grid-template-columns: 1fr; }.latest-card-main { grid-template-columns: minmax(0, 1fr) 7.5rem; gap: .9rem; padding: 1rem 1rem .75rem; }.latest-card-media { height: 7.5rem; }.latest-card-copy h3 { font-size: 1rem; }.latest-card-copy p { font-size: .72rem; }.latest-sequence { margin-top: .7rem; }.latest-card-footer { margin: 0 1rem; }.latest-card-categories { padding-inline: 1rem; }
-  .mosaic-layout { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 7rem; }.mosaic-xl, .mosaic-wide { grid-column: span 2; }.mosaic-tall, .mosaic-medium, .mosaic-small { grid-column: span 1; }.mosaic-cell strong { font-size: 1.1rem; }
+  .mosaic-layout { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 5.25rem; gap: .35rem; padding: .35rem; }.mosaic-xl, .mosaic-wide { grid-column: span 2; grid-row: span 2; }.mosaic-tall, .mosaic-medium, .mosaic-small, .mosaic-fill { grid-column: span 1; grid-row: span 2; }.mosaic-cell strong { font-size: 1rem; }
   .timeline-journey { gap: 1.5rem; }.timeline-stop { width: 72vw; }.timeline-stop-1, .timeline-stop-3 { margin-top: 3.5rem; }
   .services-editorial { height: 22rem; clip-path: polygon(0 0, 97% 2%, 100% 100%, 3% 97%); }.services-editorial-copy { padding: 1.5rem; }.services-editorial-copy h3 { font-size: 1.25rem; }.services-editorial-copy > p { display: none; }
   .editorial-services-section:has(.services-editorial) { min-height: 25rem; }

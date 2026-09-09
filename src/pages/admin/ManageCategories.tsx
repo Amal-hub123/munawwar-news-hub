@@ -12,7 +12,10 @@ interface Category {
   name: string;
   slug: string;
   display_order: number;
+  color: string;
 }
+
+const CATEGORY_COLORS = ["#143c37", "#2f625b", "#47716d", "#82ada5", "#8c9f4a", "#c96941", "#e1a437"];
 
 const slugify = (value: string) =>
   value
@@ -24,6 +27,7 @@ const slugify = (value: string) =>
 const ManageCategories = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [newName, setNewName] = useState("");
+  const [newColor, setNewColor] = useState(CATEGORY_COLORS[2]);
   const [counts, setCounts] = useState<Record<string, number>>({});
   const { toast } = useToast();
 
@@ -48,6 +52,7 @@ const ManageCategories = () => {
     const { error } = await supabase.from("categories").insert({
       name: newName.trim(),
       slug: slugify(newName),
+      color: newColor,
       display_order: categories.length,
     });
     if (error) {
@@ -65,7 +70,7 @@ const ManageCategories = () => {
   const save = async (cat: Category) => {
     const { error } = await supabase
       .from("categories")
-      .update({ name: cat.name, slug: slugify(cat.name) })
+      .update({ name: cat.name, slug: slugify(cat.name), color: cat.color })
       .eq("id", cat.id);
     toast(
       error
@@ -95,10 +100,25 @@ const ManageCategories = () => {
           <CardTitle>إضافة تصنيف</CardTitle>
         </CardHeader>
         <CardContent>
-          <form onSubmit={add} className="flex flex-col sm:flex-row gap-3">
+          <form onSubmit={add} className="flex flex-col sm:flex-row sm:items-center gap-3">
             <div className="flex-1">
               <Label className="sr-only">اسم التصنيف</Label>
               <Input value={newName} onChange={(e) => setNewName(e.target.value)} placeholder="اسم التصنيف" maxLength={60} />
+            </div>
+            <div className="flex items-center gap-2" aria-label="لون التصنيف">
+              {CATEGORY_COLORS.map((color) => (
+                <Button
+                  key={color}
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setNewColor(color)}
+                  className={`h-7 w-7 rounded-full border-2 p-0 ${newColor === color ? "border-foreground" : "border-transparent"}`}
+                  style={{ backgroundColor: color }}
+                  aria-label={`اختيار اللون ${color}`}
+                />
+              ))}
+              <input type="color" value={newColor} onChange={(e) => setNewColor(e.target.value)} className="h-8 w-8 cursor-pointer rounded border border-border bg-transparent" aria-label="لون مخصص" />
             </div>
             <Button type="submit" className="gap-2"><Plus className="w-4 h-4" /> إضافة</Button>
           </form>
@@ -114,6 +134,21 @@ const ManageCategories = () => {
           {categories.map((cat) => (
             <div key={cat.id} className="flex flex-col sm:flex-row sm:items-center gap-3 border border-border rounded-xl p-3">
               <Input className="flex-1" value={cat.name} onChange={(e) => rename(cat, e.target.value)} />
+              <div className="flex items-center gap-1.5 shrink-0" aria-label={`لون ${cat.name}`}>
+                {CATEGORY_COLORS.map((color) => (
+                  <Button
+                    key={color}
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setCategories((prev) => prev.map((item) => item.id === cat.id ? { ...item, color } : item))}
+                    className={`h-6 w-6 rounded-full border-2 p-0 ${cat.color === color ? "border-foreground" : "border-transparent"}`}
+                    style={{ backgroundColor: color }}
+                    aria-label={`اختيار اللون ${color}`}
+                  />
+                ))}
+                <input type="color" value={cat.color} onChange={(e) => setCategories((prev) => prev.map((item) => item.id === cat.id ? { ...item, color: e.target.value } : item))} className="h-7 w-7 cursor-pointer rounded border border-border bg-transparent" aria-label="لون مخصص" />
+              </div>
               <span className="text-sm text-muted-foreground whitespace-nowrap">{counts[cat.id] || 0} مقال</span>
               <div className="flex gap-2 shrink-0">
                 <Button type="button" variant="outline" size="sm" onClick={() => save(cat)} className="gap-1">
