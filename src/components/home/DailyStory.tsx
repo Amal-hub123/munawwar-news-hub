@@ -33,6 +33,21 @@ export const DailyStory = () => {
           {story.badge && <span className="story-badge">{story.badge}</span>}
         </Reveal>
         <div className="daily-story-composition">
+
+ {stops.length > 0 && (
+            <Reveal delay={220} className="story-timeline">
+              <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 72 C180 10 330 95 480 45 C610 0 690 55 800 20" /></svg>
+              <ol>
+                {stops.map((stop, i) => (
+                  <li key={`${stop.title}-${i}`} className={i === activeStop ? "is-active" : ""} onMouseEnter={() => setActiveStop(i)} onClick={() => setActiveStop(i)}>
+                    <button type="button" aria-label={stop.title}><span>{String(i + 1).padStart(2, "0")}</span></button>
+                    <div className="story-stop-copy"><p>{stop.title}</p>{stop.description && <small>{stop.description}</small>}</div>
+                  </li>
+                ))}
+              </ol>
+            </Reveal>
+          )}
+          
           <Reveal variant="clip" className="daily-story-media">
             <Link to={`/articles/${article.id}`} className="group zoom-media block h-full">
               <img src={article.cover_image_url} alt={article.title} loading="lazy" className="h-full w-full object-cover" />
@@ -49,19 +64,7 @@ export const DailyStory = () => {
             </span>
             <Link to={`/articles/${article.id}`} className="editorial-link mt-7">اقرأ الحكاية <ArrowLeft className="h-4 w-4" /></Link>
           </Reveal>
-          {stops.length > 0 && (
-            <Reveal delay={220} className="story-timeline">
-              <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 72 C180 10 330 95 480 45 C610 0 690 55 800 20" /></svg>
-              <ol>
-                {stops.map((stop, i) => (
-                  <li key={`${stop.title}-${i}`} className={i === activeStop ? "is-active" : ""} onMouseEnter={() => setActiveStop(i)} onClick={() => setActiveStop(i)}>
-                    <button type="button" aria-label={stop.title}><span>{String(i + 1).padStart(2, "0")}</span></button>
-                    <div className="story-stop-copy"><p>{stop.title}</p>{stop.description && <small>{stop.description}</small>}</div>
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
-          )}
+         
         </div>
       </div>
     </section>
