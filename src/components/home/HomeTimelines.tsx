@@ -40,23 +40,25 @@ export const HomeTimelines = () => {
           <p className="section-hint">اسحب لتتبع الخط</p>
         </Reveal>
 
-        <Reveal variant="side" className="mt-6 flex flex-wrap justify-start gap-2 md:gap-3" dir="rtl">
-          {visible.map((t: any) => {
-            const color = t.color || "#00343A";
-            const isActive = t.id === active.id;
-            return (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => setActiveId(t.id)}
-                aria-pressed={isActive}
-                style={{ background: color, color: "#fff", borderColor: color, opacity: isActive ? 1 : 0.75 }}
-                className={`rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${isActive ? "ring-2 ring-white/40 shadow-lg" : ""}`}
-              >
-                {t.title}
-              </button>
-            );
-          })}
+        <Reveal variant="side" className="mt-6">
+          <div className="flex flex-wrap justify-start gap-2 md:gap-3" dir="rtl">
+            {visible.map((t: any) => {
+              const color = t.color || "#00343A";
+              const isActive = t.id === active.id;
+              return (
+                <button
+                  key={t.id}
+                  type="button"
+                  onClick={() => setActiveId(t.id)}
+                  aria-pressed={isActive}
+                  style={{ background: color, color: "#fff", borderColor: color, opacity: isActive ? 1 : 0.75 }}
+                  className={`rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${isActive ? "ring-2 ring-white/40 shadow-lg" : ""}`}
+                >
+                  {t.title}
+                </button>
+              );
+            })}
+          </div>
         </Reveal>
       </div>
 
