@@ -390,8 +390,9 @@ All colors MUST be HSL.
 .site-nav-link:hover::after { transform: scaleX(1); }
 
 .calm-hero { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: min(88svh, 44rem); padding: 4rem 1.5rem 13rem; background: hsl(var(--background)); }
-.calm-hero-stage, .calm-hero-dotsnav, .calm-hero-orbs, .calm-hero-dots, .calm-hero-cue { transition: opacity .8s ease, filter .8s ease, transform .9s var(--editorial-ease); }
-.calm-hero.is-leaving .calm-hero-stage, .calm-hero.is-leaving .calm-hero-dotsnav, .calm-hero.is-leaving .calm-hero-orbs, .calm-hero.is-leaving .calm-hero-dots { opacity: 0; filter: blur(3px); transform: translateY(-12px); }
+.calm-hero-stage, .calm-hero-dotsnav, .calm-hero-orbs, .calm-hero-dots, .calm-hero-cue { transition: opacity .45s ease, filter .45s ease, transform .2s linear; }
+.calm-hero .calm-hero-stage { opacity: calc(1 - var(--hero-scroll, 0)); filter: blur(calc(var(--hero-scroll, 0) * 4px)); transform: translateY(calc(var(--hero-scroll, 0) * -2rem)); }
+.calm-hero .calm-hero-dotsnav, .calm-hero .calm-hero-orbs, .calm-hero .calm-hero-dots { opacity: calc(1 - var(--hero-scroll, 0)); transform: translateY(calc(var(--hero-scroll, 0) * -1rem)); }
 .calm-hero.is-leaving .calm-hero-cue { opacity: 0; }
 .calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
 .calm-hero-orbs .orb-gold { top: -3rem; right: 5rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
@@ -405,7 +406,7 @@ All colors MUST be HSL.
 .calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
 .hero-dot.is-active { width: 3.5rem; background: hsl(var(--primary)); }
-.calm-hero-wave { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(16rem, 34vw, 24rem); filter: drop-shadow(0 -10px 30px hsl(var(--foreground) / .04)); }
+.calm-hero-wave { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(16rem, 34vw, 24rem); filter: drop-shadow(0 -10px 30px hsl(var(--foreground) / .04)); transform: translateY(calc(var(--hero-scroll, 0) * 2.5rem)) scaleY(calc(1 + var(--hero-scroll, 0) * .12)); transform-origin: bottom center; transition: transform .18s linear; }
 .calm-hero-wave path { transform-box: fill-box; transform-origin: center; will-change: transform; }
 .calm-hero-wave .wave-air { fill: hsl(var(--hero-wave-air)); opacity: .55; animation: wave-drift-a 13s ease-in-out infinite alternate; }
 .calm-hero-wave .wave-back { fill: hsl(var(--hero-wave-back)); opacity: .88; animation: wave-drift-b 16s ease-in-out infinite alternate; }
@@ -417,10 +418,11 @@ All colors MUST be HSL.
 
 .daily-story-section { position: relative; z-index: 2; margin-top: -2.75rem; padding: 7.25rem 0 4rem; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); isolation: isolate; }
 .daily-story-section::before { content: ""; position: absolute; z-index: -1; inset-inline: -3%; top: -3.5rem; height: 5.25rem; background: hsl(var(--secondary)); clip-path: ellipse(58% 54% at 50% 100%); animation: story-bridge-breathe 13s ease-in-out infinite alternate; transform-origin: bottom center; }
+.daily-story-section::after { content: ""; position: absolute; z-index: -1; inset-inline: 0; top: 0; height: 8rem; pointer-events: none; background: linear-gradient(180deg, hsl(var(--hero-wave-front) / .75), transparent); animation: transition-wash 9s ease-in-out infinite alternate; }
 .daily-story-section .editorial-heading, .daily-story-section .editorial-kicker { color: inherit; }
 .story-badge { border: 1px solid hsl(var(--primary) / .65); padding: .4rem .85rem; color: hsl(var(--primary)); font-size: .7rem; }
 .daily-story-composition { position: relative; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(18rem, .65fr); align-items: center; min-height: 26rem; }
-.daily-story-media { height: 24rem; overflow: hidden; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 92%); }
+.daily-story-media { height: 24rem; overflow: hidden; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 92%); animation: story-media-breathe 10s ease-in-out infinite alternate; }
 .daily-story-shade { position: absolute; inset: 0; background: linear-gradient(90deg, transparent 48%, hsl(var(--secondary) / .86)); }
 .daily-story-copy { position: relative; z-index: 4; margin-inline-start: -4rem; padding: 2rem 0; }
 .daily-story-copy h3 { margin: .9rem 0; max-width: 15ch; font-size: clamp(1.4rem, 2.3vw, 2.2rem); line-height: 1.3; }
@@ -543,6 +545,8 @@ All colors MUST be HSL.
 @keyframes wave-drift-b { from { transform: translate3d(1.5%, 5px, 0) scaleX(1.06); } to { transform: translate3d(-1.5%, -7px, 0) scaleX(1.03); } }
 @keyframes wave-breathe { from { transform: translateY(4px) scaleY(1); } to { transform: translateY(-5px) scaleY(1.035); } }
 @keyframes story-bridge-breathe { from { transform: scaleX(1.01) translateY(2px); } to { transform: scaleX(1.055) translateY(-3px); } }
+@keyframes transition-wash { from { opacity: .22; transform: translateY(-10px); } to { opacity: .5; transform: translateY(5px); } }
+@keyframes story-media-breathe { from { transform: translateY(0); } to { transform: translateY(-7px); } }
 @keyframes phrase-soft { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
@@ -592,7 +596,9 @@ All colors MUST be HSL.
   .ambient-pulse-slow,
   .hero-phrase-enter,
   .calm-hero-wave path,
-  .daily-story-section::before { animation: none !important; }
+  .daily-story-section::before,
+  .daily-story-section::after,
+  .daily-story-media { animation: none !important; }
   .draw-line { stroke-dashoffset: 0 !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

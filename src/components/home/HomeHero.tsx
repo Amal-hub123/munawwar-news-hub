@@ -40,15 +40,23 @@ export const HomeHero = () => {
       event.preventDefault();
       start();
     };
+    let frame = 0;
     const onScroll = () => {
-      if (window.scrollY > 24) setIsLeaving(true);
-      else if (window.scrollY <= 2) setIsLeaving(false);
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => {
+        const progress = Math.min(1, Math.max(0, window.scrollY / Math.max(hero.offsetHeight * 0.72, 1)));
+        hero.style.setProperty("--hero-scroll", String(progress));
+        if (window.scrollY > 24) setIsLeaving(true);
+        else if (window.scrollY <= 2) setIsLeaving(false);
+      });
     };
+    onScroll();
     hero.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       hero.removeEventListener("wheel", onWheel);
       window.removeEventListener("scroll", onScroll);
+      window.cancelAnimationFrame(frame);
     };
   }, [isLeaving, start]);
 
@@ -65,7 +73,12 @@ export const HomeHero = () => {
   const shift = (depth: number) => ({ transform: `translate3d(${pointer.x * depth}px, ${pointer.y * depth}px, 0)` });
 
   return (
-    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className={`calm-hero ${isLeaving ? "is-leaving" : ""}`}>
+    <section
+      ref={ref}
+      onMouseMove={move}
+      onMouseLeave={() => setPointer({ x: 0, y: 0 })}
+      className={`calm-hero ${isLeaving ? "is-leaving" : ""}`}
+    >
       <div className="calm-hero-orbs" aria-hidden="true">
         <span className="orb orb-gold" style={shift(10)} />
         <span className="orb orb-teal" style={shift(16)} />
