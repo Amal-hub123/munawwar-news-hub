@@ -401,7 +401,7 @@ All colors MUST be HSL.
 .calm-hero-stage { position: relative; z-index: 4; display: grid; width: min(56rem, 100%); place-items: center; }
 .calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: center; color: hsl(var(--foreground)); font-size: clamp(1.55rem, 2.9vw, 2.35rem); font-weight: 700; line-height: 1.85; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
 .calm-hero-phrase.is-active { opacity: 1; transform: none; }
-.calm-hero-phrase .mark { font-style: normal; color: #e1a437; white-space: nowrap; padding: 0 .12em; background-image: linear-gradient(hsl(var(--primary) / .5), hsl(var(--primary) / .5)); background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; }
+.calm-hero-phrase .mark { font-style: normal; color: #e1a437; white-space: nowrap; padding: 0 .12em;  background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; }
 .dark .calm-hero-phrase .mark { color: hsl(var(--primary)); }
 .calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
