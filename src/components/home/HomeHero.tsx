@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Phrase { lead: string; mark: string; mid: string; mark2?: string; tail: string; }
 
@@ -12,7 +13,9 @@ const PHRASES: Phrase[] = [
 export const HomeHero = () => {
   const [index, setIndex] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const [isLeaving, setIsLeaving] = useState(false);
   const ref = useRef<HTMLElement | null>(null);
+  const transitionRef = useRef<number | null>(null);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -21,17 +24,45 @@ export const HomeHero = () => {
     return () => window.clearInterval(id);
   }, []);
 
+  const start = useCallback(() => {
+    if (isLeaving) return;
+    setIsLeaving(true);
+    transitionRef.current = window.setTimeout(() => {
+      document.getElementById("story-of-the-day")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 260);
+  }, [isLeaving]);
+
+  useEffect(() => {
+    const hero = ref.current;
+    if (!hero) return;
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY <= 10 || window.scrollY > 16 || isLeaving) return;
+      event.preventDefault();
+      start();
+    };
+    const onScroll = () => {
+      if (window.scrollY > 24) setIsLeaving(true);
+      else if (window.scrollY <= 2) setIsLeaving(false);
+    };
+    hero.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      hero.removeEventListener("wheel", onWheel);
+      window.removeEventListener("scroll", onScroll);
+      if (transitionRef.current !== null) window.clearTimeout(transitionRef.current);
+    };
+  }, [isLeaving, start]);
+
   const move = (event: React.MouseEvent) => {
     const box = ref.current?.getBoundingClientRect();
     if (!box) return;
     setPointer({ x: (event.clientX - box.left) / box.width - 0.5, y: (event.clientY - box.top) / box.height - 0.5 });
   };
 
-  const start = () => document.getElementById("story-of-the-day")?.scrollIntoView({ behavior: "smooth" });
   const shift = (depth: number) => ({ transform: `translate3d(${pointer.x * depth}px, ${pointer.y * depth}px, 0)` });
 
   return (
-    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className="calm-hero">
+    <section ref={ref} onMouseMove={move} onMouseLeave={() => setPointer({ x: 0, y: 0 })} className={`calm-hero ${isLeaving ? "is-leaving" : ""}`}>
       <div className="calm-hero-orbs" aria-hidden="true">
         <span className="orb orb-gold" style={shift(10)} />
         <span className="orb orb-teal" style={shift(16)} />
@@ -58,16 +89,17 @@ export const HomeHero = () => {
         ))}
       </div>
 
-      <svg className="calm-hero-wave" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
-        <path className="wave-back" d="M0 190 C260 120 470 250 760 190 C1030 135 1230 205 1440 150 L1440 320 L0 320 Z" />
-        <path className="wave-mid" d="M0 220 C280 155 500 275 780 215 C1050 160 1250 232 1440 182 L1440 320 L0 320 Z" />
-        <path className="wave-front" d="M0 252 C300 195 520 300 800 245 C1070 195 1260 262 1440 218 L1440 320 L0 320 Z" />
+      <svg className="calm-hero-wave" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
+        <path className="wave-air" d="M-120 174 C130 50 390 210 650 122 C930 28 1175 177 1560 70 L1560 420 L-120 420 Z" />
+        <path className="wave-back" d="M-120 225 C170 98 390 275 700 170 C970 78 1240 220 1560 122 L1560 420 L-120 420 Z" />
+        <path className="wave-mid" d="M-120 292 C180 156 480 330 760 231 C1035 135 1260 280 1560 185 L1560 420 L-120 420 Z" />
+        <path className="wave-front" d="M-120 345 C190 235 500 372 820 290 C1100 217 1320 330 1560 255 L1560 420 L-120 420 Z" />
       </svg>
 
-      {/* <button type="button" onClick={start} className="calm-hero-cue" aria-label="انزل لتقرأ الحكاية">
-        <span>انزل لتقرأ الحكاية</span>
+      <Button type="button" variant="ghost" onClick={start} className="calm-hero-cue" aria-label="ابدأ الحكاية">
+        <span>ابدأ الحكاية</span>
         <ChevronDown className="h-5 w-5" />
-      </button> */}
+      </Button>
     </section>
   );
 };
