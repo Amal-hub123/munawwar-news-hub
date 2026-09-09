@@ -442,9 +442,9 @@ All colors MUST be HSL.
 .story-timeline li { width: min(12rem, 20%); text-align: center; cursor: pointer; }
 .story-timeline button { width: 2.75rem; height: 2.75rem; border: 1px solid hsl(var(--primary)); border-radius: 50%; color: hsl(var(--primary)); background: hsl(var(--secondary)); transition: transform .4s var(--editorial-ease), background .4s ease, color .4s ease; }
 .story-timeline li.is-active button { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); transform: scale(1.18); }
-.story-stop-copy { margin-top: .9rem; opacity: .54; transition: opacity .4s ease, transform .4s ease; }
+.story-stop-copy { margin-top: .9rem; opacity: .54; transition: opacity .4s ease, transform .4s ease; font-size :large ; }
 .story-timeline li.is-active .story-stop-copy { opacity: 1; transform: translateY(-3px); }
-.story-stop-copy small { display: block; margin-top: .35rem; font-size: .7rem; color: hsl(var(--secondary-foreground) / .65); }
+.story-stop-copy small { display: block; margin-top: .35rem; font-size: .8rem; color: hsl(0deg 0% 100% / 89%); }
 
 .journey-section, .writers-section { position: relative; padding: 4rem 0; overflow: hidden; }
 .journey-track-wrap, .writers-track-wrap { position: relative; min-height: 19rem; }
