@@ -396,7 +396,7 @@ All colors MUST be HSL.
 .calm-hero .calm-hero-cue { opacity: calc(1 - var(--hero-scroll, 0) * 1.7); }
 .calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
 .calm-hero-orbs .orb-gold { top: -10rem; right: -43rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
-.calm-hero-orbs .orb-teal { top: -12rem; left: 9.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
+.calm-hero-orbs .orb-teal { top: -12rem; left: 33.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
 .calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
 .calm-hero-stage { position: relative; z-index: 4; display: grid; width: min(56rem, 100%); place-items: center; }
 .calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: center; color: hsl(var(--foreground)); font-size: clamp(1.55rem, 2.9vw, 2.35rem); font-weight: 700; line-height: 1.85; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
