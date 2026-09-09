@@ -55,8 +55,9 @@ export const AskSection = () => {
             <h3>أسئلة أصبحت محتوى</h3>
             <div className="ask-content-list">
               {transformedQuestions?.length ? transformedQuestions.map((item: any) => (
-                <Link key={item.id} to={`/articles/${item.articles.id}`}>
-                  <span>«</span><strong>{item.question}</strong><span>»</span>
+                <Link key={item.id} to={`/articles/${item.articles.id}`} className="ask-content-item">
+                  <p className="ask-content-question"><span>«</span>{item.question}<span>»</span></p>
+                  <p className="ask-content-article"><ArrowLeft className="w-3.5 h-3.5" />{item.articles.title}</p>
                 </Link>
               )) : <p className="ask-content-empty">قريبًا تتحول أسئلة الجمهور إلى مقالات.</p>}
             </div>
