@@ -3,21 +3,20 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { ImageUpload } from "@/components/ImageUpload";
 import { useToast } from "@/hooks/use-toast";
-import { GripVertical, Plus, Trash2 } from "lucide-react";
+import { ChevronDown, GripVertical, Plus, Trash2 } from "lucide-react";
 
 interface Stop {
   id?: string;
   title: string;
   label: string;
-  description: string;
-  image_url: string;
-  article_id: string;
+  image_url?: string;
+  description?: string;
+  article_id?: string;
 }
 
 interface Timeline {
@@ -26,22 +25,24 @@ interface Timeline {
   description: string;
   timeline_type: string;
   image_url: string;
+  color: string;
   is_active: boolean;
   stops: Stop[];
 }
 
+const COLORS = ["#00343A", "#3b6561", "#47716d", "#e1a437", "#b4532a", "#5b4b8a"];
+
 const ManageTimelines = () => {
   const [timelines, setTimelines] = useState<Timeline[]>([]);
-  const [articles, setArticles] = useState<any[]>([]);
   const [newTitle, setNewTitle] = useState("");
+  const [openId, setOpenId] = useState<string | null>(null);
   const [dragKey, setDragKey] = useState<string | null>(null);
   const { toast } = useToast();
 
   const load = async () => {
-    const [{ data: lines }, { data: stops }, { data: arts }] = await Promise.all([
+    const [{ data: lines }, { data: stops }] = await Promise.all([
       supabase.from("timelines").select("*").order("display_order"),
       supabase.from("timeline_stops").select("*").order("display_order"),
-      supabase.from("articles").select("id, title").eq("status", "approved").limit(200),
     ]);
     setTimelines(
       (lines || []).map((l: any) => ({
@@ -50,6 +51,7 @@ const ManageTimelines = () => {
         description: l.description || "",
         timeline_type: l.timeline_type || "interactive",
         image_url: l.image_url || "",
+        color: l.color || "#00343A",
         is_active: l.is_active,
         stops: (stops || [])
           .filter((s: any) => s.timeline_id === l.id)
@@ -57,13 +59,12 @@ const ManageTimelines = () => {
             id: s.id,
             title: s.title,
             label: s.label || "",
-            description: s.description || "",
             image_url: s.image_url || "",
+            description: s.description || "",
             article_id: s.article_id || "",
           })),
       })),
     );
-    setArticles(arts || []);
   };
 
   useEffect(() => {
@@ -76,15 +77,18 @@ const ManageTimelines = () => {
   const addTimeline = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
-    const { error } = await supabase.from("timelines").insert({
-      title: newTitle.trim(),
-      display_order: timelines.length,
-    });
+    const minOrder = timelines.reduce((m, _t, i) => Math.min(m, i), 0);
+    const { data, error } = await supabase
+      .from("timelines")
+      .insert({ title: newTitle.trim(), display_order: minOrder - 1 })
+      .select("id")
+      .single();
     if (error) {
       toast({ title: "خطأ", description: "تعذّرت الإضافة", variant: "destructive" });
       return;
     }
     setNewTitle("");
+    setOpenId(data?.id || null);
     load();
   };
 
@@ -93,9 +97,9 @@ const ManageTimelines = () => {
       .from("timelines")
       .update({
         title: t.title,
-        description: t.description || null,
         timeline_type: t.timeline_type,
         image_url: t.image_url || null,
+        color: t.color,
         is_active: t.is_active,
       })
       .eq("id", t.id);
@@ -130,134 +134,148 @@ const ManageTimelines = () => {
   };
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-3xl font-bold">خطوط المُنحنى</h1>
+    <div className="space-y-4">
+      <h1 className="text-2xl font-bold">خطوط المُنحنى</h1>
 
       <Card>
-        <CardHeader><CardTitle>إضافة خط جديد</CardTitle></CardHeader>
-        <CardContent>
-          <form onSubmit={addTimeline} className="flex flex-col sm:flex-row gap-3">
-            <Input className="flex-1" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="عنوان الخط الزمني" />
-            <Button type="submit" className="gap-2"><Plus className="w-4 h-4" /> إضافة</Button>
+        <CardContent className="pt-4">
+          <form onSubmit={addTimeline} className="flex flex-col sm:flex-row gap-2">
+            <Input className="flex-1 h-9" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="عنوان خط جديد" />
+            <Button type="submit" size="sm" className="gap-1"><Plus className="w-4 h-4" /> إضافة</Button>
           </form>
         </CardContent>
       </Card>
 
-      {timelines.map((t) => (
-        <Card key={t.id}>
-          <CardHeader><CardTitle className="text-lg">{t.title}</CardTitle></CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div>
-                <Label>العنوان</Label>
-                <Input value={t.title} onChange={(e) => patch(t.id, { title: e.target.value })} />
-              </div>
-              <div>
-                <Label>نوع العرض</Label>
-                <Select value={t.timeline_type} onValueChange={(v) => patch(t.id, { timeline_type: v })}>
-                  <SelectTrigger className="text-right"><SelectValue /></SelectTrigger>
-                  <SelectContent>
-                    <SelectItem className="text-right" value="interactive">خط تفاعلي</SelectItem>
-                    <SelectItem className="text-right" value="image">صورة مصمّمة</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            <div>
-              <Label>وصف مختصر</Label>
-              <Textarea value={t.description} onChange={(e) => patch(t.id, { description: e.target.value })} rows={2} />
-            </div>
-
-            {t.timeline_type === "image" && (
-              <ImageUpload value={t.image_url} onChange={(url) => patch(t.id, { image_url: url })} label="صورة الخط الزمني" />
-            )}
-
-            <div className="flex items-center gap-3">
-              <Switch checked={t.is_active} onCheckedChange={(v) => patch(t.id, { is_active: v })} />
-              <span className="text-sm">ظاهر في الموقع</span>
-            </div>
-
-            {t.timeline_type === "interactive" && (
-              <div>
-                <div className="flex items-center justify-between">
-                  <Label>محطات الخط</Label>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => patch(t.id, { stops: [...t.stops, { title: "", label: "", description: "", image_url: "", article_id: "" }] })}
-                  >
-                    <Plus className="w-4 h-4 ml-1" /> محطة
-                  </Button>
+      <div className="space-y-2">
+        {timelines.map((t) => {
+          const open = openId === t.id;
+          return (
+            <Card key={t.id} className="overflow-hidden">
+              <CardHeader
+                className="flex flex-row items-center justify-between gap-3 py-3 cursor-pointer"
+                onClick={() => setOpenId(open ? null : t.id)}
+              >
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-3.5 h-3.5 rounded-full shrink-0 border" style={{ background: t.color }} />
+                  <CardTitle className="text-base truncate">{t.title}</CardTitle>
+                  <span className="text-xs text-muted-foreground shrink-0">{t.stops.length} محطة</span>
                 </div>
-                <div className="space-y-3 mt-3">
-                  {t.stops.map((stop, i) => (
-                    <div
-                      key={i}
-                      draggable
-                      onDragStart={() => setDragKey(`${t.id}:${i}`)}
-                      onDragOver={(e) => e.preventDefault()}
-                      onDrop={() => {
-                        if (!dragKey?.startsWith(`${t.id}:`)) return;
-                        const from = Number(dragKey.split(":")[1]);
-                        const stops = [...t.stops];
-                        const [item] = stops.splice(from, 1);
-                        stops.splice(i, 0, item);
-                        patch(t.id, { stops });
-                        setDragKey(null);
-                      }}
-                      className="flex items-start gap-2 border border-border rounded-xl p-3"
-                    >
-                      <GripVertical className="w-4 h-4 mt-3 text-muted-foreground cursor-grab shrink-0" />
-                      <div className="flex-1 space-y-2">
-                        <div className="grid sm:grid-cols-2 gap-2">
-                          <Input
-                            value={stop.title}
-                            onChange={(e) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, title: e.target.value } : s)) })}
-                            placeholder="عنوان المحطة"
-                          />
-                          <Input
-                            value={stop.label}
-                            onChange={(e) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, label: e.target.value } : s)) })}
-                            placeholder="التاريخ أو العلامة"
-                          />
-                        </div>
-                        <Textarea
-                          value={stop.description}
-                          onChange={(e) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, description: e.target.value } : s)) })}
-                          placeholder="وصف مختصر"
-                          rows={2}
-                        />
-                        <Select
-                          value={stop.article_id || "none"}
-                          onValueChange={(v) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, article_id: v === "none" ? "" : v } : s)) })}
-                        >
-                          <SelectTrigger className="text-right"><SelectValue placeholder="اربط بمقال" /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem className="text-right" value="none">بدون مقال</SelectItem>
-                            {articles.map((a) => (
-                              <SelectItem className="text-right" key={a.id} value={a.id}>{a.title}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <Button type="button" variant="ghost" size="icon" onClick={() => patch(t.id, { stops: t.stops.filter((_, x) => x !== i) })}>
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
+                <ChevronDown className={`w-4 h-4 shrink-0 transition-transform ${open ? "rotate-180" : ""}`} />
+              </CardHeader>
+
+              {open && (
+                <CardContent className="space-y-3 pb-4">
+                  <div className="grid md:grid-cols-3 gap-3">
+                    <div>
+                      <Label className="text-xs">العنوان</Label>
+                      <Input className="h-9" value={t.title} onChange={(e) => patch(t.id, { title: e.target.value })} />
                     </div>
-                  ))}
-                </div>
-              </div>
-            )}
+                    <div>
+                      <Label className="text-xs">نوع العرض</Label>
+                      <Select value={t.timeline_type} onValueChange={(v) => patch(t.id, { timeline_type: v })}>
+                        <SelectTrigger className="h-9 text-right"><SelectValue /></SelectTrigger>
+                        <SelectContent>
+                          <SelectItem className="text-right" value="interactive">خط تفاعلي</SelectItem>
+                          <SelectItem className="text-right" value="image">صورة مصمّمة</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label className="text-xs">اللون</Label>
+                      <div className="flex items-center gap-2 h-9">
+                        {COLORS.map((c) => (
+                          <button
+                            key={c}
+                            type="button"
+                            onClick={() => patch(t.id, { color: c })}
+                            className={`w-6 h-6 rounded-full border-2 ${t.color === c ? "border-foreground" : "border-transparent"}`}
+                            style={{ background: c }}
+                            aria-label={c}
+                          />
+                        ))}
+                        <input
+                          type="color"
+                          value={t.color}
+                          onChange={(e) => patch(t.id, { color: e.target.value })}
+                          className="w-7 h-7 rounded cursor-pointer bg-transparent border"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-            <div className="flex gap-2 justify-end">
-              <Button type="button" variant="destructive" onClick={() => remove(t)}>حذف</Button>
-              <Button type="button" onClick={() => save(t)}>حفظ</Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+                  {t.timeline_type === "image" && (
+                    <ImageUpload value={t.image_url} onChange={(url) => patch(t.id, { image_url: url })} label="صورة الخط الزمني" />
+                  )}
+
+                  <div className="flex items-center gap-2">
+                    <Switch checked={t.is_active} onCheckedChange={(v) => patch(t.id, { is_active: v })} />
+                    <span className="text-sm">ظاهر في الموقع</span>
+                  </div>
+
+                  {t.timeline_type === "interactive" && (
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <Label className="text-xs">المحطات</Label>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          className="h-8"
+                          onClick={() => patch(t.id, { stops: [{ title: "", label: "" }, ...t.stops] })}
+                        >
+                          <Plus className="w-4 h-4 ml-1" /> محطة
+                        </Button>
+                      </div>
+                      <div className="space-y-1.5 mt-2">
+                        {t.stops.map((stop, i) => (
+                          <div
+                            key={i}
+                            draggable
+                            onDragStart={() => setDragKey(`${t.id}:${i}`)}
+                            onDragOver={(e) => e.preventDefault()}
+                            onDrop={() => {
+                              if (!dragKey?.startsWith(`${t.id}:`)) return;
+                              const from = Number(dragKey.split(":")[1]);
+                              const stops = [...t.stops];
+                              const [item] = stops.splice(from, 1);
+                              stops.splice(i, 0, item);
+                              patch(t.id, { stops });
+                              setDragKey(null);
+                            }}
+                            className="flex items-center gap-2"
+                          >
+                            <GripVertical className="w-4 h-4 text-muted-foreground cursor-grab shrink-0" />
+                            <Input
+                              className="h-9 flex-1"
+                              value={stop.title}
+                              onChange={(e) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, title: e.target.value } : s)) })}
+                              placeholder="العنوان"
+                            />
+                            <Input
+                              className="h-9 w-36"
+                              value={stop.label}
+                              onChange={(e) => patch(t.id, { stops: t.stops.map((s, x) => (x === i ? { ...s, label: e.target.value } : s)) })}
+                              placeholder="التاريخ"
+                            />
+                            <Button type="button" variant="ghost" size="icon" className="h-9 w-9 shrink-0" onClick={() => patch(t.id, { stops: t.stops.filter((_, x) => x !== i) })}>
+                              <Trash2 className="w-4 h-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex gap-2 justify-end">
+                    <Button type="button" variant="destructive" size="sm" onClick={() => remove(t)}>حذف</Button>
+                    <Button type="button" size="sm" onClick={() => save(t)}>حفظ</Button>
+                  </div>
+                </CardContent>
+              )}
+            </Card>
+          );
+        })}
+      </div>
     </div>
   );
 };
