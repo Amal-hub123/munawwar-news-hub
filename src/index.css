@@ -451,7 +451,7 @@ All colors MUST be HSL.
 .journey-track-wrap, .writers-track-wrap { position: relative; min-height: 19rem; }
 .journey-track-wrap { min-height: 25rem; }
 .journey-curve, .writers-curve { position: absolute; z-index: 0; top: 3.5rem; width: 110%; height: 11rem; color: hsl(var(--primary) / .55); }
-.journey-curve { top: 7.4rem; left: -5%; height: 10rem; color: hsl(var(--secondary) / .48); overflow: visible; animation: journey-curve-float 9s ease-in-out infinite alternate; }
+.journey-curve { top: 7.4rem; left: 4.2%; height: 10rem; color: hsl(var(--secondary) / .48); overflow: visible; animation: journey-curve-float 9s ease-in-out infinite alternate; }
 .journey-curve path { stroke-width: 4; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2.2s .15s var(--editorial-ease) forwards; }
 .journey-track, .writers-track { position: relative; z-index: 2; align-items: flex-start; gap: 1.75rem; padding: 1rem max(1.5rem, calc((100vw - 1400px)/2 + 1.5rem)) 2rem; }
 .journey-track { gap: clamp(2rem, 4vw, 4.5rem); min-height: 24rem; padding-top: 0; }
