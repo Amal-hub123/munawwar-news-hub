@@ -47,14 +47,8 @@ export const DailyStory = () => {
               </ol>
             </Reveal>
           )}
-          
-          <Reveal variant="clip" className="daily-story-media">
-            <Link to={`/articles/${article.id}`} className="group zoom-media block h-full">
-              <img src={article.cover_image_url} alt={article.title} loading="lazy" className="h-full w-full object-cover" />
-              <span className="daily-story-shade" />
-            </Link>
-          </Reveal>
-          <Reveal delay={130} variant="side" className="daily-story-copy">
+
+ <Reveal delay={130} variant="side" className="daily-story-copy">
             <span className="editorial-index">٠١</span>
             <h3>{article.title}</h3>
             <p>{article.excerpt}</p>
@@ -64,6 +58,14 @@ export const DailyStory = () => {
             </span>
             <Link to={`/articles/${article.id}`} className="editorial-link mt-7">اقرأ الحكاية <ArrowLeft className="h-4 w-4" /></Link>
           </Reveal>
+          
+          <Reveal variant="clip" className="daily-story-media">
+            <Link to={`/articles/${article.id}`} className="group zoom-media block h-full">
+              <img src={article.cover_image_url} alt={article.title} loading="lazy" className="h-full w-full object-cover" />
+              <span className="daily-story-shade" />
+            </Link>
+          </Reveal>
+         
          
         </div>
       </div>
