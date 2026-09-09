@@ -551,7 +551,7 @@ All colors MUST be HSL.
 .writers-track { gap: 2rem; }
 .writer-point { flex: 0 0 clamp(12rem, 17vw, 15rem); }
 .writer-point-1, .writer-point-3 { margin-top: 3rem; }
-.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border-radius: .9rem; border: 4px double #00343a; color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
+.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border-radius: .9rem; border: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
 .writer-portrait img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); transition: transform .8s var(--editorial-ease), filter .5s ease; }
 .writer-point:hover .writer-portrait { transform: translateY(-8px) rotate(1deg); }.writer-point:hover img { transform: scale(1.06); filter: saturate(1); }
 .writer-info { position: relative; width: 94%; margin: -2rem auto 0; padding: .95rem 1rem 1rem; border: 1px solid hsl(var(--border)); border-radius: .85rem; background: hsl(var(--background) / .96); backdrop-filter: blur(10px); box-shadow: 0 10px 26px -22px hsl(var(--foreground) / .5); animation: writer-card-idle 7s ease-in-out infinite; transition: transform .45s var(--editorial-ease), box-shadow .45s ease; }
