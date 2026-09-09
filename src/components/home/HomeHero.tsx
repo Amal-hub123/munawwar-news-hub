@@ -49,9 +49,12 @@ export const HomeHero = () => {
     return () => {
       hero.removeEventListener("wheel", onWheel);
       window.removeEventListener("scroll", onScroll);
-      if (transitionRef.current !== null) window.clearTimeout(transitionRef.current);
     };
   }, [isLeaving, start]);
+
+  useEffect(() => () => {
+    if (transitionRef.current !== null) window.clearTimeout(transitionRef.current);
+  }, []);
 
   const move = (event: React.MouseEvent) => {
     const box = ref.current?.getBoundingClientRect();
