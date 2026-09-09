@@ -87,7 +87,7 @@ export const HomeHero = () => {
         <span className="orb orb-gold" style={shift(10)} />
         <span className="orb orb-teal" style={shift(16)} />
       </div>
-      <div className="calm-hero-dots hide" aria-hidden="true" style="display: none;">
+      <div className="calm-hero-dots hide" aria-hidden="true" style={{ display: "none" }}>
         {Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ top: `${(i * 37) % 70 + 6}%`, insetInlineStart: `${(i * 61) % 92 + 3}%`, animationDelay: `${i * 0.4}s` }} />)}
       </div>
 
