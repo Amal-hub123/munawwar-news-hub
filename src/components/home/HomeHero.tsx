@@ -14,7 +14,6 @@ export const HomeHero = () => {
   const [index, setIndex] = useState(0);
   const [pointer, setPointer] = useState({ x: 0, y: 0 });
   const [isLeaving, setIsLeaving] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const ref = useRef<HTMLElement | null>(null);
   const transitionRef = useRef<number | null>(null);
 
@@ -46,11 +45,12 @@ export const HomeHero = () => {
       window.cancelAnimationFrame(frame);
       frame = window.requestAnimationFrame(() => {
         const progress = Math.min(1, Math.max(0, window.scrollY / Math.max(hero.offsetHeight * 0.72, 1)));
-        setScrollProgress(progress);
+        hero.style.setProperty("--hero-scroll", String(progress));
         if (window.scrollY > 24) setIsLeaving(true);
         else if (window.scrollY <= 2) setIsLeaving(false);
       });
     };
+    onScroll();
     hero.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
@@ -78,7 +78,6 @@ export const HomeHero = () => {
       onMouseMove={move}
       onMouseLeave={() => setPointer({ x: 0, y: 0 })}
       className={`calm-hero ${isLeaving ? "is-leaving" : ""}`}
-      style={{ "--hero-scroll": scrollProgress } as React.CSSProperties}
     >
       <div className="calm-hero-orbs" aria-hidden="true">
         <span className="orb orb-gold" style={shift(10)} />
