@@ -103,11 +103,11 @@ export const HomeHero = () => {
         ))}
       </div>
 
-      <div className="calm-hero-dotsnav mb-5 pb-5" aria-label="اختيار العبارة">
+      {/* <div className="calm-hero-dotsnav mb-5 pb-5" aria-label="اختيار العبارة">
         {PHRASES.map((_, i) => (
           <button key={i} type="button" aria-label={`العبارة ${i + 1}`} onClick={() => setIndex(i)} className={`hero-dot ${i === index ? "is-active" : ""}`} />
         ))}
-      </div>
+      </div> */}
 
       <svg className="calm-hero-wave" viewBox="0 0 1440 420" preserveAspectRatio="none" aria-hidden="true">
         <path className="wave-air" d="M-120 174 C130 50 390 210 650 122 C930 28 1175 177 1560 70 L1560 420 L-120 420 Z" />
