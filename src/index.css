@@ -551,7 +551,7 @@ All colors MUST be HSL.
 .writers-track { gap: 2rem; }
 .writer-point { flex: 0 0 clamp(10rem, 14vw, 13rem); }
 .writer-point-1, .writer-point-3 { margin-top: 3rem; }
-.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border-radius: 50% 50% 12% 12% / 38% 38% 10% 10%; color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
+.writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border: double; border-color: #00343a;  color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
 .writer-portrait img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); transition: transform .8s var(--editorial-ease), filter .5s ease; }
 .writer-point:hover .writer-portrait { transform: translateY(-8px) rotate(1deg); }.writer-point:hover img { transform: scale(1.06); filter: saturate(1); }
 .writer-info { position: relative; width: 90%; margin: -2rem auto 0; padding: .8rem .9rem; background: hsl(var(--background) / .93); backdrop-filter: blur(10px); }
