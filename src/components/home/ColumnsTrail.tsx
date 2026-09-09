@@ -14,7 +14,7 @@ export const ColumnsTrail = () => {
     <section id="products-section" className="journey-section">
       <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><p className="editorial-kicker">مسارات مختارة</p><h2 className="editorial-heading mt-2">الأعمدة</h2></div><p className="section-hint">اسحب المسار لاستكشافه</p></Reveal></div>
       <div className="journey-track-wrap">
-        <EditorialCurve className="journey-curve" />
+        {/* <EditorialCurve className="journey-curve" /> */}
         <div ref={ref} {...handlers} dir="rtl" className="drag-scroll journey-track">
           {products.map((product: any, i: number) => (
             <Reveal key={product.id} delay={i * 70} variant="scale" className={`journey-node journey-node-${i % 4}`}>
