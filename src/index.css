@@ -545,7 +545,7 @@ All colors MUST be HSL.
 .services-editorial-shade { background: linear-gradient(0deg, hsl(var(--foreground) / .92), hsl(var(--foreground) / .04) 75%); }
 .services-editorial-copy { color: hsl(var(--secondary-foreground)); }
 
-.writers-section { background: hsl(var(--card)); }
+.writers-section { background: hsl(var(--card)); background-image : radial-gradient(hsl(var(--secondary) / .13) 1px,transparent 1px); background-size:14px 14px; }
 .writers-track-wrap { min-height: 23rem; }
 .writers-curve { top: 5rem; height: 13rem; }
 .writers-track { gap: 2rem; }
