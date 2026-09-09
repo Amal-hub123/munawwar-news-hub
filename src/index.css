@@ -509,9 +509,9 @@ All colors MUST be HSL.
 .latest-card-categories span { padding: .2rem .48rem; border-radius: 999px; color: hsl(var(--primary)); background: hsl(var(--primary) / .1); font-size: .58rem; }
 
 .mosaic-section { padding: 4.5rem 0; }
-.mosaic-layout { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-flow: dense; grid-auto-rows: 4.5rem; gap: .45rem; padding: .45rem; overflow: hidden; border: 1px solid hsl(var(--border)); border-radius: .65rem; background: hsl(var(--card)); box-shadow: 0 14px 34px hsl(var(--foreground) / .06); }
+.mosaic-layout { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-flow: dense; grid-auto-rows: 5rem; gap: .45rem; padding: .45rem; overflow: hidden; border: 1px solid hsl(var(--border)); border-radius: .65rem; background: hsl(var(--card)); box-shadow: 0 14px 34px hsl(var(--foreground) / .06); }
 .mosaic-reveal { min-width: 0; }
-.mosaic-xl { grid-column: span 3; grid-row: span 3; }.mosaic-tall { grid-column: span 2; grid-row: span 3; }.mosaic-wide { grid-column: span 3; grid-row: span 2; }.mosaic-medium { grid-column: span 2; grid-row: span 2; }.mosaic-small { grid-column: span 1; grid-row: span 2; }.mosaic-fill { grid-column: span 1; grid-row: span 3; }
+.mosaic-xl { grid-column: span 2; grid-row: span 2; }.mosaic-tall { grid-column: span 1; grid-row: span 2; }.mosaic-wide { grid-column: span 2; grid-row: span 1; }.mosaic-medium { grid-column: span 1; grid-row: span 1; }.mosaic-small { grid-column: span 1; grid-row: span 1; }.mosaic-fill { grid-column: span 2; grid-row: span 1; }
 .mosaic-cell { position: relative; display: flex; height: 100%; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 1rem; border: 1px solid hsl(var(--foreground) / .45); border-radius: .45rem; text-align: center; box-shadow: inset 0 1px hsl(var(--background) / .18); transition: transform .55s var(--editorial-ease), opacity .45s ease, filter .45s ease, box-shadow .45s ease; }
 .mosaic-layout.has-active .mosaic-cell:not(.is-active) { opacity: .42; transform: scale(.97); }
 .mosaic-cell.is-active { z-index: 2; filter: saturate(1.08) brightness(1.04); transform: scale(1.018); box-shadow: 0 10px 24px hsl(var(--foreground) / .16), inset 0 1px hsl(var(--background) / .22); }
