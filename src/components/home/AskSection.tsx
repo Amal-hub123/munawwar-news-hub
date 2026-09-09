@@ -43,8 +43,8 @@ export const AskSection = () => {
               <form onSubmit={submit} className={sent ? "is-hidden" : ""}>
                 <Textarea value={question} onChange={(event) => setQuestion(event.target.value)} placeholder={`مثال: ${EXAMPLES[example]}`} rows={3} maxLength={600} required />
                 <div className="ask-form-footer">
+                 <Button type="submit" disabled={sending} className="ask-submit">{sending ? "جارٍ الإرسال..." : "أرسل"}<Send /></Button>
                   <Input value={name} onChange={(event) => setName(event.target.value)} placeholder="اسمك (اختياري)" maxLength={80} />
-                  <Button type="submit" disabled={sending} className="ask-submit"><Send />{sending ? "جارٍ الإرسال..." : "أرسل"}</Button>
                 </div>
               </form>
               <div className={`ask-success ${sent ? "is-visible" : ""}`} aria-live="polite"><span><Check /></span><h3>وصل سؤالك</h3><p>أصبح الآن ضمن أفكار المُنحنى القادمة.</p><Button variant="ghost" onClick={() => setSent(false)}>أرسل سؤالًا آخر</Button></div>
