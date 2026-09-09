@@ -107,11 +107,13 @@ const ManageCategories = () => {
             </div>
             <div className="flex items-center gap-2" aria-label="لون التصنيف">
               {CATEGORY_COLORS.map((color) => (
-                <button
+                <Button
                   key={color}
                   type="button"
+                  variant="ghost"
+                  size="icon"
                   onClick={() => setNewColor(color)}
-                  className={`h-7 w-7 rounded-full border-2 ${newColor === color ? "border-foreground" : "border-transparent"}`}
+                  className={`h-7 w-7 rounded-full border-2 p-0 ${newColor === color ? "border-foreground" : "border-transparent"}`}
                   style={{ backgroundColor: color }}
                   aria-label={`اختيار اللون ${color}`}
                 />
@@ -134,11 +136,13 @@ const ManageCategories = () => {
               <Input className="flex-1" value={cat.name} onChange={(e) => rename(cat, e.target.value)} />
               <div className="flex items-center gap-1.5 shrink-0" aria-label={`لون ${cat.name}`}>
                 {CATEGORY_COLORS.map((color) => (
-                  <button
+                  <Button
                     key={color}
                     type="button"
+                    variant="ghost"
+                    size="icon"
                     onClick={() => setCategories((prev) => prev.map((item) => item.id === cat.id ? { ...item, color } : item))}
-                    className={`h-6 w-6 rounded-full border-2 ${cat.color === color ? "border-foreground" : "border-transparent"}`}
+                    className={`h-6 w-6 rounded-full border-2 p-0 ${cat.color === color ? "border-foreground" : "border-transparent"}`}
                     style={{ backgroundColor: color }}
                     aria-label={`اختيار اللون ${color}`}
                   />

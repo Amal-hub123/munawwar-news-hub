@@ -5,7 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Reveal } from "@/components/motion/Reveal";
 
 interface Cell { id: string; name: string; slug: string; count: number; color: string; }
-const shape = (i: number) => ["mosaic-xl", "mosaic-wide", "mosaic-tall", "mosaic-medium", "mosaic-small", "mosaic-small"][i % 6];
+const shape = (i: number) => ["mosaic-xl", "mosaic-wide", "mosaic-tall", "mosaic-medium", "mosaic-small", "mosaic-fill"][i % 6];
 const readableColor = (hex: string) => {
   const value = hex.replace("#", "");
   if (value.length !== 6) return "#ffffff";
