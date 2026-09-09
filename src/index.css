@@ -77,7 +77,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 192 20% 25%;
 
-    --primary: 42 78% 63%;
+    --primary: 38 74% 55%;
     --primary-foreground: 192 20% 25%;
 
     --secondary: 188 49% 32%;
@@ -94,7 +94,12 @@ All colors MUST be HSL.
 
     --border: 40 13% 80%;
     --input: 40 13% 80%;
-    --ring: 42 78% 63%;
+    --ring: 38 74% 55%;
+
+    --hero-wave-air: 175 23% 36%;
+    --hero-wave-back: 175 26% 31%;
+    --hero-wave-mid: 176 32% 24%;
+    --hero-wave-front: 176 32% 24%;
 
     --radius: 0.5rem;
 
@@ -113,7 +118,7 @@ All colors MUST be HSL.
     --popover: 192 20% 15%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 42 78% 63%;
+    --primary: 38 74% 55%;
     --primary-foreground: 192 20% 25%;
 
     --secondary: 188 49% 32%;
@@ -130,7 +135,12 @@ All colors MUST be HSL.
 
     --border: 192 15% 25%;
     --input: 192 15% 25%;
-    --ring: 42 78% 63%;
+    --ring: 38 74% 55%;
+
+    --hero-wave-air: 175 23% 36%;
+    --hero-wave-back: 175 26% 31%;
+    --hero-wave-mid: 176 32% 24%;
+    --hero-wave-front: 176 32% 24%;
   }
 }
 
@@ -379,7 +389,8 @@ All colors MUST be HSL.
 .site-nav-link::after { content: ""; position: absolute; inset-inline: 0; bottom: -.45rem; height: 1px; background: hsl(var(--primary)); transform: scaleX(0); transition: transform .35s ease; }
 .site-nav-link:hover::after { transform: scaleX(1); }
 
-.calm-hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: min(88svh, 44rem); padding: 5rem 1.5rem 9rem; background: hsl(var(--background)); }
+.calm-hero { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; min-height: min(88svh, 44rem); padding: 4rem 1.5rem 13rem; background: hsl(var(--background)); transition: opacity .7s ease, filter .7s ease; }
+.calm-hero.is-leaving { opacity: .2; filter: blur(3px); }
 .calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
 .calm-hero-orbs .orb-gold { top: -3rem; right: 5rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
 .calm-hero-orbs .orb-teal { top: -6rem; right: 1.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
@@ -392,12 +403,14 @@ All colors MUST be HSL.
 .calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
 .hero-dot.is-active { width: 3.5rem; background: hsl(var(--primary)); }
-.calm-hero-wave { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(9rem, 22vw, 15rem); }
-.calm-hero-wave path { transition: transform 1s var(--editorial-ease); }
-.calm-hero-wave .wave-back { fill: hsl(var(--secondary) / .35); }
-.calm-hero-wave .wave-mid { fill: hsl(var(--secondary) / .65); }
-.calm-hero-wave .wave-front { fill: hsl(var(--secondary)); }
-.calm-hero-cue { position: absolute; z-index: 6; bottom: 1.6rem; left: 50%; display: flex; flex-direction: column; align-items: center; gap: .4rem; color: hsl(var(--secondary-foreground) / .85); font-size: .75rem; transform: translateX(-50%); }
+.calm-hero-wave { position: absolute; inset-inline: 0; bottom: -1px; width: 100%; height: clamp(16rem, 34vw, 24rem); filter: drop-shadow(0 -10px 30px hsl(var(--foreground) / .04)); }
+.calm-hero-wave path { transform-box: fill-box; transform-origin: center; will-change: transform; }
+.calm-hero-wave .wave-air { fill: hsl(var(--hero-wave-air)); opacity: .55; animation: wave-drift-a 13s ease-in-out infinite alternate; }
+.calm-hero-wave .wave-back { fill: hsl(var(--hero-wave-back)); opacity: .88; animation: wave-drift-b 16s ease-in-out infinite alternate; }
+.calm-hero-wave .wave-mid { fill: hsl(var(--hero-wave-mid)); opacity: .94; animation: wave-drift-a 19s ease-in-out infinite alternate-reverse; }
+.calm-hero-wave .wave-front { fill: hsl(var(--hero-wave-front)); animation: wave-breathe 11s ease-in-out infinite alternate; }
+.calm-hero-cue { position: absolute; z-index: 6; bottom: 1.45rem; left: 50%; height: auto; padding: .35rem .7rem; display: flex; flex-direction: column; align-items: center; gap: .25rem; border-radius: 0; color: hsl(var(--secondary-foreground) / .92); background: transparent; font-size: .75rem; transform: translateX(-50%); transition: color .3s ease, opacity .5s ease; }
+.calm-hero-cue:hover { color: hsl(var(--primary)); background: transparent; }
 .calm-hero-cue svg { animation: scroll-cue 2.4s ease-in-out infinite; }
 
 .daily-story-section { position: relative; margin-top: -1px; padding: 4.5rem 0 4rem; color: hsl(var(--secondary-foreground)); background: hsl(var(--secondary)); }
@@ -523,6 +536,9 @@ All colors MUST be HSL.
 @keyframes scene-breathe { to { transform: scale(1.035) rotate(1deg); } }
 @keyframes hero-orbit { to { transform: rotate(-4deg) translateY(2rem); } }
 @keyframes scroll-cue { 50% { transform: translateY(.45rem); } }
+@keyframes wave-drift-a { from { transform: translate3d(-1.8%, 0, 0) scaleX(1.04); } to { transform: translate3d(1.8%, -10px, 0) scaleX(1.08); } }
+@keyframes wave-drift-b { from { transform: translate3d(1.5%, 5px, 0) scaleX(1.06); } to { transform: translate3d(-1.5%, -7px, 0) scaleX(1.03); } }
+@keyframes wave-breathe { from { transform: translateY(4px) scaleY(1); } to { transform: translateY(-5px) scaleY(1.035); } }
 @keyframes phrase-soft { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 900px) {
@@ -534,7 +550,7 @@ All colors MUST be HSL.
 
 @media (max-width: 640px) {
   .site-header-inner { height: 4.25rem; }.site-logo { width: 8.7rem; height: 3rem; }
-  .calm-hero { min-height: min(82svh, 32rem); padding: 3.5rem 1.25rem 7rem; }.calm-hero-phrase { font-size: clamp(1.15rem, 5.2vw, 1.6rem); line-height: 1.9; }.calm-hero-orbs .orb-gold { width: 9rem; height: 9rem; }.calm-hero-orbs .orb-teal { width: 8rem; height: 8rem; }
+  .calm-hero { min-height: min(82svh, 34rem); padding: 3rem 1.25rem 11rem; }.calm-hero-phrase { font-size: clamp(1.15rem, 5.2vw, 1.6rem); line-height: 1.9; }.calm-hero-orbs .orb-gold { width: 9rem; height: 9rem; }.calm-hero-orbs .orb-teal { width: 8rem; height: 8rem; }.calm-hero-wave { height: 15rem; }
   .daily-story-section, .journey-section, .latest-editorial, .mosaic-section, .timelines-section, .writers-section, .ask-editorial-section, .question-transform-section { padding-top: 5rem; padding-bottom: 5rem; }
   .daily-story-media { height: 17rem; }.daily-story-copy { margin-inline: .7rem; }.daily-story-copy h3 { font-size: 1.35rem; }.story-stop-copy small { display: none; }
   .journey-track-wrap { min-height: 24rem; }.journey-track { gap: 1.5rem; }.journey-node { flex-basis: 58vw; }.journey-node-1, .journey-node-3 { margin-top: 3rem; }
@@ -568,7 +584,8 @@ All colors MUST be HSL.
   .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   .ambient-float,
   .ambient-pulse-slow,
-  .hero-phrase-enter { animation: none !important; }
+  .hero-phrase-enter,
+  .calm-hero-wave path { animation: none !important; }
   .draw-line { stroke-dashoffset: 0 !important; }
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
