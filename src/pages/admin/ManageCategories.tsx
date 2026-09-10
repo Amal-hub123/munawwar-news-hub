@@ -93,7 +93,7 @@ const ManageCategories = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">التصنيفات</h1>
+      <h1 className="text-3xl font-bold">مربع المنحنى </h1>
 
       <Card>
         <CardHeader>
