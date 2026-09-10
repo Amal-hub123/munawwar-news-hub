@@ -12,7 +12,7 @@ export const ColumnsTrail = () => {
   if (!products?.length) return null;
   return (
     <section id="products-section" className="journey-section">
-      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><p className="editorial-kicker">مسارات مختارة</p><h2 className="editorial-heading mt-2">الأعمدة</h2></div><p className="section-hint">اسحب المسار لاستكشافه</p></Reveal></div>
+      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><h2 className="editorial-heading mt-2">الأعمدة</h2></div></Reveal></div>
       <div className="journey-track-wrap">
         {/* <EditorialCurve className="journey-curve" /> */}
         <div ref={ref} {...handlers} dir="rtl" className="drag-scroll journey-track">
