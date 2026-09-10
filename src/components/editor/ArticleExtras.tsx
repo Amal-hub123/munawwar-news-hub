@@ -221,7 +221,6 @@ export const ArticleExtras = ({ value, onChange, currentArticleId, onInsertMarke
             </div>
           ))}
         </div>
-      </div>
 
       {/* Continuations */}
       <div>

@@ -521,6 +521,69 @@ export type Database = {
         }
         Relationships: []
       }
+      quote_cards: {
+        Row: {
+          article_id: string | null
+          article_title: string | null
+          color: string
+          created_at: string
+          id: string
+          linkedin_handle: string | null
+          profile_id: string
+          quote_text: string
+          size: string
+          updated_at: string
+          user_id: string
+          writer_name: string
+          x_handle: string | null
+        }
+        Insert: {
+          article_id?: string | null
+          article_title?: string | null
+          color?: string
+          created_at?: string
+          id?: string
+          linkedin_handle?: string | null
+          profile_id: string
+          quote_text: string
+          size?: string
+          updated_at?: string
+          user_id: string
+          writer_name: string
+          x_handle?: string | null
+        }
+        Update: {
+          article_id?: string | null
+          article_title?: string | null
+          color?: string
+          created_at?: string
+          id?: string
+          linkedin_handle?: string | null
+          profile_id?: string
+          quote_text?: string
+          size?: string
+          updated_at?: string
+          user_id?: string
+          writer_name?: string
+          x_handle?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "quote_cards_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quote_cards_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       store_product_files: {
         Row: {
           created_at: string
