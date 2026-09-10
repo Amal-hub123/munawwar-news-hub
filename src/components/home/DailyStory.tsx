@@ -34,7 +34,7 @@ export const DailyStory = () => {
         </Reveal>
         {stops.length > 0 && (
             <Reveal delay={220} className="story-timeline mb-10">
-              <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M0 72 C180 10 330 95 480 45 C610 0 690 55 800 20" /></svg>
+              <svg viewBox="0 0 800 100" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M70 30 L730 30" /></svg>
               <ol>
                 {stops.map((stop, i) => (
                   <li key={`${stop.title}-${i}`} className={i === activeStop ? "is-active" : ""} onMouseEnter={() => setActiveStop(i)} onClick={() => setActiveStop(i)}>
