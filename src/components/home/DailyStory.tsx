@@ -56,7 +56,7 @@ export const DailyStory = () => {
               {article.profiles?.photo_url ? <img src={article.profiles.photo_url} alt={article.profiles?.name} className="h-8 w-8 rounded-full object-cover" /> : <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/15"><User className="h-4 w-4" /></span>}
               {article.profiles?.name}
             </span>
-            <Link to={`/articles/${article.id}`} className="editorial-link mt-7">اقرأ الحكاية <ArrowLeft className="h-4 w-4" /></Link>
+            <Link to={`/articles/${article.id}`} className="editorial-link mt-7">اقرأ المقال <ArrowLeft className="h-4 w-4" /></Link>
           </Reveal>
           
           <Reveal variant="clip" className="daily-story-media">
