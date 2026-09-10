@@ -533,7 +533,7 @@ All colors MUST be HSL.
 .timeline-stop-image { height: 7.5rem; margin-top: .85rem; overflow: hidden; }
 .timeline-stop-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .timeline-stop:hover img { transform: scale(1.05); }
-.timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy small { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; }
+.timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy h6 { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; }
 .image-timeline-stage { padding: 2rem; background: hsl(var(--secondary-foreground) / .05); }
 .image-timeline-stage img { max-width: none; max-height: 72vh; width: auto; transition: transform 1.2s ease; }
 .image-timeline-stage:hover img { transform: translateX(-1.5rem) scale(1.01); }
