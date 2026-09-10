@@ -525,6 +525,7 @@ export type Database = {
         Row: {
           article_id: string | null
           article_title: string | null
+          background_color: string
           color: string
           created_at: string
           id: string
@@ -532,6 +533,7 @@ export type Database = {
           profile_id: string
           quote_text: string
           size: string
+          text_color: string
           updated_at: string
           user_id: string
           writer_name: string
@@ -540,6 +542,7 @@ export type Database = {
         Insert: {
           article_id?: string | null
           article_title?: string | null
+          background_color?: string
           color?: string
           created_at?: string
           id?: string
@@ -547,6 +550,7 @@ export type Database = {
           profile_id: string
           quote_text: string
           size?: string
+          text_color?: string
           updated_at?: string
           user_id: string
           writer_name: string
@@ -555,6 +559,7 @@ export type Database = {
         Update: {
           article_id?: string | null
           article_title?: string | null
+          background_color?: string
           color?: string
           created_at?: string
           id?: string
@@ -562,6 +567,7 @@ export type Database = {
           profile_id?: string
           quote_text?: string
           size?: string
+          text_color?: string
           updated_at?: string
           user_id?: string
           writer_name?: string
