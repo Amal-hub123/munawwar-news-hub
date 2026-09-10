@@ -51,7 +51,7 @@ export const HomeTimelines = () => {
                   type="button"
                   onClick={() => setActiveId(t.id)}
                   aria-pressed={isActive}
-                  style={{ background: color, color: "#fff", borderColor: color, opacity: isActive ? 1 : 0.75 }}
+                  style={{ borderRadius: "1.5rem"; background: color, color: "#fff", borderColor: color, opacity: isActive ? 1 : 0.75 }}
                   className={`rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${isActive ? "ring-2 ring-white/40 shadow-lg" : ""}`}
                 >
                   {t.title}
