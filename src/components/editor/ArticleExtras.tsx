@@ -152,7 +152,7 @@ export const ArticleExtras = ({ value, onChange, currentArticleId, onInsertMarke
       </div>
 
       {/* Knowledge links */}
-      <div>
+      {/* <div>
         <div className="flex items-center justify-between">
           <Label>وصلة معرفية (اختياري)</Label>
           <Button
@@ -170,7 +170,7 @@ export const ArticleExtras = ({ value, onChange, currentArticleId, onInsertMarke
           >
             <Plus className="w-4 h-4 ml-1" /> وصلة
           </Button>
-        </div>
+        </div> */}
         <div className="space-y-4 mt-3">
           {value.knowledgeLinks.map((link, i) => (
             <div key={link.anchor_key} className="rounded-xl border border-border p-4 space-y-3">
