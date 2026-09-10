@@ -27,7 +27,7 @@ interface StoryDraft {
 
 const emptyDraft: StoryDraft = {
   article_id: "",
-  badge: "حكاية اليوم",
+  badge: "مقال اليوم ",
   stops: [],
   starts_at: "",
   ends_at: "",
@@ -101,7 +101,7 @@ const StoryForm = ({
 
       <div>
         <div className="flex items-center justify-between">
-          <Label>محطات الحكاية (3 إلى 5)</Label>
+          <Label>محطات المقال (3 إلى 5)</Label>
           <Button type="button" variant="outline" size="sm" disabled={draft.stops.length >= 5} onClick={() => onChange({ ...draft, stops: [...draft.stops, { title: "" }] })}>
             <Plus className="w-4 h-4 ml-1" /> محطة
           </Button>
@@ -186,28 +186,28 @@ const ManageDailyStories = () => {
       return;
     }
     setDraft(emptyDraft);
-    toast({ title: "تم الحفظ", description: "تمت إضافة الحكاية" });
+    toast({ title: "تم الحفظ", description: "تمت إضافة المقال" });
     load();
   };
 
   const update = async (story: StoryDraft) => {
     const { error } = await supabase.from("daily_stories").update(payload(story)).eq("id", story.id!);
-    toast(error ? { title: "خطأ", description: "تعذّر الحفظ", variant: "destructive" } : { title: "تم الحفظ", description: "تم تحديث الحكاية" });
+    toast(error ? { title: "خطأ", description: "تعذّر الحفظ", variant: "destructive" } : { title: "تم الحفظ", description: "تم تحديث المقال" });
     load();
   };
 
   const remove = async (story: StoryDraft) => {
-    if (!confirm("حذف هذه الحكاية؟")) return;
+    if (!confirm("حذف هذا المقال؟")) return;
     await supabase.from("daily_stories").delete().eq("id", story.id!);
     load();
   };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-3xl font-bold">حكاية اليوم</h1>
+      <h1 className="text-3xl font-bold">مقال اليوم</h1>
 
       <Card>
-        <CardHeader><CardTitle>تجهيز حكاية جديدة</CardTitle></CardHeader>
+        <CardHeader><CardTitle>تجهيز مقال جديد </CardTitle></CardHeader>
         <CardContent>
           <StoryForm draft={draft} articles={articles} onChange={setDraft} onSave={create} />
         </CardContent>
@@ -217,7 +217,7 @@ const ManageDailyStories = () => {
         <Card key={story.id}>
           <CardHeader>
             <CardTitle className="text-lg">
-              {articles.find((a) => a.id === story.article_id)?.title || "حكاية"}
+              {articles.find((a) => a.id === story.article_id)?.title || "مقال"}
               {story.is_active ? "" : " (غير مفعّلة)"}
             </CardTitle>
           </CardHeader>
