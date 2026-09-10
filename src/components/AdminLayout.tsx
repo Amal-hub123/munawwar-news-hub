@@ -65,7 +65,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: "/admin/articles", icon: FileText, label: "المقالات" },
     { path: "/admin/news", icon: Newspaper, label: "خدماتنا" },
     { path: "/admin/categories", icon: Tags, label: "مربع المنحنى" },
-    { path: "/admin/daily-stories", icon: Sparkles, label: "حكاية اليوم" },
+    { path: "/admin/daily-stories", icon: Sparkles, label: "مقال اليوم" },
     { path: "/admin/questions", icon: MessageCircleQuestion, label: "أسئلة الجمهور" },
     { path: "/admin/timelines", icon: GitBranch, label: "خطوط المُنحنى" },
     { path: "/admin/quotes", icon: Quote, label: "بطاقات الاقتباس" },
