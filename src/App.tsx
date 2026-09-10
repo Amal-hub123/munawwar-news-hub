@@ -48,6 +48,8 @@ import ManageCategories from "./pages/admin/ManageCategories";
 import ManageDailyStories from "./pages/admin/ManageDailyStories";
 import ManageAudienceQuestions from "./pages/admin/ManageAudienceQuestions";
 import ManageTimelines from "./pages/admin/ManageTimelines";
+import ManageQuoteCards from "./pages/admin/ManageQuoteCards";
+import WriterQuoteCards from "./pages/writer/QuoteCards";
 import NotFound from "./pages/NotFound";
 
 
@@ -109,6 +111,8 @@ const App = () => (
           <Route path="/writer/news/edit/:id" element={<WriterLayout><WriterAddEditNews /></WriterLayout>} />
           <Route path="/writer/news/preview/:id" element={<WriterLayout><WriterPreviewNews /></WriterLayout>} />
           <Route path="/writer/profile" element={<WriterLayout><WriterProfile /></WriterLayout>} />
+          <Route path="/writer/quotes" element={<WriterLayout><WriterQuoteCards /></WriterLayout>} />
+          <Route path="/admin/quotes" element={<AdminLayout><ManageQuoteCards /></AdminLayout>} />
           <Route path="/writer/settings" element={<WriterLayout><WriterSettings /></WriterLayout>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
