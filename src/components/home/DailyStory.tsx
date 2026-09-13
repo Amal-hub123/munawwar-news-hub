@@ -26,7 +26,7 @@ export const DailyStory = () => {
   const article = story.articles;
   const stops: StoryStop[] = Array.isArray(story.stops) ? story.stops : [];
   return (
-    <section id="story-of-the-day" className="daily-story-section">
+    <section id="story-of-the-day" className="daily-story-section pb-5">
       <div className="container mx-auto px-6">
 <Reveal variant="side" className="relative z-20 mb-8 -translate-y-4 flex items-end justify-between gap-6 md:mb-12">
   <div><h4 className="editorial-kicker"> على المُنحنى</h4><h2 className="editorial-heading mt-2">مقال اليوم</h2></div>
