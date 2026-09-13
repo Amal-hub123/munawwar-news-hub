@@ -65,7 +65,7 @@ export const HeroArticleSlider = () => {
             <Button type="button" variant="ghost" size="icon" onClick={() => move(-1)} aria-label="المقال السابق">
               <ChevronRight className="h-5 w-5" />
             </Button>
-            <span>{String(activeIndex + 1).padStart(2, "0")} / {String(articles.length).padStart(2, "0")}</span>
+            {/* <span>{String(activeIndex + 1).padStart(2, "0")} / {String(articles.length).padStart(2, "0")}</span> */}
             <Button type="button" variant="ghost" size="icon" onClick={() => move(1)} aria-label="المقال التالي">
               <ChevronLeft className="h-5 w-5" />
             </Button>
