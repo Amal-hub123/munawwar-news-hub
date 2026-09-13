@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import HeroArticleSlider from "./HeroArticleSlider";
 
 interface Phrase { lead: string; mark: string; mid: string; mark2?: string; tail: string; }
 
@@ -91,16 +92,19 @@ export const HomeHero = () => {
         {Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ top: `${(i * 37) % 70 + 6}%`, insetInlineStart: `${(i * 61) % 92 + 3}%`, animationDelay: `${i * 0.4}s` }} />)}
       </div>
 
-      <div className="calm-hero-stage mb-5 pb-5">
-        {PHRASES.map((phrase, i) => (
-          <h1 key={i} aria-hidden={i !== index} className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}>
-            {phrase.lead}
-            <em className="mark">{phrase.mark}</em>
-            {phrase.mid}
-            {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
-            {phrase.tail}
-          </h1>
-        ))}
+      <div className="calm-hero-content">
+        <div className="calm-hero-stage">
+          {PHRASES.map((phrase, i) => (
+            <h1 key={i} aria-hidden={i !== index} className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}>
+              {phrase.lead}
+              <em className="mark">{phrase.mark}</em>
+              {phrase.mid}
+              {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
+              {phrase.tail}
+            </h1>
+          ))}
+        </div>
+        <HeroArticleSlider />
       </div>
 
       {/* <div className="calm-hero-dotsnav mb-5 pb-5" aria-label="اختيار العبارة">
