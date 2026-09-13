@@ -400,7 +400,7 @@ All colors MUST be HSL.
 .calm-hero-orbs .orb-gold { top: -10rem; right: -43rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
 .calm-hero-orbs .orb-teal { top: -12rem; left: 33.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
 .calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
-.calm-hero-content { position: relative; z-index: 5; display: grid; width: min(76rem, 100%); grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); direction: rtl; align-items: center; gap: clamp(2rem, 5vw, 5rem); }
+.calm-hero-content {    margin-bottom: 4rem; position: relative; z-index: 5; display: grid; width: min(76rem, 100%); grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); direction: rtl; align-items: center; gap: clamp(2rem, 5vw, 5rem); }
 .calm-hero-stage { position: relative; z-index: 4; display: grid; min-height: 15rem; place-items: center start; }
 .calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: right; color: hsl(var(--foreground)); font-size: clamp(1.45rem, 2.55vw, 2.2rem); font-weight: 700; line-height: 1.85; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
 .calm-hero-phrase.is-active { opacity: 1; transform: none; }
