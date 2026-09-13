@@ -378,7 +378,7 @@ All colors MUST be HSL.
 .editorial-index { color: hsl(var(--primary)); font-size: clamp(1.5rem, 3vw, 2.6rem); font-weight: 300; line-height: 1; opacity: .62; }
 .section-heading-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 1.5rem; margin-bottom: 2rem; }
 .section-hint { color: hsl(var(--muted-foreground)); font-size: .78rem; }
-.editorial-link {padding: .5rem; border: 2px solid #000; display: inline-flex; align-items: center; gap: .55rem; color: hsl(var(--foreground)); font-weight: 600; transition: gap .35s var(--editorial-ease); }
+.editorial-link {padding: .5rem; border: 2px solid #a6a1a194; display: inline-flex; align-items: center; gap: .55rem; color: hsl(var(--foreground)); font-weight: 600; transition: gap .35s var(--editorial-ease); }
 .editorial-link:hover { gap: .9rem; }
 
 .site-header { border-bottom: 1px solid hsl(var(--border) / .5); background: hsl(var(--background) / .78); backdrop-filter: blur(18px); transition: background .35s ease, box-shadow .35s ease; }
