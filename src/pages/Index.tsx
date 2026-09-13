@@ -10,6 +10,7 @@ import HomeTimelines from "@/components/home/HomeTimelines";
 import WritersTrail from "@/components/home/WritersTrail";
 import AskSection from "@/components/home/AskSection";
 import Reveal from "@/components/motion/Reveal";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
@@ -47,6 +48,7 @@ const Index = () => {
           <AskSection />
         </div>
       </main>
+      <Footer />
     </div>
   );
 };
