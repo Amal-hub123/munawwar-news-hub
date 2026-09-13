@@ -59,7 +59,7 @@ export const DailyStory = () => {
             <button type="button"><Link to={`/articles/${article.id}`} className="editorial-link mt-7">اقرأ المقال </Link></button>
           </Reveal>
           
-          <Reveal variant="clip" className="daily-story-media">
+          <Reveal variant="clip" className=" p-5 daily-story-media">
             <Link to={`/articles/${article.id}`} className="group zoom-media block h-full">
               <img src={article.cover_image_url} alt={article.title} loading="lazy" className="h-full w-full object-cover" />
               <span className="daily-story-shade" />
