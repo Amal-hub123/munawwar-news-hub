@@ -37,7 +37,7 @@ export const LatestArticles = () => {
       <div className="container mx-auto px-6">
         <Reveal variant="side" className="section-heading-row">
           <div><p className="editorial-kicker">يُقرأ الآن</p><h2 className="editorial-heading mt-2">أحدث المقالات</h2></div>
-          <Link to="/articles" className="editorial-link">كل المقالات <ArrowLeft className="h-4 w-4" /></Link>
+          <Link to="/articles" className="editorial-link">كل المقالات </Link>
         </Reveal>
 
         <div className="latest-card-grid">
