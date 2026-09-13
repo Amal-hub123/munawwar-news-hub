@@ -16,9 +16,10 @@ export const CategoryMosaic = () => {
   const [active, setActive] = useState<string | null>(null);
   const { data: cells } = useQuery({ queryKey: ["category-mosaic"], queryFn: async (): Promise<Cell[]> => { const [{ data: categories, error: categoryError }, { data: links, error: linkError }] = await Promise.all([supabase.from("categories").select("id, name, slug, display_order, color").order("display_order"), supabase.from("article_categories").select("category_id, articles:article_id (status)")]); if (categoryError) throw categoryError; if (linkError) throw linkError; const counts = new Map<string, number>(); (links || []).forEach((row: any) => { if (row.articles?.status === "approved") counts.set(row.category_id, (counts.get(row.category_id) || 0) + 1); }); return (categories || []).map((item: any) => ({ ...item, color: item.color || "#3b6561", count: counts.get(item.id) || 0 })).filter((item) => item.count > 0).sort((a, b) => b.count - a.count); } });
   if (!cells?.length) return null;
+  
   return (
     <section className="mosaic-section">
-      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><h2 className="editorial-heading mt-2">مربع المُنحنى</h2> <h5 className="editorial-kicker">ما الذي سشغل المُنحنى ؟ قِس مساحة الكلمة التي تهمك</h5></div></Reveal>
+      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><h2 className="editorial-heading mt-2">مربع المُنحنى</h2> <h5 className="editorial-kicker">ما الذي يشغل المُنحنى ؟ قِس مساحة الكلمة التي تهمك</h5></div></Reveal>
         <div className={`mosaic-layout p-5 ${active ? "has-active" : ""}`} onMouseLeave={() => setActive(null)}>
           {cells.map((cell, i) => <Reveal key={cell.id} delay={i * 55} variant="scale" className={`${shape(i)} mosaic-reveal`}><Link to={`/articles?category=${encodeURIComponent(cell.slug)}`} onMouseEnter={() => setActive(cell.id)} className={`mosaic-cell ${active === cell.id ? "is-active" : ""}`} style={{ backgroundColor: cell.color, color: readableColor(cell.color) }}><strong>{cell.name}</strong><span className="mosaic-count">{cell.count} مقال</span></Link></Reveal>)}
         </div>
