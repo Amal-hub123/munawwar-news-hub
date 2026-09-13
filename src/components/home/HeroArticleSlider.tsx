@@ -52,7 +52,9 @@ export const HeroArticleSlider = () => {
           <h2>{article.title}</h2>
           {article.excerpt && <p>{article.excerpt}</p>}
           <div className="hero-article-meta">
-            {author?.photo_url ? <img src={author.photo_url} alt="" /> : <span><User className="h-3.5 w-3.5" /></span>}
+            {
+            /* author?.photo_url ? <img src={author.photo_url} alt="" /> : <span><User className="h-3.5 w-3.5" /></span> */
+            }
             {/* <strong>{author?.name}</strong>
             <ArrowLeft className="mr-auto h-4 w-4" /> */}
           </div>
