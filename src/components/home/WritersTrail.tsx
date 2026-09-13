@@ -53,7 +53,7 @@ export const WritersTrail = () => {
   if (!writers?.length) return null;
   return (
     <section className="writers-section">
-      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><p className="editorial-kicker">أصوات على المسار</p><h2 className="editorial-heading mt-2">كُتّاب المُنحنى</h2></div><Link to="/writers" className="editorial-link">كل الكُتّاب <ArrowLeft className="h-4 w-4" /></Link></Reveal></div>
+      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><p className="editorial-kicker">أصوات على المسار</p><h2 className="editorial-heading mt-2">كُتّاب المُنحنى</h2></div><Link to="/writers" className="editorial-link">كل الكُتّاب </Link></Reveal></div>
       <div className="writers-track-wrap"><EditorialCurve className="writers-curve" flip />
         <div ref={ref} {...handlers} dir="rtl" className="drag-scroll writers-track">
           {writers.map((writer, i) => (
