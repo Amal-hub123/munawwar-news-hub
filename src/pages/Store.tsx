@@ -248,7 +248,7 @@ const Store = () => {
 
                         <div className="flex justify-between mt-3">
                        
-<span className="flex items-center gap-1 text-xs text-muted-foreground">
+<span className="flex items-center gap-1 text-xs line">
   <FileText className="w-3 h-3" /> يتطلب {product.required_articles_count} مقالات
 </span>
                          
