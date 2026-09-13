@@ -48,13 +48,13 @@ export const HeroArticleSlider = () => {
         <img src={article.cover_image_url} alt={article.title} />
         <span className="hero-article-shade" aria-hidden="true" />
         <div className="hero-article-copy">
-          <span className="hero-article-label">من أحدث المقالات</span>
+          {/* <span className="hero-article-label">من أحدث المقالات</span> */}
           <h2>{article.title}</h2>
           {article.excerpt && <p>{article.excerpt}</p>}
           <div className="hero-article-meta">
             {author?.photo_url ? <img src={author.photo_url} alt="" /> : <span><User className="h-3.5 w-3.5" /></span>}
-            <strong>{author?.name}</strong>
-            <ArrowLeft className="mr-auto h-4 w-4" />
+            {/* <strong>{author?.name}</strong>
+            <ArrowLeft className="mr-auto h-4 w-4" /> */}
           </div>
         </div>
       </Link>
