@@ -1,6 +1,9 @@
 import { Fragment, useMemo } from "react";
 import { cleanContentFont } from "@/lib/cleanContent";
-import { KnowledgeLink, KnowledgeLinkData } from "@/components/article/KnowledgeLink";
+import {
+  KnowledgeLink,
+  KnowledgeLinkData,
+} from "@/components/article/KnowledgeLink";
 import type { ReadingBackground } from "@/components/TextZoomControl";
 
 interface ArticleContentProps {
@@ -11,57 +14,182 @@ interface ArticleContentProps {
   contentRef?: React.RefObject<HTMLDivElement>;
 }
 
-const BLOCK_RE = /<div[^>]*data-knowledge-link="([^"]+)"[^>]*>[\s\S]*?<\/div>/gi;
+const BLOCK_RE =
+  /<div[^>]*data-knowledge-link="([^"]+)"[^>]*>[\s\S]*?<\/div>/gi;
 
 /**
- * Renders article HTML and swaps every in-body knowledge-link marker
- * for a live block. Articles without markers render exactly as before.
+ * ألوان خلفية منطقة قراءة المقال.
+ * إذا كانت قيمة background مختلفة عن القيم المعروفة
+ * سيتم استخدام لون الورق الافتراضي.
  */
-export const ArticleContent = ({ html, links = [], fontSize, background = "paper", contentRef }: ArticleContentProps) => {
+const BACKGROUND_COLORS: Record<string, string> = {
+  paper: "#F8F5EF",
+  white: "#FFFFFF",
+  cream: "#FFF4E3",
+  mint: "#EDF7F2",
+};
+
+export const ArticleContent = ({
+  html,
+  links = [],
+  fontSize,
+  background = "paper",
+  contentRef,
+}: ArticleContentProps) => {
+  /**
+   * تقسيم محتوى المقال إلى:
+   * - HTML عادي
+   * - Knowledge Links
+   */
   const parts = useMemo(() => {
     const cleaned = cleanContentFont(html || "");
-    const chunks: { type: "html" | "link"; value: string }[] = [];
+
+    const chunks: {
+      type: "html" | "link";
+      value: string;
+    }[] = [];
+
     let lastIndex = 0;
     let match: RegExpExecArray | null;
+
     BLOCK_RE.lastIndex = 0;
+
     while ((match = BLOCK_RE.exec(cleaned)) !== null) {
-      chunks.push({ type: "html", value: cleaned.slice(lastIndex, match.index) });
-      chunks.push({ type: "link", value: match[1] });
+      // المحتوى الموجود قبل Knowledge Link
+      if (match.index > lastIndex) {
+        chunks.push({
+          type: "html",
+          value: cleaned.slice(lastIndex, match.index),
+        });
+      }
+
+      // Knowledge Link
+      chunks.push({
+        type: "link",
+        value: match[1],
+      });
+
       lastIndex = match.index + match[0].length;
     }
-    chunks.push({ type: "html", value: cleaned.slice(lastIndex) });
+
+    // بقية المقال
+    if (lastIndex < cleaned.length) {
+      chunks.push({
+        type: "html",
+        value: cleaned.slice(lastIndex),
+      });
+    }
+
     return chunks;
   }, [html]);
 
+  /**
+   * ربط Knowledge Links بالمفتاح
+   */
   const byKey = useMemo(() => {
     const map = new Map<string, KnowledgeLinkData>();
-    links.forEach((l) => map.set(l.anchor_key, l));
+
+    links.forEach((link) => {
+      map.set(link.anchor_key, link);
+    });
+
     return map;
   }, [links]);
 
-  const usedKeys = new Set(parts.filter((p) => p.type === "link").map((p) => p.value));
-  const trailing = links.filter((l) => !usedKeys.has(l.anchor_key));
+  /**
+   * معرفة الروابط المستخدمة داخل المقال
+   */
+  const usedKeys = useMemo(() => {
+    return new Set(
+      parts
+        .filter((part) => part.type === "link")
+        .map((part) => part.value),
+    );
+  }, [parts]);
+
+  /**
+   * الروابط التي لا يوجد لها Marker داخل المقال
+   */
+  const trailing = useMemo(() => {
+    return links.filter(
+      (link) => !usedKeys.has(link.anchor_key),
+    );
+  }, [links, usedKeys]);
+
+  /**
+   * لون الخلفية الحالي
+   */
+  const currentBackground =
+    BACKGROUND_COLORS[String(background)] ??
+    BACKGROUND_COLORS.paper;
 
   return (
     <div
       ref={contentRef}
-      className={`site-content article-body article-surface article-surface-${background}`}
-      style={{ padding: "15px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
-    >
-      {parts.map((part, i) =>
-        part.type === "html" ? (
-          part.value ? <div key={i} dangerouslySetInnerHTML={{ __html: part.value }} /> : <Fragment key={i} />
-        ) : (
-          (() => {
-            const link = byKey.get(part.value);
-            return link ? <KnowledgeLink key={i} link={link} /> : <Fragment key={i} />;
-          })()
-        ),
-      )}
+      className="site-content article-body article-surface"
+      data-reading-background={background}
+      style={
+        {
+          padding: "15px",
+          borderRadius: "20px",
 
-      {/* Links saved without an in-body marker still appear, at the end of the passage. */}
+          // تغيير الخلفية فعليًا
+          backgroundColor: currentBackground,
+
+          // حجم الخط
+          "--article-font-size": `${fontSize}px`,
+
+          // انتقال ناعم عند تغيير اللون
+          transition:
+            "background-color 220ms ease, color 220ms ease",
+        } as React.CSSProperties
+      }
+    >
+      {parts.map((part, index) => {
+        /**
+         * HTML العادي
+         */
+        if (part.type === "html") {
+          if (!part.value) {
+            return <Fragment key={index} />;
+          }
+
+          return (
+            <div
+              key={index}
+              dangerouslySetInnerHTML={{
+                __html: part.value,
+              }}
+            />
+          );
+        }
+
+        /**
+         * Knowledge Link
+         */
+        const link = byKey.get(part.value);
+
+        if (!link) {
+          return <Fragment key={index} />;
+        }
+
+        return (
+          <KnowledgeLink
+            key={index}
+            link={link}
+          />
+        );
+      })}
+
+      {/**
+       * الروابط المحفوظة التي ليس لها مكان
+       * محدد داخل نص المقال
+       */}
       {trailing.map((link) => (
-        <KnowledgeLink key={link.id} link={link} />
+        <KnowledgeLink
+          key={link.id}
+          link={link}
+        />
       ))}
     </div>
   );
