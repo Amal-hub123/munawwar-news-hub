@@ -662,7 +662,7 @@ All colors MUST be HSL.
 .timeline-stop { position: relative; width: 100%; min-height: 19rem; padding: calc(7.1rem + var(--stop-progress) * 2.45rem) .75rem 0; opacity: .58; transition: opacity .45s ease, transform .5s var(--editorial-ease); }
 .timeline-stop.is-active { opacity: 1; }
 .timeline-stop.is-active .timeline-dot { color: #00343a; background: #e1a437; border-color: #e1a437; }
-.timeline-dot { position: absolute; top: calc(2.15rem + var(--stop-progress) * 2.45rem); inset-inline-start: 50%; display: grid; width: 3.3rem; height: 3.3rem; place-items: center; border: 1px solid #e1a437; border-radius: 50%; color: #e1a437; background: hsl(175.38deg 31.71% 24.12%); font-size: 1.3rem; transform: translateX(50%); transition: transform .45s var(--editorial-ease), background .4s ease; }
+.timeline-dot { position: absolute; top: calc(0.15rem + var(--stop-progress) * 2.45rem); inset-inline-start: 50%; display: grid; width: 3.3rem; height: 3.3rem; place-items: center; border: 1px solid #e1a437; border-radius: 50%; color: #e1a437; background: hsl(175.38deg 31.71% 24.12%); font-size: 1.3rem; transform: translateX(50%); transition: transform .45s var(--editorial-ease), background .4s ease; }
 .timeline-stop.is-active .timeline-dot { transform: translateX(50%) scale(1.08); }
 .timeline-stop-image { height: 7.5rem; margin-top: .85rem; overflow: hidden; }
 .timeline-stop-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
