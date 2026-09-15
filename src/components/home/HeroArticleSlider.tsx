@@ -50,22 +50,7 @@ export const HeroArticleSlider = () => {
        
       </Link>
 
-      {articles.length > 1 && (
-        <>
-          <div className="hero-slider-controls">
-            <Button type="button" variant="ghost" size="icon" onClick={() => move(-1)} aria-label="المقال السابق">
-              <ChevronRight className="h-5 w-5" />
-            </Button>
-            {/* <span>{String(activeIndex + 1).padStart(2, "0")} / {String(articles.length).padStart(2, "0")}</span> */}
-            <Button type="button" variant="ghost" size="icon" onClick={() => move(1)} aria-label="المقال التالي">
-              <ChevronLeft className="h-5 w-5" />
-            </Button>
-          </div>
-          <div className="hero-slider-progress" aria-hidden="true">
-            {articles.map((item, index) => <i key={item.id} className={index === activeIndex ? "is-active" : ""} />)}
-          </div>
-        </>
-      )}
+    
     </div>
   );
 };
