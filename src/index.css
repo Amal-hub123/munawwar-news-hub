@@ -1050,4 +1050,11 @@ html:not(.dark)
   min-width: 0;
 }
 
-
+.timeline-journey-line {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100%;
+  min-width: 100% !important;
+  pointer-events: none;
+}
