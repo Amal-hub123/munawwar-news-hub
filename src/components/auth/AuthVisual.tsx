@@ -22,8 +22,8 @@ export const AuthVisual = ({ mode }: AuthVisualProps) => (
     <div className="auth-visual-line auth-visual-line-two" aria-hidden="true" />
     <div className="auth-visual-content">
       <Link to="/" className="auth-visual-logo" aria-label="العودة إلى الرئيسية">
-        <img src={logo} alt="المُنحنى" className="dark:hidden" />
-        <img src={darkLogo} alt="المُنحنى" className="hidden dark:block" />
+        {/* <img src={logo} alt="المُنحنى" className="dark:hidden" />
+        <img src={darkLogo} alt="المُنحنى" className="hidden dark:block" /> */}
       </Link>
       <div className="auth-visual-copy">
         <span className="auth-visual-kicker">
