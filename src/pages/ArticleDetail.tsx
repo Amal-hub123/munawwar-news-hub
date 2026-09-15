@@ -19,10 +19,20 @@ import { parseSequencePoints, readingTimeMinutes } from "@/lib/articleExtras";
 const ArticleDetail = () => {
   const { id } = useParams();
   const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
-  const [readingBackground, setReadingBackground] = useState<ReadingBackground>(() => {
-    const saved = window.localStorage.getItem("almonhna-reading-background");
-    return saved === "ivory" || saved === "sage" || saved === "mist" ? saved : "paper";
+ const [readingBackground, setReadingBackground] =
+  useState<ReadingBackground>(() => {
+    const saved = window.localStorage.getItem(
+      "almonhna-reading-background"
+    );
+
+    return saved === "olive" ||
+      saved === "gold" ||
+      saved === "terracotta" ||
+      saved === "teal"
+      ? saved
+      : "paper";
   });
+  
   const contentRef = useRef<HTMLDivElement>(null);
 
   const handleReadingBackground = (next: ReadingBackground) => {
