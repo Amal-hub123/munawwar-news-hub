@@ -28,7 +28,7 @@ const InteractiveTimeline = ({
 
   const VIEWBOX_HEIGHT = 200;
   const BASE_Y = 90;
-  const AMPLITUDE = 50;
+  const AMPLITUDE = 55;
 
   /*
    * المسافة الأساسية لكل نقطة.
