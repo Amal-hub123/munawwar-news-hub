@@ -1345,3 +1345,14 @@ html:not(.dark)
     grid-template-columns: 1fr;
   }
 }
+
+.timeline-fixed-shell {
+  position: relative;
+  width: 100%;
+  min-height: 20rem;
+  overflow: visible;
+}
+
+.timelines-section {
+  overflow-x: clip;
+}
