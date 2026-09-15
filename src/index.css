@@ -1166,8 +1166,8 @@ html:not(.dark)
   /*
    * لا نستخدم progress القديم نهائيًا.
    */
-  padding:
-    calc(var(--dot-y) + 3.4rem)
+ padding:
+    calc(var(--dot-y) + 1.9rem)
     .75rem
     0;
 
@@ -1300,9 +1300,8 @@ html:not(.dark)
    ========================================================= */
 
 .timeline-stop-copy {
-  padding-top: .8rem;
-
-  text-align: right;
+   padding-top: .35rem;
+  text-align: center;
 }
 
 .timeline-stop-copy h6 {
