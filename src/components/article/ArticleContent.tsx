@@ -17,16 +17,15 @@ interface ArticleContentProps {
 const BLOCK_RE =
   /<div[^>]*data-knowledge-link="([^"]+)"[^>]*>[\s\S]*?<\/div>/gi;
 
-/**
- * ألوان خلفية منطقة قراءة المقال.
- * إذا كانت قيمة background مختلفة عن القيم المعروفة
- * سيتم استخدام لون الورق الافتراضي.
+/*
+ * ألوان خلفية القراءة
+ * متطابقة 100% مع القيم الموجودة في TextZoomControl
  */
-const BACKGROUND_COLORS: Record<string, string> = {
+const BACKGROUND_COLORS: Record<ReadingBackground, string> = {
   paper: "#F8F5EF",
-  white: "#FFFFFF",
-  cream: "#FFF4E3",
-  mint: "#EDF7F2",
+  ivory: "#FFFDF5",
+  sage: "#EEF4EC",
+  mist: "#F1F3F4",
 };
 
 export const ArticleContent = ({
@@ -36,10 +35,8 @@ export const ArticleContent = ({
   background = "paper",
   contentRef,
 }: ArticleContentProps) => {
-  /**
-   * تقسيم محتوى المقال إلى:
-   * - HTML عادي
-   * - Knowledge Links
+  /*
+   * تجهيز محتوى المقال
    */
   const parts = useMemo(() => {
     const cleaned = cleanContentFont(html || "");
@@ -55,7 +52,6 @@ export const ArticleContent = ({
     BLOCK_RE.lastIndex = 0;
 
     while ((match = BLOCK_RE.exec(cleaned)) !== null) {
-      // المحتوى الموجود قبل Knowledge Link
       if (match.index > lastIndex) {
         chunks.push({
           type: "html",
@@ -63,7 +59,6 @@ export const ArticleContent = ({
         });
       }
 
-      // Knowledge Link
       chunks.push({
         type: "link",
         value: match[1],
@@ -72,7 +67,6 @@ export const ArticleContent = ({
       lastIndex = match.index + match[0].length;
     }
 
-    // بقية المقال
     if (lastIndex < cleaned.length) {
       chunks.push({
         type: "html",
@@ -83,8 +77,8 @@ export const ArticleContent = ({
     return chunks;
   }, [html]);
 
-  /**
-   * ربط Knowledge Links بالمفتاح
+  /*
+   * إنشاء Map للروابط
    */
   const byKey = useMemo(() => {
     const map = new Map<string, KnowledgeLinkData>();
@@ -96,8 +90,8 @@ export const ArticleContent = ({
     return map;
   }, [links]);
 
-  /**
-   * معرفة الروابط المستخدمة داخل المقال
+  /*
+   * معرفة Knowledge Links المستخدمة
    */
   const usedKeys = useMemo(() => {
     return new Set(
@@ -107,8 +101,8 @@ export const ArticleContent = ({
     );
   }, [parts]);
 
-  /**
-   * الروابط التي لا يوجد لها Marker داخل المقال
+  /*
+   * الروابط التي ليس لها Marker داخل المقال
    */
   const trailing = useMemo(() => {
     return links.filter(
@@ -116,39 +110,45 @@ export const ArticleContent = ({
     );
   }, [links, usedKeys]);
 
-  /**
-   * لون الخلفية الحالي
+  /*
+   * تحديد لون الخلفية المختار
    */
   const currentBackground =
-    BACKGROUND_COLORS[String(background)] ??
-    BACKGROUND_COLORS.paper;
+    BACKGROUND_COLORS[background] ?? BACKGROUND_COLORS.paper;
 
   return (
     <div
       ref={contentRef}
-      className="site-content article-body article-surface"
+      className={`
+        site-content
+        article-body
+        article-surface
+        article-surface-${background}
+      `}
       data-reading-background={background}
       style={
         {
           padding: "15px",
           borderRadius: "20px",
 
-          // تغيير الخلفية فعليًا
+          /*
+           * الخلفية تتغير مباشرة عند اختيار اللون
+           */
           backgroundColor: currentBackground,
 
-          // حجم الخط
+          /*
+           * حجم خط المقال
+           */
           "--article-font-size": `${fontSize}px`,
 
-          // انتقال ناعم عند تغيير اللون
-          transition:
-            "background-color 220ms ease, color 220ms ease",
+          /*
+           * حركة ناعمة عند تغيير الخلفية
+           */
+          transition: "background-color 250ms ease",
         } as React.CSSProperties
       }
     >
       {parts.map((part, index) => {
-        /**
-         * HTML العادي
-         */
         if (part.type === "html") {
           if (!part.value) {
             return <Fragment key={index} />;
@@ -164,9 +164,6 @@ export const ArticleContent = ({
           );
         }
 
-        /**
-         * Knowledge Link
-         */
         const link = byKey.get(part.value);
 
         if (!link) {
@@ -181,10 +178,6 @@ export const ArticleContent = ({
         );
       })}
 
-      {/**
-       * الروابط المحفوظة التي ليس لها مكان
-       * محدد داخل نص المقال
-       */}
       {trailing.map((link) => (
         <KnowledgeLink
           key={link.id}
