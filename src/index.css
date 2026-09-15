@@ -335,11 +335,13 @@ All colors MUST be HSL.
 .auth-visual-shade { position: absolute; inset: 0; background: linear-gradient(180deg, hsl(176 32% 13% / .12), hsl(176 32% 9% / .82)); }
 /* .auth-visual-content { position: relative; z-index: 2; height: 100%; min-height: inherit; padding: clamp(1.5rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: space-between; color: hsl(0 0% 96%); } */
 .auth-visual-content {
+  padding: clamp(1.5rem, 4vw, 3rem);
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  color: hsl(0 0% 96%);
 }
 
 .auth-visual-copy {
