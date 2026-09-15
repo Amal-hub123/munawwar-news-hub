@@ -142,55 +142,45 @@ const InteractiveTimeline = ({
      إنشاء PATH الخط
      ========================================================= */
 
-  const createCurvePath = () => {
+ const createCurvePath = () => {
+  const segments = 300;
+  let path = "";
 
-    /*
-     * كلما زادت segments
-     * يصبح الخط أنعم.
-     */
-    const segments = 300;
+  for (let i = 0; i <= segments; i++) {
+    const progress = i / segments;
 
-    let path = "";
+    const x = progress * VIEWBOX_WIDTH;
+    const y = getCurveY(progress);
 
-
-    for (
-      let i = 0;
-      i <= segments;
-      i++
-    ) {
-
-      const progress =
-        i / segments;
-
-
-      const x =
-        progress *
-        VIEWBOX_WIDTH;
-
-
-      const y =
-        getCurveY(
-          progress
-        );
-
-
-      if (i === 0) {
-
-        path +=
-          `M ${x} ${y}`;
-
-      } else {
-
-        path +=
-          ` L ${x} ${y}`;
-
-      }
+    if (i === 0) {
+      path += `M ${x} ${y}`;
+    } else {
+      path += ` L ${x} ${y}`;
     }
+  }
 
+  // نمد نفس المنحنى من الطرفين فقط
+  // بدون تغيير أي جزء من الخط الأصلي
+  const extension = 80;
 
-    return path;
-  };
+  const startProgress = -extension / VIEWBOX_WIDTH;
+  const startX = -extension;
+  const startY = getCurveY(startProgress);
 
+  const endProgress = 1 + extension / VIEWBOX_WIDTH;
+  const endX = VIEWBOX_WIDTH + extension;
+  const endY = getCurveY(endProgress);
+
+  // نفس الخط الأصلي + تمديد للطرفين
+  const originalPath = path;
+
+  return `
+    M ${startX} ${startY}
+    L 0 ${getCurveY(0)}
+    ${originalPath.replace(/^M [^L]+/, "")}
+    L ${endX} ${endY}
+  `;
+};
 
   const curvePath =
     createCurvePath();
