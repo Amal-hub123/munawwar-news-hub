@@ -48,7 +48,6 @@ export const HeroArticleSlider = () => {
         <img src={article.cover_image_url} alt={article.title} />
         <span className="hero-article-shade" aria-hidden="true" />
        
-        </div>
       </Link>
 
       {articles.length > 1 && (
