@@ -1,11 +1,13 @@
 import { Fragment, useMemo } from "react";
 import { cleanContentFont } from "@/lib/cleanContent";
 import { KnowledgeLink, KnowledgeLinkData } from "@/components/article/KnowledgeLink";
+import type { ReadingBackground } from "@/components/TextZoomControl";
 
 interface ArticleContentProps {
   html: string;
   links?: KnowledgeLinkData[];
   fontSize: number;
+  background?: ReadingBackground;
   contentRef?: React.RefObject<HTMLDivElement>;
 }
 
@@ -15,7 +17,7 @@ const BLOCK_RE = /<div[^>]*data-knowledge-link="([^"]+)"[^>]*>[\s\S]*?<\/div>/gi
  * Renders article HTML and swaps every in-body knowledge-link marker
  * for a live block. Articles without markers render exactly as before.
  */
-export const ArticleContent = ({ html, links = [], fontSize, contentRef }: ArticleContentProps) => {
+export const ArticleContent = ({ html, links = [], fontSize, background = "paper", contentRef }: ArticleContentProps) => {
   const parts = useMemo(() => {
     const cleaned = cleanContentFont(html || "");
     const chunks: { type: "html" | "link"; value: string }[] = [];
@@ -43,7 +45,7 @@ export const ArticleContent = ({ html, links = [], fontSize, contentRef }: Artic
   return (
     <div
       ref={contentRef}
-      className="site-content article-body article-surface"
+      className={`site-content article-body article-surface article-surface-${background}`}
       style={{ padding: "15px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
     >
       {parts.map((part, i) =>

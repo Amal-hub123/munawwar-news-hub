@@ -9,7 +9,7 @@ import { ShareButton } from "@/components/ShareDialog";
 import { ArticleCard } from "@/components/ArticleCard";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
-import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
+import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE, type ReadingBackground } from "@/components/TextZoomControl";
 import ArticleContent from "@/components/article/ArticleContent";
 import ArticleSequence from "@/components/article/ArticleSequence";
 import StoryContinues from "@/components/article/StoryContinues";
@@ -19,7 +19,16 @@ import { parseSequencePoints, readingTimeMinutes } from "@/lib/articleExtras";
 const ArticleDetail = () => {
   const { id } = useParams();
   const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
+  const [readingBackground, setReadingBackground] = useState<ReadingBackground>(() => {
+    const saved = window.localStorage.getItem("almonhna-reading-background");
+    return saved === "ivory" || saved === "sage" || saved === "mist" ? saved : "paper";
+  });
   const contentRef = useRef<HTMLDivElement>(null);
+
+  const handleReadingBackground = (next: ReadingBackground) => {
+    setReadingBackground(next);
+    window.localStorage.setItem("almonhna-reading-background", next);
+  };
 
   const { data: article, isLoading } = useQuery({
     queryKey: ["article", id],
@@ -313,12 +322,13 @@ const ArticleDetail = () => {
 
         <div className="prose prose-lg max-w-none">
           <div className="flex justify-end mb-3">
-            <TextZoomControl value={fontSize} onChange={setFontSize} />
+            <TextZoomControl value={fontSize} onChange={setFontSize} background={readingBackground} onBackgroundChange={handleReadingBackground} />
           </div>
           <ArticleContent
             html={article.content}
             links={(knowledgeLinks || []) as any}
             fontSize={fontSize}
+            background={readingBackground}
             contentRef={contentRef}
           />
         </div>
