@@ -786,52 +786,149 @@ All colors MUST be HSL.
   background: rgba(185, 143, 63, 0.08);
 }
 
-/* =========================
-   Reading background swatches
-   ========================= */
+/* =========================================
+   Reading Background Picker
+   Light + Dark Mode
+   ========================================= */
+
+/* ---------- SWATCH BASE ---------- */
 
 .reading-swatch {
   width: 28px !important;
   height: 28px !important;
+  min-width: 28px !important;
   padding: 0 !important;
   border-radius: 9999px !important;
-  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
-    border-color 0.2s ease !important;
+    border-color 0.2s ease,
+    background-color 0.2s ease !important;
 }
 
-/* ورقي */
+
+/* =========================================
+   LIGHT MODE
+   ========================================= */
+
 .reading-swatch-paper {
-  background: #F8F5EF !important;
+  background-color: #F8F5EF !important;
 }
 
-/* عاجي */
 .reading-swatch-ivory {
-  background: #FFFDF5 !important;
+  background-color: #FFFDF5 !important;
 }
 
-/* أخضر هادئ */
 .reading-swatch-sage {
-  background: #EEF4EC !important;
+  background-color: #EEF4EC !important;
 }
 
-/* رمادي هادئ */
 .reading-swatch-mist {
-  background: #F1F3F4 !important;
+  background-color: #F1F3F4 !important;
 }
 
-/* اللون المحدد */
+
+/* =========================================
+   ACTIVE
+   ========================================= */
+
 .reading-swatch.is-active {
   border: 2px solid #E98A15 !important;
+
   box-shadow:
-    0 0 0 2px rgba(233, 138, 21, 0.12) !important;
-  transform: scale(1.04);
+    0 0 0 2px rgba(233, 138, 21, 0.16) !important;
+
+  transform: scale(1.05);
 }
 
 .reading-swatch:hover {
   transform: scale(1.08);
+}
+
+
+/* =========================================
+   DARK MODE — SWATCH COLORS
+   ========================================= */
+
+.dark .reading-swatch {
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
+/* داكن طبيعي */
+.dark .reading-swatch-paper {
+  background-color: #101B1F !important;
+}
+
+/* داكن دافئ */
+.dark .reading-swatch-ivory {
+  background-color: #1D1B17 !important;
+}
+
+/* أخضر داكن هادئ */
+.dark .reading-swatch-sage {
+  background-color: #16231E !important;
+}
+
+/* رمادي داكن */
+.dark .reading-swatch-mist {
+  background-color: #1D2226 !important;
+}
+
+.dark .reading-swatch.is-active {
+  border-color: #E98A15 !important;
+
+  box-shadow:
+    0 0 0 2px rgba(233, 138, 21, 0.22) !important;
+}
+
+
+/* =========================================
+   ARTICLE BACKGROUND — DARK MODE
+   ========================================= */
+
+.dark .article-surface-paper {
+  background-color: #101B1F !important;
+  color: #F5F3EE !important;
+}
+
+.dark .article-surface-ivory {
+  background-color: #1D1B17 !important;
+  color: #F5F3EE !important;
+}
+
+.dark .article-surface-sage {
+  background-color: #16231E !important;
+  color: #F5F3EE !important;
+}
+
+.dark .article-surface-mist {
+  background-color: #1D2226 !important;
+  color: #F5F3EE !important;
+}
+
+
+/* =========================================
+   ARTICLE TEXT — DARK MODE
+   ========================================= */
+
+.dark .article-surface,
+.dark .article-surface p,
+.dark .article-surface li,
+.dark .article-surface blockquote {
+  color: #F5F3EE;
+}
+
+.dark .article-surface h1,
+.dark .article-surface h2,
+.dark .article-surface h3,
+.dark .article-surface h4 {
+  color: #FFFFFF;
+}
+
+.dark .article-surface a {
+  color: #8FC9B5;
 }
 
 
