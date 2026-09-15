@@ -924,7 +924,142 @@ html:not(.dark) .article-surface.article-surface-mist {
   color: #f5f3ee !important;
 }
 
+/* ==================================================
+   FINAL READING PALETTE FIX
+   Light + Dark Mode
+   ================================================== */
 
+/* ---------- شكل الدوائر ---------- */
+
+.reading-swatch {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  padding: 0 !important;
+  border-radius: 9999px !important;
+  border: 1px solid rgba(0, 0, 0, 0.14) !important;
+}
+
+
+/* ==================================================
+   LIGHT MODE — الدوائر
+   ================================================== */
+
+html:not(.dark) .reading-swatch-paper {
+  background: #f8f5ef !important;
+}
+
+html:not(.dark) .reading-swatch-ivory {
+  background: #fff8e8 !important;
+}
+
+html:not(.dark) .reading-swatch-sage {
+  background: #edf5ed !important;
+}
+
+html:not(.dark) .reading-swatch-mist {
+  background: #eef2f3 !important;
+}
+
+
+/* ==================================================
+   DARK MODE — الدوائر
+   ================================================== */
+
+.dark .reading-swatch-paper {
+  background: #101b1f !important;
+}
+
+.dark .reading-swatch-ivory {
+  background: #2a2119 !important;
+}
+
+.dark .reading-swatch-sage {
+  background: #183027 !important;
+}
+
+.dark .reading-swatch-mist {
+  background: #252b30 !important;
+}
+
+.dark .reading-swatch {
+  border-color: rgba(255, 255, 255, 0.22) !important;
+}
+
+
+/* ==================================================
+   الخيار المحدد
+   ================================================== */
+
+.reading-swatch.is-active {
+  border: 2px solid #f59e0b !important;
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.18) !important;
+}
+
+
+/* ==================================================
+   LIGHT MODE — خلفية المقال
+   ================================================== */
+
+html:not(.dark) .article-surface.article-surface-paper {
+  background: #f8f5ef !important;
+}
+
+html:not(.dark) .article-surface.article-surface-ivory {
+  background: #fff8e8 !important;
+}
+
+html:not(.dark) .article-surface.article-surface-sage {
+  background: #edf5ed !important;
+}
+
+html:not(.dark) .article-surface.article-surface-mist {
+  background: #eef2f3 !important;
+}
+
+
+/* ==================================================
+   DARK MODE — خلفية المقال
+   ================================================== */
+
+.dark .article-surface.article-surface-paper {
+  background: #101b1f !important;
+  color: #f5f3ee !important;
+}
+
+.dark .article-surface.article-surface-ivory {
+  background: #2a2119 !important;
+  color: #f5f3ee !important;
+}
+
+.dark .article-surface.article-surface-sage {
+  background: #183027 !important;
+  color: #f5f3ee !important;
+}
+
+.dark .article-surface.article-surface-mist {
+  background: #252b30 !important;
+  color: #f5f3ee !important;
+}
+
+
+/* ---------- نص المقال في الليلي ---------- */
+
+.dark .article-surface,
+.dark .article-surface p,
+.dark .article-surface li,
+.dark .article-surface blockquote {
+  color: #f5f3ee !important;
+}
+
+.dark .article-surface h1,
+.dark .article-surface h2,
+.dark .article-surface h3,
+.dark .article-surface h4,
+.dark .article-surface strong {
+  color: #ffffff !important;
+}
 
 
 
