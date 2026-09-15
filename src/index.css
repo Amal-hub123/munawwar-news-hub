@@ -457,8 +457,21 @@ All colors MUST be HSL.
 .editorial-link:hover { gap: .9rem; }
 
 .site-header { border-bottom: 1px solid hsl(var(--border) / .5); background: hsl(var(--background) / .78); backdrop-filter: blur(18px); transition: background .35s ease, box-shadow .35s ease; }
-.site-header.is-scrolled { background: hsl(45deg 30.77% 94.9%); box-shadow: 0 12px 35px hsl(var(--foreground) / .06); }
-.site-header-inner { height: 5rem; transition: height .35s ease; }
+/* Light Mode */
+.site-header.is-scrolled {
+  background: #f6f4ee;
+  box-shadow: 0 12px 35px hsl(var(--foreground) / 0.06);
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+/* Dark Mode */
+.dark .site-header.is-scrolled {
+  background: #101b1f;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+}.site-header-inner { height: 5rem; transition: height .35s ease; }
 .site-header.is-scrolled .site-header-inner { height: 4.25rem; }
 .site-logo { width: 11rem; height: 3.5rem; transition: width .35s ease, height .35s ease; }
 .site-header.is-scrolled .site-logo { width: 9rem; height: 2.9rem; }
