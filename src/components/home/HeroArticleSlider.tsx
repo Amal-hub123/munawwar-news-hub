@@ -49,7 +49,7 @@ export const HeroArticleSlider = () => {
         <span className="hero-article-shade" aria-hidden="true" />
         <div className="hero-article-copy">
           {/* <span className="hero-article-label">من أحدث المقالات</span> */}
-          <h2>{article.title}</h2>
+          {/* <h2>{article.title}</h2> */}
           {article.excerpt && <p>{article.excerpt}</p>}
           <div className="hero-article-meta">
             {
