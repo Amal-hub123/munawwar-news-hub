@@ -668,6 +668,7 @@ All colors MUST be HSL.
 .timeline-stop-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .timeline-stop:hover img { transform: scale(1.05); }
 .timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy h6 { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; }
+
 .image-timeline-stage { padding: 2rem; background: hsl(var(--secondary-foreground) / .05); }
 .image-timeline-stage img { max-width: none; max-height: 72vh; width: auto; transition: transform 1.2s ease; }
 .image-timeline-stage:hover img { transform: translateX(-1.5rem) scale(1.01); }
@@ -989,3 +990,197 @@ html:not(.dark)
 .article-surface-teal p {
   color: #111816 !important;
 }
+
+/* =========================================================
+   TIMELINE STOP
+   ========================================================= */
+
+.timeline-stop {
+  position: relative;
+  width: 100%;
+  min-height: 19rem;
+
+  /*
+   * مساحة كافية للنص تحت النقطة
+   */
+  padding: 8rem 0.75rem 0;
+
+  opacity: 0.58;
+
+  transition:
+    opacity 0.45s ease,
+    transform 0.5s var(--editorial-ease);
+}
+
+.timeline-stop.is-active {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   TIMELINE DOT
+   الدائرة تتبع نفس Y الخاص بالمنحنى
+   ========================================================= */
+
+.timeline-dot {
+  position: absolute;
+
+  /*
+   * أهم سطر:
+   * نفس موقع Y المحسوب للخط
+   */
+  top: var(--stop-y);
+
+  inset-inline-start: 50%;
+
+  display: grid;
+
+  width: 3.3rem;
+  height: 3.3rem;
+
+  place-items: center;
+
+  border: 1px solid #e1a437;
+  border-radius: 50%;
+
+  color: #e1a437;
+
+  background: hsl(175.38deg 31.71% 24.12%);
+
+  font-size: 1.3rem;
+
+  /*
+   * -50% عموديًا يجعل مركز الدائرة
+   * بالضبط على الخط
+   */
+  transform:
+    translateX(50%)
+    translateY(-50%);
+
+  transition:
+    transform 0.45s var(--editorial-ease),
+    background 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease;
+}
+
+
+/* =========================================================
+   ACTIVE DOT
+   ========================================================= */
+
+.timeline-stop.is-active .timeline-dot {
+  color: #00343a;
+
+  background: #e1a437;
+
+  border-color: #e1a437;
+
+  transform:
+    translateX(50%)
+    translateY(-50%)
+    scale(1.08);
+}
+
+
+/* =========================================================
+   TIMELINE IMAGE
+   ========================================================= */
+
+.timeline-stop-image {
+  height: 7.5rem;
+
+  margin-top: 0.85rem;
+
+  overflow: hidden;
+}
+
+.timeline-stop-image img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.7s ease;
+}
+
+.timeline-stop:hover img {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   TIMELINE COPY
+   ========================================================= */
+
+.timeline-stop-copy {
+  /*
+   * نخلي النص تحت منطقة المنحنى
+   * بدل ما يتحرك فوق الدائرة
+   */
+  padding-top: 0.8rem;
+  margin-top: 3.5rem;
+}
+
+.timeline-stop-copy h6 {
+  color: #e1a437;
+}
+
+.timeline-stop-copy h4 {
+  margin: 0.3rem 0;
+
+  font-size: 1rem;
+}
+
+.timeline-stop-copy p {
+  color: hsl(var(--secondary-foreground) / 0.65);
+
+  font-size: 0.78rem;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   SVG CURVED LINE
+   ========================================================= */
+
+.timeline-journey-line {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.timeline-journey-line path {
+  fill: none;
+
+  stroke: var(--timeline-color);
+
+  stroke-width: 2;
+
+  vector-effect: non-scaling-stroke;
+
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+
+/* =========================================================
+   IMAGE TIMELINE
+   ========================================================= */
+
+.image-timeline-stage {
+  padding: 2rem;
+
+  background:
+    hsl(var(--secondary-foreground) / 0.05);
+}
+
