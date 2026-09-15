@@ -161,7 +161,7 @@ const InteractiveTimeline = ({
 
   // نمد نفس المنحنى من الطرفين فقط
   // بدون تغيير أي جزء من الخط الأصلي
-  const extension = 80;
+  const extension = 180;
 
   const startProgress = -extension / VIEWBOX_WIDTH;
   const startX = -extension;
