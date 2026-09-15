@@ -52,7 +52,7 @@ const InteractiveTimeline = ({
   const getCurveY = (progress: number) => {
     return (
       BASE_Y +
-      Math.sin(progress * Math.PI * 1.5) * AMPLITUDE
+      Math.sin(progress * Math.PI * 1.7) * AMPLITUDE
     );
   };
 
