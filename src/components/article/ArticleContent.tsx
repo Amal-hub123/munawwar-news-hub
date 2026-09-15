@@ -17,17 +17,11 @@ interface ArticleContentProps {
 const BLOCK_RE =
   /<div[^>]*data-knowledge-link="([^"]+)"[^>]*>[\s\S]*?<\/div>/gi;
 
-/*
- * ألوان خلفية القراءة
- * متطابقة 100% مع القيم الموجودة في TextZoomControl
+/**
+ * محتوى المقال
+ * الخلفية يتم التحكم بها بالكامل من index.css
+ * حتى تعمل بشكل صحيح في Light / Dark Mode
  */
-const BACKGROUND_COLORS: Record<ReadingBackground, string> = {
-  paper: "#F8F5EF",
-  ivory: "#FFFDF5",
-  sage: "#EEF4EC",
-  mist: "#F1F3F4",
-};
-
 export const ArticleContent = ({
   html,
   links = [],
@@ -35,9 +29,6 @@ export const ArticleContent = ({
   background = "paper",
   contentRef,
 }: ArticleContentProps) => {
-  /*
-   * تجهيز محتوى المقال
-   */
   const parts = useMemo(() => {
     const cleaned = cleanContentFont(html || "");
 
@@ -77,9 +68,6 @@ export const ArticleContent = ({
     return chunks;
   }, [html]);
 
-  /*
-   * إنشاء Map للروابط
-   */
   const byKey = useMemo(() => {
     const map = new Map<string, KnowledgeLinkData>();
 
@@ -90,9 +78,6 @@ export const ArticleContent = ({
     return map;
   }, [links]);
 
-  /*
-   * معرفة Knowledge Links المستخدمة
-   */
   const usedKeys = useMemo(() => {
     return new Set(
       parts
@@ -101,20 +86,11 @@ export const ArticleContent = ({
     );
   }, [parts]);
 
-  /*
-   * الروابط التي ليس لها Marker داخل المقال
-   */
   const trailing = useMemo(() => {
     return links.filter(
       (link) => !usedKeys.has(link.anchor_key),
     );
   }, [links, usedKeys]);
-
-  /*
-   * تحديد لون الخلفية المختار
-   */
-  const currentBackground =
-    BACKGROUND_COLORS[background] ?? BACKGROUND_COLORS.paper;
 
   return (
     <div
@@ -131,20 +107,11 @@ export const ArticleContent = ({
           padding: "15px",
           borderRadius: "20px",
 
-          /*
-           * الخلفية تتغير مباشرة عند اختيار اللون
-           */
-          backgroundColor: currentBackground,
-
-          /*
-           * حجم خط المقال
-           */
+          /* حجم الخط فقط — الخلفية من CSS */
           "--article-font-size": `${fontSize}px`,
 
-          /*
-           * حركة ناعمة عند تغيير الخلفية
-           */
-          transition: "background-color 250ms ease",
+          transition:
+            "background-color 250ms ease, color 250ms ease",
         } as React.CSSProperties
       }
     >
