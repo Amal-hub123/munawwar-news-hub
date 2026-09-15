@@ -22,22 +22,32 @@ const InteractiveTimeline = ({
     stops[0]?.id || null
   );
 
-  /*
-   * إعدادات المنحنى
-   *
-   * VIEWBOX_HEIGHT = نفس ارتفاع SVG
-   * BASE_Y = منتصف المنحنى
-   * AMPLITUDE = قوة الصعود والنزول
-   */
+  /* =========================================================
+     إعدادات المنحنى
+     ========================================================= */
+
   const VIEWBOX_HEIGHT = 180;
   const BASE_Y = 90;
   const AMPLITUDE = 22;
 
   /*
-   * هذه هي المعادلة الوحيدة المستخدمة
-   * لرسم الخط وتحديد مكان الدوائر.
-   *
-   * لذلك كل دائرة ستكون على الخط نفسه.
+   * المسافة الأساسية لكل نقطة.
+   * عند زيادة عدد النقاط، يزيد عرض الخط معها.
+   */
+  const STOP_WIDTH = 180;
+
+  /*
+   * الحد الأدنى للعرض يبقى 1200px
+   * وإذا زادت النقاط يزيد عرض الـ timeline تلقائيًا.
+   */
+  const TIMELINE_WIDTH = Math.max(
+    1200,
+    stops.length * STOP_WIDTH
+  );
+
+  /*
+   * نفس المعادلة المستخدمة للخط وللنقاط
+   * حتى تبقى الدوائر على الخط تمامًا.
    */
   const getCurveY = (progress: number) => {
     return (
@@ -47,18 +57,20 @@ const InteractiveTimeline = ({
   };
 
   /*
-   * إنشاء مسار SVG من نفس المعادلة.
+   * إنشاء مسار SVG للخط المنحني.
+   *
+   * المسار الآن يستخدم TIMELINE_WIDTH
+   * بدل عرض ثابت 1200px.
    */
   const createCurvePath = () => {
-    const width = 1200;
-    const segments = 100;
+    const segments = 200;
 
     let path = "";
 
     for (let i = 0; i <= segments; i++) {
       const progress = i / segments;
 
-      const x = progress * width;
+      const x = progress * TIMELINE_WIDTH;
       const y = getCurveY(progress);
 
       if (i === 0) {
@@ -93,34 +105,43 @@ const InteractiveTimeline = ({
               stops.length,
               1
             ),
+
+            /*
+             * الـ stage والـ SVG والـ path
+             * أصبحوا جميعًا بنفس العرض.
+             */
+            width: `${TIMELINE_WIDTH}px`,
           } as React.CSSProperties
         }
       >
-        {/* ===============================
+        {/* =================================================
             الخط المنحني
-            =============================== */}
+            ================================================= */}
 
         <svg
           className="timeline-journey-line"
-          viewBox="0 0 1200 180"
+          viewBox={`0 0 ${TIMELINE_WIDTH} ${VIEWBOX_HEIGHT}`}
           preserveAspectRatio="none"
           aria-hidden="true"
         >
           <path
             pathLength="1"
             d={curvePath}
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            vectorEffect="non-scaling-stroke"
           />
         </svg>
 
-        {/* ===============================
+        {/* =================================================
             نقاط الخط الزمني
-            =============================== */}
+            ================================================= */}
 
         <div className="timeline-journey">
           {stops.map((stop, i) => {
             /*
-             * 0 = بداية الخط
-             * 1 = نهاية الخط
+             * توزيع النقاط من بداية الخط إلى نهايته.
              */
             const progress =
               stops.length > 1
@@ -128,27 +149,22 @@ const InteractiveTimeline = ({
                 : 0.5;
 
             /*
-             * نحسب Y من نفس معادلة الخط
+             * حساب Y للنقطة من نفس معادلة الخط.
              */
-            const curveY =
-              getCurveY(progress);
+            const curveY = getCurveY(progress);
 
             /*
-             * نحوله من SVG إلى %
+             * تحويل Y من SVG إلى نسبة مئوية.
              */
             const stopY =
-              (curveY / VIEWBOX_HEIGHT) *
-              100;
+              (curveY / VIEWBOX_HEIGHT) * 100;
 
             const body = (
               <div
                 style={
                   {
-                    "--stop-progress":
-                      progress,
-
-                    "--stop-y":
-                      `${stopY}%`,
+                    "--stop-progress": progress,
+                    "--stop-y": `${stopY}%`,
                   } as React.CSSProperties
                 }
                 className={`timeline-stop ${
@@ -166,10 +182,7 @@ const InteractiveTimeline = ({
                 {/* رقم النقطة */}
 
                 <span className="timeline-dot">
-                  {String(i + 1).padStart(
-                    2,
-                    "0"
-                  )}
+                  {String(i + 1).padStart(2, "0")}
                 </span>
 
                 {/* الصورة */}
@@ -208,12 +221,11 @@ const InteractiveTimeline = ({
             );
 
             /*
-             * إذا النقطة مرتبطة بمقال
+             * إذا النقطة مرتبطة بمقال معتمد.
              */
             if (
               stop.article_id &&
-              stop.articles?.status ===
-                "approved"
+              stop.articles?.status === "approved"
             ) {
               return (
                 <Link
@@ -238,7 +250,6 @@ const InteractiveTimeline = ({
   );
 };
 
-
 /* =========================================================
    IMAGE TIMELINE
    ========================================================= */
@@ -251,8 +262,9 @@ const ImageTimeline = ({
   const { ref, handlers } =
     useDragScroll<HTMLDivElement>();
 
-  if (!timeline.image_url)
+  if (!timeline.image_url) {
     return null;
+  }
 
   return (
     <div
@@ -269,7 +281,6 @@ const ImageTimeline = ({
     </div>
   );
 };
-
 
 /* =========================================================
    HOME TIMELINES
@@ -308,17 +319,16 @@ export const HomeTimelines = () => {
               }
             );
 
-        if (error)
+        if (error) {
           throw error;
+        }
 
         return data || [];
       },
     });
 
   const [activeId, setActiveId] =
-    useState<string | null>(
-      null
-    );
+    useState<string | null>(null);
 
   /*
    * إظهار الخطوط التي تحتوي
@@ -337,7 +347,7 @@ export const HomeTimelines = () => {
   });
 
   /*
-   * اختيار أول Timeline تلقائيًا
+   * اختيار أول Timeline تلقائيًا.
    */
   useEffect(() => {
     if (
@@ -353,8 +363,9 @@ export const HomeTimelines = () => {
     }
   }, [visible, activeId]);
 
-  if (!visible.length)
+  if (!visible.length) {
     return null;
+  }
 
   const active: any =
     visible.find(
@@ -363,11 +374,11 @@ export const HomeTimelines = () => {
     ) || visible[0];
 
   /*
-   * ترتيب النقاط
+   * ترتيب النقاط.
    */
-  const stops = (
-    active.timeline_stops || []
-  ).sort(
+  const stops = [
+    ...(active.timeline_stops || []),
+  ].sort(
     (a: any, b: any) =>
       (a.display_order ?? 0) -
       (b.display_order ?? 0)
@@ -380,9 +391,9 @@ export const HomeTimelines = () => {
   return (
     <section className="timelines-section">
 
-      {/* ===============================
+      {/* =================================================
           العنوان
-          =============================== */}
+          ================================================= */}
 
       <div className="container mx-auto px-6">
 
@@ -408,10 +419,9 @@ export const HomeTimelines = () => {
 
         </Reveal>
 
-
-        {/* ===============================
+        {/* =================================================
             أزرار الخطوط
-            =============================== */}
+            ================================================= */}
 
         <Reveal
           variant="side"
@@ -477,10 +487,9 @@ export const HomeTimelines = () => {
 
       </div>
 
-
-      {/* ===============================
+      {/* =================================================
           TIMELINE
-          =============================== */}
+          ================================================= */}
 
       <Reveal
         key={active.id}
@@ -497,7 +506,6 @@ export const HomeTimelines = () => {
 
           </div>
         )}
-
 
         {isImage ? (
 
