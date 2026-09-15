@@ -41,7 +41,7 @@ const InteractiveTimeline = ({
    * وإذا زادت النقاط يزيد عرض الـ timeline تلقائيًا.
    */
   const TIMELINE_WIDTH = Math.max(
-    1200,
+    1220,
     stops.length * STOP_WIDTH
   );
 
