@@ -31,7 +31,7 @@ const InteractiveTimeline = ({
    */
   const VIEWBOX_HEIGHT = 180;
   const BASE_Y = 90;
-  const AMPLITUDE = 22;
+  const AMPLITUDE = 32;
 
   /*
    * هذه هي المعادلة الوحيدة المستخدمة
