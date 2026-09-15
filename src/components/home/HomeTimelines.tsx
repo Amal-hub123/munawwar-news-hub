@@ -103,7 +103,7 @@ const InteractiveTimeline = ({
   /*
    * مساحة من بداية ونهاية Track.
    */
-  const SIDE_PADDING = 20;
+  const SIDE_PADDING = 30;
 
 
 
