@@ -19,8 +19,19 @@ export const CategoryMosaic = () => {
   
   return (
     <section className="mosaic-section">
-      <div className="container mx-auto px-6"><Reveal variant="side" className="section-heading-row"><div><h2 className="editorial-heading mt-2">مربع المُنحنى</h2> <h4 className="editorial-kicker">ما الذي يشغل المُنحنى ؟ قِس مساحة الكلمة التي تهمك</h4></div></Reveal>
-        <div className={`mosaic-layout p-5 ${active ? "has-active" : ""}`} onMouseLeave={() => setActive(null)}>
+<div className="container mx-auto px-6">
+  <Reveal variant="side" className="section-heading-row">
+    <div>
+      <h2 className="editorial-heading editorial-heading-fit mt-2">
+        مربع المُنحنى
+      </h2>
+
+      <h4 className="editorial-kicker">
+        ما الذي يشغل المُنحنى ؟ قِس مساحة الكلمة التي تهمك
+      </h4>
+    </div>
+  </Reveal>
+</div>        <div className={`mosaic-layout p-5 ${active ? "has-active" : ""}`} onMouseLeave={() => setActive(null)}>
           {cells.map((cell, i) => <Reveal key={cell.id} delay={i * 55} variant="scale" className={`${shape(i)} mosaic-reveal`}><Link to={`/articles?category=${encodeURIComponent(cell.slug)}`} onMouseEnter={() => setActive(cell.id)} className={`mosaic-cell ${active === cell.id ? "is-active" : ""}`} style={{ backgroundColor: cell.color, color: readableColor(cell.color) }}><strong>{cell.name}</strong><span className="mosaic-count">{cell.count} مقال</span></Link></Reveal>)}
         </div>
       </div>
