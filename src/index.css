@@ -991,3 +991,131 @@ html:not(.dark)
   color: #111816 !important;
 }
 
+
+
+/* =========================================================
+   المنطقة الكاملة
+   ========================================================= */
+
+.timeline-journey-wrap {
+  position: relative;
+
+  width: 100%;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scrollbar-width: none;
+
+  cursor: grab;
+}
+
+.timeline-journey-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-journey-wrap:active {
+  cursor: grabbing;
+}
+
+
+/* =========================================================
+   المنطقة التي يظهر فيها الخط
+   ========================================================= */
+
+.timeline-fixed-stage {
+  position: relative;
+
+  width: 100%;
+  height: 200px;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   الخط المنحني
+   ثابت من أول الشاشة إلى آخرها
+   ========================================================= */
+
+.timeline-fixed-line {
+  position: sticky;
+
+  left: 0;
+
+  top: 0;
+
+  width: 100vw;
+  height: 200px;
+
+  display: block;
+
+  overflow: visible;
+
+  color: var(--timeline-color);
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+
+/* =========================================================
+   Track النقاط
+   ========================================================= */
+
+.timeline-points-track {
+  position: absolute;
+
+  left: 0;
+  top: 0;
+
+  height: 200px;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   كل نقطة
+   ========================================================= */
+
+.timeline-stop {
+  position: absolute;
+
+  left: var(--stop-x);
+  top: var(--stop-y);
+
+  /*
+   * هذا مهم جدًا:
+   * يجعل مركز الدائرة هو الموجود على الخط،
+   * وليس طرف العنصر.
+   */
+  transform: translate(-50%, -50%);
+
+  min-width: 200px;
+}
+
+
+/* =========================================================
+   الدائرة
+   ========================================================= */
+
+.timeline-dot {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 999px;
+
+  background: var(--timeline-color);
+  color: white;
+
+  z-index: 3;
+}
