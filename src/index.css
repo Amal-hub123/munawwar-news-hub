@@ -880,86 +880,48 @@ All colors MUST be HSL.
 
 
 /* =========================================
-   DARK MODE — SWATCH COLORS
+   ARTICLE READING BACKGROUNDS — LIGHT MODE
    ========================================= */
 
-.dark .reading-swatch {
-  border-color: rgba(255, 255, 255, 0.18) !important;
+html:not(.dark) .article-surface.article-surface-paper {
+  background-color: #f8f5ef !important;
 }
 
-/* داكن طبيعي */
-.dark .reading-swatch-paper {
-  background-color: #101B1F !important;
+html:not(.dark) .article-surface.article-surface-ivory {
+  background-color: #fff8e8 !important;
 }
 
-/* داكن دافئ */
-.dark .reading-swatch-ivory {
-  background-color: #1D1B17 !important;
+html:not(.dark) .article-surface.article-surface-sage {
+  background-color: #edf5ed !important;
 }
 
-/* أخضر داكن هادئ */
-.dark .reading-swatch-sage {
-  background-color: #16231E !important;
-}
-
-/* رمادي داكن */
-.dark .reading-swatch-mist {
-  background-color: #1D2226 !important;
-}
-
-.dark .reading-swatch.is-active {
-  border-color: #E98A15 !important;
-
-  box-shadow:
-    0 0 0 2px rgba(233, 138, 21, 0.22) !important;
+html:not(.dark) .article-surface.article-surface-mist {
+  background-color: #eef2f3 !important;
 }
 
 
 /* =========================================
-   ARTICLE BACKGROUND — DARK MODE
+   ARTICLE READING BACKGROUNDS — DARK MODE
    ========================================= */
 
-.dark .article-surface-paper {
-  background-color: #101B1F !important;
-  color: #F5F3EE !important;
+.dark .article-surface.article-surface-paper {
+  background-color: #101b1f !important;
+  color: #f5f3ee !important;
 }
 
-.dark .article-surface-ivory {
-  background-color: #1D1B17 !important;
-  color: #F5F3EE !important;
+.dark .article-surface.article-surface-ivory {
+  background-color: #1d1b17 !important;
+  color: #f5f3ee !important;
 }
 
-.dark .article-surface-sage {
-  background-color: #16231E !important;
-  color: #F5F3EE !important;
+.dark .article-surface.article-surface-sage {
+  background-color: #16231e !important;
+  color: #f5f3ee !important;
 }
 
-.dark .article-surface-mist {
-  background-color: #1D2226 !important;
-  color: #F5F3EE !important;
-}
-
-
-/* =========================================
-   ARTICLE TEXT — DARK MODE
-   ========================================= */
-
-.dark .article-surface,
-.dark .article-surface p,
-.dark .article-surface li,
-.dark .article-surface blockquote {
-  color: #F5F3EE;
-}
-
-.dark .article-surface h1,
-.dark .article-surface h2,
-.dark .article-surface h3,
-.dark .article-surface h4 {
-  color: #FFFFFF;
-}
-
-.dark .article-surface a {
-  color: #8FC9B5;
+.dark .article-surface.article-surface-mist {
+  background-color: #1d2226 !important;
+  color: #f5f3ee !important;
 }
 
 
