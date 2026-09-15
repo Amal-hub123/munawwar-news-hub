@@ -26,7 +26,7 @@ const InteractiveTimeline = ({
      إعدادات المنحنى
      ========================================================= */
 
-  const VIEWBOX_HEIGHT = 180;
+  const VIEWBOX_HEIGHT = 192;
   const BASE_Y = 90;
   const AMPLITUDE = 22;
 
@@ -34,7 +34,7 @@ const InteractiveTimeline = ({
    * المسافة الأساسية لكل نقطة.
    * عند زيادة عدد النقاط، يزيد عرض الخط معها.
    */
-  const STOP_WIDTH = 180;
+  const STOP_WIDTH = 192;
 
   /*
    * الحد الأدنى للعرض يبقى 1200px
