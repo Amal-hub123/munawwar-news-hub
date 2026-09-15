@@ -923,13 +923,10 @@ html:not(.dark) .article-surface.article-surface-mist {
   background-color: #1d2226 !important;
   color: #f5f3ee !important;
 }
-
 /* ==================================================
-   FINAL READING PALETTE FIX
-   Light + Dark Mode
+   READING PALETTE
+   Brand Colors — Light + Dark
    ================================================== */
-
-/* ---------- شكل الدوائر ---------- */
 
 .reading-swatch {
   width: 28px !important;
@@ -939,118 +936,119 @@ html:not(.dark) .article-surface.article-surface-mist {
   padding: 0 !important;
   border-radius: 9999px !important;
   border: 1px solid rgba(0, 0, 0, 0.14) !important;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease !important;
 }
 
 
 /* ==================================================
-   LIGHT MODE — الدوائر
+   PALETTE DOTS — الألوان الأصلية
    ================================================== */
 
-html:not(.dark) .reading-swatch-paper {
-  background: #f8f5ef !important;
+.reading-swatch-paper {
+  background: rgb(140, 159, 74) !important;
 }
 
-html:not(.dark) .reading-swatch-ivory {
-  background: #fff8e8 !important;
+.reading-swatch-ivory {
+  background: rgb(225, 164, 55) !important;
 }
 
-html:not(.dark) .reading-swatch-sage {
-  background: #edf5ed !important;
+.reading-swatch-sage {
+  background: rgb(201, 105, 65) !important;
 }
 
-html:not(.dark) .reading-swatch-mist {
-  background: #eef2f3 !important;
-}
-
-
-/* ==================================================
-   DARK MODE — الدوائر
-   ================================================== */
-
-.dark .reading-swatch-paper {
-  background: #101b1f !important;
-}
-
-.dark .reading-swatch-ivory {
-  background: #2a2119 !important;
-}
-
-.dark .reading-swatch-sage {
-  background: #183027 !important;
-}
-
-.dark .reading-swatch-mist {
-  background: #252b30 !important;
-}
-
-.dark .reading-swatch {
-  border-color: rgba(255, 255, 255, 0.22) !important;
+.reading-swatch-mist {
+  background: rgb(130, 173, 165) !important;
 }
 
 
 /* ==================================================
-   الخيار المحدد
+   SELECTED COLOR
    ================================================== */
 
 .reading-swatch.is-active {
-  border: 2px solid #f59e0b !important;
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.18) !important;
+  border: 2px solid currentColor !important;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 3px hsl(var(--foreground) / 0.35) !important;
+
+  transform: scale(1.06);
+}
+
+.reading-swatch:hover {
+  transform: scale(1.08);
 }
 
 
 /* ==================================================
-   LIGHT MODE — خلفية المقال
+   LIGHT MODE — ARTICLE
    ================================================== */
 
+/* Olive */
 html:not(.dark) .article-surface.article-surface-paper {
-  background: #f8f5ef !important;
+  background: #F2F4E8 !important;
+  color: #243027 !important;
 }
 
+/* Gold */
 html:not(.dark) .article-surface.article-surface-ivory {
-  background: #fff8e8 !important;
+  background: #FBF3E3 !important;
+  color: #30291F !important;
 }
 
+/* Terracotta */
 html:not(.dark) .article-surface.article-surface-sage {
-  background: #edf5ed !important;
+  background: #F8ECE7 !important;
+  color: #33251F !important;
 }
 
+/* Teal */
 html:not(.dark) .article-surface.article-surface-mist {
-  background: #eef2f3 !important;
+  background: #EAF3F1 !important;
+  color: #20302D !important;
 }
 
 
 /* ==================================================
-   DARK MODE — خلفية المقال
+   DARK MODE — ARTICLE
    ================================================== */
 
+/* Olive */
 .dark .article-surface.article-surface-paper {
-  background: #101b1f !important;
-  color: #f5f3ee !important;
+  background: #20251A !important;
+  color: #F4F4ED !important;
 }
 
+/* Gold */
 .dark .article-surface.article-surface-ivory {
-  background: #2a2119 !important;
-  color: #f5f3ee !important;
+  background: #292218 !important;
+  color: #F7F2E8 !important;
 }
 
+/* Terracotta */
 .dark .article-surface.article-surface-sage {
-  background: #183027 !important;
-  color: #f5f3ee !important;
+  background: #291D19 !important;
+  color: #F7F0EC !important;
 }
 
+/* Teal */
 .dark .article-surface.article-surface-mist {
-  background: #252b30 !important;
-  color: #f5f3ee !important;
+  background: #192725 !important;
+  color: #EFF5F3 !important;
 }
 
 
-/* ---------- نص المقال في الليلي ---------- */
+/* ==================================================
+   DARK MODE — TEXT
+   ================================================== */
 
-.dark .article-surface,
 .dark .article-surface p,
 .dark .article-surface li,
 .dark .article-surface blockquote {
-  color: #f5f3ee !important;
+  color: inherit !important;
 }
 
 .dark .article-surface h1,
@@ -1058,7 +1056,7 @@ html:not(.dark) .article-surface.article-surface-mist {
 .dark .article-surface h3,
 .dark .article-surface h4,
 .dark .article-surface strong {
-  color: #ffffff !important;
+  color: #FFFFFF !important;
 }
 
 
