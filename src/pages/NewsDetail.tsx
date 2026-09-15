@@ -9,11 +9,20 @@ import { ShareButton } from "@/components/ShareDialog";
 import { useEffect, useState } from "react";
 import { BookmarkButton } from "@/components/BookmarkButton";
 import { LikeButton } from "@/components/LikeButton";
-import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE } from "@/components/TextZoomControl";
+import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE, type ReadingBackground } from "@/components/TextZoomControl";
 
 const NewsDetail = () => {
   const { id } = useParams();
   const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
+  const [readingBackground, setReadingBackground] = useState<ReadingBackground>(() => {
+    const saved = window.localStorage.getItem("almonhna-reading-background");
+    return saved === "ivory" || saved === "sage" || saved === "mist" ? saved : "paper";
+  });
+
+  const handleReadingBackground = (next: ReadingBackground) => {
+    setReadingBackground(next);
+    window.localStorage.setItem("almonhna-reading-background", next);
+  };
 
   const { data: news, isLoading } = useQuery({
     queryKey: ["news", id],
@@ -152,10 +161,10 @@ const NewsDetail = () => {
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6" style={{textAlign: "justify"}}>{news.excerpt}</p>
           <div className="flex justify-end mb-3">
-            <TextZoomControl value={fontSize} onChange={setFontSize} />
+            <TextZoomControl value={fontSize} onChange={setFontSize} background={readingBackground} onBackgroundChange={handleReadingBackground} />
           </div>
           <div
-            className="site-content article-body article-surface"
+            className={`site-content article-body article-surface article-surface-${readingBackground}`}
             style={{ padding: "5px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
             dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }}
           />
