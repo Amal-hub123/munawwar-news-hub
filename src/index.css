@@ -652,7 +652,7 @@ All colors MUST be HSL.
 .mosaic-count { margin-top: .4rem; font-size: .68rem; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
 .mosaic-cell:hover .mosaic-count { opacity: 1; transform: none; }
 
-.timelines-section { padding: 4.5rem 0; color: #fff; background: hsl(175.38deg 31.71% 24.12%); }
+/* .timelines-section { padding: 4.5rem 0; color: #fff; background: hsl(175.38deg 31.71% 24.12%); }
 .timelines-section .editorial-heading, .timelines-section .editorial-kicker, .timelines-section h3 { color: inherit; }
 .timeline-journey-wrap { position: relative; min-height: 20rem; padding-bottom: 1rem; }
 .timeline-journey-stage { position: relative; width: max(100vw, calc(var(--timeline-stop-count) * 15rem)); min-height: 20rem; }
@@ -667,7 +667,7 @@ All colors MUST be HSL.
 .timeline-stop-image { height: 7.5rem; margin-top: .85rem; overflow: hidden; }
 .timeline-stop-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
 .timeline-stop:hover img { transform: scale(1.05); }
-.timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy h6 { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; }
+.timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy h6 { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; } */
 
 .image-timeline-stage { padding: 2rem; background: hsl(var(--secondary-foreground) / .05); }
 .image-timeline-stage img { max-width: none; max-height: 72vh; width: auto; transition: transform 1.2s ease; }
@@ -993,146 +993,192 @@ html:not(.dark)
 
 
 /* =========================================================
-   TIMELINE — FIXED CURVE + MOVING POINTS
+   TIMELINE SECTION
+   ========================================================= */
+
+.timelines-section {
+  padding: 4.5rem 0;
+
+  color: #fff;
+
+  background:
+    hsl(175.38deg 31.71% 24.12%);
+}
+
+.timelines-section .editorial-heading,
+.timelines-section .editorial-kicker,
+.timelines-section h3 {
+  color: inherit;
+}
+
+
+/* =========================================================
+   SHELL
+   الخط والنقاط يعيشون داخل نفس نظام الإحداثيات
+   ========================================================= */
+
+.timeline-fixed-shell {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 20rem;
+}
+
+
+/* =========================================================
+   الخط
+   ثابت بعرض الصفحة
+   ========================================================= */
+
+.timeline-journey-line {
+  position: absolute;
+
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100%;
+  height: 10rem;
+
+  color: #e1a437;
+
+  pointer-events: none;
+
+  overflow: visible;
+}
+
+.timeline-journey-line path {
+  fill: none;
+
+  stroke: #e1a437;
+
+  opacity: .95;
+
+  stroke-width: 2;
+
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+
+  animation:
+    line-draw
+    2.4s
+    var(--editorial-ease)
+    forwards;
+}
+
+
+/* =========================================================
+   SCROLL AREA
    ========================================================= */
 
 .timeline-journey-wrap {
   position: relative;
 
+  z-index: 2;
+
   width: 100%;
+
+  min-height: 20rem;
+
+  padding-bottom: 1rem;
 
   overflow-x: auto;
   overflow-y: visible;
 
   scrollbar-width: none;
 
-  cursor: grab;
-
-  user-select: none;
-  -webkit-user-select: none;
-
-  touch-action: pan-x;
+  -ms-overflow-style: none;
 
   overscroll-behavior-x: contain;
+
+  cursor: grab;
 }
 
 .timeline-journey-wrap::-webkit-scrollbar {
   display: none;
 }
 
-.timeline-journey-wrap:active {
+.timeline-journey-wrap.is-dragging {
   cursor: grabbing;
+  scroll-behavior: auto;
 }
 
 
 /* =========================================================
-   المحتوى الأفقي
+   STAGE
+   هذا فقط يتمدد مع زيادة النقاط
    ========================================================= */
 
-.timeline-scroll-content {
+.timeline-journey-stage {
   position: relative;
+
+  flex: 0 0 auto;
 
   min-width: 100%;
 
-  /*
-   * مساحة كافية للنقطة + الصورة + النص
-   */
-  height: 430px;
+  min-height: 20rem;
 }
 
 
 /* =========================================================
-   الخط الثابت
+   TRACK
    ========================================================= */
 
-.timeline-fixed-line-holder {
-  position: sticky;
-
-  left: 0;
-
-  top: 0;
-
-  width: 100vw;
-  max-width: 100%;
-
-  height: 200px;
-
-  z-index: 1;
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   SVG
-   ========================================================= */
-
-.timeline-journey-line {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 200px;
-
-  display: block;
-
-  overflow: visible;
-
-  color: var(--timeline-color);
-
-  pointer-events: none;
-}
-
-
-/* =========================================================
-   TRACK النقاط
-   ========================================================= */
-
-.timeline-points-track {
-  position: absolute;
-
-  inset: 0;
-
-  width: 100%;
-  height: 200px;
+.timeline-journey {
+  position: relative;
 
   z-index: 2;
 
-  pointer-events: none;
+  display: flex;
+
+  direction: rtl;
+
+  min-height: 20rem;
 }
 
 
 /* =========================================================
-   النقطة الكاملة
+   كل STOP
+   ========================================================= */
+
+.timeline-journey > a,
+.timeline-journey > div {
+  flex: 0 0 15rem;
+
+  width: 15rem;
+}
+
+
+/* =========================================================
+   النقطة + المحتوى
    ========================================================= */
 
 .timeline-stop {
-  position: absolute;
+  position: relative;
+
+  width: 100%;
+
+  min-height: 19rem;
 
   /*
-   * مكانها الأفقي داخل الـTrack
+   * لا نستخدم progress القديم نهائيًا.
    */
-  left: var(--stop-x);
+  padding:
+    calc(var(--dot-y) + 3.4rem)
+    .75rem
+    0;
 
-  /*
-   * مكانها الرأسي محسوب من نفس المنحنى
-   */
-  top: var(--stop-y);
-
-  /*
-   * مهم جدًا:
-   * مركز العنصر على إحداثيات الخط
-   */
-  transform:
-    translate(-50%, -50%);
-
-  width: 210px;
-
-  pointer-events: auto;
+  opacity: .58;
 
   transition:
-    opacity 180ms ease;
+    opacity .45s ease;
+}
+
+.timeline-stop.is-active {
+  opacity: 1;
 }
 
 
@@ -1144,205 +1190,141 @@ html:not(.dark)
   position: absolute;
 
   /*
-   * مركز الدائرة بالضبط
-   * عند نقطة التقاطع مع الخط
+   * هذا هو Y الحقيقي المحسوب
+   * من المنحنى.
    */
-  left: 50%;
-  top: 0;
+  top: var(--dot-y);
 
-  transform:
-    translate(-50%, -50%);
+  /*
+   * منتصف العمود أفقيًا.
+   */
+  right: 50%;
 
-  display: flex;
+  display: grid;
 
-  align-items: center;
-  justify-content: center;
+  width: 3.3rem;
+  height: 3.3rem;
 
-  width: 44px;
-  height: 44px;
+  place-items: center;
 
-  border-radius: 999px;
+  border:
+    1px solid
+    #e1a437;
+
+  border-radius: 50%;
+
+  color: #e1a437;
 
   background:
-    var(--timeline-color);
+    hsl(
+      175.38deg
+      31.71%
+      24.12%
+    );
 
-  color: #fff;
+  font-size: 1.3rem;
 
-  font-size: 0.75rem;
-  font-weight: 600;
+  /*
+   * أهم شيء:
+   * مركز الدائرة نفسه يكون
+   * على إحداثية الخط.
+   */
+  transform:
+    translate(
+      50%,
+      -50%
+    );
 
-  line-height: 1;
+  transition:
+    transform
+      .45s
+      var(--editorial-ease),
+    background
+      .4s ease;
 
   z-index: 5;
-
-  box-shadow:
-    0 0 0 5px
-    rgba(255, 255, 255, 0.92);
 }
 
 
 /* =========================================================
-   صورة النقطة
+   ACTIVE DOT
+   ========================================================= */
+
+.timeline-stop.is-active
+.timeline-dot {
+  color: #00343a;
+
+  background: #e1a437;
+
+  border-color: #e1a437;
+
+  transform:
+    translate(
+      50%,
+      -50%
+    )
+    scale(1.08);
+}
+
+
+/* =========================================================
+   IMAGE
    ========================================================= */
 
 .timeline-stop-image {
-  position: absolute;
+  height: 7.5rem;
 
-  left: 50%;
-
-  /*
-   * الصورة تحت النقطة
-   */
-  top: 34px;
-
-  transform:
-    translateX(-50%);
-
-  width: 150px;
-  height: 95px;
+  margin-top: .85rem;
 
   overflow: hidden;
-
-  border-radius: 18px;
-
-  background: #fff;
-
-  box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.08);
 }
 
 .timeline-stop-image img {
   width: 100%;
   height: 100%;
 
-  display: block;
-
   object-fit: cover;
 
-  pointer-events: none;
+  transition:
+    transform .7s ease;
+}
+
+.timeline-stop:hover img {
+  transform:
+    scale(1.05);
 }
 
 
 /* =========================================================
-   النص
+   COPY
    ========================================================= */
 
 .timeline-stop-copy {
-  position: absolute;
+  padding-top: .8rem;
 
-  left: 50%;
-
-  /*
-   * إذا عندها صورة:
-   * النص يكون أسفلها.
-   */
-  top: 145px;
-
-  transform:
-    translateX(-50%);
-
-  width: 210px;
-
-  text-align: center;
-
-  direction: rtl;
+  text-align: right;
 }
 
 .timeline-stop-copy h6 {
-  margin: 0 0 6px;
-
-  font-size: 0.75rem;
-
-  color:
-    var(--timeline-color);
+  color: #e1a437;
 }
 
 .timeline-stop-copy h4 {
-  margin: 0;
+  margin:
+    .3rem 0;
 
   font-size: 1rem;
-  font-weight: 600;
-
-  line-height: 1.5;
 }
 
 .timeline-stop-copy p {
-  margin: 7px 0 0;
-
-  font-size: 0.85rem;
-
-  line-height: 1.65;
-
   color:
-    hsl(var(--muted-foreground));
-}
+    hsl(
+      var(
+        --secondary-foreground
+      ) / .65
+    );
 
+  font-size: .78rem;
 
-/* =========================================================
-   ACTIVE
-   ========================================================= */
-
-.timeline-stop.is-active
-.timeline-dot {
-  transform:
-    translate(-50%, -50%)
-    scale(1.08);
-}
-
-
-/* =========================================================
-   IMAGE TIMELINE
-   ========================================================= */
-
-.image-timeline-stage {
-  width: 100%;
-
-  overflow-x: auto;
-
-  scrollbar-width: none;
-}
-
-.image-timeline-stage::-webkit-scrollbar {
-  display: none;
-}
-
-.image-timeline-stage img {
-  display: block;
-
-  width: auto;
-  max-width: none;
-
-  height: auto;
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 768px) {
-
-  .timeline-scroll-content {
-    height: 400px;
-  }
-
-  .timeline-stop {
-    width: 180px;
-  }
-
-  .timeline-stop-image {
-    width: 130px;
-    height: 85px;
-  }
-
-  .timeline-stop-copy {
-    width: 180px;
-    top: 135px;
-  }
-
-  .timeline-dot {
-    width: 40px;
-    height: 40px;
-  }
+  line-height: 1.6;
 }
