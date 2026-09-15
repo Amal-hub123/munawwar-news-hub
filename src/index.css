@@ -818,86 +818,16 @@ All colors MUST be HSL.
 }
 
 /* =========================================
-   Reading Background Picker
-   Light + Dark Mode
+   READING PALETTE
    ========================================= */
-
-/* ---------- SWATCH BASE ---------- */
-
-.reading-swatch {
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  padding: 0 !important;
-  border-radius: 9999px !important;
-  border: 1px solid rgba(0, 0, 0, 0.14) !important;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease,
-    background-color 0.2s ease !important;
-}
-
-
-/* =========================================
-   LIGHT MODE
-   ========================================= */
-
-.reading-swatch-paper {
-  background-color: #F8F5EF !important;
-}
-
-.reading-swatch-ivory {
-  background-color: #FFFDF5 !important;
-}
-
-.reading-swatch-sage {
-  background-color: #EEF4EC !important;
-}
-
-.reading-swatch-mist {
-  background-color: #F1F3F4 !important;
-}
-
-
-/* =========================================
-   ACTIVE
-   ========================================= */
-
-.reading-swatch.is-active {
-  border: 2px solid #E98A15 !important;
-
-  box-shadow:
-    0 0 0 2px rgba(233, 138, 21, 0.16) !important;
-
-  transform: scale(1.05);
-}
-
-.reading-swatch:hover {
-  transform: scale(1.08);
-}
-
-/* =========================================================
-   READING COLOR PALETTE
-   نفس الألوان في النهاري والليلي
-   ========================================================= */
-
-
-/* =========================================================
-   1. شكل دوائر اختيار اللون
-   ========================================================= */
 
 .reading-swatch {
   width: 28px !important;
   height: 28px !important;
   min-width: 28px !important;
   min-height: 28px !important;
-
   padding: 0 !important;
-
   border-radius: 9999px !important;
-
   border: 1px solid rgba(0, 0, 0, 0.18) !important;
 
   transition:
@@ -907,35 +837,110 @@ All colors MUST be HSL.
 }
 
 
-/* =========================================================
-   2. ألوان الـ Palette الأصلية
-   تظهر نفسها في Light + Dark
-   ========================================================= */
+/* =========================================
+   PALETTE DOTS
+   ========================================= */
 
-/* أخضر زيتوني */
+/* الافتراضي */
 .reading-swatch-paper {
-  background-color: rgb(140, 159, 74) !important;
+  background: #f5f0e1d1 !important;
 }
 
-/* ذهبي */
-.reading-swatch-ivory {
-  background-color: rgb(225, 164, 55) !important;
+/* Olive */
+.reading-swatch-olive {
+  background: rgb(140, 159, 74) !important;
 }
 
-/* تيراكوتا */
-.reading-swatch-sage {
-  background-color: rgb(201, 105, 65) !important;
+/* Gold */
+.reading-swatch-gold {
+  background: rgb(225, 164, 55) !important;
 }
 
-/* تركواز هادئ */
-.reading-swatch-mist {
-  background-color: rgb(130, 173, 165) !important;
+/* Terracotta */
+.reading-swatch-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+/* Teal */
+.reading-swatch-teal {
+  background: rgb(130, 173, 165) !important;
 }
 
 
-/* =========================================================
-   3. اللون المختار
-   ========================================================= */
+/* =========================================
+   LIGHT MODE
+   ========================================= */
+
+html:not(.dark)
+.article-surface.article-surface-paper {
+  background: #f5f0e1d1 !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-olive {
+  background: rgb(140, 159, 74) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-gold {
+  background: rgb(225, 164, 55) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-teal {
+  background: rgb(130, 173, 165) !important;
+}
+
+
+/* =========================================
+   DARK MODE
+   ========================================= */
+
+/* فقط الافتراضي يتغير في الوضع الليلي */
+.dark
+.article-surface.article-surface-paper {
+  background: #283639 !important;
+}
+
+/* باقي الألوان تبقى نفسها */
+.dark
+.article-surface.article-surface-olive {
+  background: rgb(140, 159, 74) !important;
+}
+
+.dark
+.article-surface.article-surface-gold {
+  background: rgb(225, 164, 55) !important;
+}
+
+.dark
+.article-surface.article-surface-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+.dark
+.article-surface.article-surface-teal {
+  background: rgb(130, 173, 165) !important;
+}
+
+
+/* =========================================
+   DEFAULT SWATCH IN DARK MODE
+   ========================================= */
+
+.dark .reading-swatch-paper {
+  background: #283639 !important;
+}
+
+
+/* =========================================
+   ACTIVE COLOR
+   ========================================= */
 
 .reading-swatch.is-active {
   border: 2px solid #ffffff !important;
@@ -951,121 +956,31 @@ All colors MUST be HSL.
 }
 
 
-/* =========================================================
-   4. LIGHT MODE — خلفية المقال
-   نفس لون الـ Palette بالضبط
-   ========================================================= */
+/* =========================================
+   DARK MODE TEXT
+   ========================================= */
 
-/* أخضر */
-html:not(.dark)
-  .article-surface.article-surface-paper {
-  background-color: rgb(140, 159, 74) !important;
-}
-
-/* ذهبي */
-html:not(.dark)
-  .article-surface.article-surface-ivory {
-  background-color: rgb(225, 164, 55) !important;
-}
-
-/* تيراكوتا */
-html:not(.dark)
-  .article-surface.article-surface-sage {
-  background-color: rgb(201, 105, 65) !important;
-}
-
-/* تركواز */
-html:not(.dark)
-  .article-surface.article-surface-mist {
-  background-color: rgb(130, 173, 165) !important;
+/* الافتراضي الداكن يحتاج نص فاتح */
+.dark .article-surface-paper,
+.dark .article-surface-paper p,
+.dark .article-surface-paper li,
+.dark .article-surface-paper blockquote,
+.dark .article-surface-paper strong {
+  color: #f7f5ef !important;
 }
 
 
-/* =========================================================
-   5. LIGHT MODE — لون النص
-   ========================================================= */
+/* =========================================
+   COLORED BACKGROUNDS TEXT
+   ========================================= */
 
-html:not(.dark) .article-surface,
-html:not(.dark) .article-surface p,
-html:not(.dark) .article-surface li,
-html:not(.dark) .article-surface blockquote {
-  color: #17201d !important;
-}
-
-html:not(.dark) .article-surface h1,
-html:not(.dark) .article-surface h2,
-html:not(.dark) .article-surface h3,
-html:not(.dark) .article-surface h4,
-html:not(.dark) .article-surface strong {
+.article-surface-olive,
+.article-surface-gold,
+.article-surface-terracotta,
+.article-surface-teal,
+.article-surface-olive p,
+.article-surface-gold p,
+.article-surface-terracotta p,
+.article-surface-teal p {
   color: #111816 !important;
 }
-
-
-/* =========================================================
-   6. DARK MODE — خلفية المقال
-   نفس لون الـ Palette بالضبط
-   ========================================================= */
-
-/* أخضر */
-.dark
-  .article-surface.article-surface-paper {
-  background-color: rgb(140, 159, 74) !important;
-}
-
-/* ذهبي */
-.dark
-  .article-surface.article-surface-ivory {
-  background-color: rgb(225, 164, 55) !important;
-}
-
-/* تيراكوتا */
-.dark
-  .article-surface.article-surface-sage {
-  background-color: rgb(201, 105, 65) !important;
-}
-
-/* تركواز */
-.dark
-  .article-surface.article-surface-mist {
-  background-color: rgb(130, 173, 165) !important;
-}
-
-
-/* =========================================================
-   7. DARK MODE — لون النص
-   الخلفيات نفسها فاتحة نسبيًا، لذلك النص الداكن أوضح
-   ========================================================= */
-
-.dark .article-surface,
-.dark .article-surface p,
-.dark .article-surface li,
-.dark .article-surface blockquote {
-  color: #111816 !important;
-}
-
-.dark .article-surface h1,
-.dark .article-surface h2,
-.dark .article-surface h3,
-.dark .article-surface h4,
-.dark .article-surface strong {
-  color: #0d1412 !important;
-}
-
-
-/* =========================================================
-   8. حدود الـ Palette في الوضع الليلي
-   ========================================================= */
-
-.dark .reading-swatch {
-  border-color: rgba(255, 255, 255, 0.35) !important;
-}
-
-.dark .reading-swatch.is-active {
-  border-color: #ffffff !important;
-
-  box-shadow:
-    0 0 0 2px #e98a15 !important;
-}
-
-
-
