@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+
 import { supabase } from "@/integrations/supabase/client";
-import { useDragScroll } from "@/hooks/useDragScroll";
 import { Reveal } from "@/components/motion/Reveal";
 
 /* =========================================================
@@ -16,62 +21,119 @@ const InteractiveTimeline = ({
   stops: any[];
   color: string;
 }) => {
-  const { ref, handlers } = useDragScroll<HTMLDivElement>();
+  const scrollRef = useRef<HTMLDivElement | null>(null);
 
   const [active, setActive] = useState<string | null>(
     stops[0]?.id || null
   );
 
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(1200);
+
+  /* =========================================================
+     DRAG STATE
+     ========================================================= */
+
+  const dragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartScroll = useRef(0);
+
   /* =========================================================
      إعدادات المنحنى
      ========================================================= */
 
+  /*
+   * أبعاد الـ SVG الداخلية.
+   *
+   * شكل المنحنى يبقى ثابتًا دائمًا.
+   */
+  const VIEWBOX_WIDTH = 1200;
   const VIEWBOX_HEIGHT = 200;
+
+  /*
+   * مكان منتصف الخط.
+   */
   const BASE_Y = 90;
+
+  /*
+   * قوة الانحناء.
+   *
+   * إذا أردت انحناء أكبر:
+   * 65 أو 70
+   *
+   * إذا أردته أخف:
+   * 45 أو 50
+   */
   const AMPLITUDE = 55;
 
   /*
-   * المسافة الأساسية لكل نقطة.
-   * عند زيادة عدد النقاط، يزيد عرض الخط معها.
+   * عدد الانحناءات الظاهرة داخل الشاشة.
+   *
+   * 1 = موجة كاملة
+   * 1.5 = انحناءات أكثر
+   * 2 = موجتان
    */
-  const STOP_WIDTH = 200;
+  const CURVE_WAVES = 1;
 
   /*
-   * الحد الأدنى للعرض يبقى 1200px
-   * وإذا زادت النقاط يزيد عرض الـ timeline تلقائيًا.
+   * المسافة بين النقاط.
+   *
+   * هذه لا تغيّر الخط.
+   * فقط تحدد المسافة الأفقية بين النقاط أثناء السحب.
    */
-  const TIMELINE_WIDTH = Math.max(
-    1200,
-    stops.length * STOP_WIDTH
+  const STOP_GAP = 240;
+
+  /*
+   * Padding حتى لا تكون أول وآخر نقطة مقصوصة.
+   */
+  const TRACK_PADDING = 120;
+
+  /*
+   * عرض المحتوى المتحرك.
+   *
+   * كلما زادت النقاط يزيد هذا العرض.
+   * الخط نفسه لا يزيد.
+   */
+  const POINTS_TRACK_WIDTH = Math.max(
+    viewportWidth,
+    (Math.max(stops.length - 1, 0) * STOP_GAP) +
+      TRACK_PADDING * 2
   );
 
-  /*
-   * نفس المعادلة المستخدمة للخط وللنقاط
-   * حتى تبقى الدوائر على الخط تمامًا.
-   */
+  /* =========================================================
+     معادلة المنحنى
+     ========================================================= */
+
   const getCurveY = (progress: number) => {
     return (
       BASE_Y +
-      Math.sin(progress * Math.PI * 2) * AMPLITUDE
+      Math.sin(
+        progress *
+          Math.PI *
+          2 *
+          CURVE_WAVES
+      ) *
+        AMPLITUDE
     );
   };
 
-  /*
-   * إنشاء مسار SVG للخط المنحني.
-   *
-   * المسار الآن يستخدم TIMELINE_WIDTH
-   * بدل عرض ثابت 1200px.
-   */
+  /* =========================================================
+     إنشاء الخط
+     ========================================================= */
+
   const createCurvePath = () => {
-    const segments = 200;
+    const segments = 300;
 
     let path = "";
 
     for (let i = 0; i <= segments; i++) {
       const progress = i / segments;
 
-      const x = progress * TIMELINE_WIDTH;
-      const y = getCurveY(progress);
+      const x =
+        progress * VIEWBOX_WIDTH;
+
+      const y =
+        getCurveY(progress);
 
       if (i === 0) {
         path += `M ${x} ${y}`;
@@ -85,165 +147,353 @@ const InteractiveTimeline = ({
 
   const curvePath = createCurvePath();
 
+  /* =========================================================
+     قياس عرض المنطقة الظاهرة
+     ========================================================= */
+
+  useEffect(() => {
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    const updateWidth = () => {
+      setViewportWidth(
+        element.clientWidth || 1200
+      );
+    };
+
+    updateWidth();
+
+    const observer =
+      new ResizeObserver(updateWidth);
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  /* =========================================================
+     عند تغيير Timeline
+     ========================================================= */
+
+  useEffect(() => {
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    element.scrollLeft = 0;
+    setScrollLeft(0);
+
+    setActive(
+      stops[0]?.id || null
+    );
+  }, [stops]);
+
+  /* =========================================================
+     SCROLL
+     ========================================================= */
+
+  const handleScroll = () => {
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    setScrollLeft(
+      Math.abs(element.scrollLeft)
+    );
+  };
+
+  /* =========================================================
+     DRAG بالماوس
+     ========================================================= */
+
+  const handlePointerDown = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    dragging.current = true;
+
+    dragStartX.current =
+      e.clientX;
+
+    dragStartScroll.current =
+      element.scrollLeft;
+
+    element.setPointerCapture(
+      e.pointerId
+    );
+  };
+
+  const handlePointerMove = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    if (!dragging.current) {
+      return;
+    }
+
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    const distance =
+      e.clientX -
+      dragStartX.current;
+
+    element.scrollLeft =
+      dragStartScroll.current -
+      distance;
+  };
+
+  const handlePointerUp = (
+    e: React.PointerEvent<HTMLDivElement>
+  ) => {
+    dragging.current = false;
+
+    const element = scrollRef.current;
+
+    if (!element) return;
+
+    try {
+      element.releasePointerCapture(
+        e.pointerId
+      );
+    } catch {
+      // لا شيء
+    }
+  };
+
+  /* =========================================================
+     RENDER
+     ========================================================= */
+
   return (
     <div
-      ref={ref}
-      {...handlers}
-      dir="rtl"
-      className="drag-scroll timeline-journey-wrap"
+      ref={scrollRef}
+      dir="ltr"
+      className="timeline-journey-wrap"
+      onScroll={handleScroll}
+      onPointerDown={handlePointerDown}
+      onPointerMove={handlePointerMove}
+      onPointerUp={handlePointerUp}
+      onPointerCancel={handlePointerUp}
       style={
         {
           "--timeline-color": color,
         } as React.CSSProperties
       }
     >
+      {/* =====================================================
+          المحتوى المتحرك
+          ===================================================== */}
+
       <div
-        className="timeline-journey-stage"
-        style={
-          {
-            "--timeline-stop-count": Math.max(
-              stops.length,
-              1
-            ),
-
-            /*
-             * الـ stage والـ SVG والـ path
-             * أصبحوا جميعًا بنفس العرض.
-             */
-            width: `${TIMELINE_WIDTH}px`,
-          } as React.CSSProperties
-        }
+        className="timeline-scroll-content"
+        style={{
+          width: `${POINTS_TRACK_WIDTH}px`,
+        }}
       >
-        {/* =================================================
-            الخط المنحني
-            ================================================= */}
+        {/* ===================================================
+            الخط الثابت
+            =================================================== */}
 
-        <svg
-          className="timeline-journey-line"
-          viewBox={`0 0 ${TIMELINE_WIDTH} ${VIEWBOX_HEIGHT}`}
-          preserveAspectRatio="none"
-          aria-hidden="true"
+        <div className="timeline-fixed-line-holder">
+          <svg
+            className="timeline-journey-line"
+            viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
+            preserveAspectRatio="none"
+            aria-hidden="true"
+          >
+            <path
+              d={curvePath}
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              vectorEffect="non-scaling-stroke"
+            />
+          </svg>
+        </div>
+
+        {/* ===================================================
+            النقاط المتحركة
+            =================================================== */}
+
+        <div
+          className="timeline-points-track"
+          dir="rtl"
         >
-          <path
-            pathLength="1"
-            d={curvePath}
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
+          {stops.map(
+            (stop, i) => {
+              /*
+               * موقع النقطة الحقيقي
+               * داخل الـ Track المتحرك.
+               */
+              const pointX =
+                TRACK_PADDING +
+                i * STOP_GAP;
 
-        {/* =================================================
-            نقاط الخط الزمني
-            ================================================= */}
+              /*
+               * أين تظهر النقطة حاليًا
+               * بالنسبة للشاشة بعد السحب.
+               */
+              const visibleX =
+                pointX -
+                scrollLeft;
 
-        <div className="timeline-journey">
-          {stops.map((stop, i) => {
-            /*
-             * توزيع النقاط من بداية الخط إلى نهايته.
-             */
-            const progress =
-              stops.length > 1
-                ? i / (stops.length - 1)
-                : 0.5;
+              /*
+               * تحويل X الظاهر إلى
+               * progress من 0 إلى 1.
+               */
+              const rawProgress =
+                viewportWidth > 0
+                  ? visibleX /
+                    viewportWidth
+                  : 0;
 
-            /*
-             * حساب Y للنقطة من نفس معادلة الخط.
-             */
-            const curveY = getCurveY(progress);
+              /*
+               * نبقي القيمة داخل حدود الخط.
+               */
+              const progress =
+                Math.max(
+                  0,
+                  Math.min(
+                    1,
+                    rawProgress
+                  )
+                );
 
-            /*
-             * تحويل Y من SVG إلى نسبة مئوية.
-             */
-            const stopY =
-              (curveY / VIEWBOX_HEIGHT) * 100;
+              /*
+               * أهم جزء:
+               *
+               * Y للنقطة يأتي من نفس
+               * معادلة الخط بالضبط.
+               *
+               * لذلك أثناء السحب:
+               *
+               * تتحرك النقطة يمين/يسار
+               * وترتفع وتنخفض مع المنحنى.
+               */
+              const curveY =
+                getCurveY(progress);
 
-            const body = (
-              <div
-                style={
-                  {
-                    "--stop-progress": progress,
-                    "--stop-y": `${stopY}%`,
-                  } as React.CSSProperties
-                }
-                className={`timeline-stop ${
-                  active === stop.id
-                    ? "is-active"
-                    : ""
-                }`}
-                onMouseEnter={() =>
-                  setActive(stop.id)
-                }
-                onClick={() =>
-                  setActive(stop.id)
-                }
-              >
-                {/* رقم النقطة */}
+              const stopY =
+                (curveY /
+                  VIEWBOX_HEIGHT) *
+                100;
 
-                <span className="timeline-dot">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+              const body = (
+                <div
+                  className={`timeline-stop ${
+                    active === stop.id
+                      ? "is-active"
+                      : ""
+                  }`}
+                  style={
+                    {
+                      "--stop-x":
+                        `${pointX}px`,
 
-                {/* الصورة */}
-
-                {stop.image_url && (
-                  <div className="timeline-stop-image">
-                    <img
-                      src={stop.image_url}
-                      alt={stop.title}
-                      loading="lazy"
-                      draggable={false}
-                    />
-                  </div>
-                )}
-
-                {/* النص */}
-
-                <div className="timeline-stop-copy">
-                  {stop.label && (
-                    <h6>
-                      {stop.label}
-                    </h6>
-                  )}
-
-                  <h4>
-                    {stop.title}
-                  </h4>
-
-                  {stop.description && (
-                    <p>
-                      {stop.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            );
-
-            /*
-             * إذا النقطة مرتبطة بمقال معتمد.
-             */
-            if (
-              stop.article_id &&
-              stop.articles?.status === "approved"
-            ) {
-              return (
-                <Link
-                  key={stop.id}
-                  to={`/articles/${stop.article_id}`}
-                  draggable={false}
+                      "--stop-y":
+                        `${stopY}%`,
+                    } as React.CSSProperties
+                  }
+                  onMouseEnter={() =>
+                    setActive(stop.id)
+                  }
+                  onClick={() =>
+                    setActive(stop.id)
+                  }
                 >
+                  {/* ===============================
+                      النقطة
+                      =============================== */}
+
+                  <span className="timeline-dot">
+                    {String(i + 1).padStart(
+                      2,
+                      "0"
+                    )}
+                  </span>
+
+                  {/* ===============================
+                      الصورة
+                      =============================== */}
+
+                  {stop.image_url && (
+                    <div className="timeline-stop-image">
+                      <img
+                        src={
+                          stop.image_url
+                        }
+                        alt={
+                          stop.title
+                        }
+                        loading="lazy"
+                        draggable={
+                          false
+                        }
+                      />
+                    </div>
+                  )}
+
+                  {/* ===============================
+                      النص
+                      =============================== */}
+
+                  <div className="timeline-stop-copy">
+                    {stop.label && (
+                      <h6>
+                        {stop.label}
+                      </h6>
+                    )}
+
+                    <h4>
+                      {stop.title}
+                    </h4>
+
+                    {stop.description && (
+                      <p>
+                        {
+                          stop.description
+                        }
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+
+              /* ===============================
+                 المقال
+                 =============================== */
+
+              if (
+                stop.article_id &&
+                stop.articles
+                  ?.status ===
+                  "approved"
+              ) {
+                return (
+                  <Link
+                    key={stop.id}
+                    to={`/articles/${stop.article_id}`}
+                    draggable={false}
+                  >
+                    {body}
+                  </Link>
+                );
+              }
+
+              return (
+                <div key={stop.id}>
                   {body}
-                </Link>
+                </div>
               );
             }
-
-            return (
-              <div key={stop.id}>
-                {body}
-              </div>
-            );
-          })}
+          )}
         </div>
       </div>
     </div>
@@ -259,19 +509,12 @@ const ImageTimeline = ({
 }: {
   timeline: any;
 }) => {
-  const { ref, handlers } =
-    useDragScroll<HTMLDivElement>();
-
   if (!timeline.image_url) {
     return null;
   }
 
   return (
-    <div
-      ref={ref}
-      {...handlers}
-      className="drag-scroll image-timeline-stage"
-    >
+    <div className="image-timeline-stage">
       <img
         src={timeline.image_url}
         alt={timeline.title}
@@ -289,7 +532,9 @@ const ImageTimeline = ({
 export const HomeTimelines = () => {
   const { data: timelines } =
     useQuery({
-      queryKey: ["home-timelines"],
+      queryKey: [
+        "home-timelines",
+      ],
 
       queryFn: async () => {
         const { data, error } =
@@ -311,7 +556,10 @@ export const HomeTimelines = () => {
                 )
               )
             `)
-            .eq("is_active", true)
+            .eq(
+              "is_active",
+              true
+            )
             .order(
               "display_order",
               {
@@ -327,28 +575,35 @@ export const HomeTimelines = () => {
       },
     });
 
-  const [activeId, setActiveId] =
-    useState<string | null>(null);
+  const [
+    activeId,
+    setActiveId,
+  ] = useState<
+    string | null
+  >(null);
 
-  /*
-   * إظهار الخطوط التي تحتوي
-   * على محتوى فقط.
-   */
+  /* =========================================================
+     إظهار الخطوط التي تحتوي على محتوى
+     ========================================================= */
+
   const visible = (
     timelines || []
   ).filter((t: any) => {
     const stops =
       t.timeline_stops || [];
 
-    return t.timeline_type ===
+    return (
+      t.timeline_type ===
       "image"
-      ? !!t.image_url
-      : stops.length > 0;
+        ? !!t.image_url
+        : stops.length > 0
+    );
   });
 
-  /*
-   * اختيار أول Timeline تلقائيًا.
-   */
+  /* =========================================================
+     اختيار أول Timeline
+     ========================================================= */
+
   useEffect(() => {
     if (
       visible.length &&
@@ -373,11 +628,13 @@ export const HomeTimelines = () => {
         t.id === activeId
     ) || visible[0];
 
-  /*
-   * ترتيب النقاط.
-   */
+  /* =========================================================
+     ترتيب النقاط
+     ========================================================= */
+
   const stops = [
-    ...(active.timeline_stops || []),
+    ...(active.timeline_stops ||
+      []),
   ].sort(
     (a: any, b: any) =>
       (a.display_order ?? 0) -
@@ -388,12 +645,16 @@ export const HomeTimelines = () => {
     active.timeline_type ===
     "image";
 
+  /* =========================================================
+     PAGE
+     ========================================================= */
+
   return (
     <section className="timelines-section">
 
-      {/* =================================================
+      {/* =====================================================
           العنوان
-          ================================================= */}
+          ===================================================== */}
 
       <div className="container mx-auto px-6">
 
@@ -402,7 +663,6 @@ export const HomeTimelines = () => {
           className="section-heading-row"
         >
           <div>
-
             <p className="editorial-kicker">
               ارسم طريقك
             </p>
@@ -410,18 +670,17 @@ export const HomeTimelines = () => {
             <h2 className="editorial-heading mt-2">
               خطوط المُنحنى
             </h2>
-
           </div>
 
           <p className="section-hint">
             اسحب لتتبع الخط
           </p>
-
         </Reveal>
 
-        {/* =================================================
+
+        {/* ===================================================
             أزرار الخطوط
-            ================================================= */}
+            =================================================== */}
 
         <Reveal
           variant="side"
@@ -487,9 +746,10 @@ export const HomeTimelines = () => {
 
       </div>
 
-      {/* =================================================
+
+      {/* =====================================================
           TIMELINE
-          ================================================= */}
+          ===================================================== */}
 
       <Reveal
         key={active.id}
@@ -499,11 +759,11 @@ export const HomeTimelines = () => {
 
         {active.description && (
           <div className="container mx-auto mb-7 px-6">
-
             <p className="max-w-2xl text-muted-foreground">
-              {active.description}
+              {
+                active.description
+              }
             </p>
-
           </div>
         )}
 
@@ -512,7 +772,9 @@ export const HomeTimelines = () => {
           <div className="px-6 md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]">
 
             <ImageTimeline
-              timeline={active}
+              timeline={
+                active
+              }
             />
 
           </div>
