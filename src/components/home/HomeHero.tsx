@@ -92,20 +92,41 @@ export const HomeHero = () => {
         {Array.from({ length: 14 }).map((_, i) => <i key={i} style={{ top: `${(i * 37) % 70 + 6}%`, insetInlineStart: `${(i * 61) % 92 + 3}%`, animationDelay: `${i * 0.4}s` }} />)}
       </div>
 
-      <div className="calm-hero-content">
-        <div className="calm-hero-stage">
-          {PHRASES.map((phrase, i) => (
-            <h1 key={i} aria-hidden={i !== index} className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}>
-              {phrase.lead}
-              <em className="mark">{phrase.mark}</em>
-              {phrase.mid}
-              {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
-              {phrase.tail}
-            </h1>
-          ))}
-        </div>
-        <HeroArticleSlider />
-      </div>
+     <div className="calm-hero-content hero-reference-layout">
+
+  {/* الصورة — نفس HeroArticleSlider وطريقة الجلب الحالية */}
+  <div className="hero-reference-media">
+    <HeroArticleSlider />
+  </div>
+
+  {/* النصوص الثلاثة — نفس PHRASES ونفس حركة التبديل */}
+  <div className="calm-hero-stage hero-reference-stage" dir="rtl">
+    {PHRASES.map((phrase, i) => (
+      <h1
+        key={i}
+        aria-hidden={i !== index}
+        className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}
+      >
+        {phrase.lead}
+
+        <em className="mark">
+          {phrase.mark}
+        </em>
+
+        {phrase.mid}
+
+        {phrase.mark2 && (
+          <em className="mark">
+            {phrase.mark2}
+          </em>
+        )}
+
+        {phrase.tail}
+      </h1>
+    ))}
+  </div>
+
+</div>
 
       {/* <div className="calm-hero-dotsnav mb-5 pb-5" aria-label="اختيار العبارة">
         {PHRASES.map((_, i) => (
