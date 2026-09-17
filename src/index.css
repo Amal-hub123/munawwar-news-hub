@@ -519,7 +519,7 @@ All colors MUST be HSL.
 .calm-hero-phrase.phrase-3{  font-size: clamp(7rem,2.55vw,6.2rem); }
 .calm-hero-phrase.is-active { opacity: 1; transform: none; }
 .calm-hero-phrase .mark { background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-style: normal; color: #00343a; white-space: nowrap; padding: 0 .12em;  background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; font-weight : bolder;}
-.dark .calm-hero-phrase .mark { color: hsl(var(--primary)); }
+.dark .calm-hero-phrase,.dark .calm-hero-phrase .mark { color:#fcfbfc; }
 .calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
 .hero-dot.is-active { width: 3.5rem; background: hsl(var(--primary)); }
