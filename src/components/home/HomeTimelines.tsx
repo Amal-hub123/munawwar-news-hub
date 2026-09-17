@@ -396,12 +396,12 @@ const InteractiveTimeline = ({
                  * الـSVG وبالتالي لا نعتمد
                  * على 160px أو rem ثابتة.
                  */
-                const dotYPercent =
-                  (
-                    curveY /
-                    VIEWBOX_HEIGHT
-                  ) *
-                  100;
+              const dotYRem =
+  (
+    curveY /
+    VIEWBOX_HEIGHT
+  ) *
+  10;
 
 
                 /* ===========================================
