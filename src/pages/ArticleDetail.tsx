@@ -25,10 +25,9 @@ const ArticleDetail = () => {
       "almonhna-reading-background"
     );
 
-    return saved === "olive" ||
-      saved === "gold" ||
-      saved === "terracotta" ||
-      saved === "teal"
+    return saved === "ivory" ||
+      saved === "sage" ||
+      saved === "mist"
       ? saved
       : "paper";
   });
