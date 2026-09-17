@@ -44,22 +44,27 @@ const pickActiveStory = (rows: any[]) => {
 
 /* =========================================================
    TIMELINE CURVE SETTINGS
-
-   الخط والدوائر يستخدمون نفس الدالة.
 ========================================================= */
 
 const TIMELINE_WIDTH = 1000;
 const TIMELINE_HEIGHT = 180;
 
-const TIMELINE_CENTER_Y = 72;
-const TIMELINE_AMPLITUDE = 30;
+const TIMELINE_CENTER_Y = 90;
+const TIMELINE_AMPLITUDE = 34;
 
-const TIMELINE_SEGMENTS = 180;
+const TIMELINE_SEGMENTS = 220;
 
 
-/*
- * موقع Y على المنحنى.
- */
+/* =========================================================
+   GET Y POSITION
+
+   نفس الدالة تستخدم:
+   1. لرسم الخط
+   2. لتحديد مكان الدوائر
+
+   لذلك مركز كل دائرة يبقى على الخط.
+========================================================= */
+
 const getTimelineY = (progress: number) => {
   return (
     TIMELINE_CENTER_Y -
@@ -69,10 +74,10 @@ const getTimelineY = (progress: number) => {
 };
 
 
-/*
- * إنشاء الخط من نفس المعادلة
- * المستخدمة لوضع الدوائر.
- */
+/* =========================================================
+   CREATE SVG PATH
+========================================================= */
+
 const createTimelinePath = () => {
   let path = "";
 
@@ -90,11 +95,10 @@ const createTimelinePath = () => {
     const y =
       getTimelineY(progress);
 
-    if (i === 0) {
-      path = `M ${x} ${y}`;
-    } else {
-      path += ` L ${x} ${y}`;
-    }
+    path +=
+      i === 0
+        ? `M ${x} ${y}`
+        : ` L ${x} ${y}`;
   }
 
   return path;
@@ -102,7 +106,7 @@ const createTimelinePath = () => {
 
 
 /* =========================================================
-   COMPONENT
+   DAILY STORY
 ========================================================= */
 
 export const DailyStory = () => {
@@ -112,7 +116,7 @@ export const DailyStory = () => {
 
 
   /* =======================================================
-     LOAD STORY
+     LOAD DAILY STORY
   ======================================================= */
 
   const { data: story } = useQuery({
@@ -171,7 +175,7 @@ export const DailyStory = () => {
 
 
   /* =======================================================
-     EMPTY
+     NO STORY
   ======================================================= */
 
   if (!story?.articles) {
@@ -257,6 +261,7 @@ export const DailyStory = () => {
           <Reveal
             delay={220}
             className="story-timeline mb-10"
+
             style={
               {
                 "--stop-count":
@@ -276,8 +281,11 @@ export const DailyStory = () => {
 
                 <svg
                   className="story-timeline-curve"
+
                   viewBox={`0 0 ${TIMELINE_WIDTH} ${TIMELINE_HEIGHT}`}
+
                   preserveAspectRatio="none"
+
                   aria-hidden="true"
                 >
 
@@ -299,45 +307,55 @@ export const DailyStory = () => {
                     (stop, i) => {
 
                       /*
-                       * نترك مساحة بسيطة من
-                       * بداية ونهاية الخط حتى
-                       * الدائرة ما تنقص.
+                       * الترتيب الأصلي للبيانات:
+                       *
+                       * i = 0 → 01
+                       * i = 1 → 02
+                       * i = 2 → 03
+                       *
+                       * لكن لأن الصفحة عربية:
+                       *
+                       * 01 يجب أن يبدأ من اليمين.
                        */
 
-                      const start = 0.07;
-                      const end = 0.93;
+
+                      const rawProgress =
+                        stops.length === 1
+                          ? 0.5
+                          : i /
+                            (stops.length -
+                              1);
 
 
                       /*
-                       * توزيع النقاط بالتساوي.
+                       * RTL DISTRIBUTION
+                       *
+                       * 01 ≈ 94%
+                       * آخر نقطة ≈ 6%
+                       *
+                       * نترك مساحة من الطرفين
+                       * حتى الدوائر لا تنقص.
                        */
 
                       const progress =
-                        stops.length === 1
-                          ? 0.5
-                          : start +
-                            (i /
-                              (stops.length -
-                                1)) *
-                              (end -
-                                start);
+                        0.94 -
+                        rawProgress *
+                          0.88;
 
 
                       /*
-                       * X
+                       * X position
                        */
 
-                      const x =
-                        progress *
-                        TIMELINE_WIDTH;
+                      const xPercent =
+                        progress * 100;
 
 
                       /*
-                       * Y
+                       * Y position
                        *
-                       * مهم:
-                       * نفس الدالة المستخدمة
-                       * لرسم الخط.
+                       * نفس الدالة التي
+                       * رسمت المنحنى.
                        */
 
                       const y =
@@ -345,16 +363,6 @@ export const DailyStory = () => {
                           progress
                         );
 
-
-                      /*
-                       * تحويل X/Y إلى %
-                       * حتى تبقى Responsive.
-                       */
-
-                      const xPercent =
-                        (x /
-                          TIMELINE_WIDTH) *
-                        100;
 
                       const yPercent =
                         (y /
@@ -394,30 +402,33 @@ export const DailyStory = () => {
 
 
                           {/* =============================
-                              CIRCLE
+                              NUMBER CIRCLE
                           ============================= */}
 
                           <button
                             type="button"
+
                             aria-label={
                               stop.title
                             }
                           >
 
                             <span>
+
                               {String(
                                 i + 1
                               ).padStart(
                                 2,
                                 "0"
                               )}
+
                             </span>
 
                           </button>
 
 
                           {/* =============================
-                              TEXT
+                              STOP CONTENT
                           ============================= */}
 
                           <div className="story-stop-copy">
@@ -430,9 +441,11 @@ export const DailyStory = () => {
                             {stop.description && (
 
                               <small>
+
                                 {
                                   stop.description
                                 }
+
                               </small>
 
                             )}
@@ -457,7 +470,7 @@ export const DailyStory = () => {
 
 
         {/* =================================================
-            ARTICLE
+            ARTICLE COMPOSITION
         ================================================= */}
 
         <div className="daily-story-composition">
@@ -488,6 +501,10 @@ export const DailyStory = () => {
             </p>
 
 
+            {/* =============================================
+                AUTHOR
+            ============================================= */}
+
             <span className="inline-flex items-center gap-2 text-sm">
 
               {article.profiles?.photo_url ? (
@@ -497,10 +514,12 @@ export const DailyStory = () => {
                     article.profiles
                       .photo_url
                   }
+
                   alt={
                     article.profiles
                       ?.name
                   }
+
                   className="
                     h-8
                     w-8
@@ -535,6 +554,10 @@ export const DailyStory = () => {
             </span>
 
 
+            {/* =============================================
+                ARTICLE LINK
+            ============================================= */}
+
             <button type="button">
 
               <Link
@@ -560,21 +583,33 @@ export const DailyStory = () => {
 
             <Link
               to={`/articles/${article.id}`}
-              className="group zoom-media block h-full"
+
+              className="
+                group
+                zoom-media
+                block
+                h-full
+              "
             >
 
               <img
                 src={
                   article.cover_image_url
                 }
-                alt={article.title}
+
+                alt={
+                  article.title
+                }
+
                 loading="lazy"
+
                 className="
                   h-full
                   w-full
                   object-cover
                 "
               />
+
 
               <span className="daily-story-shade" />
 
