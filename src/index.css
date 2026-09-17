@@ -1700,7 +1700,7 @@ html:not(.dark)
   ===================== */
 
   .calm-hero-stage {
-    order: 2;
+    order: 1;
 
     width: 100%;
     max-width: none;
