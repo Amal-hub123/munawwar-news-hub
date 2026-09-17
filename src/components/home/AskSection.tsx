@@ -141,39 +141,39 @@ export const AskSection = () => {
                   required
                 />
 
-                <div className="ask-form-footer">
-                  <Button
-                    type="submit"
-                    disabled={sending}
-                    className="ask-submit"
-                  >
-                    {sending ? "جارٍ الإرسال..." : "أرسل"}
-                    <Send />
-                  </Button>
+               <div className="ask-form-footer">
 
-                  {/* الاسم + الإيميل */}
+  <div className="ask-contact-fields">
+    <Input
+      value={name}
+      onChange={(event) =>
+        setName(event.target.value)
+      }
+      placeholder="اسمك (اختياري)"
+      maxLength={80}
+    />
 
-                  <div className="ask-contact-fields">
-                    <Input
-                      value={name}
-                      onChange={(event) =>
-                        setName(event.target.value)
-                      }
-                      placeholder="اسمك (اختياري)"
-                      maxLength={80}
-                    />
+    <Input
+      type="email"
+      value={email}
+      onChange={(event) =>
+        setEmail(event.target.value)
+      }
+      placeholder="بريدك الإلكتروني (اختياري)"
+      maxLength={160}
+    />
+  </div>
 
-                    <Input
-                      type="email"
-                      value={email}
-                      onChange={(event) =>
-                        setEmail(event.target.value)
-                      }
-                      placeholder="بريدك الإلكتروني (اختياري)"
-                      maxLength={160}
-                    />
-                  </div>
-                </div>
+  <Button
+    type="submit"
+    disabled={sending}
+    className="ask-submit"
+  >
+    {sending ? "جارٍ الإرسال..." : "أرسل"}
+    <Send />
+  </Button>
+
+</div>
               </form>
 
               {/* =========================
