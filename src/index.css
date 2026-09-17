@@ -513,12 +513,12 @@ All colors MUST be HSL.
 .calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
 .calm-hero-content { margin-bottom: 4rem; position: relative; z-index: 5; display: grid; width: min(76rem, 100%); grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); direction: rtl; align-items: center; gap: clamp(2rem, 5vw, 5rem);     grid-template-columns: 1.3fr 1fr;}
 .calm-hero-stage {    margin-bottom: 10rem; position: relative; z-index: 4; display: grid; min-height: 15rem; place-items: center start; }
-.calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: right; color: hsl(var(--foreground)); font-size: clamp(3.45rem,2.55vw,6.2rem); font-weight: 400; line-height: 1.5; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
+.calm-hero-phrase { grid-area: 1 / 1; margin: 0; text-align: right; color: #00343a; font-size: clamp(3.45rem,2.55vw,6.2rem); font-weight: 400; line-height: 1.5; opacity: 0; transform: translateY(18px); transition: opacity 1.4s ease, transform 1.6s var(--editorial-ease); }
 .calm-hero-phrase.phrase-1{  font-size: clamp(4.6rem,2.55vw,6.2rem); }
 .calm-hero-phrase.phrase-2{  font-size: clamp(6rem,2.55vw,6.2rem); }
 .calm-hero-phrase.phrase-3{  font-size: clamp(6rem,2.55vw,6.2rem); }
 .calm-hero-phrase.is-active { opacity: 1; transform: none; }
-.calm-hero-phrase .mark { background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-style: normal; color: #33474d; white-space: nowrap; padding: 0 .12em;  background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; font-weight : bolder;}
+.calm-hero-phrase .mark { background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-style: normal; color: #00343a; white-space: nowrap; padding: 0 .12em;  background-repeat: no-repeat; background-size: 100% .42em; background-position: 0 88%; font-weight : bolder;}
 .dark .calm-hero-phrase .mark { color: hsl(var(--primary)); }
 .calm-hero-dotsnav { position: relative; z-index: 4; display: flex; gap: .75rem; margin-top: 2.5rem; }
 .hero-dot { width: 1.4rem; height: 2px; background: hsl(var(--foreground) / .24); transition: width .4s ease, background .4s ease; }
