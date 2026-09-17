@@ -1998,25 +1998,227 @@ html:not(.dark)
    MOBILE
 ========================================================= */
 
+/* =========================================================
+   MOBILE — STORY TIMELINE
+   مساحة أوسع + سحب يمين ويسار
+========================================================= */
+
 @media (max-width: 700px) {
 
   .story-timeline {
     /*
-     * نقل الـTimeline للأعلى
-     * وتقليل الفراغ.
-     */
-    margin-top: -2rem;
-
-    /*
-     * نخرج للعرض الكامل بدل أن يبقى
-     * محصورًا داخل px-6.
+     * يبقى بعرض الشاشة الكامل
      */
     width: calc(100% + 3rem);
-
     margin-inline: -1.5rem;
 
-    padding: 0 0 1rem;
+    margin-top: -1.5rem;
+    padding: 0 0 1.5rem;
   }
+
+
+  /* =====================================================
+     منطقة السحب
+  ===================================================== */
+
+  .story-timeline-scroll {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    overscroll-behavior-inline: contain;
+
+    /*
+     * يبدأ من جهة 01
+     */
+    direction: rtl;
+
+    touch-action: pan-x;
+  }
+
+
+  .story-timeline-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* =====================================================
+     المسار
+
+     هنا التغيير المهم:
+     نعطي كل نقطة مساحة أكبر.
+  ===================================================== */
+
+  .story-timeline-track {
+    position: relative;
+
+    /*
+     * كل نقطة تقريبًا 14rem.
+     *
+     * 3 نقاط = 42rem
+     * 4 نقاط = 56rem
+     * 5 نقاط = 70rem
+     *
+     * بالتالي العناصر تأخذ راحتها
+     * والمستخدم يسحب بينها.
+     */
+    width:
+      max(
+        42rem,
+        calc(var(--stop-count) * 14rem)
+      );
+
+    min-width: 42rem;
+
+    height: 17rem;
+
+    direction: ltr;
+
+    /*
+     * مساحة داخلية بصرية من الطرفين
+     * موجودة أصلًا لأن النقاط تبدأ 6%-94%.
+     */
+  }
+
+
+  /* =====================================================
+     المنحنى
+  ===================================================== */
+
+  .story-timeline-curve {
+    width: 100%;
+    height: 10rem;
+
+    overflow: visible;
+  }
+
+
+  .story-timeline ol {
+    width: 100%;
+    height: 10rem;
+  }
+
+
+  /* =====================================================
+     كل محطة
+  ===================================================== */
+
+  .story-timeline li {
+    /*
+     * مساحة كافية للنص
+     */
+    width: 10rem;
+
+    transform: translateX(-50%);
+  }
+
+
+  /* =====================================================
+     الدائرة
+  ===================================================== */
+
+  .story-timeline button {
+    width: 3.25rem;
+    height: 3.25rem;
+
+    font-size: .95rem;
+
+    transform: translateY(-50%);
+  }
+
+
+  .story-timeline li.is-active button {
+    transform:
+      translateY(-50%)
+      scale(1.12);
+  }
+
+
+  /* =====================================================
+     النص
+  ===================================================== */
+
+  .story-stop-copy {
+    width: 10rem;
+
+    margin-top: -.8rem;
+    margin-inline: auto;
+
+    font-size: 1rem;
+    line-height: 1.45;
+
+    direction: rtl;
+    text-align: center;
+  }
+
+
+  .story-stop-copy p {
+    margin: 0;
+
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+
+  .story-stop-copy small {
+    display: block;
+
+    margin-top: .35rem;
+
+    font-size: .74rem;
+    line-height: 1.5;
+
+    white-space: normal;
+
+    color: hsl(0deg 0% 100% / 89%);
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .story-timeline-track {
+    /*
+     * لا نصغّر المسار.
+     * نخليه واسع حتى على أصغر جوال.
+     */
+    width:
+      max(
+        40rem,
+        calc(var(--stop-count) * 13.5rem)
+      );
+
+    min-width: 40rem;
+
+    height: 17rem;
+  }
+
+
+  .story-timeline li {
+    width: 9.5rem;
+  }
+
+
+  .story-stop-copy {
+    width: 9.5rem;
+
+    font-size: .95rem;
+  }
+
+
+  .story-stop-copy small {
+    font-size: .7rem;
+  }
+}
 
 
   /* =============================
