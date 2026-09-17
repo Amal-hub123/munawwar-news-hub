@@ -1385,10 +1385,22 @@ html:not(.dark)
   opacity: .95;
 }
 
+/* =========================================================
+   HOME HERO — RESPONSIVE OVERRIDE
+   هذا البلوك فقط يوضع في آخر ملف CSS
+========================================================= */
+
+
+/* =========================================================
+   PHRASES — BASE
+========================================================= */
 
 .calm-hero-phrase {
   grid-area: 1 / 1;
+
+  width: 100%;
   margin: 0;
+
   text-align: right;
   color: #00343a;
 
@@ -1404,10 +1416,16 @@ html:not(.dark)
 }
 
 
-/* ==================================
+/* مهم جدًا حتى يستمر تبديل الجمل */
+.calm-hero-phrase.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
    DESKTOP / LAPTOP
-   الأحجام التي اخترتها
-================================== */
+========================================================= */
 
 .calm-hero-phrase.phrase-1 {
   font-size: 4.69rem;
@@ -1422,9 +1440,9 @@ html:not(.dark)
 }
 
 
-/* ==================================
-   LARGE SCREENS
-================================== */
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
 
 @media (min-width: 1600px) {
 
@@ -1442,284 +1460,147 @@ html:not(.dark)
 }
 
 
-/* ==================================
+/* =========================================================
    TABLET / SMALL LAPTOP
-================================== */
+========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 1100px) and (min-width: 701px) {
 
-  .calm-hero-phrase.phrase-1 {
-    font-size: clamp(3.2rem, 6vw, 4.3rem);
-  }
-
-  .calm-hero-phrase.phrase-2 {
-    font-size: clamp(3.8rem, 7vw, 5rem);
-  }
-
-  .calm-hero-phrase.phrase-3 {
-    font-size: clamp(4.3rem, 8vw, 5.8rem);
-  }
-}
-
-
-/* ==================================
-   MOBILE
-================================== */
-
-@media (max-width: 700px) {
-
-  .calm-hero-phrase {
-    line-height: 1.4;
-  }
-
-  .calm-hero-phrase.phrase-1 {
-    font-size: clamp(2rem, 8vw, 3.2rem);
-  }
-
-  .calm-hero-phrase.phrase-2 {
-    font-size: clamp(2.3rem, 9vw, 3.6rem);
-  }
-
-  .calm-hero-phrase.phrase-3 {
-    font-size: clamp(2.6rem, 10vw, 4rem);
-  }
-}
-
-
-/* ==================================
-   VERY SMALL MOBILE
-================================== */
-
-@media (max-width: 420px) {
-
-  .calm-hero-phrase.phrase-1 {
-    font-size: 2rem;
-  }
-
-  .calm-hero-phrase.phrase-2 {
-    font-size: 2.3rem;
-  }
-
-  .calm-hero-phrase.phrase-3 {
-    font-size: 2.6rem;
-  }
-}
-
-
-/* ==========================================
-   MOBILE HERO FIX
-   ضع هذا في آخر ملف CSS
-========================================== */
-
-@media (max-width: 700px) {
-
-  /* الهيرو نفسه */
-  .calm-hero {
-    min-height: 100svh;
-    padding-top: 0 !important;
-  }
-
-
-  /* الصورة + النص */
   .calm-hero-content {
-    width: calc(100% - 32px) !important;
-    margin-inline: auto;
-
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    grid-template-rows: auto auto !important;
-
-    align-content: start !important;
-    align-items: center;
-
-    gap: 1.5rem !important;
-
-    /* نقل المحتوى للأعلى */
-    padding-top: 3rem !important;
-    margin-top: 0 !important;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 2rem;
   }
-
-
-  /* =========================
-     الصورة
-  ========================= */
-
-  .calm-hero-content > :last-child {
-    display: block !important;
-
-    grid-column: 1 !important;
-    grid-row: 1 !important;
-
-    width: min(72vw, 320px) !important;
-    height: auto;
-
-    margin: 0 auto !important;
-    justify-self: center !important;
-
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
-
-
-  /* =========================
-     النص
-  ========================= */
 
   .calm-hero-stage {
-    grid-column: 1 !important;
-    grid-row: 2 !important;
-
-    width: 100% !important;
-    max-width: none !important;
-    min-height: 0 !important;
-
-    margin: 0 !important;
-
-    display: grid !important;
-    align-items: center;
-
-    direction: rtl;
+    margin-bottom: 6rem;
   }
 
-
-  .calm-hero-phrase {
-    width: 100%;
-
-    line-height: 1.42;
-    text-align: right;
-
-    margin: 0;
-  }
-
-
-  /* الجملة الأولى */
   .calm-hero-phrase.phrase-1 {
-    font-size: clamp(2.45rem, 9.8vw, 3.4rem) !important;
+    font-size: clamp(3.2rem, 5.5vw, 4.3rem);
   }
 
-  /* الجملة الثانية */
   .calm-hero-phrase.phrase-2 {
-    font-size: clamp(2.8rem, 11vw, 3.8rem) !important;
+    font-size: clamp(3.8rem, 6.5vw, 5rem);
   }
 
-  /* الجملة الثالثة */
   .calm-hero-phrase.phrase-3 {
-    font-size: clamp(3.1rem, 12vw, 4.2rem) !important;
+    font-size: clamp(4.3rem, 7vw, 5.8rem);
+  }
+
+  .hero-article-slider {
+    right: 0;
+    width: 100%;
+    max-width: 400px;
   }
 }
 
 
-/* =========================================
-   HERO MOBILE — FINAL FIX
-========================================= */
+/* =========================================================
+   MOBILE
+   النص فوق — الصورة تحته
+========================================================= */
 
 @media (max-width: 700px) {
 
+  /* -------------------------
+     HERO
+  ------------------------- */
+
   .calm-hero {
     min-height: 100svh;
-    padding: 1.5rem 1rem 11rem;
+
     justify-content: flex-start;
+
+    padding:
+      clamp(1.5rem, 5vw, 2.25rem)
+      1.15rem
+      10rem;
   }
 
+
+  /* -------------------------
+     CONTENT
+  ------------------------- */
+
   .calm-hero-content {
+    position: relative;
+    z-index: 5;
+
     width: 100%;
-    margin: 0;
+    max-width: 34rem;
+
+    margin: 0 auto;
 
     display: flex;
     flex-direction: column;
 
-    align-items: center;
+    align-items: stretch;
     justify-content: flex-start;
 
-    gap: 1.5rem;
+    gap: clamp(1rem, 4vw, 1.5rem);
 
     direction: rtl;
   }
 
 
-  /* =====================
-     الصورة
-  ===================== */
-
-  .hero-article-slider {
-    order: 2;
-
-    /* إلغاء تموضع الديسكتوب */
-    grid-column: auto;
-    grid-row: auto;
-
-    right: auto;
-    left: auto;
-    top: auto;
-    bottom: auto;
-
-    position: relative;
-
-    width: min(82vw, 340px);
-    max-width: none;
-
-    height: min(72vw, 300px);
-    min-height: 250px;
-
-    margin: 0 auto;
-
-    flex: 0 0 auto;
-
-    display: block;
-
-    overflow: hidden;
-
-    border-radius: .65rem;
-  }
-
-
-  /* الصورة الداخلية */
-
-  .hero-article-slide {
-    position: absolute;
-    inset: 0;
-
-    display: block;
-
-    width: 100%;
-    height: 100%;
-  }
-
-  .hero-article-slide > img {
-    display: block;
-
-    width: 100%;
-    height: 100%;
-
-    object-fit: cover;
-  }
-
-
-  /* =====================
-     النص
-  ===================== */
+  /* =====================================================
+     TEXT — FIRST
+  ===================================================== */
 
   .calm-hero-stage {
     order: 1;
 
+    position: relative;
+    z-index: 4;
+
     width: 100%;
     max-width: none;
 
-    min-height: 260px;
+    /*
+      نخلي مساحة ثابتة نسبيًا للجمل
+      حتى تغيير الجملة لا يحرك الصورة فوق وتحت
+    */
+    min-height: clamp(13.5rem, 50vw, 17rem);
 
     margin: 0;
 
     display: grid;
 
-    place-items: center start;
+    align-items: center;
   }
 
 
   .calm-hero-phrase {
+    grid-area: 1 / 1;
+
     width: 100%;
-    line-height: 1.42;
+    margin: 0;
+
+    text-align: right;
+
+    line-height: 1.4;
+
+    opacity: 0;
+    transform: translateY(14px);
+
+    pointer-events: none;
+
+    transition:
+      opacity 1.4s ease,
+      transform 1.6s var(--editorial-ease);
   }
 
+
+  /* الجملة النشطة فقط تظهر */
+  .calm-hero-phrase.is-active {
+    opacity: 1;
+    transform: translateY(0);
+
+    pointer-events: auto;
+  }
+
+
+  /* نفس الحجم الكبير اللي طلبته */
 
   .calm-hero-phrase.phrase-1 {
     font-size: clamp(2.45rem, 9.8vw, 3.4rem);
@@ -1731,5 +1612,117 @@ html:not(.dark)
 
   .calm-hero-phrase.phrase-3 {
     font-size: clamp(3.1rem, 12vw, 4.2rem);
+  }
+
+
+  /* =====================================================
+     IMAGE — SECOND
+  ===================================================== */
+
+  .hero-article-slider {
+    order: 2;
+
+    /*
+      إلغاء إعدادات Grid الخاصة بالديسكتوب
+    */
+    grid-column: auto;
+    grid-row: auto;
+
+    /*
+      إلغاء الإزاحات الموجودة في CSS الأصلي
+    */
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+
+    position: relative;
+
+    width: min(100%, 24rem);
+    max-width: 100%;
+
+    /*
+      لا نستخدم height ثابت
+      حتى تكون الصورة responsive
+    */
+    height: auto;
+    min-height: 0;
+
+    aspect-ratio: 4 / 3;
+
+    margin: 0 auto;
+
+    flex: 0 0 auto;
+
+    justify-self: auto;
+
+    overflow: hidden;
+
+    border-radius: .75rem;
+  }
+
+
+  /* -------------------------
+     SLIDE
+  ------------------------- */
+
+  .hero-article-slide {
+    position: absolute;
+    inset: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+  }
+
+
+  /* -------------------------
+     IMAGE
+  ------------------------- */
+
+  .hero-article-slide > img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .calm-hero {
+    padding-inline: 1rem;
+  }
+
+  .calm-hero-content {
+    gap: .85rem;
+  }
+
+  .calm-hero-stage {
+    min-height: 13.5rem;
+  }
+
+  .calm-hero-phrase.phrase-1 {
+    font-size: clamp(2.25rem, 10.5vw, 2.75rem);
+  }
+
+  .calm-hero-phrase.phrase-2 {
+    font-size: clamp(2.55rem, 11.5vw, 3.1rem);
+  }
+
+  .calm-hero-phrase.phrase-3 {
+    font-size: clamp(2.8rem, 12.5vw, 3.35rem);
+  }
+
+  .hero-article-slider {
+    width: min(100%, 22rem);
   }
 }
