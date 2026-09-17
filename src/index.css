@@ -2170,9 +2170,9 @@ html:not(.dark)
   }
 
   .story-stop-copy {
-    width: 9rem;
+    width: 6rem;
 
-    font-size: 0.92rem;
+    font-size: 1.3rem;
   }
 
   .story-stop-copy small {
