@@ -1728,189 +1728,8 @@ html:not(.dark)
 }
 
 
-/* ==========================================
-   STORY TIMELINE — MOBILE
-========================================== */
-
-@media (max-width: 700px) {
-
-  .story-timeline {
-    position: relative;
-    z-index: 5;
-
-    width: 100%;
-
-    margin-top: -1rem;
-    padding: 1.5rem 1rem 2rem;
-
-    overflow-x: auto;
-    overflow-y: visible;
-
-    -webkit-overflow-scrolling: touch;
-
-    scrollbar-width: none;
-  }
-
-  .story-timeline::-webkit-scrollbar {
-    display: none;
-  }
-
-
-  /* =========================
-     الخط
-  ========================= */
-
-  .story-timeline > svg {
-    position: absolute;
-
-    top: 1.5rem;
-    right: 0;
-    left: auto;
-
-    width: max(100%, 620px);
-    height: 3rem;
-
-    overflow: visible;
-
-    pointer-events: none;
-  }
-
-
-  .story-timeline > svg path {
-    fill: none;
-
-    stroke: hsl(var(--primary) / .5);
-    stroke-width: 2;
-
-    vector-effect: non-scaling-stroke;
-  }
-
-
-  /* =========================
-     النقاط
-  ========================= */
-
-  .story-timeline ol {
-    position: relative;
-
-    display: flex;
-
-    width: max-content;
-    min-width: 620px;
-
-    justify-content: flex-start;
-    align-items: flex-start;
-
-    gap: 2.75rem;
-
-    margin: 0;
-    padding: 0 2.5rem;
-
-    list-style: none;
-
-    direction: rtl;
-  }
-
-
-  .story-timeline li {
-    flex: 0 0 7rem;
-
-    width: 7rem;
-
-    text-align: center;
-
-    cursor: pointer;
-  }
-
-
-  /* =========================
-     الدائرة
-  ========================= */
-
-  .story-timeline button {
-    position: relative;
-    z-index: 2;
-
-    width: 3.2rem;
-    height: 3.2rem;
-
-    padding: 0;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    border: 1px solid hsl(var(--primary));
-    border-radius: 50%;
-
-    color: hsl(var(--primary));
-    background: hsl(var(--secondary));
-
-    font-size: 1rem;
-
-    transition:
-      transform .4s var(--editorial-ease),
-      background .4s ease,
-      color .4s ease;
-  }
-
-
-  .story-timeline li.is-active button {
-    color: hsl(var(--primary-foreground));
-    background: hsl(var(--primary));
-
-    transform: scale(1.1);
-  }
-
-
-  /* =========================
-     عنوان النقطة
-  ========================= */
-
-  .story-stop-copy {
-    width: 100%;
-
-    margin-top: .9rem;
-
-    opacity: .54;
-
-    font-size: 1rem !important;
-    line-height: 1.5;
-
-    transition:
-      opacity .4s ease,
-      transform .4s ease;
-  }
-
-
-  .story-timeline li.is-active .story-stop-copy {
-    opacity: 1;
-    transform: translateY(-2px);
-  }
-
-
-  .story-stop-copy p {
-    margin: 0;
-
-    white-space: normal;
-    overflow-wrap: break-word;
-  }
-
-
-  .story-stop-copy small {
-    display: block;
-
-    margin-top: .35rem;
-
-    font-size: .75rem;
-    line-height: 1.5;
-
-    color: hsl(0deg 0% 100% / 89%);
-  }
-}
-
 /* =========================================================
-   STORY TIMELINE
+   STORY TIMELINE — FINAL
 ========================================================= */
 
 .story-timeline {
@@ -1919,17 +1738,14 @@ html:not(.dark)
 
   width: 100%;
 
-  /*
-   * كان عندك فراغ كبير قبل الـTimeline.
-   */
-  margin-top: -2rem;
+  margin-top: -1rem;
 
-  padding: 0 2rem 1.5rem;
+  padding: 0 0 1.5rem;
 }
 
 
 /* =========================================================
-   SCROLL CONTAINER
+   SCROLL
 ========================================================= */
 
 .story-timeline-scroll {
@@ -1949,12 +1765,7 @@ html:not(.dark)
   position: relative;
 
   width: 100%;
-
-  /*
-   * نفس النسبة تقريبًا المستخدمة
-   * في viewBox للـSVG.
-   */
-  height: 13rem;
+  height: 15rem;
 
   overflow: visible;
 }
@@ -1984,16 +1795,13 @@ html:not(.dark)
 .story-timeline-curve path {
   fill: none;
 
-  stroke:
-    hsl(var(--primary) / .55);
+  stroke: hsl(var(--primary) / .6);
 
   stroke-width: 2;
 
-  vector-effect:
-    non-scaling-stroke;
+  vector-effect: non-scaling-stroke;
 
   stroke-dasharray: 1;
-
   stroke-dashoffset: 1;
 
   animation:
@@ -2012,8 +1820,7 @@ html:not(.dark)
 .story-timeline ol {
   position: absolute;
 
-  top: 0;
-  left: 0;
+  inset: 0 auto auto 0;
 
   width: 100%;
   height: 11rem;
@@ -2029,6 +1836,10 @@ html:not(.dark)
 
 /* =========================================================
    STOP
+
+   مهم:
+   نحرك X فقط.
+   لا نحرك Y للـ li.
 ========================================================= */
 
 .story-timeline li {
@@ -2037,102 +1848,98 @@ html:not(.dark)
   left: var(--stop-x);
   top: var(--stop-y);
 
-  /*
-   * مركز الدائرة على نفس
-   * إحداثية الخط.
-   */
-  transform:
-    translate(-50%, -50%);
+  width: clamp(7rem, 13vw, 11rem);
 
-  width:
-    clamp(7rem, 13vw, 11rem);
+  /*
+   * فقط توسيط أفقي.
+   * ممنوع translateY هنا.
+   */
+  transform: translateX(-50%);
 
   text-align: center;
 
   cursor: pointer;
 
-  z-index: 2;
+  z-index: 3;
 }
 
 
 /* =========================================================
    CIRCLE
+
+   مركز الدائرة هو الذي يقع على الخط.
 ========================================================= */
 
 .story-timeline button {
   position: relative;
+  z-index: 4;
 
-  z-index: 3;
-
-  display: inline-flex;
-
+  display: flex;
   align-items: center;
   justify-content: center;
 
-  width:
-    clamp(3rem, 4.5vw, 3.6rem);
+  width: 3.5rem;
+  height: 3.5rem;
 
-  height:
-    clamp(3rem, 4.5vw, 3.6rem);
+  margin: 0 auto;
 
   padding: 0;
 
-  border:
-    1px solid
-    hsl(var(--primary));
+  /*
+   * نصف ارتفاع الدائرة للأعلى.
+   * بالتالي مركزها = الخط.
+   */
+  transform: translateY(-50%);
 
+  border: 1px solid hsl(var(--primary));
   border-radius: 50%;
 
-  color:
-    hsl(var(--primary));
+  color: hsl(var(--primary));
 
-  background:
-    hsl(var(--secondary));
+  background: hsl(var(--secondary));
 
   font-size: 1rem;
 
   transition:
-    transform
-      .4s
-      var(--editorial-ease),
-    background
-      .4s
-      ease,
-    color
-      .4s
-      ease;
+    transform .4s var(--editorial-ease),
+    background .4s ease,
+    color .4s ease;
 }
 
 
+/* ACTIVE */
+
 .story-timeline li.is-active button {
-  color:
-    hsl(var(--primary-foreground));
+  color: hsl(var(--primary-foreground));
 
-  background:
-    hsl(var(--primary));
+  background: hsl(var(--primary));
 
+  /*
+   * لازم نحافظ على translateY
+   * أثناء التكبير.
+   */
   transform:
+    translateY(-50%)
     scale(1.15);
 }
 
 
 /* =========================================================
-   TEXT
+   COPY
 ========================================================= */
 
 .story-stop-copy {
-  width: 100%;
+  /*
+   * لأن الدائرة تحركت نصف ارتفاعها للأعلى
+   */
+  margin-top: -1rem;
 
-  margin-top: .75rem;
+  width: 100%;
 
   opacity: .54;
 
   font-size:
-    clamp(
-      .95rem,
-      1.5vw,
-      1.3rem
-    );
+    clamp(.95rem, 1.5vw, 1.3rem);
 
   line-height: 1.5;
 
@@ -2146,18 +1953,14 @@ html:not(.dark)
 .story-stop-copy {
   opacity: 1;
 
-  transform:
-    translateY(-2px);
+  transform: translateY(-2px);
 }
 
 
 .story-stop-copy p {
   margin: 0;
 
-  line-height: 1.5;
-
-  overflow-wrap:
-    break-word;
+  line-height: 1.45;
 }
 
 
@@ -2168,14 +1971,9 @@ html:not(.dark)
 
   font-size: .8rem;
 
-  line-height: 1.55;
+  line-height: 1.5;
 
-  color:
-    hsl(
-      0deg
-      0%
-      100% / 89%
-    );
+  color: hsl(0deg 0% 100% / 89%);
 }
 
 
@@ -2183,23 +1981,11 @@ html:not(.dark)
    TABLET
 ========================================================= */
 
-@media (
-  max-width: 900px
-) and (
-  min-width: 701px
-) {
-
-  .story-timeline {
-    margin-top: -2rem;
-
-    padding-inline: 1rem;
-  }
-
+@media (max-width: 900px) and (min-width: 701px) {
 
   .story-timeline-track {
     height: 14rem;
   }
-
 
   .story-timeline li {
     width: 8rem;
@@ -2215,55 +2001,44 @@ html:not(.dark)
 @media (max-width: 700px) {
 
   .story-timeline {
+    /*
+     * نقل الـTimeline للأعلى
+     * وتقليل الفراغ.
+     */
+    margin-top: -2rem;
 
     /*
-     * نقل الـTimeline للأعلى.
+     * نخرج للعرض الكامل بدل أن يبقى
+     * محصورًا داخل px-6.
      */
-    margin-top: -2.5rem;
+    width: calc(100% + 3rem);
 
-    padding:
-      0
-      0
-      1rem;
+    margin-inline: -1.5rem;
+
+    padding: 0 0 1rem;
   }
 
 
-  /* =====================================================
-     HORIZONTAL SCROLL
-  ===================================================== */
+  /* =============================
+     SCROLL AREA
+  ============================= */
 
   .story-timeline-scroll {
+    width: 100%;
 
-    width:
-      calc(
-        100% + 3rem
-      );
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
 
     /*
-     * نخرجه من padding الـcontainer
-     * حتى يستفيد من عرض الجوال.
+     * مهم حتى يبدأ من جهة 01
      */
-    margin-inline:
-      -1.5rem;
+    direction: rtl;
 
-
-    overflow-x:
-      auto;
-
-    overflow-y:
-      visible;
-
-
-    -webkit-overflow-scrolling:
-      touch;
-
-
-    scrollbar-width:
-      none;
-
-
-    overscroll-behavior-inline:
-      contain;
+    touch-action: pan-x;
   }
 
 
@@ -2272,114 +2047,102 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
+  /* =============================
      TRACK
 
-     1-3 نقاط = عرض الشاشة تقريبًا.
-     أكثر = يزيد العرض ويصبح قابل للسحب.
-  ===================================================== */
+     كل نقطة تأخذ مساحة كافية.
+     3 نقاط = مسار أعرض من الشاشة
+     ويمكن سحبه.
+  ============================= */
 
   .story-timeline-track {
+    position: relative;
 
     width:
       max(
         100%,
         calc(
-          var(--stop-count) *
-          8rem
+          var(--stop-count) * 11rem
         )
       );
 
-    min-width:
-      100%;
+    min-width: 100%;
 
-    height:
-      13.5rem;
+    height: 16rem;
+
+    /*
+     * الإحداثيات نفسها تبقى LTR
+     * لأننا عكسنا progress في React.
+     */
+    direction: ltr;
   }
 
 
-  /* =====================================================
+  /* =============================
      CURVE
-  ===================================================== */
+  ============================= */
 
   .story-timeline-curve {
-
     width: 100%;
-
     height: 10rem;
   }
 
 
   .story-timeline ol {
-
     width: 100%;
-
     height: 10rem;
   }
 
 
-  /* =====================================================
+  /* =============================
      STOP
-  ===================================================== */
+  ============================= */
 
   .story-timeline li {
-
-    width:
-      6.75rem;
+    width: 8rem;
   }
 
 
-  /* =====================================================
+  /* =============================
      CIRCLE
-  ===================================================== */
+  ============================= */
 
   .story-timeline button {
+    width: 3.25rem;
+    height: 3.25rem;
 
-    width:
-      3.15rem;
-
-    height:
-      3.15rem;
-
-    font-size:
-      .95rem;
+    font-size: .95rem;
   }
 
 
   .story-timeline li.is-active button {
-
     transform:
+      translateY(-50%)
       scale(1.12);
   }
 
 
-  /* =====================================================
+  /* =============================
      TEXT
-  ===================================================== */
+  ============================= */
 
   .story-stop-copy {
+    margin-top: -.9rem;
 
-    margin-top:
-      .6rem;
+    font-size: 1rem;
 
-    font-size:
-      .95rem;
+    line-height: 1.4;
 
-    line-height:
-      1.4;
+    direction: rtl;
   }
 
 
   .story-stop-copy small {
+    margin-top: .3rem;
 
-    margin-top:
-      .25rem;
+    font-size: .72rem;
 
-    font-size:
-      .7rem;
-
-    line-height:
-      1.4;
+    line-height: 1.45;
   }
 
 }
@@ -2391,60 +2154,37 @@ html:not(.dark)
 
 @media (max-width: 420px) {
 
-  .story-timeline {
-
-    margin-top:
-      -2.75rem;
-  }
-
-
   .story-timeline-track {
-
     width:
       max(
         100%,
         calc(
-          var(--stop-count) *
-          7.5rem
+          var(--stop-count) * 10rem
         )
       );
 
-    height:
-      13rem;
+    height: 15rem;
   }
 
 
   .story-timeline li {
-
-    width:
-      6.2rem;
+    width: 7rem;
   }
 
 
   .story-timeline button {
-
-    width:
-      2.9rem;
-
-    height:
-      2.9rem;
-
-    font-size:
-      .9rem;
+    width: 3rem;
+    height: 3rem;
   }
 
 
   .story-stop-copy {
-
-    font-size:
-      .9rem;
+    font-size: .92rem;
   }
 
 
   .story-stop-copy small {
-
-    font-size:
-      .67rem;
+    font-size: .68rem;
   }
 
 }
