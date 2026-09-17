@@ -93,21 +93,22 @@ export const HomeHero = () => {
       </div>
 
     <div className="calm-hero-content">
-  <div className="calm-hero-stage">
-    {PHRASES.map((phrase, i) => (
-      <h1
-        key={i}
-        aria-hidden={i !== index}
-        className={`calm-hero-phrase ${i === index ? "is-active" : ""}`}
-      >
-        {phrase.lead}
-        <em className="mark">{phrase.mark}</em>
-        {phrase.mid}
-        {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
-        {phrase.tail}
-      </h1>
-    ))}
-  </div>
+
+      <div className="calm-hero-stage">
+  {PHRASES.map((phrase, i) => (
+    <h1
+      key={i}
+      aria-hidden={i !== index}
+      className={`calm-hero-phrase phrase-${i + 1} ${i === index ? "is-active" : ""}`}
+    >
+      {phrase.lead}
+      <em className="mark">{phrase.mark}</em>
+      {phrase.mid}
+      {phrase.mark2 && <em className="mark">{phrase.mark2}</em>}
+      {phrase.tail}
+    </h1>
+  ))}
+</div>
 
   <HeroArticleSlider />
 </div>
