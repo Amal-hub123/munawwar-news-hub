@@ -418,12 +418,12 @@ const InteractiveTimeline = ({
                           : ""
                       }`
                     }
-                    style={
-                      {
-                        "--dot-y":
-                          `${dotYPercent}%`,
-                      } as React.CSSProperties
-                    }
+                  style={
+  {
+    "--dot-y":
+      `${dotYRem}rem`,
+  } as React.CSSProperties
+}
                     onMouseEnter={
                       () =>
                         setActive(
