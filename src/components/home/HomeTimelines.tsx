@@ -768,25 +768,16 @@ export const HomeTimelines =
        SORT STOPS
        ======================================================= */
 
-    const stops = [
-      ...(
-        active.timeline_stops ||
-        []
-      ),
-    ].sort(
-      (
-        a: any,
-        b: any
-      ) =>
-        (
-          a.display_order ??
-          0
-        ) -
-        (
-          b.display_order ??
-          0
-        )
-    );
+  const stops = [
+  ...(active.timeline_stops || []),
+].sort((a: any, b: any) => {
+  const getYear = (value: string = "") => {
+    const match = value.match(/\d{4}/);
+    return match ? Number(match[0]) : Number.MAX_SAFE_INTEGER;
+  };
+
+  return getYear(a.label) - getYear(b.label);
+});
 
 
     const isImage =
