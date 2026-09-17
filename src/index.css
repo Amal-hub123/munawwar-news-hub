@@ -2188,9 +2188,13 @@ margin-left: 15px;
 
 
 
+
+
+
 /* =========================================================
-   HOME TIMELINES — FINAL CURVE FIX
-   يوضع في آخر ملف CSS
+   HOME TIMELINES — FINAL
+   Desktop + Tablet + Mobile
+   ضع هذا البلوك في آخر ملف CSS
    ========================================================= */
 
 
@@ -2200,9 +2204,14 @@ margin-left: 15px;
 
 .timelines-section {
   position: relative;
+
   padding: 4.5rem 0;
+
   color: #fff;
-  background: hsl(175.38deg 31.71% 24.12%);
+
+  background:
+    hsl(175.38deg 31.71% 24.12%);
+
   overflow-x: clip;
 }
 
@@ -2214,16 +2223,14 @@ margin-left: 15px;
 
 
 /* =========================================================
-   SHELL
-
-   الخط الثابت + منطقة النقاط
-   يعيشون في نفس المساحة الرأسية.
+   FIXED SHELL
    ========================================================= */
 
 .timeline-fixed-shell {
   position: relative;
 
   width: 100%;
+
   min-height: 20rem;
 
   overflow: visible;
@@ -2233,11 +2240,8 @@ margin-left: 15px;
 /* =========================================================
    CURVE
 
-   مهم جدًا:
-   ارتفاع الـSVG = 10rem
-
-   والنقاط تحسب --dot-y كنسبة مئوية
-   من نفس الارتفاع.
+   ارتفاع المنحنى ثابت = 10rem
+   نفس الوحدة المستخدمة لحساب --dot-y
    ========================================================= */
 
 .timeline-journey-line {
@@ -2272,11 +2276,6 @@ margin-left: 15px;
 
   vector-effect: non-scaling-stroke;
 
-  /*
-   * مهم:
-   * لا نستخدم dash animation هنا.
-   * الخط يظهر كامل من البداية للنهاية.
-   */
   stroke-dasharray: none;
   stroke-dashoffset: 0;
 
@@ -2285,7 +2284,7 @@ margin-left: 15px;
 
 
 /* =========================================================
-   SCROLL VIEWPORT
+   SCROLL AREA
    ========================================================= */
 
 .timeline-journey-wrap {
@@ -2294,7 +2293,10 @@ margin-left: 15px;
   z-index: 2;
 
   width: 100%;
+
   min-height: 20rem;
+
+  margin: 0;
 
   padding: 0 0 1rem;
 
@@ -2302,19 +2304,16 @@ margin-left: 15px;
   overflow-y: visible;
 
   scrollbar-width: none;
+
   -ms-overflow-style: none;
 
   -webkit-overflow-scrolling: touch;
 
   overscroll-behavior-inline: contain;
 
-  cursor: grab;
-
-  /*
-   * مهم للموبايل:
-   * السحب أفقي.
-   */
   touch-action: pan-x;
+
+  cursor: grab;
 }
 
 .timeline-journey-wrap::-webkit-scrollbar {
@@ -2323,6 +2322,7 @@ margin-left: 15px;
 
 .timeline-journey-wrap.is-dragging {
   cursor: grabbing;
+
   scroll-behavior: auto;
 }
 
@@ -2330,26 +2330,28 @@ margin-left: 15px;
 /* =========================================================
    MOVING STAGE
 
-   عرضه يأتي من TSX:
+   العرض يأتي مباشرة من TSX:
    style={{ width: `${trackWidth}px` }}
-
-   لذلك لا نفرض عليه عرض ثاني هنا.
    ========================================================= */
 
 .timeline-journey-stage {
   position: relative;
 
-  width: auto;
+  flex: 0 0 auto;
+
   min-width: 100%;
 
   min-height: 20rem;
+
+  margin: 0;
+  padding: 0;
 
   direction: rtl;
 }
 
 
 /* =========================================================
-   STOPS TRACK
+   JOURNEY TRACK
    ========================================================= */
 
 .timeline-journey {
@@ -2372,24 +2374,28 @@ margin-left: 15px;
 
 
 /* =========================================================
-   EACH COLUMN
+   STOP COLUMNS
 
-   لازم نفس STOP_GAP الموجود في TSX.
+   مهم جدًا:
+   STOP_GAP في TSX = 240px
 
-   TSX:
-   const STOP_GAP = 240;
-
-   240px = 15rem تقريبًا على root 16px.
+   لذلك عرض كل عمود هنا = 240px.
+   لا تغيّر واحدة بدون الثانية.
    ========================================================= */
 
 .timeline-journey > a,
 .timeline-journey > div {
   position: relative;
 
+  display: block;
+
   flex: 0 0 240px;
 
   width: 240px;
   min-width: 240px;
+
+  margin: 0;
+  padding: 0;
 
   color: inherit;
 
@@ -2399,10 +2405,6 @@ margin-left: 15px;
 
 /* =========================================================
    STOP
-
-   النقطة والنص موجودان داخل نفس العمود.
-
-   أول 10rem هي بالضبط مساحة المنحنى.
    ========================================================= */
 
 .timeline-stop {
@@ -2410,10 +2412,11 @@ margin-left: 15px;
 
   width: 100%;
 
-  height: 10rem;
+  height: 20rem;
   min-height: 20rem;
 
   margin: 0;
+
   padding: 0 0.75rem;
 
   opacity: 0.58;
@@ -2430,14 +2433,12 @@ margin-left: 15px;
 /* =========================================================
    DOT
 
-   --dot-y يأتي من TSX كنسبة مئوية.
+   --dot-y الآن يأتي من React بوحدة rem.
 
    مثال:
-   --dot-y: 45%;
+   --dot-y: 4.5rem;
 
-   وبما أن .timeline-stop ارتفاعه المرجعي 10rem
-   في الجزء الخاص بالمنحنى، مركز الدائرة
-   يقع على نفس Y الخاص بالـSVG.
+   لذلك top لا يعتمد على ارتفاع العنصر الأب.
    ========================================================= */
 
 .timeline-dot {
@@ -2456,6 +2457,7 @@ margin-left: 15px;
 
   place-items: center;
 
+  margin: 0;
   padding: 0;
 
   border: 1px solid #e1a437;
@@ -2470,11 +2472,12 @@ margin-left: 15px;
   line-height: 1;
 
   /*
-   * أهم سطر:
-   * top يمثل مركز الدائرة وليس أعلاها.
+   * مركز الدائرة نفسه على Y المنحنى.
    */
   transform:
     translate(50%, -50%);
+
+  transform-origin: center;
 
   transition:
     transform 0.45s var(--editorial-ease),
@@ -2489,8 +2492,8 @@ margin-left: 15px;
 /* =========================================================
    ACTIVE DOT
 
-   نحافظ على translate نفسه أثناء التكبير
-   حتى لا تتحرك الدائرة عن المنحنى.
+   نحافظ على نفس translate حتى لا تتحرك
+   الدائرة عندما تصبح Active.
    ========================================================= */
 
 .timeline-stop.is-active .timeline-dot {
@@ -2509,20 +2512,24 @@ margin-left: 15px;
 /* =========================================================
    COPY
 
-   النص يتحرك مع الدائرة نفسها.
-
-   --dot-y = مكان مركز الدائرة
-   + 2rem = بداية النص تحتها.
+   مربوط بنفس --dot-y.
+   وبالتالي النص يبقى تحت دائرته.
    ========================================================= */
 
 .timeline-stop-copy {
   position: absolute;
 
-  top: calc(var(--dot-y) + 2rem);
+  top:
+    calc(
+      var(--dot-y) +
+      2rem
+    );
 
   right: 0;
 
   width: 100%;
+
+  margin: 0;
 
   padding:
     0.35rem
@@ -2546,7 +2553,7 @@ margin-left: 15px;
 }
 
 .timeline-stop-copy h4 {
-  margin: 0.35rem 0 0;
+  margin: 0.3rem 0 0;
 
   color: inherit;
 
@@ -2573,24 +2580,33 @@ margin-left: 15px;
 
 /* =========================================================
    IMAGE
-
-   لو النقطة فيها صورة نخليها مرتبطة
-   بمكان الدائرة كذلك.
    ========================================================= */
 
 .timeline-stop-image {
   position: absolute;
 
-  top: calc(var(--dot-y) + 6.5rem);
+  top:
+    calc(
+      var(--dot-y) +
+      6.5rem
+    );
 
   right: 50%;
 
-  width: calc(100% - 1.5rem);
+  width:
+    calc(
+      100% -
+      1.5rem
+    );
+
   height: 7.5rem;
+
+  margin: 0;
 
   overflow: hidden;
 
-  transform: translateX(50%);
+  transform:
+    translateX(50%);
 }
 
 .timeline-stop-image img {
@@ -2607,7 +2623,8 @@ margin-left: 15px;
 
 .timeline-stop:hover
 .timeline-stop-image img {
-  transform: scale(1.05);
+  transform:
+    scale(1.05);
 }
 
 
@@ -2621,23 +2638,41 @@ margin-left: 15px;
     min-height: 21rem;
   }
 
-  .timeline-journey-wrap,
-  .timeline-journey-stage,
+  .timeline-journey-wrap {
+    min-height: 21rem;
+  }
+
+  .timeline-journey-stage {
+    min-height: 21rem;
+  }
+
   .timeline-journey {
     min-height: 21rem;
   }
 
   /*
-   * لا نغير ارتفاع الخط.
-   * لازم يظل 10rem لأن الحساب مربوط فيه.
+   * مهم:
+   * لا نغيّر ارتفاع المنحنى.
    */
   .timeline-journey-line {
+    width: 100%;
     height: 10rem;
   }
 
   .timeline-stop {
-    height: 10rem;
+    height: 21rem;
     min-height: 21rem;
+  }
+
+  /*
+   * لا نغيّر 240px.
+   */
+  .timeline-journey > a,
+  .timeline-journey > div {
+    flex: 0 0 240px;
+
+    width: 240px;
+    min-width: 240px;
   }
 }
 
@@ -2658,9 +2693,9 @@ margin-left: 15px;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      SHELL
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-fixed-shell {
     width: 100%;
@@ -2671,11 +2706,12 @@ margin-left: 15px;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      CURVE
 
-     يبقى بعرض الشاشة بالكامل.
-     ----------------------------------------- */
+     يبقى بعرض الشاشة.
+     لا يتمدد مع عدد النقاط.
+     ======================================================= */
 
   .timeline-journey-line {
     top: 0;
@@ -2685,19 +2721,26 @@ margin-left: 15px;
     max-width: none;
 
     height: 10rem;
+
+    overflow: visible;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      SCROLL
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-journey-wrap {
     width: 100%;
 
     min-height: 24rem;
 
-    padding-bottom: 1.5rem;
+    margin: 0;
+
+    padding:
+      0
+      0
+      1.5rem;
 
     overflow-x: auto;
     overflow-y: visible;
@@ -2706,89 +2749,119 @@ margin-left: 15px;
 
     scrollbar-width: none;
 
+    overscroll-behavior-inline: contain;
+
     touch-action: pan-x;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      STAGE
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-journey-stage {
     min-width: 100%;
 
     min-height: 24rem;
+
+    margin: 0;
+    padding: 0;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      TRACK
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-journey {
     min-height: 24rem;
+
+    margin: 0;
+    padding: 0;
   }
 
 
-  /*
-   * لا نصغّر الأعمدة على الموبايل.
-   *
-   * STOP_GAP في TSX = 240px
-   * لذلك كل عمود يظل 240px.
-   *
-   * هذا يمنع اختلاف X الحقيقي
-   * عن X الذي تستخدمه المعادلة.
-   */
+  /* =======================================================
+     COLUMNS
+
+     نفس STOP_GAP الموجود في React.
+     ======================================================= */
 
   .timeline-journey > a,
   .timeline-journey > div {
-    flex:
-      0
-      0
-      240px;
+    flex: 0 0 240px;
 
     width: 240px;
     min-width: 240px;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      STOP
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-stop {
-    height: 10rem;
+    width: 100%;
 
+    height: 24rem;
     min-height: 24rem;
 
-    padding-inline: 0.75rem;
+    padding:
+      0
+      0.75rem;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      DOT
-     ----------------------------------------- */
+
+     نغيّر حجم الدائرة فقط.
+     top يبقى نفسه تمامًا.
+     ======================================================= */
 
   .timeline-dot {
     width: 3.6rem;
     height: 3.6rem;
 
     font-size: 1.2rem;
+
+    /*
+     * مهم جدًا:
+     * لا تغير top أو translate.
+     */
+    top: var(--dot-y);
+
+    transform:
+      translate(50%, -50%);
+  }
+
+  .timeline-stop.is-active
+  .timeline-dot {
+    transform:
+      translate(50%, -50%)
+      scale(1.08);
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      COPY
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-stop-copy {
     top:
       calc(
         var(--dot-y) +
-        2.2rem
+        2.25rem
       );
 
-    padding-inline: 1rem;
+    right: 0;
+
+    width: 100%;
+
+    padding:
+      0.35rem
+      1rem
+      0;
   }
 
   .timeline-stop-copy h6 {
@@ -2796,6 +2869,8 @@ margin-left: 15px;
   }
 
   .timeline-stop-copy h4 {
+    margin-top: 0.35rem;
+
     font-size: 1.05rem;
   }
 
@@ -2804,9 +2879,9 @@ margin-left: 15px;
   }
 
 
-  /* -----------------------------------------
+  /* =======================================================
      IMAGE
-     ----------------------------------------- */
+     ======================================================= */
 
   .timeline-stop-image {
     top:
@@ -2825,28 +2900,32 @@ margin-left: 15px;
 
 
 /* =========================================================
-   VERY SMALL MOBILE
+   SMALL MOBILE
    ========================================================= */
 
 @media (max-width: 420px) {
 
-  .timeline-fixed-shell,
+  .timeline-fixed-shell {
+    min-height: 25rem;
+  }
+
   .timeline-journey-wrap,
   .timeline-journey-stage,
   .timeline-journey {
     min-height: 25rem;
   }
 
+  .timeline-stop {
+    height: 25rem;
+    min-height: 25rem;
+  }
+
   /*
-   * نفس 240px مهم.
-   * لا تغيره إلى 12rem أو 13rem.
+   * لا نغير المسافة الأفقية.
    */
   .timeline-journey > a,
   .timeline-journey > div {
-    flex:
-      0
-      0
-      240px;
+    flex: 0 0 240px;
 
     width: 240px;
     min-width: 240px;
@@ -2855,10 +2934,29 @@ margin-left: 15px;
   .timeline-dot {
     width: 3.5rem;
     height: 3.5rem;
+
+    top: var(--dot-y);
+
+    transform:
+      translate(50%, -50%);
+  }
+
+  .timeline-stop.is-active
+  .timeline-dot {
+    transform:
+      translate(50%, -50%)
+      scale(1.08);
   }
 
   .timeline-stop-copy {
-    padding-inline: 0.85rem;
+    top:
+      calc(
+        var(--dot-y) +
+        2.2rem
+      );
+
+    padding-inline:
+      0.85rem;
   }
 }
 
@@ -2870,15 +2968,20 @@ margin-left: 15px;
 @media (prefers-reduced-motion: reduce) {
 
   .timeline-journey-line path {
-    animation: none !important;
+    animation:
+      none !important;
 
-    stroke-dasharray: none !important;
-    stroke-dashoffset: 0 !important;
+    stroke-dasharray:
+      none !important;
+
+    stroke-dashoffset:
+      0 !important;
   }
 
   .timeline-dot,
   .timeline-stop,
   .timeline-stop-image img {
-    transition: none !important;
+    transition:
+      none !important;
   }
 }
