@@ -81,13 +81,23 @@ const getTimelineY = (progress: number) => {
 const createTimelinePath = () => {
   let path = "";
 
-  for (
-    let i = 0;
-    i <= TIMELINE_SEGMENTS;
-    i++
-  ) {
-    const progress =
+  /*
+   * نفس حدود توزيع النقاط بالضبط
+   *
+   * 01 = 94%
+   * آخر نقطة = 6%
+   */
+  const start = 0.06;
+  const end = 0.94;
+
+  for (let i = 0; i <= TIMELINE_SEGMENTS; i++) {
+
+    const localProgress =
       i / TIMELINE_SEGMENTS;
+
+    const progress =
+      start +
+      localProgress * (end - start);
 
     const x =
       progress * TIMELINE_WIDTH;
