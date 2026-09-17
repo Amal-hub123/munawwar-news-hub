@@ -1908,3 +1908,543 @@ html:not(.dark)
     color: hsl(0deg 0% 100% / 89%);
   }
 }
+
+/* =========================================================
+   STORY TIMELINE
+========================================================= */
+
+.story-timeline {
+  position: relative;
+  z-index: 5;
+
+  width: 100%;
+
+  /*
+   * كان عندك فراغ كبير قبل الـTimeline.
+   */
+  margin-top: -2rem;
+
+  padding: 0 2rem 1.5rem;
+}
+
+
+/* =========================================================
+   SCROLL CONTAINER
+========================================================= */
+
+.story-timeline-scroll {
+  position: relative;
+
+  width: 100%;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   TRACK
+========================================================= */
+
+.story-timeline-track {
+  position: relative;
+
+  width: 100%;
+
+  /*
+   * نفس النسبة تقريبًا المستخدمة
+   * في viewBox للـSVG.
+   */
+  height: 13rem;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   CURVE
+========================================================= */
+
+.story-timeline-curve {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 11rem;
+
+  display: block;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+
+.story-timeline-curve path {
+  fill: none;
+
+  stroke:
+    hsl(var(--primary) / .55);
+
+  stroke-width: 2;
+
+  vector-effect:
+    non-scaling-stroke;
+
+  stroke-dasharray: 1;
+
+  stroke-dashoffset: 1;
+
+  animation:
+    line-draw
+    2s
+    .4s
+    var(--editorial-ease)
+    forwards;
+}
+
+
+/* =========================================================
+   LIST
+========================================================= */
+
+.story-timeline ol {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 11rem;
+
+  margin: 0;
+  padding: 0;
+
+  display: block;
+
+  list-style: none;
+}
+
+
+/* =========================================================
+   STOP
+========================================================= */
+
+.story-timeline li {
+  position: absolute;
+
+  left: var(--stop-x);
+  top: var(--stop-y);
+
+  /*
+   * مركز الدائرة على نفس
+   * إحداثية الخط.
+   */
+  transform:
+    translate(-50%, -50%);
+
+  width:
+    clamp(7rem, 13vw, 11rem);
+
+  text-align: center;
+
+  cursor: pointer;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   CIRCLE
+========================================================= */
+
+.story-timeline button {
+  position: relative;
+
+  z-index: 3;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width:
+    clamp(3rem, 4.5vw, 3.6rem);
+
+  height:
+    clamp(3rem, 4.5vw, 3.6rem);
+
+  padding: 0;
+
+  border:
+    1px solid
+    hsl(var(--primary));
+
+  border-radius: 50%;
+
+  color:
+    hsl(var(--primary));
+
+  background:
+    hsl(var(--secondary));
+
+  font-size: 1rem;
+
+  transition:
+    transform
+      .4s
+      var(--editorial-ease),
+    background
+      .4s
+      ease,
+    color
+      .4s
+      ease;
+}
+
+
+.story-timeline li.is-active button {
+  color:
+    hsl(var(--primary-foreground));
+
+  background:
+    hsl(var(--primary));
+
+  transform:
+    scale(1.15);
+}
+
+
+/* =========================================================
+   TEXT
+========================================================= */
+
+.story-stop-copy {
+  width: 100%;
+
+  margin-top: .75rem;
+
+  opacity: .54;
+
+  font-size:
+    clamp(
+      .95rem,
+      1.5vw,
+      1.3rem
+    );
+
+  line-height: 1.5;
+
+  transition:
+    opacity .4s ease,
+    transform .4s ease;
+}
+
+
+.story-timeline li.is-active
+.story-stop-copy {
+  opacity: 1;
+
+  transform:
+    translateY(-2px);
+}
+
+
+.story-stop-copy p {
+  margin: 0;
+
+  line-height: 1.5;
+
+  overflow-wrap:
+    break-word;
+}
+
+
+.story-stop-copy small {
+  display: block;
+
+  margin-top: .35rem;
+
+  font-size: .8rem;
+
+  line-height: 1.55;
+
+  color:
+    hsl(
+      0deg
+      0%
+      100% / 89%
+    );
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (
+  max-width: 900px
+) and (
+  min-width: 701px
+) {
+
+  .story-timeline {
+    margin-top: -2rem;
+
+    padding-inline: 1rem;
+  }
+
+
+  .story-timeline-track {
+    height: 14rem;
+  }
+
+
+  .story-timeline li {
+    width: 8rem;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+  .story-timeline {
+
+    /*
+     * نقل الـTimeline للأعلى.
+     */
+    margin-top: -2.5rem;
+
+    padding:
+      0
+      0
+      1rem;
+  }
+
+
+  /* =====================================================
+     HORIZONTAL SCROLL
+  ===================================================== */
+
+  .story-timeline-scroll {
+
+    width:
+      calc(
+        100% + 3rem
+      );
+
+    /*
+     * نخرجه من padding الـcontainer
+     * حتى يستفيد من عرض الجوال.
+     */
+    margin-inline:
+      -1.5rem;
+
+
+    overflow-x:
+      auto;
+
+    overflow-y:
+      visible;
+
+
+    -webkit-overflow-scrolling:
+      touch;
+
+
+    scrollbar-width:
+      none;
+
+
+    overscroll-behavior-inline:
+      contain;
+  }
+
+
+  .story-timeline-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  /* =====================================================
+     TRACK
+
+     1-3 نقاط = عرض الشاشة تقريبًا.
+     أكثر = يزيد العرض ويصبح قابل للسحب.
+  ===================================================== */
+
+  .story-timeline-track {
+
+    width:
+      max(
+        100%,
+        calc(
+          var(--stop-count) *
+          8rem
+        )
+      );
+
+    min-width:
+      100%;
+
+    height:
+      13.5rem;
+  }
+
+
+  /* =====================================================
+     CURVE
+  ===================================================== */
+
+  .story-timeline-curve {
+
+    width: 100%;
+
+    height: 10rem;
+  }
+
+
+  .story-timeline ol {
+
+    width: 100%;
+
+    height: 10rem;
+  }
+
+
+  /* =====================================================
+     STOP
+  ===================================================== */
+
+  .story-timeline li {
+
+    width:
+      6.75rem;
+  }
+
+
+  /* =====================================================
+     CIRCLE
+  ===================================================== */
+
+  .story-timeline button {
+
+    width:
+      3.15rem;
+
+    height:
+      3.15rem;
+
+    font-size:
+      .95rem;
+  }
+
+
+  .story-timeline li.is-active button {
+
+    transform:
+      scale(1.12);
+  }
+
+
+  /* =====================================================
+     TEXT
+  ===================================================== */
+
+  .story-stop-copy {
+
+    margin-top:
+      .6rem;
+
+    font-size:
+      .95rem;
+
+    line-height:
+      1.4;
+  }
+
+
+  .story-stop-copy small {
+
+    margin-top:
+      .25rem;
+
+    font-size:
+      .7rem;
+
+    line-height:
+      1.4;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .story-timeline {
+
+    margin-top:
+      -2.75rem;
+  }
+
+
+  .story-timeline-track {
+
+    width:
+      max(
+        100%,
+        calc(
+          var(--stop-count) *
+          7.5rem
+        )
+      );
+
+    height:
+      13rem;
+  }
+
+
+  .story-timeline li {
+
+    width:
+      6.2rem;
+  }
+
+
+  .story-timeline button {
+
+    width:
+      2.9rem;
+
+    height:
+      2.9rem;
+
+    font-size:
+      .9rem;
+  }
+
+
+  .story-stop-copy {
+
+    font-size:
+      .9rem;
+  }
+
+
+  .story-stop-copy small {
+
+    font-size:
+      .67rem;
+  }
+
+}
