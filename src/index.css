@@ -1382,110 +1382,98 @@ html:not(.dark)
 }
 
 
-/* =========================================
-   HERO — Reference layout override
-   يحافظ على الأنميشن وطريقة الجلب الحالية
-========================================= */
+/* =====================================================
+   HERO LAYOUT FIX
+   الشكل فقط — بدون المساس بالـ React أو الأنميشن
+===================================================== */
 
-.calm-hero-content.hero-reference-layout {
+.calm-hero-content {
   position: relative;
   z-index: 5;
 
-  width: min(calc(100% - 80px), 1380px);
+  width: min(92vw, 1220px);
   margin-inline: auto;
 
   display: grid;
-  grid-template-columns: minmax(340px, 0.85fr) minmax(500px, 1.15fr);
-  align-items: center;
 
-  gap: clamp(70px, 9vw, 150px);
+  /* النص يمين أكبر — الصورة يسار */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+
+  align-items: center;
+  gap: clamp(70px, 8vw, 130px);
 
   direction: ltr;
 }
 
 
 /* =========================
-   LEFT — IMAGE / SLIDER
+   النص — جهة اليمين
 ========================= */
 
-.hero-reference-media {
-  width: 100%;
-  max-width: 520px;
+.calm-hero-stage {
+  grid-column: 2;
 
-  aspect-ratio: 1 / 1;
-
-  overflow: hidden;
-  border-radius: 24px;
-
-  justify-self: start;
-}
-
-.hero-reference-media > * {
-  width: 100%;
-  height: 100%;
-}
-
-.hero-reference-media img {
-  width: 100%;
-  height: 100%;
-
-  display: block;
-  object-fit: cover;
-}
-
-
-/* =========================
-   RIGHT — ROTATING PHRASES
-========================= */
-
-.hero-reference-stage {
   position: relative;
 
   width: 100%;
-  min-height: 330px;
+  min-width: 0;
+  min-height: 300px;
 
   display: flex;
   align-items: center;
+  justify-content: flex-start;
 
   direction: rtl;
   text-align: right;
 }
 
 
-/*
-  مهم:
-  لا نغير opacity / transition / animation
-  الموجودة عندك للنصوص.
-  فقط الشكل والحجم والموقع.
-*/
+/* نحافظ على الأنميشن الموجود عندك
+   ونعدل المقاسات فقط */
 
-.hero-reference-stage .calm-hero-phrase {
+.calm-hero-phrase {
   width: 100%;
+  max-width: 680px;
 
   margin: 0;
 
   font-family: "IBM Plex Sans Arabic", sans-serif;
 
-  font-size: clamp(54px, 5.6vw, 92px);
-  font-weight: 300;
-
-  line-height: 1.38;
-  letter-spacing: -0.035em;
-
-  color: #173c39;
+  font-size: clamp(52px, 5vw, 78px);
+  line-height: 1.35;
 
   text-align: right;
+
+  /* مهم جدًا: يمنع شكل كلمة تحت كلمة */
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
 }
 
 
 /* =========================
-   ORANGE MARK
+   الصورة — جهة اليسار
 ========================= */
 
-.hero-reference-stage .mark {
+.calm-hero-content > :last-child {
+  grid-column: 1;
+  grid-row: 1;
+
+  width: 100%;
+  max-width: 470px;
+
+  justify-self: start;
+}
+
+
+/* =========================
+   الكلمات المحددة
+========================= */
+
+.calm-hero-phrase .mark {
   position: relative;
 
-  display: inline;
+  display: inline-block;
 
   font-style: normal;
   font-weight: 700;
@@ -1495,53 +1483,61 @@ html:not(.dark)
   z-index: 1;
 }
 
-.hero-reference-stage .mark::after {
+.calm-hero-phrase .mark::after {
   content: "";
 
   position: absolute;
 
   right: -0.04em;
   left: -0.04em;
-
   bottom: 0.08em;
 
-  height: 0.15em;
+  height: 0.13em;
 
   background: #e5a62f;
-  border-radius: 3px;
+  border-radius: 2px;
 
   z-index: -1;
 }
 
 
 /* =========================
-   TABLET / MOBILE
+   MOBILE
 ========================= */
 
-@media (max-width: 900px) {
+@media (max-width: 850px) {
 
-  .calm-hero-content.hero-reference-layout {
-    width: min(calc(100% - 36px), 700px);
+  .calm-hero-content {
+    width: calc(100% - 32px);
 
     grid-template-columns: 1fr;
 
-    gap: 40px;
-
-    padding-top: 50px;
-    padding-bottom: 100px;
+    gap: 35px;
   }
 
-  .hero-reference-media {
-    width: min(82vw, 470px);
+  .calm-hero-stage {
+    grid-column: 1;
+    grid-row: 2;
+
+    min-height: 220px;
+
+    justify-content: center;
+  }
+
+  .calm-hero-content > :last-child {
+    grid-column: 1;
+    grid-row: 1;
+
+    width: min(85vw, 430px);
+
     justify-self: center;
   }
 
-  .hero-reference-stage {
-    min-height: 260px;
-  }
+  .calm-hero-phrase {
+    max-width: 100%;
 
-  .hero-reference-stage .calm-hero-phrase {
-    font-size: clamp(42px, 9vw, 68px);
+    font-size: clamp(38px, 9vw, 58px);
+
     text-align: center;
   }
 }
