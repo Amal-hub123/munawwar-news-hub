@@ -2171,7 +2171,7 @@ html:not(.dark)
 
   .story-stop-copy {
     width: 6rem;
-
+margin-left: 15px;
     font-size: 1.3rem;
   }
 
