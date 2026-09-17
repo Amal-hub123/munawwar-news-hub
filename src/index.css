@@ -1804,15 +1804,12 @@ html:not(.dark)
 
   vector-effect: non-scaling-stroke;
 
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  /* الخط كامل دائمًا */
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
 
-  animation:
-    line-draw
-    2s
-    0.4s
-    var(--editorial-ease)
-    forwards;
+  /* نوقف أنميشن الرسم لهذا الخط */
+  animation: none;
 }
 
 
