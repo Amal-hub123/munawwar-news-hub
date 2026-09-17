@@ -1642,7 +1642,7 @@ html:not(.dark)
   ===================== */
 
   .hero-article-slider {
-    order: 1;
+    order: 2;
 
     /* إلغاء تموضع الديسكتوب */
     grid-column: auto;
