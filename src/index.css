@@ -2179,3 +2179,706 @@ margin-left: 15px;
     font-size: 0.68rem;
   }
 }
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   HOME TIMELINES — FINAL CURVE FIX
+   يوضع في آخر ملف CSS
+   ========================================================= */
+
+
+/* =========================================================
+   SECTION
+   ========================================================= */
+
+.timelines-section {
+  position: relative;
+  padding: 4.5rem 0;
+  color: #fff;
+  background: hsl(175.38deg 31.71% 24.12%);
+  overflow-x: clip;
+}
+
+.timelines-section .editorial-heading,
+.timelines-section .editorial-kicker,
+.timelines-section h3 {
+  color: inherit;
+}
+
+
+/* =========================================================
+   SHELL
+
+   الخط الثابت + منطقة النقاط
+   يعيشون في نفس المساحة الرأسية.
+   ========================================================= */
+
+.timeline-fixed-shell {
+  position: relative;
+
+  width: 100%;
+  min-height: 20rem;
+
+  overflow: visible;
+}
+
+
+/* =========================================================
+   CURVE
+
+   مهم جدًا:
+   ارتفاع الـSVG = 10rem
+
+   والنقاط تحسب --dot-y كنسبة مئوية
+   من نفس الارتفاع.
+   ========================================================= */
+
+.timeline-journey-line {
+  position: absolute;
+
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+
+  display: block;
+
+  width: 100%;
+  max-width: none;
+
+  height: 10rem;
+
+  color: #e1a437;
+
+  overflow: visible;
+
+  pointer-events: none;
+}
+
+.timeline-journey-line path {
+  fill: none;
+
+  stroke: currentColor;
+  stroke-width: 2;
+
+  opacity: 0.95;
+
+  vector-effect: non-scaling-stroke;
+
+  /*
+   * مهم:
+   * لا نستخدم dash animation هنا.
+   * الخط يظهر كامل من البداية للنهاية.
+   */
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+
+  animation: none;
+}
+
+
+/* =========================================================
+   SCROLL VIEWPORT
+   ========================================================= */
+
+.timeline-journey-wrap {
+  position: relative;
+
+  z-index: 2;
+
+  width: 100%;
+  min-height: 20rem;
+
+  padding: 0 0 1rem;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  -webkit-overflow-scrolling: touch;
+
+  overscroll-behavior-inline: contain;
+
+  cursor: grab;
+
+  /*
+   * مهم للموبايل:
+   * السحب أفقي.
+   */
+  touch-action: pan-x;
+}
+
+.timeline-journey-wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-journey-wrap.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+
+/* =========================================================
+   MOVING STAGE
+
+   عرضه يأتي من TSX:
+   style={{ width: `${trackWidth}px` }}
+
+   لذلك لا نفرض عليه عرض ثاني هنا.
+   ========================================================= */
+
+.timeline-journey-stage {
+  position: relative;
+
+  width: auto;
+  min-width: 100%;
+
+  min-height: 20rem;
+
+  direction: rtl;
+}
+
+
+/* =========================================================
+   STOPS TRACK
+   ========================================================= */
+
+.timeline-journey {
+  position: relative;
+
+  z-index: 2;
+
+  display: flex;
+
+  width: 100%;
+  min-width: 100%;
+
+  min-height: 20rem;
+
+  margin: 0;
+  padding: 0;
+
+  direction: rtl;
+}
+
+
+/* =========================================================
+   EACH COLUMN
+
+   لازم نفس STOP_GAP الموجود في TSX.
+
+   TSX:
+   const STOP_GAP = 240;
+
+   240px = 15rem تقريبًا على root 16px.
+   ========================================================= */
+
+.timeline-journey > a,
+.timeline-journey > div {
+  position: relative;
+
+  flex: 0 0 240px;
+
+  width: 240px;
+  min-width: 240px;
+
+  color: inherit;
+
+  text-decoration: none;
+}
+
+
+/* =========================================================
+   STOP
+
+   النقطة والنص موجودان داخل نفس العمود.
+
+   أول 10rem هي بالضبط مساحة المنحنى.
+   ========================================================= */
+
+.timeline-stop {
+  position: relative;
+
+  width: 100%;
+
+  height: 10rem;
+  min-height: 20rem;
+
+  margin: 0;
+  padding: 0 0.75rem;
+
+  opacity: 0.58;
+
+  transition:
+    opacity 0.45s ease;
+}
+
+.timeline-stop.is-active {
+  opacity: 1;
+}
+
+
+/* =========================================================
+   DOT
+
+   --dot-y يأتي من TSX كنسبة مئوية.
+
+   مثال:
+   --dot-y: 45%;
+
+   وبما أن .timeline-stop ارتفاعه المرجعي 10rem
+   في الجزء الخاص بالمنحنى، مركز الدائرة
+   يقع على نفس Y الخاص بالـSVG.
+   ========================================================= */
+
+.timeline-dot {
+  position: absolute;
+
+  z-index: 5;
+
+  top: var(--dot-y);
+
+  right: 50%;
+
+  display: grid;
+
+  width: 3.3rem;
+  height: 3.3rem;
+
+  place-items: center;
+
+  padding: 0;
+
+  border: 1px solid #e1a437;
+  border-radius: 50%;
+
+  color: #e1a437;
+
+  background:
+    hsl(175.38deg 31.71% 24.12%);
+
+  font-size: 1.3rem;
+  line-height: 1;
+
+  /*
+   * أهم سطر:
+   * top يمثل مركز الدائرة وليس أعلاها.
+   */
+  transform:
+    translate(50%, -50%);
+
+  transition:
+    transform 0.45s var(--editorial-ease),
+    background 0.4s ease,
+    color 0.4s ease,
+    border-color 0.4s ease;
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   ACTIVE DOT
+
+   نحافظ على translate نفسه أثناء التكبير
+   حتى لا تتحرك الدائرة عن المنحنى.
+   ========================================================= */
+
+.timeline-stop.is-active .timeline-dot {
+  color: #00343a;
+
+  background: #e1a437;
+
+  border-color: #e1a437;
+
+  transform:
+    translate(50%, -50%)
+    scale(1.08);
+}
+
+
+/* =========================================================
+   COPY
+
+   النص يتحرك مع الدائرة نفسها.
+
+   --dot-y = مكان مركز الدائرة
+   + 2rem = بداية النص تحتها.
+   ========================================================= */
+
+.timeline-stop-copy {
+  position: absolute;
+
+  top: calc(var(--dot-y) + 2rem);
+
+  right: 0;
+
+  width: 100%;
+
+  padding:
+    0.35rem
+    0.75rem
+    0;
+
+  text-align: center;
+
+  pointer-events: none;
+}
+
+.timeline-stop-copy h6 {
+  margin: 0;
+
+  color: #e1a437;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+
+  line-height: 1.4;
+}
+
+.timeline-stop-copy h4 {
+  margin: 0.35rem 0 0;
+
+  color: inherit;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+.timeline-stop-copy p {
+  margin: 0.35rem 0 0;
+
+  color:
+    hsl(
+      var(--secondary-foreground) /
+      0.65
+    );
+
+  font-size: 0.78rem;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   IMAGE
+
+   لو النقطة فيها صورة نخليها مرتبطة
+   بمكان الدائرة كذلك.
+   ========================================================= */
+
+.timeline-stop-image {
+  position: absolute;
+
+  top: calc(var(--dot-y) + 6.5rem);
+
+  right: 50%;
+
+  width: calc(100% - 1.5rem);
+  height: 7.5rem;
+
+  overflow: hidden;
+
+  transform: translateX(50%);
+}
+
+.timeline-stop-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition:
+    transform 0.7s ease;
+}
+
+.timeline-stop:hover
+.timeline-stop-image img {
+  transform: scale(1.05);
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .timeline-fixed-shell {
+    min-height: 21rem;
+  }
+
+  .timeline-journey-wrap,
+  .timeline-journey-stage,
+  .timeline-journey {
+    min-height: 21rem;
+  }
+
+  /*
+   * لا نغير ارتفاع الخط.
+   * لازم يظل 10rem لأن الحساب مربوط فيه.
+   */
+  .timeline-journey-line {
+    height: 10rem;
+  }
+
+  .timeline-stop {
+    height: 10rem;
+    min-height: 21rem;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .timelines-section {
+    padding:
+      3.5rem
+      0
+      4rem;
+
+    overflow-x: clip;
+  }
+
+
+  /* -----------------------------------------
+     SHELL
+     ----------------------------------------- */
+
+  .timeline-fixed-shell {
+    width: 100%;
+
+    min-height: 24rem;
+
+    overflow: visible;
+  }
+
+
+  /* -----------------------------------------
+     CURVE
+
+     يبقى بعرض الشاشة بالكامل.
+     ----------------------------------------- */
+
+  .timeline-journey-line {
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    max-width: none;
+
+    height: 10rem;
+  }
+
+
+  /* -----------------------------------------
+     SCROLL
+     ----------------------------------------- */
+
+  .timeline-journey-wrap {
+    width: 100%;
+
+    min-height: 24rem;
+
+    padding-bottom: 1.5rem;
+
+    overflow-x: auto;
+    overflow-y: visible;
+
+    -webkit-overflow-scrolling: touch;
+
+    scrollbar-width: none;
+
+    touch-action: pan-x;
+  }
+
+
+  /* -----------------------------------------
+     STAGE
+     ----------------------------------------- */
+
+  .timeline-journey-stage {
+    min-width: 100%;
+
+    min-height: 24rem;
+  }
+
+
+  /* -----------------------------------------
+     TRACK
+     ----------------------------------------- */
+
+  .timeline-journey {
+    min-height: 24rem;
+  }
+
+
+  /*
+   * لا نصغّر الأعمدة على الموبايل.
+   *
+   * STOP_GAP في TSX = 240px
+   * لذلك كل عمود يظل 240px.
+   *
+   * هذا يمنع اختلاف X الحقيقي
+   * عن X الذي تستخدمه المعادلة.
+   */
+
+  .timeline-journey > a,
+  .timeline-journey > div {
+    flex:
+      0
+      0
+      240px;
+
+    width: 240px;
+    min-width: 240px;
+  }
+
+
+  /* -----------------------------------------
+     STOP
+     ----------------------------------------- */
+
+  .timeline-stop {
+    height: 10rem;
+
+    min-height: 24rem;
+
+    padding-inline: 0.75rem;
+  }
+
+
+  /* -----------------------------------------
+     DOT
+     ----------------------------------------- */
+
+  .timeline-dot {
+    width: 3.6rem;
+    height: 3.6rem;
+
+    font-size: 1.2rem;
+  }
+
+
+  /* -----------------------------------------
+     COPY
+     ----------------------------------------- */
+
+  .timeline-stop-copy {
+    top:
+      calc(
+        var(--dot-y) +
+        2.2rem
+      );
+
+    padding-inline: 1rem;
+  }
+
+  .timeline-stop-copy h6 {
+    font-size: 0.95rem;
+  }
+
+  .timeline-stop-copy h4 {
+    font-size: 1.05rem;
+  }
+
+  .timeline-stop-copy p {
+    font-size: 0.8rem;
+  }
+
+
+  /* -----------------------------------------
+     IMAGE
+     ----------------------------------------- */
+
+  .timeline-stop-image {
+    top:
+      calc(
+        var(--dot-y) +
+        7rem
+      );
+
+    width:
+      calc(
+        100% -
+        2rem
+      );
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .timeline-fixed-shell,
+  .timeline-journey-wrap,
+  .timeline-journey-stage,
+  .timeline-journey {
+    min-height: 25rem;
+  }
+
+  /*
+   * نفس 240px مهم.
+   * لا تغيره إلى 12rem أو 13rem.
+   */
+  .timeline-journey > a,
+  .timeline-journey > div {
+    flex:
+      0
+      0
+      240px;
+
+    width: 240px;
+    min-width: 240px;
+  }
+
+  .timeline-dot {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .timeline-stop-copy {
+    padding-inline: 0.85rem;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .timeline-journey-line path {
+    animation: none !important;
+
+    stroke-dasharray: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+
+  .timeline-dot,
+  .timeline-stop,
+  .timeline-stop-image img {
+    transition: none !important;
+  }
+}
