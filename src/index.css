@@ -1607,3 +1607,84 @@ html:not(.dark)
     font-size: clamp(3.1rem, 12vw, 4.2rem) !important;
   }
 }
+
+@media (max-width: 700px) {
+
+  .calm-hero {
+    min-height: 100svh;
+    padding-top: 0 !important;
+  }
+
+  .calm-hero-content {
+    width: calc(100% - 32px) !important;
+    margin-inline: auto !important;
+
+    /* نلغي الـ Grid على الجوال */
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center !important;
+    justify-content: flex-start !important;
+
+    gap: 2rem !important;
+
+    padding-top: 2.5rem !important;
+    margin-top: 0 !important;
+  }
+
+
+  /* =========================
+     الصورة / السلايدر
+  ========================= */
+
+  .calm-hero-content > :last-child {
+    width: min(78vw, 330px) !important;
+    max-width: 330px !important;
+
+    flex: 0 0 auto !important;
+
+    margin: 0 auto !important;
+
+    display: block !important;
+  }
+
+
+  /* =========================
+     النص
+  ========================= */
+
+  .calm-hero-stage {
+    width: 100% !important;
+    max-width: none !important;
+
+    min-height: 260px !important;
+
+    flex: 0 0 auto !important;
+
+    display: grid !important;
+
+    margin: 0 !important;
+  }
+
+
+  .calm-hero-phrase {
+    width: 100%;
+    line-height: 1.42;
+    text-align: right;
+  }
+
+
+  /* نفس الأحجام اللي ضبطناها */
+
+  .calm-hero-phrase.phrase-1 {
+    font-size: clamp(2.45rem, 9.8vw, 3.4rem) !important;
+  }
+
+  .calm-hero-phrase.phrase-2 {
+    font-size: clamp(2.8rem, 11vw, 3.8rem) !important;
+  }
+
+  .calm-hero-phrase.phrase-3 {
+    font-size: clamp(3.1rem, 12vw, 4.2rem) !important;
+  }
+}
