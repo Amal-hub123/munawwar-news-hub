@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2 } from "lucide-react";
+import { CalendarDays, Mail, Trash2, UserRound } from "lucide-react";
 
 const STATUSES: { value: string; label: string }[] = [
   { value: "new", label: "جديد" },
@@ -51,16 +51,19 @@ const ManageAudienceQuestions = () => {
   const visible = filter === "all" ? questions : questions.filter((q) => q.status === filter);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <h1 className="text-3xl font-bold">أسئلة الجمهور</h1>
-        <div className="w-56">
+    <div className="space-y-4" dir="rtl">
+      <div className="flex flex-wrap items-end justify-between gap-3 border-b pb-4">
+        <div>
+          <h1 className="text-2xl font-bold">أسئلة الجمهور</h1>
+          <p className="mt-1 text-sm text-muted-foreground">متابعة الأسئلة وربطها بالمقالات المنشورة</p>
+        </div>
+        <div className="w-full sm:w-48">
           <Select value={filter} onValueChange={setFilter}>
-            <SelectTrigger className="text-right"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
             <SelectContent>
-              <SelectItem className="text-right" value="all">كل الأسئلة</SelectItem>
+              <SelectItem value="all">كل الأسئلة</SelectItem>
               {STATUSES.map((s) => (
-                <SelectItem className="text-right" key={s.value} value={s.value}>{s.label}</SelectItem>
+                <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -71,43 +74,52 @@ const ManageAudienceQuestions = () => {
         <Card><CardContent className="py-10 text-center text-muted-foreground">لا توجد أسئلة في هذه الحالة.</CardContent></Card>
       )}
 
-      {visible.map((q) => (
-        <Card key={q.id}>
-          <CardHeader className="pb-3">
-            <CardTitle className="text-lg leading-relaxed">{q.question}</CardTitle>
-            <p className="text-sm text-muted-foreground">
-              {q.name ? `من: ${q.name}` : "بدون اسم"} · {new Date(q.created_at).toLocaleDateString("ar-EG")}
-            </p>
-          </CardHeader>
-          <CardContent className="grid md:grid-cols-[200px_1fr_auto] gap-3 items-center">
-            <Select value={q.status} onValueChange={(v) => update(q.id, { status: v })}>
-              <SelectTrigger className="text-right"><SelectValue /></SelectTrigger>
-              <SelectContent>
-                {STATUSES.map((s) => (
-                  <SelectItem className="text-right" key={s.value} value={s.value}>{s.label}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+      <div className="space-y-2">
+        {visible.map((q) => (
+        <Card key={q.id} className="overflow-hidden shadow-none transition-colors hover:border-primary/50">
+          <CardContent className="p-3 sm:p-4">
+            <div className="grid gap-3 xl:grid-cols-[minmax(260px,1fr)_minmax(360px,1.15fr)_auto] xl:items-center">
+              <div className="min-w-0 border-r-2 border-primary pr-3">
+                <h2 className="text-[15px] font-bold leading-7 sm:text-base">{q.question}</h2>
+                <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                  <span className="inline-flex items-center gap-1"><UserRound className="h-3.5 w-3.5" />{q.name || "بدون اسم"}</span>
+                  <span className="inline-flex min-w-0 items-center gap-1" dir="ltr"><Mail className="h-3.5 w-3.5 shrink-0" />{q.email || "بدون بريد"}</span>
+                  <span className="inline-flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" />{new Date(q.created_at).toLocaleDateString("ar-EG")}</span>
+                </div>
+              </div>
 
-            <Select
-              value={q.linked_article_id || "none"}
-              onValueChange={(v) => update(q.id, { linked_article_id: v === "none" ? null : v })}
-            >
-              <SelectTrigger className="text-right"><SelectValue placeholder="اربط بمقال منشور" /></SelectTrigger>
-              <SelectContent>
-                <SelectItem className="text-right" value="none">بدون مقال</SelectItem>
-                {articles.map((a) => (
-                  <SelectItem className="text-right" key={a.id} value={a.id}>{a.title}</SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              <div className="grid gap-2 sm:grid-cols-[150px_minmax(220px,1fr)]">
+                <Select value={q.status} onValueChange={(v) => update(q.id, { status: v })}>
+                  <SelectTrigger className="h-9"><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {STATUSES.map((s) => (
+                      <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
 
-            <Button variant="destructive" size="sm" onClick={() => remove(q.id)} className="gap-1">
-              <Trash2 className="w-4 h-4" /> حذف
-            </Button>
+                <Select
+                  value={q.linked_article_id || "none"}
+                  onValueChange={(v) => update(q.id, { linked_article_id: v === "none" ? null : v })}
+                >
+                  <SelectTrigger className="h-9"><SelectValue placeholder="اربط بمقال منشور" /></SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">بدون مقال</SelectItem>
+                    {articles.map((a) => (
+                      <SelectItem key={a.id} value={a.id}>{a.title}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Button variant="ghost" size="icon" onClick={() => remove(q.id)} className="h-9 w-9 justify-self-end text-destructive hover:text-destructive" aria-label="حذف السؤال" title="حذف السؤال">
+                <Trash2 className="h-4 w-4" />
+              </Button>
+            </div>
           </CardContent>
         </Card>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };

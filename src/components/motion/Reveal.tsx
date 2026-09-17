@@ -1,4 +1,4 @@
-import { ElementType, ReactNode, useEffect, useRef, useState } from "react";
+import { CSSProperties, ElementType, ReactNode, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface RevealProps {
@@ -8,13 +8,14 @@ interface RevealProps {
   as?: ElementType;
   once?: boolean;
   variant?: "rise" | "clip" | "scale" | "side";
+  style?: CSSProperties;
 }
 
 /**
  * Light scroll-reveal wrapper. Uses IntersectionObserver only (no libraries),
  * and respects prefers-reduced-motion through the CSS layer.
  */
-export const Reveal = ({ children, className, delay = 0, as, once = false, variant = "rise" }: RevealProps) => {
+export const Reveal = ({ children, className, delay = 0, as, once = false, variant = "rise", style }: RevealProps) => {
   const Tag = (as || "div") as ElementType;
   const ref = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -47,7 +48,7 @@ export const Reveal = ({ children, className, delay = 0, as, once = false, varia
     <Tag
       ref={ref as any}
       className={cn("reveal", `reveal-${variant}`, visible && "is-visible", className)}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ ...style, transitionDelay: `${delay}ms` }}
     >
       {children}
     </Tag>

@@ -7,20 +7,18 @@ const DEFAULT = 17;
 
 export type ReadingBackground =
   | "paper"
-  | "olive"
-  | "gold"
-  | "terracotta"
-  | "teal";
+  | "ivory"
+  | "sage"
+  | "mist";
 
 const READING_BACKGROUNDS: {
   value: ReadingBackground;
   label: string;
 }[] = [
   { value: "paper", label: "افتراضي" },
-  { value: "olive", label: "زيتوني" },
-  { value: "gold", label: "ذهبي" },
-  { value: "terracotta", label: "تيراكوتا" },
-  { value: "teal", label: "تركواز" },
+  { value: "ivory", label: "عاجي" },
+  { value: "sage", label: "أخضر هادئ" },
+  { value: "mist", label: "ضبابي" },
 ];
 
 interface TextZoomControlProps {

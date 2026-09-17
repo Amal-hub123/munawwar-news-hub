@@ -169,6 +169,30 @@ All colors MUST be HSL.
     direction: rtl;
   }
 
+  select,
+  option,
+  [role="listbox"],
+  [role="menu"] {
+    direction: rtl;
+    text-align: right;
+  }
+
+  .theme-mode-toggle {
+    @apply h-9 min-w-[5.25rem] gap-2 rounded-full border border-border bg-background px-2.5 text-xs font-semibold shadow-sm;
+  }
+
+  .theme-mode-toggle:hover {
+    @apply bg-muted;
+  }
+
+  .theme-mode-icon {
+    @apply grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground transition-transform duration-300;
+  }
+
+  .theme-mode-toggle:hover .theme-mode-icon {
+    transform: rotate(12deg);
+  }
+
   /* All headings/titles render bold by default */
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
