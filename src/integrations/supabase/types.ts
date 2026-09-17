@@ -206,6 +206,7 @@ export type Database = {
       audience_questions: {
         Row: {
           created_at: string
+          email: string | null
           id: string
           linked_article_id: string | null
           name: string | null
@@ -215,6 +216,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          email?: string | null
           id?: string
           linked_article_id?: string | null
           name?: string | null
@@ -224,6 +226,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          email?: string | null
           id?: string
           linked_article_id?: string | null
           name?: string | null
