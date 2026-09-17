@@ -216,12 +216,12 @@ const WriterDetail = () => {
             >
               المقالات
             </Button>
-            <Button
+            {/* <Button
               variant={filter === "news" ? "default" : "outline"}
               onClick={() => setFilter("news")}
             >
               خدماتنا
-            </Button>
+            </Button> */}
           </div>
         </div>
 
