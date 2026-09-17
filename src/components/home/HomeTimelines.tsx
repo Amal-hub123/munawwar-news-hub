@@ -768,15 +768,28 @@ export const HomeTimelines =
        SORT STOPS
        ======================================================= */
 
-  const stops = [
+ const stops = [
   ...(active.timeline_stops || []),
 ].sort((a: any, b: any) => {
-  const getYear = (value: string = "") => {
-    const match = value.match(/\d{4}/);
-    return match ? Number(match[0]) : Number.MAX_SAFE_INTEGER;
+
+  const getYear = (value: unknown) => {
+    if (value === null || value === undefined) {
+      return Number.MAX_SAFE_INTEGER;
+    }
+
+    const text = String(value);
+
+    const match = text.match(/\d{4}/);
+
+    return match
+      ? Number(match[0])
+      : Number.MAX_SAFE_INTEGER;
   };
 
-  return getYear(a.label) - getYear(b.label);
+  return (
+    getYear(a.label) -
+    getYear(b.label)
+  );
 });
 
 
