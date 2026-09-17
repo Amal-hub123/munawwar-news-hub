@@ -7,7 +7,7 @@ interface Phrase { lead: string; mark: string; mid: string; mark2?: string; tail
 
 const PHRASES: Phrase[] = [
   { lead: "", mark: "الاقتصاد", mid: " ليس مُجرّد رقم، بل حكاية ", mark2: "مُجتمع", tail: "، نرويها بسرديّة مُختلفة" },
-  { lead: "", mark: "الإنسان", mid: " يعيش نتيجة ", mark2: "الرقم", tail: " قبل أن يعرفه" },
+  { lead: "", mark: "الإنسان", mid: " يعيش نتيجة ", mark2: "الرقـــــــم", tail: " قبل أن يعرفه" },
   { lead: "ماذا لو بدأنا من ", mark: "الإنسان", mid: "", tail: "؟" },
 ];
 
