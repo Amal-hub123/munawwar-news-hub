@@ -18,13 +18,11 @@ const InteractiveTimeline = ({
   stops: any[];
   color: string;
 }) => {
-
   /*
-   * نحافظ على نظام السحب الأصلي الموجود عندك.
+   * نحافظ على نظام السحب الأصلي.
    */
   const { ref, handlers } =
     useDragScroll<HTMLDivElement>();
-
 
   /*
    * النقطة النشطة.
@@ -34,16 +32,14 @@ const InteractiveTimeline = ({
       stops[0]?.id || null
     );
 
-
   /*
    * مقدار حركة الـTrack.
    */
   const [scrollX, setScrollX] =
     useState(0);
 
-
   /*
-   * عرض الجزء الظاهر من الصفحة.
+   * عرض المنطقة الظاهرة فعليًا.
    */
   const [
     viewportWidth,
@@ -51,79 +47,52 @@ const InteractiveTimeline = ({
   ] = useState(1200);
 
 
-
   /* =========================================================
-     إعدادات المنحنى
+     CURVE SETTINGS
+
+     الـSVG والنقاط يستخدمون نفس نظام الإحداثيات.
      ========================================================= */
 
-  /*
-   * أبعاد SVG الداخلية.
-   *
-   * هذه ثابتة ولا تتغير
-   * مهما زاد عدد النقاط.
-   */
   const VIEWBOX_WIDTH = 1200;
   const VIEWBOX_HEIGHT = 200;
-
 
   /*
    * منتصف المنحنى رأسيًا.
    */
   const BASE_Y = 90;
 
-
   /*
    * قوة الانحناء.
-   *
-   * 55 = الانحناء الحالي.
-   *
-   * إذا أردت انحناء أكبر لاحقًا:
-   * 65 أو 70.
    */
   const AMPLITUDE = 55;
 
-
   /*
-   * عدد الموجات داخل عرض الصفحة.
-   *
-   * 1 = موجة كاملة.
+   * موجة واحدة كاملة داخل الشاشة.
    */
   const WAVES = 1;
 
-
   /*
-   * المسافة بين كل نقطة والثانية.
-   *
-   * زيادة النقاط لا تضغطها.
-   * الـTrack يتمدد بدل ذلك.
+   * المسافة بين النقاط داخل الـTrack.
    */
   const STOP_GAP = 240;
 
-
   /*
-   * مساحة من بداية ونهاية Track.
+   * نعطي أول وآخر نقطة مساحة حتى
+   * لا تنقص الدائرة من طرف الشاشة.
    */
-  const SIDE_PADDING = 0;
-
+  const SIDE_PADDING = 80;
 
 
   /* =========================================================
-     معادلة المنحنى
+     CURVE FUNCTION
+
+     نفس الدالة تستخدم لرسم الخط
+     ولحساب مكان كل دائرة.
      ========================================================= */
 
-  /*
-   * هذه المعادلة تستخدم مرتين:
-   *
-   * 1. لرسم الخط.
-   * 2. لتحديد Y لكل نقطة.
-   *
-   * لذلك الخط والنقاط
-   * يستخدمون نفس المنحنى.
-   */
   const getCurveY = (
     progress: number
   ) => {
-
     return (
       BASE_Y +
       Math.sin(
@@ -137,159 +106,122 @@ const InteractiveTimeline = ({
   };
 
 
-
   /* =========================================================
-     إنشاء PATH الخط
+     CREATE CURVE PATH
+
+     يبدأ عند 0 وينتهي عند VIEWBOX_WIDTH.
+     لا يوجد extension من البداية أو النهاية.
      ========================================================= */
 
- const createCurvePath = () => {
-  const segments = 300;
-  let path = "";
+  const createCurvePath = () => {
+    const segments = 300;
 
-  for (let i = 0; i <= segments; i++) {
-    const progress = i / segments;
+    let path = "";
 
-    const x = progress * VIEWBOX_WIDTH;
-    const y = getCurveY(progress);
+    for (
+      let i = 0;
+      i <= segments;
+      i++
+    ) {
+      const progress =
+        i / segments;
 
-    if (i === 0) {
-      path += `M ${x} ${y}`;
-    } else {
-      path += ` L ${x} ${y}`;
+      const x =
+        progress *
+        VIEWBOX_WIDTH;
+
+      const y =
+        getCurveY(
+          progress
+        );
+
+      if (i === 0) {
+        path =
+          `M ${x} ${y}`;
+      } else {
+        path +=
+          ` L ${x} ${y}`;
+      }
     }
-  }
 
-  // نمد نفس المنحنى من الطرفين فقط
-  // بدون تغيير أي جزء من الخط الأصلي
-  const extension = 150;
-
-  const startProgress = -extension / VIEWBOX_WIDTH;
-  const startX = -extension;
-  const startY = getCurveY(startProgress);
-
-  const endProgress = 1 + extension / VIEWBOX_WIDTH;
-  const endX = VIEWBOX_WIDTH + extension;
-  const endY = getCurveY(endProgress);
-
-  // نفس الخط الأصلي + تمديد للطرفين
-  const originalPath = path;
-
-  return `
-    M ${startX} ${startY}
-    L 0 ${getCurveY(0)}
-    ${originalPath.replace(/^M [^L]+/, "")}
-    L ${endX} ${endY}
-  `;
-};
+    return path;
+  };
 
   const curvePath =
     createCurvePath();
 
 
-
   /* =========================================================
-     عرض Track النقاط
+     TRACK WIDTH
+
+     الخط نفسه يبقى بعرض الشاشة.
+
+     الـTrack الخاص بالنقاط فقط هو الذي
+     يتمدد عندما يزيد عدد النقاط.
      ========================================================= */
 
-  /*
-   * الخط لا يستخدم هذا العرض.
-   *
-   * هذا العرض للنقاط فقط.
-   *
-   * كلما زادت النقاط:
-   * يزيد Track
-   * ويمكن سحبه.
-   */
   const trackWidth =
     Math.max(
-
       viewportWidth,
 
       SIDE_PADDING * 2 +
-
         Math.max(
           stops.length - 1,
           0
         ) *
-
-        STOP_GAP
-
+          STOP_GAP
     );
 
 
-
   /* =========================================================
-     مراقبة عرض الصفحة + السحب
+     VIEWPORT + SCROLL
      ========================================================= */
 
   useEffect(() => {
-
     const element =
       ref.current;
-
 
     if (!element) {
       return;
     }
 
-
     /*
-     * معرفة العرض الحقيقي
-     * للجزء الظاهر.
+     * نأخذ عرض المنطقة الحقيقي بدل
+     * الاعتماد على window.innerWidth.
      */
     const updateViewport =
       () => {
-
         setViewportWidth(
           element.clientWidth ||
             1200
         );
-
       };
 
-
     /*
-     * معرفة مقدار السحب.
-     *
-     * الموقع RTL لذلك scrollLeft
-     * قد يكون سالبًا حسب المتصفح.
-     *
-     * Math.abs يعطينا مقدار
-     * الحركة الفعلي.
+     * مقدار السحب في RTL يختلف بين
+     * المتصفحات، لذلك نحتاج القيمة المطلقة.
      */
     const updateScroll =
       () => {
-
         setScrollX(
           Math.abs(
             element.scrollLeft
           )
         );
-
       };
-
 
     updateViewport();
     updateScroll();
 
-
-    /*
-     * إذا تغير عرض الشاشة.
-     */
     const observer =
       new ResizeObserver(
         updateViewport
       );
 
-
     observer.observe(
       element
     );
 
-
-    /*
-     * تحديث النقاط أثناء السحب.
-     */
     element.addEventListener(
       "scroll",
       updateScroll,
@@ -298,36 +230,27 @@ const InteractiveTimeline = ({
       }
     );
 
-
     return () => {
-
       observer.disconnect();
-
 
       element.removeEventListener(
         "scroll",
         updateScroll
       );
-
     };
-
   }, [ref]);
 
 
-
   /* =========================================================
-     عند تغيير Timeline
+     RESET ACTIVE STOP
      ========================================================= */
 
   useEffect(() => {
-
     setActive(
       stops[0]?.id ||
         null
     );
-
   }, [stops]);
-
 
 
   /* =========================================================
@@ -335,7 +258,6 @@ const InteractiveTimeline = ({
      ========================================================= */
 
   return (
-
     <div
       className="timeline-fixed-shell"
       style={
@@ -345,276 +267,178 @@ const InteractiveTimeline = ({
         } as React.CSSProperties
       }
     >
-
-
       {/* =====================================================
-          الخط المنحني
+          FIXED CURVE
 
-          مهم:
-          الخط خارج منطقة السحب.
-          لذلك يبقى ثابتًا.
+          المنحنى ثابت داخل الجزء الظاهر.
+          لا يتمدد مع عدد النقاط.
           ===================================================== */}
 
       <svg
-
         className="timeline-journey-line"
-
         viewBox={
           `0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`
         }
-
         preserveAspectRatio="none"
-
         aria-hidden="true"
-
       >
-
         <path
-
-          pathLength="1"
-
           d={curvePath}
-
           fill="none"
-
           stroke="currentColor"
-
           strokeWidth="1.5"
-
           vectorEffect="non-scaling-stroke"
-
         />
-
       </svg>
 
 
-
       {/* =====================================================
-          منطقة السحب
-
-          النقاط فقط موجودة هنا.
+          SCROLL AREA
           ===================================================== */}
 
       <div
-
         ref={ref}
-
         {...handlers}
-
         dir="rtl"
-
         className="
           drag-scroll
           timeline-journey-wrap
         "
-
       >
-
-
         {/* ===================================================
-            Track المتحرك
+            MOVING TRACK
+
+            هذا فقط يتمدد ويتحرك.
             =================================================== */}
 
         <div
-
           className="
             timeline-journey-stage
           "
-
           style={{
             width:
               `${trackWidth}px`,
           }}
-
         >
-
-
           <div
             className="
               timeline-journey
             "
           >
-
-
             {stops.map(
               (
                 stop,
                 i
               ) => {
-
-
                 /* ===========================================
-                   X النقطة داخل Track
+                   X داخل الـTrack من اليمين
                    =========================================== */
 
-                /*
-                 * لأن الموقع RTL:
-                 *
-                 * النقطة الأولى تبدأ
-                 * من جهة اليمين.
-                 */
                 const pointFromRight =
-
                   SIDE_PADDING +
-
                   i *
                     STOP_GAP;
-
 
 
                 /* ===========================================
                    X الحالي بعد السحب
                    =========================================== */
 
-                /*
-                 * عند السحب:
-                 *
-                 * scrollX يزيد.
-                 *
-                 * وبالتالي النقطة تتحرك
-                 * داخل الشاشة.
-                 */
                 const visibleFromRight =
-
                   pointFromRight -
-
                   scrollX;
 
 
-
                 /*
-                 * SVG يحسب X
-                 * من اليسار.
-                 *
-                 * لذلك نحول:
-                 *
-                 * Right → Left
+                 * SVG يبدأ X من اليسار،
+                 * بينما ترتيبنا RTL.
                  */
                 const visibleX =
-
                   viewportWidth -
-
                   visibleFromRight;
 
 
-
                 /* ===========================================
-                   تحويل X إلى Progress
+                   X -> PROGRESS
+
+                   لا نستخدم clamp.
+
+                   لو النقطة خارج الشاشة تستمر
+                   المعادلة طبيعيًا، لذلك عندما
+                   تدخل الشاشة لا تقفز.
                    =========================================== */
 
-                /*
-                 * 0 = أول الخط.
-                 * 1 = آخر الخط.
-                 */
-                const rawProgress =
-
+                const progress =
                   viewportWidth > 0
-
                     ? visibleX /
                       viewportWidth
-
                     : 0.5;
 
 
-
-                /*
-                 * النقاط الموجودة خارج
-                 * الشاشة لا نسمح لها
-                 * بتغيير المعادلة
-                 * خارج 0 → 1.
-                 */
-                const progress =
-
-                  Math.max(
-
-                    0,
-
-                    Math.min(
-                      1,
-                      rawProgress
-                    )
-
-                  );
-
-
-
                 /* ===========================================
-                   Y النقطة من نفس الخط
+                   Y
+
+                   هذه بالضبط نفس الدالة
+                   المستخدمة لرسم الخط.
                    =========================================== */
 
                 const curveY =
-
                   getCurveY(
                     progress
                   );
 
 
-
                 /*
-                 * الخط ظاهر بارتفاع 10rem.
-                 *
-                 * 10rem ≈ 160px
-                 * على الحجم الافتراضي.
-                 *
-                 * لذلك نحول إحداثية
-                 * SVG إلى مساحة الخط.
-                 */
-                const dotY =
+                 * نحول Y من إحداثيات SVG
+                 * إلى نسبة مئوية.
 
+                 * الـCSS سيستخدم نفس ارتفاع
+                 * الـSVG وبالتالي لا نعتمد
+                 * على 160px أو rem ثابتة.
+                 */
+                const dotYPercent =
                   (
                     curveY /
                     VIEWBOX_HEIGHT
                   ) *
-
-                  160;
-
+                  100;
 
 
                 /* ===========================================
-                   محتوى النقطة
+                   STOP CONTENT
                    =========================================== */
 
                 const body = (
-
                   <div
-
                     className={
                       `timeline-stop ${
                         active ===
                         stop.id
-
                           ? "is-active"
-
                           : ""
                       }`
                     }
-
                     style={
                       {
                         "--dot-y":
-                          `${dotY}px`,
+                          `${dotYPercent}%`,
                       } as React.CSSProperties
                     }
-
                     onMouseEnter={
                       () =>
                         setActive(
                           stop.id
                         )
                     }
-
                     onClick={
                       () =>
                         setActive(
                           stop.id
                         )
                     }
-
                   >
-
-
                     {/* ===============================
-                        الدائرة
+                        DOT
                         =============================== */}
 
                     <span
@@ -622,59 +446,43 @@ const InteractiveTimeline = ({
                         timeline-dot
                       "
                     >
-
                       {String(
                         i + 1
                       ).padStart(
                         2,
                         "0"
                       )}
-
                     </span>
 
 
-
                     {/* ===============================
-                        الصورة
+                        IMAGE
                         =============================== */}
 
-                    {
-                      stop.image_url &&
-                      (
-
-                        <div
-                          className="
-                            timeline-stop-image
-                          "
-                        >
-
-                          <img
-
-                            src={
-                              stop.image_url
-                            }
-
-                            alt={
-                              stop.title
-                            }
-
-                            loading="lazy"
-
-                            draggable={
-                              false
-                            }
-
-                          />
-
-                        </div>
-
-                      )
-                    }
-
+                    {stop.image_url && (
+                      <div
+                        className="
+                          timeline-stop-image
+                        "
+                      >
+                        <img
+                          src={
+                            stop.image_url
+                          }
+                          alt={
+                            stop.title
+                          }
+                          loading="lazy"
+                          draggable={
+                            false
+                          }
+                        />
+                      </div>
+                    )}
 
 
                     {/* ===============================
-                        النص
+                        COPY
                         =============================== */}
 
                     <div
@@ -682,21 +490,13 @@ const InteractiveTimeline = ({
                         timeline-stop-copy
                       "
                     >
-
-
-                      {
-                        stop.label &&
-                        (
-
-                          <h6>
-                            {
-                              stop.label
-                            }
-                          </h6>
-
-                        )
-                      }
-
+                      {stop.label && (
+                        <h6>
+                          {
+                            stop.label
+                          }
+                        </h6>
+                      )}
 
                       <h4>
                         {
@@ -704,104 +504,67 @@ const InteractiveTimeline = ({
                         }
                       </h4>
 
-
-                      {
-                        stop.description &&
-                        (
-
-                          <p>
-                            {
-                              stop.description
-                            }
-                          </p>
-
-                        )
-                      }
-
-
+                      {stop.description && (
+                        <p>
+                          {
+                            stop.description
+                          }
+                        </p>
+                      )}
                     </div>
-
                   </div>
-
                 );
 
 
-
                 /* ===========================================
-                   إذا مرتبطة بمقال
+                   LINKED ARTICLE
                    =========================================== */
 
                 if (
-
                   stop.article_id &&
-
                   stop.articles
                     ?.status ===
                     "approved"
-
                 ) {
-
                   return (
-
                     <Link
-
                       key={
                         stop.id
                       }
-
                       to={
                         `/articles/${stop.article_id}`
                       }
-
                       draggable={
                         false
                       }
-
                     >
-
                       {body}
-
                     </Link>
-
                   );
-
                 }
 
 
-
                 /* ===========================================
-                   نقطة بدون مقال
+                   NORMAL STOP
                    =========================================== */
 
                 return (
-
                   <div
                     key={
                       stop.id
                     }
                   >
-
                     {body}
-
                   </div>
-
                 );
-
               }
             )}
-
-
           </div>
-
         </div>
-
       </div>
-
     </div>
-
   );
 };
-
 
 
 /* =========================================================
@@ -813,58 +576,39 @@ const ImageTimeline = ({
 }: {
   timeline: any;
 }) => {
-
   const { ref, handlers } =
     useDragScroll<HTMLDivElement>();
-
 
   if (
     !timeline.image_url
   ) {
-
     return null;
-
   }
 
-
   return (
-
     <div
-
       ref={ref}
-
       {...handlers}
-
       className="
         drag-scroll
         image-timeline-stage
       "
-
     >
-
       <img
-
         src={
           timeline.image_url
         }
-
         alt={
           timeline.title
         }
-
         loading="lazy"
-
         draggable={
           false
         }
-
       />
-
     </div>
-
   );
 };
-
 
 
 /* =========================================================
@@ -873,36 +617,27 @@ const ImageTimeline = ({
 
 export const HomeTimelines =
   () => {
-
-
     /* =======================================================
-       جلب Timelines
+       GET TIMELINES
        ======================================================= */
 
     const {
       data: timelines,
     } = useQuery({
-
       queryKey: [
         "home-timelines",
       ],
 
-
       queryFn:
         async () => {
-
-
           const {
             data,
             error,
           } =
-
             await supabase
-
               .from(
                 "timelines"
               )
-
               .select(`
                 *,
                 timeline_stops (
@@ -919,12 +654,10 @@ export const HomeTimelines =
                   )
                 )
               `)
-
               .eq(
                 "is_active",
                 true
               )
-
               .order(
                 "display_order",
                 {
@@ -933,101 +666,72 @@ export const HomeTimelines =
                 }
               );
 
-
           if (error) {
-
             throw error;
-
           }
-
 
           return (
             data || []
           );
-
         },
-
     });
 
 
-
     /* =======================================================
-       Active Timeline
+       ACTIVE TIMELINE
        ======================================================= */
 
     const [
       activeId,
       setActiveId,
     ] =
-
       useState<
         string | null
       >(null);
 
 
-
     /* =======================================================
-       Timelines التي فيها محتوى
+       VISIBLE TIMELINES
        ======================================================= */
 
     const visible =
-
       (
         timelines || []
       ).filter(
         (t: any) => {
-
-
           const stops =
-
             t.timeline_stops ||
             [];
 
-
           return (
-
             t.timeline_type ===
             "image"
-
               ? !!t.image_url
-
               : stops.length >
                 0
-
           );
-
         }
       );
 
 
-
     /* =======================================================
-       اختيار أول Timeline
+       SELECT FIRST TIMELINE
        ======================================================= */
 
     useEffect(
       () => {
-
-
         if (
-
           visible.length &&
-
           !visible.some(
             (t: any) =>
               t.id ===
               activeId
           )
-
         ) {
-
           setActiveId(
             visible[0].id
           );
-
         }
-
-
       },
       [
         visible,
@@ -1036,74 +740,58 @@ export const HomeTimelines =
     );
 
 
-
     /* =======================================================
-       لا يوجد محتوى
+       EMPTY
        ======================================================= */
 
     if (
       !visible.length
     ) {
-
       return null;
-
     }
 
 
-
     /* =======================================================
-       Timeline الحالي
+       CURRENT TIMELINE
        ======================================================= */
 
     const active: any =
-
       visible.find(
         (t: any) =>
           t.id ===
           activeId
       ) ||
-
       visible[0];
 
 
-
     /* =======================================================
-       ترتيب النقاط
+       SORT STOPS
        ======================================================= */
 
     const stops = [
-
       ...(
         active.timeline_stops ||
         []
       ),
-
     ].sort(
-
       (
         a: any,
         b: any
       ) =>
-
         (
           a.display_order ??
           0
         ) -
-
         (
           b.display_order ??
           0
         )
-
     );
 
 
-
     const isImage =
-
       active.timeline_type ===
       "image";
-
 
 
     /* =======================================================
@@ -1111,16 +799,13 @@ export const HomeTimelines =
        ======================================================= */
 
     return (
-
       <section
         className="
           timelines-section
         "
       >
-
-
         {/* ===================================================
-            العنوان
+            HEADING
             =================================================== */}
 
         <div
@@ -1130,32 +815,20 @@ export const HomeTimelines =
             px-6
           "
         >
-
-
           <Reveal
-
             variant="side"
-
             className="
               section-heading-row
             "
-
           >
-
-
             <div>
-
-
               <p
                 className="
                   editorial-kicker
                 "
               >
-
                 ارسم طريقك
-
               </p>
-
 
               <h2
                 className="
@@ -1163,48 +836,31 @@ export const HomeTimelines =
                   mt-2
                 "
               >
-
                 خطوط المُنحنى
-
               </h2>
-
-
             </div>
-
-
 
             <p
               className="
                 section-hint
               "
             >
-
               اسحب لتتبع الخط
-
             </p>
-
-
           </Reveal>
 
 
-
           {/* =================================================
-              أزرار Timelines
+              TIMELINE BUTTONS
               ================================================= */}
 
           <Reveal
-
             variant="side"
-
             className="
               mt-6
             "
-
           >
-
-
             <div
-
               className="
                 flex
                 flex-wrap
@@ -1212,107 +868,71 @@ export const HomeTimelines =
                 gap-2
                 md:gap-3
               "
-
               dir="rtl"
-
             >
+              {visible.map(
+                (
+                  t: any
+                ) => {
+                  const color =
+                    t.color ||
+                    "#00343A";
 
+                  const isActive =
+                    t.id ===
+                    active.id;
 
-              {
-                visible.map(
-                  (
-                    t: any
-                  ) => {
+                  return (
+                    <button
+                      key={
+                        t.id
+                      }
+                      type="button"
+                      onClick={
+                        () =>
+                          setActiveId(
+                            t.id
+                          )
+                      }
+                      aria-pressed={
+                        isActive
+                      }
+                      style={{
+                        borderRadius:
+                          "1.5rem",
 
+                        background:
+                          color,
 
-                    const color =
+                        color:
+                          "#fff",
 
-                      t.color ||
+                        borderColor:
+                          color,
 
-                      "#00343A";
-
-
-                    const isActive =
-
-                      t.id ===
-                      active.id;
-
-
-                    return (
-
-                      <button
-
-                        key={
-                          t.id
-                        }
-
-                        type="button"
-
-                        onClick={
-                          () =>
-                            setActiveId(
-                              t.id
-                            )
-                        }
-
-                        aria-pressed={
+                        opacity:
                           isActive
-                        }
-
-                        style={{
-
-                          borderRadius:
-                            "1.5rem",
-
-                          background:
-                            color,
-
-                          color:
-                            "#fff",
-
-                          borderColor:
-                            color,
-
-                          opacity:
-                            isActive
-                              ? 1
-                              : 0.75,
-
-                        }}
-
-                        className={
-                          `rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${
-                            isActive
-
-                              ? "ring-2 ring-white/40 shadow-lg"
-
-                              : ""
-                          }`
-                        }
-
-                      >
-
-                        {
-                          t.title
-                        }
-
-                      </button>
-
-                    );
-
-                  }
-                )
-              }
-
-
+                            ? 1
+                            : 0.75,
+                      }}
+                      className={
+                        `rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${
+                          isActive
+                            ? "ring-2 ring-white/40 shadow-lg"
+                            : ""
+                        }`
+                      }
+                    >
+                      {
+                        t.title
+                      }
+                    </button>
+                  );
+                }
+              )}
             </div>
-
-
           </Reveal>
-
-
         </div>
-
 
 
         {/* ===================================================
@@ -1320,114 +940,76 @@ export const HomeTimelines =
             =================================================== */}
 
         <Reveal
-
           key={
             active.id
           }
-
           variant="clip"
-
           className="
             mt-8
             md:mt-12
           "
-
         >
-
-
           {/* =================================================
-              الوصف
+              DESCRIPTION
               ================================================= */}
 
-          {
-            active.description &&
-            (
-
-              <div
+          {active.description && (
+            <div
+              className="
+                container
+                mx-auto
+                mb-7
+                px-6
+              "
+            >
+              <p
                 className="
-                  container
-                  mx-auto
-                  mb-7
-                  px-6
+                  max-w-2xl
+                  text-muted-foreground
                 "
               >
-
-                <p
-                  className="
-                    max-w-2xl
-                    text-muted-foreground
-                  "
-                >
-
-                  {
-                    active.description
-                  }
-
-                </p>
-
-              </div>
-
-            )
-          }
-
+                {
+                  active.description
+                }
+              </p>
+            </div>
+          )}
 
 
           {/* =================================================
               CONTENT
               ================================================= */}
 
-          {
-            isImage
-
-              ? (
-
-                <div
-                  className="
-                    px-6
-                    md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]
-                  "
-                >
-
-                  <ImageTimeline
-                    timeline={
-                      active
-                    }
-                  />
-
-                </div>
-
-              )
-
-              : (
-
-                <InteractiveTimeline
-
-                  key={
-                    active.id
-                  }
-
-                  stops={
-                    stops
-                  }
-
-                  color={
-                    active.color ||
-                    "#00343A"
-                  }
-
-                />
-
-              )
-          }
-
-
+          {isImage ? (
+            <div
+              className="
+                px-6
+                md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]
+              "
+            >
+              <ImageTimeline
+                timeline={
+                  active
+                }
+              />
+            </div>
+          ) : (
+            <InteractiveTimeline
+              key={
+                active.id
+              }
+              stops={
+                stops
+              }
+              color={
+                active.color ||
+                "#00343A"
+              }
+            />
+          )}
         </Reveal>
-
-
       </section>
-
     );
-
   };
 
 
