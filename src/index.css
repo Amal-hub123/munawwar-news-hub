@@ -3071,3 +3071,51 @@ margin-left: 15px;
     width: 100%;
   }
 }
+
+
+/* =========================================================
+   HERO MOBILE — SAFE SPACE BETWEEN IMAGE & WAVES
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .calm-hero {
+    min-height: 100svh;
+
+    /* مساحة فعلية للمحتوى + منطقة آمنة للـwaves */
+    padding-bottom: 17rem;
+  }
+
+  .calm-hero-content {
+    margin-bottom: 0;
+  }
+
+}
+
+
+/* الشاشات القصيرة مثل 375 × 667 */
+@media (max-width: 700px) and (max-height: 720px) {
+
+  .calm-hero {
+    min-height: auto;
+
+    /*
+     * بدل إجبار كل شيء داخل 100svh
+     * نخلي ارتفاع Hero يتبع المحتوى.
+     */
+    height: auto;
+
+    padding-bottom: 17rem;
+  }
+
+}
+
+
+/* الأجهزة الصغيرة جدًا */
+@media (max-width: 420px) {
+
+  .calm-hero {
+    padding-bottom: 17rem;
+  }
+
+}
