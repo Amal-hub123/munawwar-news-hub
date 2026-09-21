@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1789981026008,
+      "tag": "0000_create_number_stories_and_audio_episodes",
+      "breakpoints": true
+    }
+  ]
+}
