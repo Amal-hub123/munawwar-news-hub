@@ -48,6 +48,8 @@ import ManageCategories from "./pages/admin/ManageCategories";
 import ManageDailyStories from "./pages/admin/ManageDailyStories";
 import ManageAudienceQuestions from "./pages/admin/ManageAudienceQuestions";
 import ManageTimelines from "./pages/admin/ManageTimelines";
+import ManageNumberStories from "./pages/admin/ManageNumberStories";
+import ManageAudioEpisodes from "./pages/admin/ManageAudioEpisodes";
 import ManageQuoteCards from "./pages/admin/ManageQuoteCards";
 import WriterQuoteCards from "./pages/writer/QuoteCards";
 import NotFound from "./pages/NotFound";
