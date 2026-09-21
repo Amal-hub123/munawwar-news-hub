@@ -244,6 +244,54 @@ export type Database = {
           },
         ]
       }
+      audio_episodes: {
+        Row: {
+          audio_url: string
+          category: string | null
+          cover_image_url: string | null
+          created_at: string
+          description: string | null
+          display_order: number
+          duration_label: string | null
+          episode_date: string | null
+          id: string
+          is_active: boolean
+          is_featured: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          audio_url: string
+          category?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          duration_label?: string | null
+          episode_date?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          audio_url?: string
+          category?: string | null
+          cover_image_url?: string | null
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          duration_label?: string | null
+          episode_date?: string | null
+          id?: string
+          is_active?: boolean
+          is_featured?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       categories: {
         Row: {
           color: string
@@ -400,6 +448,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      number_stories: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          id: string
+          is_active: boolean
+          link_url: string | null
+          number_value: string
+          source: string | null
+          story_date: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          number_value: string
+          source?: string | null
+          story_date?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          id?: string
+          is_active?: boolean
+          link_url?: string | null
+          number_value?: string
+          source?: string | null
+          story_date?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       product_requests: {
         Row: {
