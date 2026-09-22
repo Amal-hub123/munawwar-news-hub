@@ -21,18 +21,25 @@ const NumberStory = () => {
   useEffect(() => {
     supabase
       .from("number_stories")
-      .select("id, number_value, title, description, source, story_date, link_url")
+      .select(
+        "id, number_value, title, description, source, story_date, link_url"
+      )
       .eq("is_active", true)
       .order("display_order")
-      .then(({ data }) => setItems((data as NumberStory[]) || []));
+      .then(({ data }) => {
+        setItems((data as NumberStory[]) || []);
+      });
   }, []);
 
   if (!items.length) return null;
-  const item = items[Math.min(active, items.length - 1)];
+
+  const safeActive = Math.min(active, items.length - 1);
+  const item = items[safeActive];
 
   return (
     <section id="the-number" className="number-section">
       <div className="container mx-auto px-6">
+
         <Reveal variant="clip">
           <div className="number-section__heading">
             <h2>الرقم</h2>
@@ -42,29 +49,62 @@ const NumberStory = () => {
 
         <Reveal variant="clip">
           <div className="number-story">
-            <div className="number-story__figure">
-              <span className="number-card__value">{item.number_value}</span>
+
+            <div
+              key={`figure-${item.id}`}
+              className="number-story__figure"
+            >
+              <span className="number-card__value number-value-enter">
+                {item.number_value}
+              </span>
             </div>
 
-            <div className="number-card__body">
-              <h3 className="number-card__title">{item.title}</h3>
-              {item.description && <p className="number-card__text">{item.description}</p>}
+            <div
+              key={`body-${item.id}`}
+              className="number-card__body number-body-enter"
+            >
+              <h3 className="number-card__title">
+                {item.title}
+              </h3>
+
+              {item.description && (
+                <p className="number-card__text">
+                  {item.description}
+                </p>
+              )}
 
               <div className="number-card__meta">
-                {item.source && <span>المصدر: {item.source}</span>}
+                {item.source && (
+                  <span>المصدر: {item.source}</span>
+                )}
+
                 {item.story_date && (
-                  <span>{new Date(item.story_date).toLocaleDateString("ar-SA")}</span>
+                  <span>
+                    {new Date(item.story_date).toLocaleDateString(
+                      "ar-SA"
+                    )}
+                  </span>
                 )}
               </div>
 
               {item.link_url && (
-                <Button asChild variant="link" className="number-card__link">
-                  <a href={item.link_url} target="_blank" rel="noreferrer">
-                    اقرأ ما وراء الرقم <ArrowLeft className="w-4 h-4" />
+                <Button
+                  asChild
+                  variant="link"
+                  className="number-card__link"
+                >
+                  <a
+                    href={item.link_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    اقرأ ما وراء الرقم
+                    <ArrowLeft className="w-4 h-4" />
                   </a>
                 </Button>
               )}
             </div>
+
           </div>
         </Reveal>
 
@@ -72,6 +112,7 @@ const NumberStory = () => {
           {items.length > 1 ? (
             <div className="number-history">
               <span>أرقام سابقة</span>
+
               <div className="number-dots" dir="rtl">
                 {items.map((n, i) => (
                   <Button
@@ -81,17 +122,25 @@ const NumberStory = () => {
                     size="icon"
                     onClick={() => setActive(i)}
                     aria-label={n.title}
-                    className={`number-dot ${i === active ? "is-active" : ""}`}
+                    aria-pressed={i === safeActive}
+                    className={`number-dot ${
+                      i === safeActive ? "is-active" : ""
+                    }`}
                   />
                 ))}
               </div>
             </div>
-          ) : <span />}
+          ) : (
+            <span />
+          )}
+
           <p>يتغيّر كل فترة ليحكي رواية أخرى.</p>
         </div>
+
         <div className="number-wave" aria-hidden="true">
           <span />
         </div>
+
       </div>
     </section>
   );
