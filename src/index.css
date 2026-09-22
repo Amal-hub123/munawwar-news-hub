@@ -4926,3 +4926,241 @@ margin-left: 15px;
     transition: none !important;
   }
 }
+
+
+/* =========================================================
+   تموجات قسم الرقم
+   ========================================================= */
+
+.number-wave {
+  position: absolute;
+
+  z-index: 1;
+
+  left: -15%;
+  right: -15%;
+
+  bottom: -4.8rem;
+
+  height: 9rem;
+
+  pointer-events: none;
+
+  border-top:
+    .48rem solid
+    hsl(var(--muted));
+
+  border-radius:
+    48% 52%
+    0 0;
+
+  transform-origin: center;
+
+  will-change: transform;
+
+  animation:
+    mainNumberWave
+    5.5s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+/* الموجة الأساسية */
+
+@keyframes mainNumberWave {
+
+  0% {
+    transform:
+      translate3d(-2%, 3px, 0)
+      rotate(-2.3deg)
+      scaleX(1);
+  }
+
+  50% {
+    transform:
+      translate3d(1%, -6px, 0)
+      rotate(-.8deg)
+      scaleX(1.025);
+  }
+
+  100% {
+    transform:
+      translate3d(3%, 2px, 0)
+      rotate(-1.8deg)
+      scaleX(.99);
+  }
+}
+
+
+/* =========================================================
+   الموجة الثانية — Primary
+   ========================================================= */
+
+.number-wave::before {
+  content: "";
+
+  position: absolute;
+
+  left: -4%;
+  right: -4%;
+
+  top: .8rem;
+
+  height: 8rem;
+
+  border-top:
+    .22rem solid
+    hsl(var(--primary) / .55);
+
+  border-radius:
+    54% 46%
+    0 0;
+
+  will-change: transform;
+
+  animation:
+    numberWavePrimary
+    7s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes numberWavePrimary {
+
+  0% {
+    transform:
+      translate3d(-3%, 3px, 0)
+      rotate(1deg)
+      scaleX(.98);
+  }
+
+  50% {
+    transform:
+      translate3d(2%, -5px, 0)
+      rotate(-.5deg)
+      scaleX(1.04);
+  }
+
+  100% {
+    transform:
+      translate3d(4%, 2px, 0)
+      rotate(.7deg)
+      scaleX(1);
+  }
+}
+
+
+/* =========================================================
+   الموجة الثالثة — Secondary
+   ========================================================= */
+
+.number-wave::after {
+  content: "";
+
+  position: absolute;
+
+  left: -7%;
+  right: -7%;
+
+  top: 1.65rem;
+
+  height: 7rem;
+
+  border-top:
+    .14rem solid
+    hsl(var(--secondary) / .35);
+
+  border-radius:
+    45% 55%
+    0 0;
+
+  will-change: transform;
+
+  animation:
+    numberWaveSecondary
+    9s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes numberWaveSecondary {
+
+  0% {
+    transform:
+      translate3d(3%, -2px, 0)
+      rotate(-1deg)
+      scaleX(1.03);
+  }
+
+  45% {
+    transform:
+      translate3d(-2%, 5px, 0)
+      rotate(.8deg)
+      scaleX(.97);
+  }
+
+  100% {
+    transform:
+      translate3d(-4%, -3px, 0)
+      rotate(-.3deg)
+      scaleX(1.02);
+  }
+}
+
+.number-wave span {
+  position: absolute;
+
+  width: 22rem;
+  height: 7rem;
+
+  left: 25%;
+  top: -1.5rem;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      hsl(var(--primary) / .10),
+      transparent 68%
+    );
+
+  filter: blur(10px);
+
+  animation:
+    numberWaveGlow
+    8s
+    ease-in-out
+    infinite
+    alternate;
+
+  pointer-events: none;
+}
+
+
+@keyframes numberWaveGlow {
+
+  from {
+    transform:
+      translateX(-25%)
+      scale(.85);
+
+    opacity: .45;
+  }
+
+  to {
+    transform:
+      translateX(90%)
+      scale(1.15);
+
+    opacity: .9;
+  }
+}
+
+
