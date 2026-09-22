@@ -3129,6 +3129,7 @@ margin-left: 15px;
   padding: 3.5rem 0 2rem;
   /* background-color: #ede9e1; */
   background-image: radial-gradient(hsl(var(--secondary) / .13) 1px, transparent 1px);
+  background-color: #ede9e1;
 }
 .number-section__heading,
 .audio-section__heading { position: relative; z-index: 2; }
