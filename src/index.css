@@ -5042,7 +5042,7 @@ margin-left: 15px;
    الموجة الرابعة الممتلئة
    نفس لون خلفية قسم مسموع
    ========================================================= */
-/* 
+
 .number-wave > span {
   position: absolute;
   z-index: 2;
@@ -5053,23 +5053,23 @@ margin-left: 15px;
     نبدأها تحت الخطوط بقليل
     حتى تظل الخطوط الثلاثة ظاهرة
   */
-  /* top: 34px;
+  top: 34px;
 
   left: -8%;
-  right: -8%; */
+  right: -8%;
 
   /*
     نمدها كثير للأسفل
     حتى تغطي نهاية قسم الرقم بالكامل
   */
-  /* height: 12rem;
+  height: 12rem;
 
-  background: #ede9e1; */
+  background: #ede9e1;
 
   /*
     شكل الموجة نفسها
   */
-  /* border-radius:
+  border-radius:
     50% 50%
     0 0 / 30% 30% 0 0;
 
@@ -5085,7 +5085,7 @@ margin-left: 15px;
     ease-in-out
     infinite
     alternate;
-} */ 
+}
 
 
 /* =========================================================
@@ -5692,5 +5692,384 @@ margin-left: 15px;
   .audio-player__cover img,
   .audio-more > h3 {
     animation: none !important;
+  }
+}
+
+
+/* ==================================================================
+   ALMONHNA — MOTION V2
+   Stronger editorial motion while preserving layout and responsive.
+   ================================================================== */
+
+/* ---------- Section titles: more visible, distinctive living motion ---------- */
+.editorial-home .section-heading-row,
+.editorial-home .ask-editorial-heading,
+.editorial-home .number-section__heading,
+.editorial-home .audio-section__heading {
+  position: relative;
+}
+
+.editorial-home .editorial-heading,
+.editorial-home .ask-editorial-heading h2,
+.editorial-home .number-section__heading h2,
+.editorial-home .audio-section__heading h2 {
+  animation: titleLivingV2 5.8s cubic-bezier(.45,0,.55,1) infinite !important;
+  transform-origin: right center;
+  will-change: transform, filter;
+}
+
+@keyframes titleLivingV2 {
+  0%, 100% {
+    transform: translate3d(0,0,0) rotate(0deg);
+    filter: drop-shadow(0 0 0 hsl(var(--primary) / 0));
+  }
+  35% {
+    transform: translate3d(-5px,-4px,0) rotate(-.15deg);
+    filter: drop-shadow(7px 8px 12px hsl(var(--primary) / .05));
+  }
+  70% {
+    transform: translate3d(2px,2px,0) rotate(.08deg);
+    filter: drop-shadow(-4px 5px 10px hsl(var(--secondary) / .04));
+  }
+}
+
+/* animated orange underline/highlight */
+.editorial-home .editorial-heading,
+.editorial-home .ask-editorial-heading h2 {
+  background-size: 100% 100%;
+  animation:
+    titleLivingV2 5.8s cubic-bezier(.45,0,.55,1) infinite,
+    titleHighlightV2 4.8s ease-in-out infinite alternate !important;
+}
+
+@keyframes titleHighlightV2 {
+  0%   { background-position: 10% 88%; }
+  50%  { background-position: -4px 91%; }
+  100% { background-position: 8px 86%; }
+}
+
+/* small moving accent beside major headings */
+.editorial-home .section-heading-row::after,
+.editorial-home .ask-editorial-heading::after,
+.editorial-home .number-section__heading::after,
+.editorial-home .audio-section__heading::after {
+  content: "";
+  display: block;
+  width: 2.4rem;
+  height: 3px;
+  margin-top: .65rem;
+  margin-inline-start: .15rem;
+  border-radius: 999px;
+  background: hsl(var(--primary));
+  transform-origin: right center;
+  animation: headingAccentV2 3.8s ease-in-out infinite;
+  opacity: .75;
+}
+
+@keyframes headingAccentV2 {
+  0%,100% { transform: translateX(0) scaleX(.55); opacity: .55; }
+  50% { transform: translateX(-9px) scaleX(1.15); opacity: 1; }
+}
+
+/* ---------- "الأعمدة" and similar heading zones ---------- */
+.mosaic-section .section-heading-row,
+.latest-editorial .section-heading-row,
+.journey-section .section-heading-row,
+.timelines-section .section-heading-row,
+.writers-section .section-heading-row,
+.question-transform-section .section-heading-row {
+  animation: headingRowFloatV2 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes headingRowFloatV2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* ---------- From your question an article begins ---------- */
+.ask-editorial-heading h2 {
+  display: inline-block;
+  transform-origin: right bottom;
+}
+
+.ask-editorial-heading p {
+  animation: askSubtitleV2 6.5s ease-in-out infinite;
+}
+
+@keyframes askSubtitleV2 {
+  0%,100% { transform: translate3d(0,0,0); opacity: .78; }
+  50% { transform: translate3d(-5px,-3px,0); opacity: 1; }
+}
+
+.ask-editorial-panel {
+  animation: askPanelV2 7.5s ease-in-out infinite !important;
+}
+
+@keyframes askPanelV2 {
+  0%,100% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 18px 50px -42px hsl(var(--foreground) / .55);
+  }
+  50% {
+    transform: translateY(-7px) scale(1.003);
+    box-shadow: 0 28px 58px -38px hsl(var(--foreground) / .62);
+  }
+}
+
+.ask-content-item {
+  animation: askItemV2 6.5s ease-in-out infinite;
+}
+.ask-content-item:nth-child(2n) { animation-delay: -2.2s; }
+.ask-content-item:nth-child(3n) { animation-delay: -4.1s; }
+
+@keyframes askItemV2 {
+  0%,100% { transform: translateX(0); }
+  50% { transform: translateX(-4px); }
+}
+
+/* ---------- Daily Story / مقال اليوم: move the whole article, not only image ---------- */
+.daily-story-composition {
+  animation: dailyStoryCardV2 7s ease-in-out infinite !important;
+  transform-origin: center;
+  will-change: transform, box-shadow;
+}
+
+@keyframes dailyStoryCardV2 {
+  0%,100% {
+    transform: translate3d(0,0,0) rotate(0deg);
+    box-shadow: 0 22px 60px hsl(var(--foreground) / .12);
+  }
+  50% {
+    transform: translate3d(0,-8px,0) rotate(.12deg);
+    box-shadow: 0 32px 72px hsl(var(--foreground) / .17);
+  }
+}
+
+.daily-story-copy {
+  animation: dailyStoryCopyV2 8.5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes dailyStoryCopyV2 {
+  0%,100% { transform: translate3d(0,0,0); }
+  50% { transform: translate3d(-5px,-3px,0); }
+}
+
+.daily-story-copy h3 {
+  animation: dailyStoryTitleV2 5.5s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+@keyframes dailyStoryTitleV2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.daily-story-media {
+  animation: dailyMediaFloatV2 6.8s ease-in-out infinite !important;
+}
+
+@keyframes dailyMediaFloatV2 {
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(0,-7px,0) scale(1.006); }
+}
+
+.daily-story-media img {
+  animation: dailyImageDriftV2 10s ease-in-out infinite alternate !important;
+}
+
+@keyframes dailyImageDriftV2 {
+  0% { transform: scale(1.025) translate3d(0,0,0); }
+  45% { transform: scale(1.075) translate3d(-1.2%,-.8%,0); }
+  100% { transform: scale(1.105) translate3d(.7%,-1.2%,0); }
+}
+
+/* ---------- Hero phrases: smoother fade + blur + vertical glide ---------- */
+.calm-hero-stage {
+  animation: heroStageV2 6.8s ease-in-out infinite !important;
+}
+
+@keyframes heroStageV2 {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -7px; }
+}
+
+.calm-hero-phrase {
+  opacity: 0;
+  transform: translate3d(0,22px,0) scale(.985);
+  filter: blur(8px);
+  transition:
+    opacity 1.05s ease,
+    transform 1.35s cubic-bezier(.22,1,.36,1),
+    filter 1.15s ease !important;
+  will-change: opacity, transform, filter;
+}
+
+.calm-hero-phrase.is-active {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  filter: blur(0);
+  animation: heroActivePhraseV2 6s ease-in-out infinite;
+}
+
+@keyframes heroActivePhraseV2 {
+  0%,100% { translate: 0 0; }
+  50% { translate: -5px -5px; }
+}
+
+/* moving highlight inside the active phrase */
+.calm-hero-phrase .mark {
+  background-size: 100% .42em;
+  animation: heroMarkV2 3.6s ease-in-out infinite alternate;
+}
+
+@keyframes heroMarkV2 {
+  from { background-position: 0 88%; }
+  to { background-position: -8px 92%; }
+}
+
+/* Hero image gets a little more life */
+.hero-article-slider {
+  animation: heroSliderV2 6.5s ease-in-out infinite !important;
+}
+
+@keyframes heroSliderV2 {
+  0%,100% { transform: translate3d(0,0,0) rotate(0deg); }
+  50% { transform: translate3d(0,-9px,0) rotate(.25deg); }
+}
+
+.hero-article-slide > img {
+  animation: heroImageV2 11s ease-in-out infinite alternate !important;
+}
+
+@keyframes heroImageV2 {
+  0% { transform: scale(1.025) translate3d(0,0,0); }
+  50% { transform: scale(1.07) translate3d(-1%,-.7%,0); }
+  100% { transform: scale(1.095) translate3d(.6%,-1%,0); }
+}
+
+/* ---------- Cards: raise global ambient amplitude one step ---------- */
+.latest-card {
+  animation: latestCardV2 6.5s ease-in-out infinite !important;
+}
+@keyframes latestCardV2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.mosaic-cell {
+  animation: mosaicCardV2 7.5s ease-in-out infinite !important;
+}
+@keyframes mosaicCardV2 {
+  0%,100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-5px) rotate(.08deg); }
+}
+
+.writer-point {
+  animation: writerPointV2 7s ease-in-out infinite !important;
+}
+@keyframes writerPointV2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.question-transform {
+  animation: questionCardV2 6.8s ease-in-out infinite !important;
+}
+@keyframes questionCardV2 {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+/* ---------- Curves / dots: visibly alive but still editorial ---------- */
+.journey-curve {
+  animation: journeyCurveV2 6s ease-in-out infinite alternate !important;
+}
+@keyframes journeyCurveV2 {
+  from { transform: translate3d(-.6%,5px,0) scaleX(1.012) scaleY(.99); }
+  to { transform: translate3d(.6%,-7px,0) scaleX(1.035) scaleY(1.025); }
+}
+
+.timeline-journey-line {
+  animation: timelineCurveV2 6.2s ease-in-out infinite alternate !important;
+}
+@keyframes timelineCurveV2 {
+  from { transform: translate3d(-.45%,4px,0) scaleX(1.004); }
+  to { transform: translate3d(.45%,-6px,0) scaleX(1.014); }
+}
+
+/* ---------- Mobile: noticeable but controlled ---------- */
+@media (max-width: 700px) {
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2 {
+    animation-duration: 7s !important;
+  }
+
+  .daily-story-composition {
+    animation-name: dailyStoryMobileV2 !important;
+  }
+
+  @keyframes dailyStoryMobileV2 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  .calm-hero-phrase.is-active {
+    animation-name: heroActivePhraseMobileV2;
+  }
+
+  @keyframes heroActivePhraseMobileV2 {
+    0%,100% { translate: 0 0; }
+    50% { translate: -2px -4px; }
+  }
+
+  .hero-article-slider {
+    animation-name: heroSliderMobileV2 !important;
+  }
+
+  @keyframes heroSliderMobileV2 {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2,
+  .editorial-home .section-heading-row,
+  .editorial-home .ask-editorial-heading::after,
+  .editorial-home .number-section__heading::after,
+  .editorial-home .audio-section__heading::after,
+  .daily-story-composition,
+  .daily-story-copy,
+  .daily-story-copy h3,
+  .daily-story-media,
+  .daily-story-media img,
+  .calm-hero-stage,
+  .calm-hero-phrase.is-active,
+  .calm-hero-phrase .mark,
+  .hero-article-slider,
+  .hero-article-slide > img,
+  .ask-editorial-panel,
+  .ask-editorial-heading p,
+  .ask-content-item,
+  .latest-card,
+  .mosaic-cell,
+  .writer-point,
+  .question-transform,
+  .journey-curve,
+  .timeline-journey-line {
+    animation: none !important;
+  }
+
+  .calm-hero-phrase {
+    filter: none !important;
+    transition: none !important;
   }
 }
