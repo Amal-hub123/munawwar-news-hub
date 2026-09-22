@@ -6073,3 +6073,311 @@ margin-left: 15px;
     transition: none !important;
   }
 }
+
+
+/* ==================================================================
+   ALMONHNA — MOTION V3 OVERRIDES
+   Rule:
+   1) Internal text stays still.
+   2) Cards move as one unit.
+   3) Main section titles only move vertically, slightly faster.
+   ================================================================== */
+
+/* =========================================================
+   1. STOP INTERNAL TEXT MOTION
+   ========================================================= */
+
+/* مقال اليوم — الكارد يتحرك، المحتوى الداخلي ثابت */
+.daily-story-copy,
+.daily-story-copy h3,
+.daily-story-copy p,
+.daily-story-copy small,
+.daily-story-copy a {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* من سؤالك يبدأ مقال */
+.ask-editorial-heading p,
+.ask-content-item,
+.ask-content-question,
+.ask-content-article,
+.ask-panel-footer,
+.ask-form-column,
+.ask-content-column {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* أسئلة أصبحت محتوى — لا حركة للنصوص داخل الكارد */
+.question-transform .question-origin,
+.question-transform .question-origin p,
+.question-transform .question-origin span,
+.question-transform .question-result > div,
+.question-transform .question-result h3,
+.question-transform .question-result p,
+.question-transform .question-curve span {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* Latest cards */
+.latest-card-copy,
+.latest-card-copy h3,
+.latest-card-copy p,
+.latest-card-footer,
+.latest-card-categories,
+.latest-sequence {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* الأعمدة */
+.mosaic-cell strong,
+.mosaic-cell span,
+.mosaic-cell p {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* الكتّاب */
+.writer-info,
+.writer-info h3,
+.writer-info p,
+.writer-topics,
+.writer-topic,
+.writer-socials {
+  animation: none !important;
+}
+
+/* =========================================================
+   2. CARDS MOVE AS A COMPLETE UNIT
+   ========================================================= */
+
+/* مقال اليوم */
+.daily-story-composition {
+  animation: wholeCardFloatV3 6.2s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+/* من سؤالك يبدأ مقال — اللوحة كاملة */
+.ask-editorial-panel {
+  animation: wholeCardFloatV3 6.8s ease-in-out infinite -1.8s !important;
+  will-change: transform;
+}
+
+/* أسئلة أصبحت محتوى — كل كارد كوحدة واحدة */
+.question-transform {
+  animation: wholeCardFloatV3 6.4s ease-in-out infinite !important;
+  will-change: transform;
+}
+
+.question-transform:nth-child(2n) {
+  animation-delay: -2.1s !important;
+}
+
+.question-transform:nth-child(3n) {
+  animation-delay: -4s !important;
+}
+
+/* Latest */
+.latest-card {
+  animation: wholeCardFloatSoftV3 7s ease-in-out infinite !important;
+}
+.latest-card:nth-child(2n) { animation-delay: -2.4s !important; }
+.latest-card:nth-child(3n) { animation-delay: -4.6s !important; }
+
+/* الأعمدة */
+.mosaic-cell {
+  animation: wholeCardFloatSoftV3 7.4s ease-in-out infinite !important;
+}
+.mosaic-cell:nth-child(2n) { animation-delay: -2.7s !important; }
+.mosaic-cell:nth-child(3n) { animation-delay: -4.8s !important; }
+
+/* writer card + image container stay visually together */
+.writer-point {
+  animation: wholeCardFloatSoftV3 7.2s ease-in-out infinite !important;
+}
+.writer-point:nth-child(even) {
+  animation-delay: -3.5s !important;
+}
+
+@keyframes wholeCardFloatV3 {
+  0%, 100% {
+    transform: translate3d(0,0,0);
+  }
+  50% {
+    transform: translate3d(0,-8px,0);
+  }
+}
+
+@keyframes wholeCardFloatSoftV3 {
+  0%, 100% {
+    transform: translate3d(0,0,0);
+  }
+  50% {
+    transform: translate3d(0,-5px,0);
+  }
+}
+
+/* =========================================================
+   3. TITLES — ONLY UP/DOWN, FASTER THAN THE REST
+   ========================================================= */
+
+/* إزالة حركة اليمين/اليسار والـrotate/filter السابقة */
+.editorial-home .editorial-heading,
+.editorial-home .ask-editorial-heading h2,
+.editorial-home .number-section__heading h2,
+.editorial-home .audio-section__heading h2 {
+  transform-origin: center !important;
+  filter: none !important;
+
+  animation:
+    sectionTitleVerticalV3 3.7s ease-in-out infinite,
+    titleHighlightV3 4.4s ease-in-out infinite alternate !important;
+
+  will-change: transform;
+}
+
+/* حركة واضحة لكن صغيرة: مكانه نفسه، فقط فوق وتحت */
+@keyframes sectionTitleVerticalV3 {
+  0%, 100% {
+    transform: translate3d(0,0,0);
+  }
+
+  50% {
+    transform: translate3d(0,-6px,0);
+  }
+}
+
+/* الهايلايت يتحرك بخفة بدون تحريك العنوان أفقيًا */
+@keyframes titleHighlightV3 {
+  0% {
+    background-position: 0 88%;
+  }
+
+  100% {
+    background-position: 0 92%;
+  }
+}
+
+/* نوقف تحريك صف العنوان كامل حتى لا تتحرك النصوص المرافقة معه */
+.editorial-home .section-heading-row,
+.editorial-home .ask-editorial-heading,
+.editorial-home .number-section__heading,
+.editorial-home .audio-section__heading {
+  animation: none !important;
+  transform: none;
+}
+
+/* نخلي الـaccent حي لكن بدون سحب العنوان معه */
+.editorial-home .section-heading-row::after,
+.editorial-home .ask-editorial-heading::after,
+.editorial-home .number-section__heading::after,
+.editorial-home .audio-section__heading::after {
+  animation: headingAccentVerticalV3 3.3s ease-in-out infinite !important;
+}
+
+@keyframes headingAccentVerticalV3 {
+  0%, 100% {
+    transform: translateY(0) scaleX(.7);
+    opacity: .6;
+  }
+  50% {
+    transform: translateY(-3px) scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   4. HERO
+   Keep phrase transition fade/blur, but no extra internal wandering
+   ========================================================= */
+
+.calm-hero-phrase.is-active {
+  animation: none !important;
+  translate: none !important;
+}
+
+/* الهيرو كمنطقة كاملة يتنفس بخفة */
+.calm-hero-stage {
+  animation: heroStageVerticalV3 5.2s ease-in-out infinite !important;
+}
+
+@keyframes heroStageVerticalV3 {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -5px; }
+}
+
+/* الانتقال نفسه يبقى Fade + Blur + vertical glide */
+.calm-hero-phrase {
+  opacity: 0;
+  transform: translate3d(0,18px,0) scale(.99);
+  filter: blur(7px);
+
+  transition:
+    opacity 1.05s ease,
+    transform 1.25s cubic-bezier(.22,1,.36,1),
+    filter 1.05s ease !important;
+}
+
+.calm-hero-phrase.is-active {
+  opacity: 1;
+  transform: translate3d(0,0,0) scale(1);
+  filter: blur(0);
+}
+
+/* =========================================================
+   5. MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2 {
+    animation:
+      sectionTitleVerticalMobileV3 4s ease-in-out infinite,
+      titleHighlightV3 4.8s ease-in-out infinite alternate !important;
+  }
+
+  @keyframes sectionTitleVerticalMobileV3 {
+    0%, 100% { transform: translate3d(0,0,0); }
+    50% { transform: translate3d(0,-4px,0); }
+  }
+
+  .daily-story-composition,
+  .ask-editorial-panel,
+  .question-transform {
+    animation-name: wholeCardFloatMobileV3 !important;
+  }
+
+  @keyframes wholeCardFloatMobileV3 {
+    0%,100% { transform: translate3d(0,0,0); }
+    50% { transform: translate3d(0,-5px,0); }
+  }
+}
+
+/* =========================================================
+   6. REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .daily-story-composition,
+  .ask-editorial-panel,
+  .question-transform,
+  .latest-card,
+  .mosaic-cell,
+  .writer-point,
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2,
+  .editorial-home .section-heading-row::after,
+  .editorial-home .ask-editorial-heading::after,
+  .editorial-home .number-section__heading::after,
+  .editorial-home .audio-section__heading::after,
+  .calm-hero-stage {
+    animation: none !important;
+  }
+}
