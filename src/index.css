@@ -5038,54 +5038,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   الموجة الرابعة الممتلئة
-   نفس لون خلفية قسم مسموع
-   ========================================================= */
 
-.number-wave > span {
-  position: absolute;
-  z-index: 2;
-
-  display: block;
-
-  /*
-    نبدأها تحت الخطوط بقليل
-    حتى تظل الخطوط الثلاثة ظاهرة
-  */
-  top: 34px;
-
-  left: -8%;
-  right: -8%;
-
-  /*
-    نمدها كثير للأسفل
-    حتى تغطي نهاية قسم الرقم بالكامل
-  */
-  height: 12rem;
-
-  background: #ede9e1;
-
-  /*
-    شكل الموجة نفسها
-  */
-  border-radius:
-    50% 50%
-    0 0 / 30% 30% 0 0;
-
-  pointer-events: none;
-
-  transform-origin: center top;
-
-  will-change: transform;
-
-  animation:
-    filledWaveMove
-    8s
-    ease-in-out
-    infinite
-    alternate;
-}
 
 
 /* =========================================================
