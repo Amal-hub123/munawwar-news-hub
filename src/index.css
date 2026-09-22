@@ -4927,75 +4927,43 @@ margin-left: 15px;
   }
 }
 
-
 /* =========================================================
-   تموجات قسم الرقم
+   NUMBER WAVES
+   ثلاث موجات متحركة وواضحة
    ========================================================= */
 
 .number-wave {
   position: absolute;
-
   z-index: 1;
 
-  left: -15%;
-  right: -15%;
+  left: -10%;
+  right: -10%;
 
-  bottom: -4.8rem;
+  /* نرفعها شوي حتى تظهر الموجات */
+  bottom: -2.8rem;
 
-  height: 9rem;
+  height: 8rem;
 
   pointer-events: none;
 
-  border-top:
-    .48rem solid
-    hsl(var(--muted));
+  /* الموجة الأولى */
+  border-top: 3px solid hsl(var(--muted));
 
-  border-radius:
-    48% 52%
-    0 0;
+  border-radius: 50% 50% 0 0;
 
   transform-origin: center;
 
-  will-change: transform;
-
   animation:
-    mainNumberWave
-    5.5s
+    waveOne
+    6s
     ease-in-out
     infinite
     alternate;
 }
 
 
-/* الموجة الأساسية */
-
-@keyframes mainNumberWave {
-
-  0% {
-    transform:
-      translate3d(-2%, 3px, 0)
-      rotate(-2.3deg)
-      scaleX(1);
-  }
-
-  50% {
-    transform:
-      translate3d(1%, -6px, 0)
-      rotate(-.8deg)
-      scaleX(1.025);
-  }
-
-  100% {
-    transform:
-      translate3d(3%, 2px, 0)
-      rotate(-1.8deg)
-      scaleX(.99);
-  }
-}
-
-
 /* =========================================================
-   الموجة الثانية — Primary
+   الموجة الثانية — الأخضر
    ========================================================= */
 
 .number-wave::before {
@@ -5003,59 +4971,32 @@ margin-left: 15px;
 
   position: absolute;
 
-  left: -4%;
-  right: -4%;
+  left: -3%;
+  right: -3%;
 
-  top: .8rem;
+  top: 11px;
 
-  height: 8rem;
+  height: 7rem;
 
   border-top:
-    .22rem solid
-    hsl(var(--primary) / .55);
+    2px solid
+    hsl(var(--secondary) / .45);
 
   border-radius:
-    54% 46%
+    47% 53%
     0 0;
 
-  will-change: transform;
-
   animation:
-    numberWavePrimary
-    7s
+    waveTwo
+    7.5s
     ease-in-out
     infinite
     alternate;
 }
 
 
-@keyframes numberWavePrimary {
-
-  0% {
-    transform:
-      translate3d(-3%, 3px, 0)
-      rotate(1deg)
-      scaleX(.98);
-  }
-
-  50% {
-    transform:
-      translate3d(2%, -5px, 0)
-      rotate(-.5deg)
-      scaleX(1.04);
-  }
-
-  100% {
-    transform:
-      translate3d(4%, 2px, 0)
-      rotate(.7deg)
-      scaleX(1);
-  }
-}
-
-
 /* =========================================================
-   الموجة الثالثة — Secondary
+   الموجة الثالثة — لون الـPrimary
    ========================================================= */
 
 .number-wave::after {
@@ -5063,25 +5004,23 @@ margin-left: 15px;
 
   position: absolute;
 
-  left: -7%;
-  right: -7%;
+  left: -5%;
+  right: -5%;
 
-  top: 1.65rem;
+  top: 23px;
 
-  height: 7rem;
+  height: 6.5rem;
 
   border-top:
-    .14rem solid
-    hsl(var(--secondary) / .35);
+    2px solid
+    hsl(var(--primary) / .55);
 
   border-radius:
-    45% 55%
+    53% 47%
     0 0;
 
-  will-change: transform;
-
   animation:
-    numberWaveSecondary
+    waveThree
     9s
     ease-in-out
     infinite
@@ -5089,78 +5028,149 @@ margin-left: 15px;
 }
 
 
-@keyframes numberWaveSecondary {
+/* =========================================================
+   حركة الموجة الأولى
+   ========================================================= */
+
+@keyframes waveOne {
 
   0% {
     transform:
-      translate3d(3%, -2px, 0)
-      rotate(-1deg)
-      scaleX(1.03);
+      translateX(-2%)
+      translateY(0)
+      rotate(-1deg);
   }
 
-  45% {
+  50% {
     transform:
-      translate3d(-2%, 5px, 0)
-      rotate(.8deg)
-      scaleX(.97);
+      translateX(1%)
+      translateY(-7px)
+      rotate(.3deg);
   }
 
   100% {
     transform:
-      translate3d(-4%, -3px, 0)
-      rotate(-.3deg)
-      scaleX(1.02);
+      translateX(3%)
+      translateY(2px)
+      rotate(-.5deg);
   }
 }
+
+
+/* =========================================================
+   حركة الموجة الثانية
+   ========================================================= */
+
+@keyframes waveTwo {
+
+  0% {
+    transform:
+      translateX(3%)
+      translateY(2px)
+      rotate(.8deg);
+  }
+
+  50% {
+    transform:
+      translateX(-1%)
+      translateY(-8px)
+      rotate(-.5deg);
+  }
+
+  100% {
+    transform:
+      translateX(-4%)
+      translateY(3px)
+      rotate(.5deg);
+  }
+}
+
+
+/* =========================================================
+   حركة الموجة الثالثة
+   ========================================================= */
+
+@keyframes waveThree {
+
+  0% {
+    transform:
+      translateX(-3%)
+      translateY(-2px)
+      rotate(-.5deg);
+  }
+
+  50% {
+    transform:
+      translateX(2%)
+      translateY(7px)
+      rotate(.7deg);
+  }
+
+  100% {
+    transform:
+      translateX(4%)
+      translateY(-5px)
+      rotate(-.2deg);
+  }
+}
+
+
+/* =========================================================
+   Glow متحرك
+   ========================================================= */
 
 .number-wave span {
   position: absolute;
 
-  width: 22rem;
-  height: 7rem;
+  z-index: -1;
 
-  left: 25%;
   top: -1.5rem;
+  left: 10%;
+
+  width: 22rem;
+  height: 5rem;
 
   border-radius: 50%;
 
   background:
     radial-gradient(
       ellipse,
-      hsl(var(--primary) / .10),
-      transparent 68%
+      hsl(var(--primary) / .12),
+      transparent 70%
     );
 
-  filter: blur(10px);
+  filter: blur(16px);
+
+  pointer-events: none;
 
   animation:
-    numberWaveGlow
-    8s
+    waveGlowMove
+    9s
     ease-in-out
     infinite
     alternate;
-
-  pointer-events: none;
 }
 
 
-@keyframes numberWaveGlow {
+@keyframes waveGlowMove {
 
-  from {
+  0% {
     transform:
-      translateX(-25%)
+      translateX(-10%)
       scale(.85);
 
-    opacity: .45;
+    opacity: .35;
   }
 
-  to {
+  50% {
+    opacity: .8;
+  }
+
+  100% {
     transform:
-      translateX(90%)
+      translateX(250%)
       scale(1.15);
 
-    opacity: .9;
+    opacity: .4;
   }
 }
-
-
