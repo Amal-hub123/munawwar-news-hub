@@ -5053,23 +5053,23 @@ margin-left: 15px;
     نبدأها تحت الخطوط بقليل
     حتى تظل الخطوط الثلاثة ظاهرة
   */
-  top: 34px;
+  /* top: 34px;
 
   left: -8%;
-  right: -8%;
+  right: -8%; */
 
   /*
     نمدها كثير للأسفل
     حتى تغطي نهاية قسم الرقم بالكامل
   */
-  height: 12rem;
+  /* height: 12rem;
 
-  background: #ede9e1;
+  background: #ede9e1; */
 
   /*
     شكل الموجة نفسها
   */
-  border-radius:
+  /* border-radius:
     50% 50%
     0 0 / 30% 30% 0 0;
 
@@ -5085,7 +5085,7 @@ margin-left: 15px;
     ease-in-out
     infinite
     alternate;
-} */
+} */ 
 
 
 /* =========================================================
