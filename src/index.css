@@ -3220,9 +3220,9 @@ margin-left: 15px;
 .audio-waveform span:nth-child(7n) { height: 95%; }
 .audio-waveform span.is-played { background: hsl(var(--primary)); }
 .audio-duration { font-size: .7rem; color: hsl(var(--secondary-foreground) / .68); min-width: 2.5rem; }
-.audio-more { display: flex; min-width: 0; flex-direction: column; }
+.audio-more { display: flex; min-width: 0; flex-direction: column;  overflow-x: hidden; }
 .audio-more > h3 { font-size: 1rem; font-weight: 700; }
-.audio-list { display: flex; flex-direction: column; margin-top: .45rem; max-height: 15rem; overflow-y: auto; }
+.audio-list { display: flex; flex-direction: column; margin-top: .45rem; max-height: 15rem; overflow-y: auto;  overflow-x: hidden; }
 .audio-item {
   width: 100%; height: auto; display: flex; align-items: center; justify-content: flex-start; gap: .65rem; text-align: right;
   padding: .65rem 0; border-radius: 0; border-bottom: 1px solid hsl(var(--border) / .7);
