@@ -9,6 +9,8 @@ import CategoryMosaic from "@/components/home/CategoryMosaic";
 import HomeTimelines from "@/components/home/HomeTimelines";
 import WritersTrail from "@/components/home/WritersTrail";
 import AskSection from "@/components/home/AskSection";
+import NumberStory from "@/components/home/NumberStory";
+import AudioSection from "@/components/home/AudioSection";
 import Reveal from "@/components/motion/Reveal";
 import Footer from "@/components/Footer";
 
@@ -45,6 +47,8 @@ const Index = () => {
           </section> */}
 
           <WritersTrail />
+          <NumberStory />
+          <AudioSection />
           <AskSection />
         </div>
       </main>

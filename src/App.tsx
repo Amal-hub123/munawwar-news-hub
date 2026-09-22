@@ -96,6 +96,8 @@ const App = () => (
           <Route path="/admin/daily-stories" element={<AdminLayout><ManageDailyStories /></AdminLayout>} />
           <Route path="/admin/questions" element={<AdminLayout><ManageAudienceQuestions /></AdminLayout>} />
           <Route path="/admin/timelines" element={<AdminLayout><ManageTimelines /></AdminLayout>} />
+          <Route path="/admin/numbers" element={<AdminLayout><ManageNumberStories /></AdminLayout>} />
+          <Route path="/admin/audio" element={<AdminLayout><ManageAudioEpisodes /></AdminLayout>} />
           <Route path="/admin/store" element={<AdminLayout><ManageStoreProducts /></AdminLayout>} />
 
           <Route path="/admin/store/add" element={<AdminLayout><AddEditStoreProduct /></AdminLayout>} />

@@ -2,7 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog, Settings, Home, ShoppingBag, ClipboardList, Tags, Sparkles, MessageCircleQuestion, GitBranch, Quote } from "lucide-react";
+import { LayoutDashboard, FileText, Newspaper, Users, Package, LogOut, UserCog, Settings, Home, ShoppingBag, ClipboardList, Tags, Sparkles, MessageCircleQuestion, GitBranch, Quote, Hash, AudioLines } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface AdminLayoutProps {
@@ -68,6 +68,8 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: "/admin/daily-stories", icon: Sparkles, label: "مقال اليوم" },
     { path: "/admin/questions", icon: MessageCircleQuestion, label: "أسئلة الجمهور" },
     { path: "/admin/timelines", icon: GitBranch, label: "خطوط المُنحنى" },
+    { path: "/admin/numbers", icon: Hash, label: "الرقم" },
+    { path: "/admin/audio", icon: AudioLines, label: "مسموع" },
     { path: "/admin/quotes", icon: Quote, label: "بطاقات الاقتباس" },
 
     { path: "/admin/products", icon: Package, label: "المنتجات" },
