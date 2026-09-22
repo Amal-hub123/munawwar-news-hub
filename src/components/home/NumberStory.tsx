@@ -18,18 +18,42 @@ const NumberStory = () => {
   const [items, setItems] = useState<NumberStory[]>([]);
   const [active, setActive] = useState(0);
 
+  // useEffect(() => {
+  //   supabase
+  //     .from("number_stories")
+  //     .select(
+  //       "id, number_value, title, description, source, story_date, link_url"
+  //     )
+  //     .eq("is_active", true)
+  //     .order("display_order")
+  //     .then(({ data }) => {
+  //       setItems((data as NumberStory[]) || []);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    supabase
+  const loadNumberStories = async () => {
+    const { data, error } = await supabase
       .from("number_stories")
       .select(
         "id, number_value, title, description, source, story_date, link_url"
       )
       .eq("is_active", true)
-      .order("display_order")
-      .then(({ data }) => {
-        setItems((data as NumberStory[]) || []);
-      });
-  }, []);
+      .order("display_order");
+
+    console.log("NUMBER STORIES DATA:", data);
+    console.log("NUMBER STORIES ERROR:", error);
+
+    if (error) {
+      console.error("Failed to load number_stories:", error);
+      return;
+    }
+
+    setItems((data as NumberStory[]) || []);
+  };
+
+  loadNumberStories();
+}, []);
 
   if (!items.length) return null;
 
