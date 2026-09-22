@@ -3128,7 +3128,6 @@ margin-left: 15px;
   position: relative;
   isolation: isolate;
   overflow: hidden;
-
   padding: 3.5rem 0 2rem;
 
   background-image:
@@ -3139,7 +3138,11 @@ margin-left: 15px;
 
   background-size: 14px 14px;
 
-  animation: numberBackgroundMove 16s linear infinite;
+  animation:
+    numberBackgroundMove
+    16s
+    linear
+    infinite;
 }
 
 @keyframes numberBackgroundMove {
@@ -3752,16 +3755,11 @@ margin-left: 15px;
 /* =========================================================
    مسموع
    ========================================================= */
-
 .audio-section {
   position: relative;
-
   overflow: hidden;
 
-  padding:
-    3.5rem
-    0
-    4.5rem;
+  padding: 3.5rem 0 4.5rem;
 
   background-color: #ede9e1;
 
@@ -4929,7 +4927,7 @@ margin-left: 15px;
 
 /* =========================================================
    NUMBER WAVES
-   ثلاث موجات متحركة وواضحة
+   موجات الانتقال بين "الرقم" و "مسموع"
    ========================================================= */
 
 .number-wave {
@@ -4939,19 +4937,23 @@ margin-left: 15px;
   left: -10%;
   right: -10%;
 
-  /* نرفعها شوي حتى تظهر الموجات */
   bottom: -2.8rem;
 
   height: 8rem;
 
   pointer-events: none;
 
-  /* الموجة الأولى */
-  border-top: 3px solid hsl(var(--muted));
+  /* الخط الأساسي */
+  border-top:
+    3px solid
+    hsl(var(--muted));
 
-  border-radius: 50% 50% 0 0;
+  border-radius:
+    50% 50% 0 0;
 
   transform-origin: center;
+
+  will-change: transform;
 
   animation:
     waveOne
@@ -4963,13 +4965,14 @@ margin-left: 15px;
 
 
 /* =========================================================
-   الموجة الثانية — الأخضر
+   الموجة الثانية
    ========================================================= */
 
 .number-wave::before {
   content: "";
 
   position: absolute;
+  z-index: 3;
 
   left: -3%;
   right: -3%;
@@ -4983,8 +4986,11 @@ margin-left: 15px;
     hsl(var(--secondary) / .45);
 
   border-radius:
-    47% 53%
-    0 0;
+    47% 53% 0 0;
+
+  pointer-events: none;
+
+  will-change: transform;
 
   animation:
     waveTwo
@@ -4996,13 +5002,14 @@ margin-left: 15px;
 
 
 /* =========================================================
-   الموجة الثالثة — لون الـPrimary
+   الموجة الثالثة — البرتقالي
    ========================================================= */
 
 .number-wave::after {
   content: "";
 
   position: absolute;
+  z-index: 4;
 
   left: -5%;
   right: -5%;
@@ -5013,11 +5020,14 @@ margin-left: 15px;
 
   border-top:
     2px solid
-    hsl(var(--primary) / .55);
+    hsl(var(--primary) / .7);
 
   border-radius:
-    53% 47%
-    0 0;
+    53% 47% 0 0;
+
+  pointer-events: none;
+
+  will-change: transform;
 
   animation:
     waveThree
@@ -5029,7 +5039,57 @@ margin-left: 15px;
 
 
 /* =========================================================
-   حركة الموجة الأولى
+   الموجة الرابعة الممتلئة
+   نفس لون خلفية قسم مسموع
+   ========================================================= */
+
+.number-wave > span {
+  position: absolute;
+  z-index: 2;
+
+  display: block;
+
+  /*
+    نبدأها تحت الخطوط بقليل
+    حتى تظل الخطوط الثلاثة ظاهرة
+  */
+  top: 34px;
+
+  left: -8%;
+  right: -8%;
+
+  /*
+    نمدها كثير للأسفل
+    حتى تغطي نهاية قسم الرقم بالكامل
+  */
+  height: 12rem;
+
+  background: #ede9e1;
+
+  /*
+    شكل الموجة نفسها
+  */
+  border-radius:
+    50% 50%
+    0 0 / 30% 30% 0 0;
+
+  pointer-events: none;
+
+  transform-origin: center top;
+
+  will-change: transform;
+
+  animation:
+    filledWaveMove
+    8s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+/* =========================================================
+   حركة الخط الأول
    ========================================================= */
 
 @keyframes waveOne {
@@ -5058,7 +5118,7 @@ margin-left: 15px;
 
 
 /* =========================================================
-   حركة الموجة الثانية
+   حركة الخط الثاني
    ========================================================= */
 
 @keyframes waveTwo {
@@ -5087,7 +5147,7 @@ margin-left: 15px;
 
 
 /* =========================================================
-   حركة الموجة الثالثة
+   حركة الخط البرتقالي
    ========================================================= */
 
 @keyframes waveThree {
@@ -5116,61 +5176,29 @@ margin-left: 15px;
 
 
 /* =========================================================
-   Glow متحرك
+   حركة الموجة الممتلئة
    ========================================================= */
 
-.number-wave span {
-  position: absolute;
-
-  z-index: -1;
-
-  top: -1.5rem;
-  left: 10%;
-
-  width: 22rem;
-  height: 5rem;
-
-  border-radius: 50%;
-
-  background:
-    radial-gradient(
-      ellipse,
-      hsl(var(--primary) / .12),
-      transparent 70%
-    );
-
-  filter: blur(16px);
-
-  pointer-events: none;
-
-  animation:
-    waveGlowMove
-    9s
-    ease-in-out
-    infinite
-    alternate;
-}
-
-
-@keyframes waveGlowMove {
+@keyframes filledWaveMove {
 
   0% {
     transform:
-      translateX(-10%)
-      scale(.85);
-
-    opacity: .35;
+      translate3d(-2%, 1px, 0)
+      rotate(.4deg)
+      scaleX(1.01);
   }
 
   50% {
-    opacity: .8;
+    transform:
+      translate3d(1.5%, -7px, 0)
+      rotate(-.35deg)
+      scaleX(1.035);
   }
 
   100% {
     transform:
-      translateX(250%)
-      scale(1.15);
-
-    opacity: .4;
+      translate3d(3%, 3px, 0)
+      rotate(.25deg)
+      scaleX(.99);
   }
 }
