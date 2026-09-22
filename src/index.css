@@ -3120,140 +3120,1328 @@ margin-left: 15px;
   }
 
 }
+/* =========================================================
+   قسم الرقم
+   ========================================================= */
 
-/* ===== قسم الرقم ===== */
 .number-section {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+
   padding: 3.5rem 0 2rem;
-  /* background-color: #ede9e1; */
-  background-image: radial-gradient(hsl(var(--secondary) / .13) 1px, transparent 1px);
- background-size: 14px 14px;
+
+  background-image:
+    radial-gradient(
+      hsl(var(--secondary) / .13) 1px,
+      transparent 1px
+    );
+
+  background-size: 14px 14px;
 }
+
+
+/* ---------- العناوين المشتركة ---------- */
+
 .number-section__heading,
-.audio-section__heading { position: relative; z-index: 2; }
+.audio-section__heading {
+  position: relative;
+  z-index: 2;
+}
+
 .number-section__heading h2,
 .audio-section__heading h2 {
   position: relative;
+
   width: max-content;
+
   font-size: 1.55rem;
   font-weight: 700;
   line-height: 1.2;
 }
+
 .number-section__heading h2::after,
 .audio-section__heading h2::after {
   content: "";
+
   position: absolute;
+  z-index: -1;
+
   inset-inline: -.15rem;
   bottom: -.18rem;
+
   height: .28rem;
-  z-index: -1;
+
   border-radius: .15rem;
+
   background: hsl(var(--primary));
+
+  transform-origin: right center;
+
+  animation:
+    headingLineReveal
+    .8s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
 }
+
+@keyframes headingLineReveal {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+
 .number-section__heading p,
-.audio-section__heading p { margin-top: .75rem; color: hsl(var(--muted-foreground)); font-size: .88rem; }
-.number-story { position: relative; z-index: 2; display: grid; justify-items: center; padding: 3.5rem 1rem 4rem; text-align: center; }
-.number-story__figure { position: relative; isolation: isolate; display: flex; align-items: center; justify-content: center; }
+.audio-section__heading p {
+  margin-top: .75rem;
+
+  color: hsl(var(--muted-foreground));
+
+  font-size: .88rem;
+}
+
+
+/* ---------- قصة الرقم ---------- */
+
+.number-story {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  justify-items: center;
+
+  padding: 3.5rem 1rem 4rem;
+
+  text-align: center;
+}
+
+
+/* ---------- الرقم ---------- */
+
+.number-story__figure {
+  position: relative;
+
+  isolation: isolate;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .number-story__figure::after {
   content: "";
+
   position: absolute;
   z-index: -1;
+
   inset-inline: -1rem;
   bottom: .3rem;
+
   height: 1.5rem;
+
   border-radius: .3rem;
+
+  background: hsl(var(--primary));
+
+  transform-origin: right center;
+
+  animation:
+    numberMarkReveal
+    .85s
+    .08s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes numberMarkReveal {
+  from {
+    opacity: 0;
+    transform: scaleX(.08);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+
+.number-card__value {
+  display: block;
+
+  font-size: clamp(5.5rem, 14vw, 10rem);
+  font-weight: 700;
+
+  line-height: .85;
+
+  color: hsl(var(--foreground));
+
+  letter-spacing: 0;
+
+  will-change: transform, opacity;
+}
+
+
+.number-value-enter {
+  animation:
+    numberReveal
+    .7s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes numberReveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(28px)
+      scale(.94);
+
+    filter: blur(5px);
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+  }
+}
+
+
+/* ---------- محتوى الرقم ---------- */
+
+.number-card__body {
+  margin-top: 1.4rem;
+
+  max-width: 48rem;
+
+  will-change: transform, opacity;
+}
+
+
+.number-body-enter {
+  animation:
+    numberBodyReveal
+    .65s
+    .12s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes numberBodyReveal {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.number-card__title {
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+
+  font-weight: 500;
+
+  color: hsl(var(--foreground));
+}
+
+
+.number-card__text {
+  margin: .5rem auto 0;
+
+  max-width: 42rem;
+
+  color: hsl(var(--muted-foreground));
+
+  line-height: 1.8;
+
+  font-size: .9rem;
+}
+
+
+.number-card__meta {
+  margin-top: .55rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  gap: .35rem 1rem;
+
+  font-size: .72rem;
+
+  color: hsl(var(--muted-foreground));
+}
+
+
+.number-card__link {
+  position: relative;
+
+  margin-top: 1.1rem;
+
+  height: auto;
+
+  padding: .05rem .35rem;
+
+  color: hsl(var(--foreground));
+
+  text-decoration: none;
+
+  transition:
+    transform .3s ease,
+    color .3s ease;
+}
+
+
+.number-card__link:hover {
+  transform: translateX(-3px);
+}
+
+
+.number-card__link::after {
+  content: "";
+
+  position: absolute;
+  z-index: -1;
+
+  inset-inline: 0;
+  bottom: 0;
+
+  height: .3rem;
+
+  background: hsl(var(--primary));
+
+  transform-origin: right center;
+
+  transition: transform .35s ease;
+}
+
+
+.number-card__link:hover::after {
+  transform: scaleX(.75);
+}
+
+
+/* ---------- Footer ---------- */
+
+.number-section__footer {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+
+  align-items: end;
+  justify-content: space-between;
+
+  gap: 2rem;
+
+  padding-top: 1rem;
+
+  font-size: .78rem;
+
+  color: hsl(var(--muted-foreground));
+}
+
+
+.number-history {
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  gap: .45rem;
+}
+
+
+.number-history > span {
+  border-bottom:
+    1px solid
+    hsl(var(--muted-foreground) / .45);
+}
+
+
+.number-dots {
+  display: flex;
+
+  align-items: center;
+
+  gap: .3rem;
+}
+
+
+.number-dot {
+  width: .55rem;
+  min-width: .55rem;
+
+  height: .55rem;
+
+  padding: 0;
+
+  border-radius: 999px;
+
+  background: hsl(var(--border));
+
+  transition:
+    width .4s cubic-bezier(.22, 1, .36, 1),
+    transform .3s ease,
+    background .3s ease;
+}
+
+
+.number-dot:hover {
+  background: hsl(var(--primary) / .6);
+
+  transform: scale(1.15);
+}
+
+
+.number-dot.is-active {
+  width: 1.35rem;
+
   background: hsl(var(--primary));
 }
-.number-card__value {
-  font-size: clamp(5.5rem, 14vw, 10rem);
-  font-weight: 700; line-height: .85; color: hsl(var(--foreground));
-  letter-spacing: 0;
-}
-.number-card__body { margin-top: 1.4rem; max-width: 48rem; }
-.number-card__title { font-size: clamp(1.2rem, 2.6vw, 1.75rem); font-weight: 500; color: hsl(var(--foreground)); }
-.number-card__text { margin: .5rem auto 0; max-width: 42rem; color: hsl(var(--muted-foreground)); line-height: 1.8; font-size: .9rem; }
-.number-card__meta { margin-top: .55rem; display: flex; flex-wrap: wrap; justify-content: center; gap: .35rem 1rem; font-size: .72rem; color: hsl(var(--muted-foreground)); }
-.number-card__link { margin-top: 1.1rem; height: auto; padding: .05rem .35rem; color: hsl(var(--foreground)); text-decoration: none; }
-.number-card__link::after { content: ""; position: absolute; inset-inline: 0; bottom: 0; height: .3rem; z-index: -1; background: hsl(var(--primary)); }
-.number-section__footer { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; gap: 2rem; padding-top: 1rem; font-size: .78rem; color: hsl(var(--muted-foreground)); }
-.number-history { display: flex; flex-direction: column; align-items: flex-start; gap: .45rem; }
-.number-history > span { border-bottom: 1px solid hsl(var(--muted-foreground) / .45); }
-.number-dots { display: flex; gap: .3rem; }
-.number-dot { width: .55rem; min-width: .55rem; height: .55rem; padding: 0; border-radius: 999px; background: hsl(var(--border)); }
-.number-dot.is-active { width: 1.35rem; background: hsl(var(--primary)); }
-.number-wave { position: absolute; z-index: 1; inset-inline: -5%; bottom: -5rem; height: 8rem; border-top: .45rem solid hsl(var(--muted)); border-radius: 50% 50% 0 0; transform: rotate(-2deg); }
 
-/* ===== قسم مسموع ===== */
+
+/* ---------- الموجة السفلية ---------- */
+
+.number-wave {
+  position: absolute;
+  z-index: 1;
+
+  inset-inline: -7%;
+  bottom: -5rem;
+
+  height: 8rem;
+
+  border-top:
+    .45rem solid
+    hsl(var(--muted));
+
+  border-radius: 50% 50% 0 0;
+
+  will-change: transform;
+
+  animation:
+    numberWaveMove
+    8s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes numberWaveMove {
+  from {
+    transform:
+      translateX(-1.5%)
+      rotate(-2deg);
+  }
+
+  to {
+    transform:
+      translateX(1.5%)
+      rotate(-1deg);
+  }
+}
+
+
+
+/* =========================================================
+   قسم مسموع
+   ========================================================= */
+
 .audio-section {
   position: relative;
+
+  overflow: hidden;
+
   padding: 3.5rem 0 4.5rem;
+
   background-color: #ede9e1;
-  background-image: radial-gradient(circle, hsl(var(--primary) / .28) 1px, transparent 1.4px);
+
+  background-image:
+    radial-gradient(
+      circle,
+      hsl(var(--primary) / .28) 1px,
+      transparent 1.4px
+    );
+
   background-size: 1rem 1rem;
 }
+
+
+/* ---------- Panel ---------- */
+
 .audio-panel {
-  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(15rem, .8fr); gap: 2rem;
-  margin-top: 2rem; padding: 1.5rem; border-radius: .8rem;
-  border: 1px solid hsl(var(--border) / .7); background: hsl(var(--card) / .92);
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(15rem, .8fr);
+
+  gap: 2rem;
+
+  margin-top: 2rem;
+
+  padding: 1.5rem;
+
+  border:
+    1px solid
+    hsl(var(--border) / .7);
+
+  border-radius: .8rem;
+
+  background: hsl(var(--card) / .92);
+
   box-shadow: var(--card-shadow);
 }
-.audio-player { position: relative; overflow: hidden; display: grid; min-height: 18rem; border-radius: .65rem; background: hsl(var(--hero-wave-front)); color: hsl(var(--secondary-foreground)); }
-.audio-player__cover { position: absolute; inset: 0; opacity: .12; overflow: hidden; }
-.audio-player__cover img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
-.audio-player:hover .audio-player__cover img { transform: scale(1.06); }
-.audio-player__body { position: relative; z-index: 1; display: flex; flex-direction: column; padding: 1.4rem; }
-.audio-chip { align-self: flex-start; display: inline-block; font-size: .68rem; padding: .2rem .65rem; border-radius: 999px; background: hsl(var(--primary) / .75); color: hsl(var(--primary-foreground)); }
-.audio-player__title { margin-top: .9rem; font-size: clamp(1.15rem, 2vw, 1.55rem); font-weight: 700; color: hsl(var(--secondary-foreground)); }
-.audio-player__text { margin-top: .35rem; max-width: 32rem; font-size: .85rem; line-height: 1.8; color: hsl(var(--secondary-foreground) / .68); }
-.audio-controls { margin-top: auto; display: flex; align-items: center; gap: .7rem; padding-top: 2rem; direction: ltr; }
+
+
+/* ---------- المشغل ---------- */
+
+.audio-player {
+  position: relative;
+
+  overflow: hidden;
+
+  display: grid;
+
+  min-width: 0;
+  min-height: 18rem;
+
+  border-radius: .65rem;
+
+  background: hsl(var(--hero-wave-front));
+
+  color: hsl(var(--secondary-foreground));
+
+  animation:
+    audioPlayerReveal
+    .8s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes audioPlayerReveal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(14px)
+      scale(.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ---------- الغلاف ---------- */
+
+.audio-player__cover {
+  position: absolute;
+
+  inset: 0;
+
+  opacity: .12;
+
+  overflow: hidden;
+}
+
+
+.audio-player__cover::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      hsl(var(--hero-wave-front) / .85),
+      transparent 65%
+    );
+
+  pointer-events: none;
+}
+
+
+.audio-player__cover img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform: scale(1.03);
+
+  transition:
+    transform
+    1.2s
+    cubic-bezier(.22, 1, .36, 1);
+
+  will-change: transform;
+}
+
+
+.audio-player:hover .audio-player__cover img {
+  transform: scale(1.06);
+}
+
+
+.audio-player.is-playing .audio-player__cover img {
+  animation:
+    audioCoverMove
+    14s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+@keyframes audioCoverMove {
+  from {
+    transform:
+      scale(1.03)
+      translate3d(0, 0, 0);
+  }
+
+  to {
+    transform:
+      scale(1.11)
+      translate3d(-1.5%, -1%, 0);
+  }
+}
+
+
+/* ---------- محتوى المشغل ---------- */
+
+.audio-player__body {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 0;
+
+  padding: 1.4rem;
+}
+
+
+.audio-chip {
+  align-self: flex-start;
+
+  display: inline-block;
+
+  font-size: .68rem;
+
+  padding: .2rem .65rem;
+
+  border-radius: 999px;
+
+  background: hsl(var(--primary) / .75);
+
+  color: hsl(var(--primary-foreground));
+
+  animation:
+    audioTextReveal
+    .6s
+    .08s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+.audio-player__title {
+  margin-top: .9rem;
+
+  font-size:
+    clamp(1.15rem, 2vw, 1.55rem);
+
+  font-weight: 700;
+
+  color: hsl(var(--secondary-foreground));
+
+  animation:
+    audioTextReveal
+    .65s
+    .14s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+.audio-player__text {
+  margin-top: .35rem;
+
+  max-width: 32rem;
+
+  font-size: .85rem;
+
+  line-height: 1.8;
+
+  color:
+    hsl(var(--secondary-foreground) / .68);
+
+  animation:
+    audioTextReveal
+    .65s
+    .2s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes audioTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ---------- Controls ---------- */
+
+.audio-controls {
+  margin-top: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: .7rem;
+
+  padding-top: 2rem;
+
+  direction: ltr;
+}
+
+
+/* ---------- Play ---------- */
+
 .audio-play {
-  width: 2.9rem; height: 2.9rem; border-radius: 999px; flex: none;
-  display: grid; place-items: center; color: hsl(var(--primary-foreground)); background: hsl(var(--primary));
-  transition: transform .3s ease;
+  width: 2.9rem;
+  height: 2.9rem;
+
+  flex: none;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 999px;
+
+  color: hsl(var(--primary-foreground));
+
+  background: hsl(var(--primary));
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+
+  will-change: transform;
 }
-.audio-play:hover { background: hsl(var(--primary)); transform: scale(1.07); }
-.audio-waveform { flex: 1; height: 3.2rem; display: flex; align-items: center; gap: .15rem; overflow: hidden; }
-.audio-waveform span { flex: 1 1 2px; max-width: .22rem; height: 45%; border-radius: 999px; background: hsl(var(--secondary-foreground) / .28); }
-.audio-waveform span:nth-child(3n) { height: 78%; }
-.audio-waveform span:nth-child(4n) { height: 60%; }
-.audio-waveform span:nth-child(7n) { height: 95%; }
-.audio-waveform span.is-played { background: hsl(var(--primary)); }
-.audio-duration { font-size: .7rem; color: hsl(var(--secondary-foreground) / .68); min-width: 2.5rem; }
-.audio-more { display: flex; min-width: 0; flex-direction: column;  overflow-x: hidden; }
-.audio-more > h3 { font-size: 1rem; font-weight: 700; }
-.audio-list { display: flex; flex-direction: column; margin-top: .45rem; max-height: 15rem; overflow-y: auto;  overflow-x: hidden; }
+
+
+.audio-play:hover {
+  background: hsl(var(--primary));
+
+  transform: scale(1.07);
+}
+
+
+.audio-player.is-playing .audio-play {
+  animation:
+    playPulse
+    2.2s
+    ease-in-out
+    infinite;
+}
+
+
+@keyframes playPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0
+      hsl(var(--primary) / 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 .5rem
+      hsl(var(--primary) / .14);
+  }
+}
+
+
+/* ---------- Waveform ---------- */
+
+.audio-waveform {
+  flex: 1;
+
+  height: 3.2rem;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: .15rem;
+
+  overflow: hidden;
+}
+
+
+.audio-waveform span {
+  flex: 1 1 2px;
+
+  max-width: .22rem;
+
+  height: 45%;
+
+  border-radius: 999px;
+
+  background:
+    hsl(var(--secondary-foreground) / .28);
+
+  transform-origin: center;
+
+  transition:
+    background .3s ease;
+
+  will-change: transform;
+}
+
+
+.audio-waveform span:nth-child(3n) {
+  height: 78%;
+}
+
+
+.audio-waveform span:nth-child(4n) {
+  height: 60%;
+}
+
+
+.audio-waveform span:nth-child(7n) {
+  height: 95%;
+}
+
+
+.audio-waveform span.is-played {
+  background: hsl(var(--primary));
+}
+
+
+/* الحركة تعمل فقط أثناء تشغيل الصوت */
+
+.audio-waveform.is-playing span {
+  animation:
+    audioBar
+    1s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+.audio-waveform.is-playing span:nth-child(2n) {
+  animation-duration: .65s;
+}
+
+
+.audio-waveform.is-playing span:nth-child(3n) {
+  animation-duration: .85s;
+}
+
+
+.audio-waveform.is-playing span:nth-child(4n) {
+  animation-duration: .55s;
+}
+
+
+.audio-waveform.is-playing span:nth-child(5n) {
+  animation-duration: 1.1s;
+}
+
+
+.audio-waveform.is-playing span:nth-child(7n) {
+  animation-duration: .72s;
+}
+
+
+@keyframes audioBar {
+  from {
+    transform: scaleY(.4);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+
+.audio-duration {
+  min-width: 2.5rem;
+
+  font-size: .7rem;
+
+  color:
+    hsl(var(--secondary-foreground) / .68);
+}
+
+
+/* =========================================================
+   قائمة اسمع أكثر
+   ========================================================= */
+
+.audio-more {
+  display: flex;
+
+  min-width: 0;
+
+  flex-direction: column;
+
+  overflow-x: hidden;
+}
+
+
+.audio-more > h3 {
+  font-size: 1rem;
+
+  font-weight: 700;
+}
+
+
+.audio-list {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  margin-top: .45rem;
+
+  max-height: 15rem;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+
+  scrollbar-color:
+    hsl(var(--muted-foreground) / .3)
+    transparent;
+}
+
+
+.audio-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+
+.audio-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+.audio-list::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+
+  background:
+    hsl(var(--muted-foreground) / .3);
+}
+
+
+.audio-list li {
+  width: 100%;
+
+  min-width: 0;
+
+  overflow: hidden;
+}
+
+
+/* ---------- عنصر الحلقة ---------- */
+
 .audio-item {
-  width: 100%; height: auto; display: flex; align-items: center; justify-content: flex-start; gap: .65rem; text-align: right;
-  padding: .65rem 0; border-radius: 0; border-bottom: 1px solid hsl(var(--border) / .7);
-  transition: background .3s ease, border-color .3s ease, transform .3s ease;
+  position: relative;
+
+  width: 100%;
+  max-width: 100%;
+
+  height: auto;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: flex-start;
+
+  gap: .65rem;
+
+  box-sizing: border-box;
+
+  padding: .65rem .35rem;
+
+  overflow: hidden;
+
+  border-radius: .25rem;
+
+  border-bottom:
+    1px solid
+    hsl(var(--border) / .7);
+
+  text-align: right;
+
+  transition:
+    background .3s ease,
+    border-color .3s ease,
+    transform .3s ease;
+
+  will-change: transform;
 }
-.audio-item:hover { background: transparent; transform: translateX(-3px); }
-.audio-item.is-active { color: hsl(var(--primary)); background: hsl(var(--primary)); }
-.audio-item__icon { width: 1.7rem; height: 1.7rem; flex: none; border-radius: 999px; display: grid; place-items: center; background: hsl(var(--muted)); color: hsl(var(--secondary)); }
-.audio-item__body { display: flex; flex-direction: column; min-width: 0; }
-.audio-item__title { font-size: .82rem; font-weight: 600; color: hsl(var(--foreground)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.audio-item__meta { display: flex; gap: .6rem; font-size: .66rem; color: hsl(var(--muted-foreground)); }
-.audio-all { align-self: flex-end; display: inline-flex; align-items: center; gap: .4rem; margin-top: auto; padding: .45rem .7rem; border: 1px solid hsl(var(--border)); border-radius: 999px; color: hsl(var(--foreground)); font-size: .7rem; }
+
+
+.audio-item:hover {
+  background: hsl(var(--muted) / .3);
+
+  transform: translateX(-3px);
+}
+
+
+/* ---------- الحلقة النشطة ---------- */
+
+.audio-item.is-active {
+  background: transparent;
+
+  color: hsl(var(--primary));
+}
+
+
+.audio-item.is-active::before {
+  content: "";
+
+  position: absolute;
+
+  inset-inline-start: 0;
+
+  top: 20%;
+  bottom: 20%;
+
+  width: 3px;
+
+  border-radius: 999px;
+
+  background: hsl(var(--primary));
+
+  animation:
+    activeAudioLine
+    .45s
+    cubic-bezier(.22, 1, .36, 1)
+    both;
+}
+
+
+@keyframes activeAudioLine {
+  from {
+    opacity: 0;
+
+    transform: scaleY(.2);
+  }
+
+  to {
+    opacity: 1;
+
+    transform: scaleY(1);
+  }
+}
+
+
+/* ---------- أيقونة الحلقة ---------- */
+
+.audio-item__icon {
+  width: 1.7rem;
+  height: 1.7rem;
+
+  flex: none;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 999px;
+
+  background: hsl(var(--muted));
+
+  color: hsl(var(--secondary));
+
+  transition:
+    background .3s ease,
+    color .3s ease,
+    transform .3s ease;
+}
+
+
+.audio-item:hover .audio-item__icon {
+  transform: scale(1.06);
+}
+
+
+.audio-item.is-active .audio-item__icon {
+  background: hsl(var(--primary));
+
+  color: hsl(var(--primary-foreground));
+}
+
+
+.audio-player.is-playing
+.audio-item__icon {
+  transform: none;
+}
+
+
+/* ---------- نص الحلقة ---------- */
+
+.audio-item__body {
+  display: flex;
+
+  flex: 1;
+
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+
+.audio-item__title {
+  display: block;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+  font-size: .82rem;
+
+  font-weight: 600;
+
+  color: hsl(var(--foreground));
+}
+
+
+.audio-item.is-active
+.audio-item__title {
+  color: hsl(var(--primary));
+}
+
+
+.audio-item__meta {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: .6rem;
+
+  font-size: .66rem;
+
+  color: hsl(var(--muted-foreground));
+}
+
+
+/* ---------- كل الحلقات ---------- */
+
+.audio-all {
+  align-self: flex-end;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: .4rem;
+
+  margin-top: auto;
+
+  padding: .45rem .7rem;
+
+  border:
+    1px solid
+    hsl(var(--border));
+
+  border-radius: 999px;
+
+  color: hsl(var(--foreground));
+
+  font-size: .7rem;
+
+  transition:
+    transform .3s ease,
+    border-color .3s ease,
+    background .3s ease;
+}
+
+
+.audio-all:hover {
+  transform: translateY(-2px);
+
+  border-color:
+    hsl(var(--primary) / .55);
+
+  background:
+    hsl(var(--primary) / .06);
+}
+
+
+
+/* =========================================================
+   Tablet
+   ========================================================= */
 
 @media (max-width: 900px) {
-  .audio-panel { grid-template-columns: 1fr; }
-  .audio-player { min-height: 16rem; }
-  .audio-more { min-height: 15rem; }
+
+  .audio-panel {
+    grid-template-columns: 1fr;
+  }
+
+  .audio-player {
+    min-height: 16rem;
+  }
+
+  .audio-more {
+    min-height: 15rem;
+  }
+
 }
+
+
+
+/* =========================================================
+   Mobile
+   ========================================================= */
 
 @media (max-width: 560px) {
-  .number-section, .audio-section { padding-top: 2.75rem; }
-  .number-story { padding: 3rem 0 3.5rem; }
-  .number-card__value { font-size: clamp(4.8rem, 28vw, 7.5rem); }
-  .number-section__footer { align-items: flex-start; }
-  .number-section__footer > p { max-width: 9rem; }
-  .audio-panel { gap: 1.25rem; padding: .75rem; }
-  .audio-player__body { padding: 1rem; }
-  .audio-waveform { gap: .1rem; }
+
+  .number-section,
+  .audio-section {
+    padding-top: 2.75rem;
+  }
+
+
+  .number-story {
+    padding:
+      3rem
+      0
+      3.5rem;
+  }
+
+
+  .number-card__value {
+    font-size:
+      clamp(
+        4.8rem,
+        28vw,
+        7.5rem
+      );
+  }
+
+
+  .number-section__footer {
+    align-items: flex-start;
+  }
+
+
+  .number-section__footer > p {
+    max-width: 9rem;
+  }
+
+
+  .audio-panel {
+    gap: 1.25rem;
+
+    padding: .75rem;
+  }
+
+
+  .audio-player__body {
+    padding: 1rem;
+  }
+
+
+  .audio-waveform {
+    gap: .1rem;
+  }
+
+
+  .audio-item {
+    padding:
+      .65rem
+      .25rem;
+  }
+
 }
 
+
+
+/* =========================================================
+   Reduced Motion
+   ========================================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  .audio-player__cover img { transition: none; }
+
+  .number-value-enter,
+  .number-body-enter,
+  .number-story__figure::after,
+  .number-wave,
+
+  .audio-player,
+  .audio-player__cover img,
+  .audio-chip,
+  .audio-player__title,
+  .audio-player__text,
+  .audio-waveform span,
+  .audio-play,
+  .audio-item.is-active::before,
+
+  .number-section__heading h2::after,
+  .audio-section__heading h2::after {
+    animation: none !important;
+
+    transition: none !important;
+  }
+
 }
