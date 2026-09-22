@@ -3129,7 +3129,7 @@ margin-left: 15px;
   padding: 3.5rem 0 2rem;
   /* background-color: #ede9e1; */
   background-image: radial-gradient(hsl(var(--secondary) / .13) 1px, transparent 1px);
-  background-color: #ede9e1;
+ background-size: 14px 14px;
 }
 .number-section__heading,
 .audio-section__heading { position: relative; z-index: 2; }
@@ -3189,7 +3189,7 @@ margin-left: 15px;
 .audio-section {
   position: relative;
   padding: 3.5rem 0 4.5rem;
-  background-color: hsl(var(--background));
+  background-color: #ede9e1;
   background-image: radial-gradient(circle, hsl(var(--primary) / .28) 1px, transparent 1.4px);
   background-size: 1rem 1rem;
 }
