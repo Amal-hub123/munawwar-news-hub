@@ -3229,7 +3229,7 @@ margin-left: 15px;
   transition: background .3s ease, border-color .3s ease, transform .3s ease;
 }
 .audio-item:hover { background: transparent; transform: translateX(-3px); }
-.audio-item.is-active { color: hsl(var(--primary)); background: transparent; }
+.audio-item.is-active { color: hsl(var(--primary)); background: hsl(var(--primary)); }
 .audio-item__icon { width: 1.7rem; height: 1.7rem; flex: none; border-radius: 999px; display: grid; place-items: center; background: hsl(var(--muted)); color: hsl(var(--secondary)); }
 .audio-item__body { display: flex; flex-direction: column; min-width: 0; }
 .audio-item__title { font-size: .82rem; font-weight: 600; color: hsl(var(--foreground)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
