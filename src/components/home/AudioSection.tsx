@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import Reveal from "@/components/motion/Reveal";
-import { Pause, Play } from "lucide-react";
+import { Headphones, Pause, Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface Episode {
   id: string;
@@ -72,15 +73,12 @@ const AudioSection = () => {
   if (!episodes.length) return null;
 
   return (
-    <section id="masmoo3" className="audio-section py-14 md:py-20">
+    <section id="masmoo3" className="audio-section">
       <div className="container mx-auto px-6">
         <Reveal variant="clip">
-          <div className="mb-6 md:mb-8 flex items-end justify-between gap-5">
-            <div>
-              <p className="editorial-kicker">المُنحنى بالصوت</p>
-              <h2 className="editorial-heading mt-2">مسموع</h2>
-            </div>
-            <span className="editorial-index">٠٧</span>
+          <div className="audio-section__heading">
+            <h2>مسموع</h2>
+            <p>للأذن حصتها من المُنحنى.</p>
           </div>
         </Reveal>
 
@@ -95,22 +93,29 @@ const AudioSection = () => {
                 )}
 
                 <div className="audio-player__body">
-                  {current.category && <span className="audio-chip">{current.category}</span>}
+                  <span className="audio-chip">{current.category || "حكاية رقم"}</span>
                   <h3 className="audio-player__title">{current.title}</h3>
                   {current.description && <p className="audio-player__text">{current.description}</p>}
 
                   <div className="audio-controls">
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="icon"
                       className="audio-play"
                       onClick={() => toggle(current.id)}
                       aria-label={playing ? "إيقاف" : "تشغيل"}
                     >
                       {playing ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5" />}
-                    </button>
+                    </Button>
 
-                    <div className="audio-bar" aria-hidden>
-                      <span className="audio-bar__fill" style={{ width: `${progress}%` }} />
+                    <div className="audio-waveform" aria-hidden="true">
+                      {Array.from({ length: 30 }, (_, index) => (
+                        <span
+                          key={index}
+                          className={(index / 29) * 100 <= progress ? "is-played" : ""}
+                        />
+                      ))}
                     </div>
 
                     <span className="audio-duration">{current.duration_label || ""}</span>
@@ -133,11 +138,14 @@ const AudioSection = () => {
               </div>
             )}
 
-            <ul className="audio-list">
-              {episodes.map((ep) => (
-                <li key={ep.id}>
-                  <button
+            <div className="audio-more">
+              <h3>اسمع أكثر</h3>
+              <ul className="audio-list">
+                {episodes.map((ep) => (
+                  <li key={ep.id}>
+                    <Button
                     type="button"
+                    variant="ghost"
                     onClick={() => toggle(ep.id)}
                     className={`audio-item ${ep.id === currentId ? "is-active" : ""}`}
                   >
@@ -151,10 +159,12 @@ const AudioSection = () => {
                         {ep.duration_label && <span>{ep.duration_label}</span>}
                       </span>
                     </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
+                    </Button>
+                  </li>
+                ))}
+              </ul>
+              <span className="audio-all"><Headphones className="w-4 h-4" /> كل الحلقات</span>
+            </div>
           </div>
         </Reveal>
       </div>
