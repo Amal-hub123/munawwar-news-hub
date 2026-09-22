@@ -3127,9 +3127,8 @@ margin-left: 15px;
   isolation: isolate;
   overflow: hidden;
   padding: 3.5rem 0 2rem;
-  background-color: hsl(var(--background));
-  background-image: radial-gradient(circle, hsl(var(--primary) / .22) 1px, transparent 1.3px);
-  background-size: 3rem 3rem;
+  background-color: #ede9e1;
+  background-image: radial-gradient(hsl(var(--secondary) / .13) 1px, transparent 1px);
 }
 .number-section__heading,
 .audio-section__heading { position: relative; z-index: 2; }
