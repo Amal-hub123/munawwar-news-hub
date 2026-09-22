@@ -5202,3 +5202,495 @@ margin-left: 15px;
       scaleX(.99);
   }
 }
+
+/* ==================================================================
+   ALMONHNA — FINAL AMBIENT MOTION LAYER
+   Keeps the current layout/identity intact and adds continuous,
+   low-amplitude editorial motion across the homepage.
+   ================================================================== */
+
+:root {
+  --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  --motion-soft: cubic-bezier(.45, 0, .55, 1);
+}
+
+/* ---------- Shared section life ---------- */
+.editorial-home section {
+  position: relative;
+  isolation: isolate;
+}
+
+.editorial-home .editorial-heading,
+.editorial-home .number-section__heading h2,
+.editorial-home .audio-section__heading h2,
+.editorial-home .ask-editorial-heading h2 {
+  transform-origin: right center;
+  animation: editorialHeadingBreathe 8s var(--motion-soft) infinite;
+  will-change: transform;
+}
+
+@keyframes editorialHeadingBreathe {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-2px, -2px, 0); }
+}
+
+.editorial-home .editorial-kicker,
+.editorial-home .section-hint {
+  animation: editorialMetaDrift 10s ease-in-out infinite alternate;
+}
+
+@keyframes editorialMetaDrift {
+  from { transform: translateY(0); opacity: .82; }
+  to { transform: translateY(-2px); opacity: 1; }
+}
+
+/* ---------- Hero: preserve existing layout, add depth ---------- */
+.calm-hero-stage {
+  animation: heroStageBreathe 9s ease-in-out infinite;
+}
+
+@keyframes heroStageBreathe {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -4px; }
+}
+
+.hero-article-slider {
+  animation: heroSliderLiving 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes heroSliderLiving {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -6px, 0) rotate(.18deg); }
+}
+
+.hero-article-slide > img {
+  animation: heroImageLiving 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes heroImageLiving {
+  from { transform: scale(1.025) translate3d(0, 0, 0); }
+  to { transform: scale(1.075) translate3d(-1%, -.7%, 0); }
+}
+
+/* ---------- Daily story ---------- */
+.daily-story-media {
+  animation: dailyMediaFloat 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes dailyMediaFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(.12deg); }
+}
+
+.daily-story-media img {
+  animation: dailyImageDrift 13s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes dailyImageDrift {
+  from { transform: scale(1.02) translateX(0); }
+  to { transform: scale(1.065) translateX(-1.1%); }
+}
+
+.story-timeline-curve {
+  animation: storyCurveBreathe 7s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes storyCurveBreathe {
+  from { transform: translateY(2px) scaleX(1.002); }
+  to { transform: translateY(-3px) scaleX(1.012); }
+}
+
+.story-timeline li button {
+  animation: storyDotIdle 5.5s ease-in-out infinite;
+}
+
+.story-timeline li:nth-child(2n) button { animation-delay: -1.7s; }
+.story-timeline li:nth-child(3n) button { animation-delay: -3.1s; }
+
+@keyframes storyDotIdle {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(var(--primary) / 0); }
+  50% { box-shadow: 0 0 0 5px hsl(var(--primary) / .08); }
+}
+
+/* ---------- Journey ---------- */
+.journey-curve {
+  animation: journeyCurveLiving 7.5s ease-in-out infinite alternate !important;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes journeyCurveLiving {
+  from { transform: translate3d(-.35%, 3px, 0) scaleX(1.01); }
+  to { transform: translate3d(.35%, -5px, 0) scaleX(1.025); }
+}
+
+.journey-node {
+  animation: journeyNodeFloat 7s ease-in-out infinite;
+  will-change: transform;
+}
+
+.journey-node:nth-child(2n) { animation-delay: -2.2s; }
+.journey-node:nth-child(3n) { animation-delay: -4.1s; }
+
+@keyframes journeyNodeFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.journey-image,
+.journey-node img {
+  animation: journeyImageBreathe 11s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes journeyImageBreathe {
+  from { transform: scale(1.015); }
+  to { transform: scale(1.055) translateY(-1%); }
+}
+
+/* ---------- Latest articles ---------- */
+.latest-card {
+  animation: latestCardLiving 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.latest-card:nth-child(2n) { animation-delay: -2.6s; }
+.latest-card:nth-child(3n) { animation-delay: -4.8s; }
+
+@keyframes latestCardLiving {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.latest-card-media img,
+.latest-card img {
+  animation: latestImageLiving 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes latestImageLiving {
+  from { transform: scale(1.015) translate3d(0, 0, 0); }
+  to { transform: scale(1.06) translate3d(-.8%, -.5%, 0); }
+}
+
+.latest-sequence i,
+.latest-sequence span {
+  animation: latestSequencePulse 4.5s ease-in-out infinite;
+}
+
+.latest-sequence i:nth-child(2n),
+.latest-sequence span:nth-child(2n) { animation-delay: -1.4s; }
+
+@keyframes latestSequencePulse {
+  0%, 100% { opacity: .58; }
+  50% { opacity: 1; }
+}
+
+/* ---------- Category mosaic ---------- */
+.mosaic-cell {
+  animation: mosaicCellBreathe 9s ease-in-out infinite;
+  will-change: transform;
+}
+
+.mosaic-cell:nth-child(2n) { animation-delay: -2s; }
+.mosaic-cell:nth-child(3n) { animation-delay: -4s; }
+.mosaic-cell:nth-child(5n) { animation-delay: -6s; }
+
+@keyframes mosaicCellBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.mosaic-cell img {
+  animation: mosaicImageDrift 14s ease-in-out infinite alternate;
+}
+
+@keyframes mosaicImageDrift {
+  from { transform: scale(1.01); }
+  to { transform: scale(1.055) translateX(-.8%); }
+}
+
+/* ---------- Main timeline ---------- */
+.timeline-journey-line {
+  animation: mainTimelineCurveLiving 7s ease-in-out infinite alternate;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@keyframes mainTimelineCurveLiving {
+  from { transform: translate3d(-.25%, 2px, 0) scaleX(1.002); }
+  to { transform: translate3d(.25%, -3px, 0) scaleX(1.008); }
+}
+
+.timeline-stop .timeline-dot {
+  animation: timelineDotHalo 5s ease-in-out infinite;
+}
+
+.timeline-stop:nth-child(2n) .timeline-dot { animation-delay: -1.6s; }
+.timeline-stop:nth-child(3n) .timeline-dot { animation-delay: -3.2s; }
+
+@keyframes timelineDotHalo {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(225 164 55 / 0); }
+  50% { box-shadow: 0 0 0 6px rgb(225 164 55 / .08); }
+}
+
+.timeline-stop-image {
+  animation: timelineImageFloat 8.5s ease-in-out infinite;
+}
+
+@keyframes timelineImageFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.timeline-stop-image img {
+  animation: timelineImageDrift 13s ease-in-out infinite alternate;
+}
+
+@keyframes timelineImageDrift {
+  from { transform: scale(1.015); }
+  to { transform: scale(1.06) translateX(-1%); }
+}
+
+/* ---------- Writers ---------- */
+.writer-point {
+  animation: writerPointLiving 8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.writer-point:nth-child(2n) { animation-delay: -2.8s; }
+.writer-point:nth-child(3n) { animation-delay: -5.2s; }
+
+@keyframes writerPointLiving {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.writer-point img {
+  animation: writerPortraitLiving 12s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes writerPortraitLiving {
+  from { transform: scale(1.01) translateY(0); }
+  to { transform: scale(1.045) translateY(-1%); }
+}
+
+.writer-info {
+  animation: writerCardLiving 7s ease-in-out infinite !important;
+}
+
+.writer-point:nth-child(even) .writer-info { animation-delay: -3.5s !important; }
+
+@keyframes writerCardLiving {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* ---------- Ask / question transformation ---------- */
+.ask-dots {
+  animation: askDotsLiving 18s linear infinite alternate !important;
+  will-change: transform, background-position;
+}
+
+@keyframes askDotsLiving {
+  from { transform: translate3d(0, 0, 0); background-position: 0 0; }
+  to { transform: translate3d(8px, 12px, 0); background-position: 22px 22px; }
+}
+
+.ask-editorial-panel {
+  animation: askPanelBreathe 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes askPanelBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.question-transform {
+  animation: questionCardLiving 8s ease-in-out infinite;
+}
+
+.question-transform:nth-child(2n) { animation-delay: -3.2s; }
+
+@keyframes questionCardLiving {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.question-curve {
+  animation: questionCurveLiving 6s ease-in-out infinite alternate;
+}
+
+@keyframes questionCurveLiving {
+  from { transform: translateY(2px); }
+  to { transform: translateY(-3px); }
+}
+
+.question-result img {
+  animation: questionImageLiving 12s ease-in-out infinite alternate;
+}
+
+@keyframes questionImageLiving {
+  from { transform: scale(1.015); }
+  to { transform: scale(1.065) translateX(-1%); }
+}
+
+/* ---------- Number: stronger but calm ---------- */
+.number-story__figure {
+  animation: numberAmbientFloat 4.8s ease-in-out infinite !important;
+}
+
+@keyframes numberAmbientFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(.15deg); }
+}
+
+.number-story__figure::after {
+  animation: numberHighlightLiving 4.8s ease-in-out infinite !important;
+}
+
+@keyframes numberHighlightLiving {
+  0%, 100% { transform: translateY(0) scaleX(.95); opacity: .82; }
+  50% { transform: translateY(5px) scaleX(1.055); opacity: 1; }
+}
+
+.number-wave {
+  animation: waveOne 6s ease-in-out infinite alternate !important;
+}
+.number-wave::before {
+  animation: waveTwo 7.5s ease-in-out infinite alternate !important;
+}
+.number-wave::after {
+  animation: waveThree 9s ease-in-out infinite alternate !important;
+}
+.number-wave > span {
+  animation: filledWaveMove 8s ease-in-out infinite alternate !important;
+}
+
+/* ---------- Audio: continuous living image + panel depth ---------- */
+.audio-panel {
+  animation: audioPanelBreathe 10s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes audioPanelBreathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.audio-player__cover img {
+  animation: audioCoverAlwaysMoving 10s ease-in-out infinite alternate !important;
+}
+
+.audio-player.is-playing .audio-player__cover img {
+  animation: audioCoverPlaying 6.5s ease-in-out infinite alternate !important;
+}
+
+.audio-more > h3 {
+  animation: audioMoreTitleLiving 7s ease-in-out infinite;
+}
+
+@keyframes audioMoreTitleLiving {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
+/* ---------- Hover stays responsive without fighting idle motion ---------- */
+.latest-card:hover,
+.mosaic-cell:hover,
+.question-transform:hover {
+  translate: 0 -3px;
+}
+
+/* ---------- Mobile: same language, lower amplitude ---------- */
+@media (max-width: 700px) {
+  .calm-hero-stage,
+  .hero-article-slider,
+  .daily-story-media,
+  .journey-node,
+  .latest-card,
+  .mosaic-cell,
+  .writer-point,
+  .ask-editorial-panel,
+  .question-transform,
+  .audio-panel {
+    animation-duration: 11s;
+  }
+
+  .hero-article-slide > img,
+  .daily-story-media img,
+  .journey-image,
+  .journey-node img,
+  .latest-card-media img,
+  .latest-card img,
+  .mosaic-cell img,
+  .writer-point img,
+  .question-result img,
+  .audio-player__cover img {
+    animation-duration: 16s;
+  }
+
+  @keyframes numberAmbientFloat {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -6px, 0); }
+  }
+}
+
+/* ---------- Accessibility ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .editorial-home .editorial-heading,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .editorial-kicker,
+  .editorial-home .section-hint,
+  .calm-hero-stage,
+  .hero-article-slider,
+  .hero-article-slide > img,
+  .daily-story-media,
+  .daily-story-media img,
+  .story-timeline-curve,
+  .story-timeline li button,
+  .journey-curve,
+  .journey-node,
+  .journey-image,
+  .journey-node img,
+  .latest-card,
+  .latest-card-media img,
+  .latest-card img,
+  .latest-sequence i,
+  .latest-sequence span,
+  .mosaic-cell,
+  .mosaic-cell img,
+  .timeline-journey-line,
+  .timeline-stop .timeline-dot,
+  .timeline-stop-image,
+  .timeline-stop-image img,
+  .writer-point,
+  .writer-point img,
+  .writer-info,
+  .ask-dots,
+  .ask-editorial-panel,
+  .question-transform,
+  .question-curve,
+  .question-result img,
+  .number-story__figure,
+  .number-story__figure::after,
+  .number-wave,
+  .number-wave::before,
+  .number-wave::after,
+  .number-wave > span,
+  .audio-panel,
+  .audio-player__cover img,
+  .audio-more > h3 {
+    animation: none !important;
+  }
+}
