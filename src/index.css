@@ -6381,3 +6381,229 @@ margin-left: 15px;
     animation: none !important;
   }
 }
+
+
+/* ==================================================================
+   ALMONHNA — V4 LAYOUT-SAFE MOTION FIX
+   Fixes section spacing/alignment caused by decorative pseudo-elements.
+   Motion must never participate in document layout.
+   ================================================================== */
+
+/* 1) REMOVE the pseudo accent that became a real flex/grid child
+      and created the orange dash / spacing seen between headings/cards. */
+.editorial-home .section-heading-row::after,
+.editorial-home .ask-editorial-heading::after,
+.editorial-home .number-section__heading::after,
+.editorial-home .audio-section__heading::after {
+  content: none !important;
+  display: none !important;
+  animation: none !important;
+}
+
+/* 2) Never animate heading ROW/container itself.
+      This preserves all original spacing and alignment. */
+.editorial-home .section-heading-row,
+.editorial-home .ask-editorial-heading,
+.editorial-home .number-section__heading,
+.editorial-home .audio-section__heading {
+  animation: none !important;
+  transform: none !important;
+  translate: none !important;
+}
+
+/* 3) Only the actual title moves vertically.
+      Transform is visual-only and cannot push the cards/content below it. */
+.editorial-home .editorial-heading,
+.editorial-home .ask-editorial-heading h2,
+.editorial-home .number-section__heading h2,
+.editorial-home .audio-section__heading h2 {
+  position: relative;
+  transform-origin: center center !important;
+  filter: none !important;
+  will-change: transform;
+
+  animation: sectionTitleSafeFloat 3.55s ease-in-out infinite !important;
+}
+
+@keyframes sectionTitleSafeFloat {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -5px, 0);
+  }
+}
+
+/* Keep the original underline/highlight exactly in the title itself.
+   No extra element is inserted into the section layout. */
+.editorial-home .editorial-heading,
+.editorial-home .ask-editorial-heading h2 {
+  background-position: 0 88% !important;
+}
+
+/* 4) Internal content never animates independently. */
+.daily-story-copy,
+.daily-story-copy *,
+.ask-editorial-panel > *,
+.ask-content-item,
+.ask-content-item *,
+.question-transform > a > *,
+.question-origin *,
+.question-result > div,
+.question-result > div *,
+.latest-card-copy,
+.latest-card-copy *,
+.latest-card-footer,
+.latest-card-footer *,
+.latest-card-categories,
+.latest-card-categories *,
+.mosaic-cell > *,
+.writer-info,
+.writer-info * {
+  animation: none !important;
+}
+
+/* Restore hover transitions where useful; no idle text movement. */
+.ask-content-item,
+.latest-card-copy,
+.writer-info {
+  translate: none !important;
+}
+
+/* 5) Cards may float ONLY as whole units. No margin/padding/position changes. */
+.daily-story-composition {
+  animation: safeWholeCardFloat 6.4s ease-in-out infinite !important;
+}
+
+.ask-editorial-panel {
+  animation: safeWholeCardFloat 6.9s ease-in-out infinite -1.6s !important;
+}
+
+.question-transform {
+  animation: safeWholeCardFloat 6.7s ease-in-out infinite !important;
+}
+.question-transform:nth-child(2n) { animation-delay: -2.1s !important; }
+.question-transform:nth-child(3n) { animation-delay: -4.2s !important; }
+
+.latest-card {
+  animation: safeWholeCardFloatSoft 7.1s ease-in-out infinite !important;
+}
+.latest-card:nth-child(2n) { animation-delay: -2.35s !important; }
+.latest-card:nth-child(3n) { animation-delay: -4.7s !important; }
+
+.mosaic-cell {
+  animation: safeWholeCardFloatSoft 7.5s ease-in-out infinite !important;
+}
+.mosaic-cell:nth-child(2n) { animation-delay: -2.5s !important; }
+.mosaic-cell:nth-child(3n) { animation-delay: -5s !important; }
+
+.writer-point {
+  animation: safeWholeCardFloatSoft 7.3s ease-in-out infinite !important;
+}
+.writer-point:nth-child(even) { animation-delay: -3.65s !important; }
+
+@keyframes safeWholeCardFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -7px, 0); }
+}
+
+@keyframes safeWholeCardFloatSoft {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -5px, 0); }
+}
+
+/* 6) مقال اليوم: image may breathe inside its frame,
+      but text remains completely stationary relative to the card. */
+.daily-story-copy,
+.daily-story-copy h3,
+.daily-story-copy p {
+  transform: none !important;
+  translate: none !important;
+}
+
+.daily-story-media {
+  animation: none !important;
+}
+
+.daily-story-media img {
+  animation: dailyImageSafeBreath 11s ease-in-out infinite alternate !important;
+}
+
+@keyframes dailyImageSafeBreath {
+  from { transform: scale(1.025); }
+  to   { transform: scale(1.075); }
+}
+
+/* 7) Hero: fade/blur transition only.
+      No permanent wandering of each phrase. */
+.calm-hero-phrase {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0) scale(.992);
+  filter: blur(6px);
+  transition:
+    opacity 1.05s ease,
+    transform 1.25s cubic-bezier(.22,1,.36,1),
+    filter 1.05s ease !important;
+  animation: none !important;
+}
+
+.calm-hero-phrase.is-active {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0);
+  animation: none !important;
+}
+
+/* The stage breathes as one unit without affecting layout. */
+.calm-hero-stage {
+  animation: safeHeroStageFloat 5.1s ease-in-out infinite !important;
+}
+
+@keyframes safeHeroStageFloat {
+  0%,100% { translate: 0 0; }
+  50%     { translate: 0 -5px; }
+}
+
+/* 8) Mobile: smaller amplitude, same geometry. */
+@media (max-width: 700px) {
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2 {
+    animation: sectionTitleSafeFloatMobile 3.8s ease-in-out infinite !important;
+  }
+
+  @keyframes sectionTitleSafeFloatMobile {
+    0%,100% { transform: translate3d(0,0,0); }
+    50%     { transform: translate3d(0,-3px,0); }
+  }
+
+  .daily-story-composition,
+  .ask-editorial-panel,
+  .question-transform {
+    animation-name: safeWholeCardFloatMobile !important;
+  }
+
+  @keyframes safeWholeCardFloatMobile {
+    0%,100% { transform: translate3d(0,0,0); }
+    50%     { transform: translate3d(0,-4px,0); }
+  }
+}
+
+/* 9) Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .editorial-home .editorial-heading,
+  .editorial-home .ask-editorial-heading h2,
+  .editorial-home .number-section__heading h2,
+  .editorial-home .audio-section__heading h2,
+  .daily-story-composition,
+  .ask-editorial-panel,
+  .question-transform,
+  .latest-card,
+  .mosaic-cell,
+  .writer-point,
+  .daily-story-media img,
+  .calm-hero-stage {
+    animation: none !important;
+  }
+}
