@@ -33,13 +33,13 @@ const NumbersArchive = () => {
 
   return (
     <div
-      className="numbers-archive-page container mx-auto px-8 py-12"
+      className="numbers-archive-page"
       dir="rtl"
     >
       <TopBar />
       <Header />
 
-      <main className="numbers-archive">
+      <main className="numbers-archive container mx-auto px-8 py-12">
 
         {/* =========================================
             INTRO
