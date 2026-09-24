@@ -7377,26 +7377,20 @@ margin-left: 15px;
   height: 100%;
   object-fit: cover;
 
-  /* أقرب شوي */
   transform: scale(1.08);
+  transform-origin: center center;
 
-  animation: audio-image-motion 7s ease-in-out infinite alternate;
+  animation: audio-image-motion 6s ease-in-out infinite alternate;
 
   transition:
     transform 1s cubic-bezier(.22,1,.36,1),
     filter .6s ease;
 }
 
-/* عند المرور عليها تقرب أكثر */
+/* حركة أقرب وأوضح عند المرور */
 .audio-episode-card:hover .audio-episode-media img {
   animation-play-state: paused;
-  transform: scale(1.16);
-}
-
-.audio-episode-card:hover
-.audio-episode-media img {
-  transform:
-    scale(1.085);
+  transform: scale(1.17);
 }
 
 
@@ -7950,14 +7944,13 @@ margin-left: 15px;
   }
 
   50% {
-    transform: scale(1.12) translate3d(-0.8%, -0.5%, 0);
+    transform: scale(1.13) translate3d(-1.2%, -0.8%, 0);
   }
 
   100% {
-    transform: scale(1.08) translate3d(0.8%, 0.5%, 0);
+    transform: scale(1.09) translate3d(1.2%, 0.8%, 0);
   }
 }
-
 
 @keyframes audio-play-pulse {
   0%,
