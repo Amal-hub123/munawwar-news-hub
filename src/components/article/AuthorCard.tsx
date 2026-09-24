@@ -11,7 +11,7 @@ interface AuthorCardProps {
 }
 
 export const AuthorCard = ({ id, name, photo, bio, articlesCount }: AuthorCardProps) => (
-  <Reveal className="container mx-auto px-4 pb-12 max-w-4xl">
+  <Reveal className="ArticleContainer container mx-auto px-4 pb-12 max-w-4xl">
     <div className="rounded-2xl surface-alt border border-border/60 p-6 md:p-8 flex flex-col sm:flex-row items-start gap-5">
       {photo ? (
         <img src={photo} alt={name} className="w-20 h-20 rounded-full object-cover" />
