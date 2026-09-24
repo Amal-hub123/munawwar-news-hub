@@ -244,7 +244,7 @@ const ArticleDetail = () => {
       <TopBar />
       <Header />
 
-      <article className="ArticleContainer mx-auto px-4 py-8 max-w-4xl">
+      <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
         {categories && categories.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {categories.map((c: any) => (
@@ -357,7 +357,7 @@ const ArticleDetail = () => {
 
 
       {relatedArticles && relatedArticles.length > 0 && (
-        <section className="container mx-auto px-4 pb-12 max-w-4xl">
+        <section className="ArticleContainer container mx-auto px-4 pb-12 max-w-4xl">
           <h2 className="text-2xl font-bold mb-6 border-b border-border pb-3">مقالات أخرى للكاتب</h2>
           <div className="grid gap-4">
             {relatedArticles.map((related: any) => (
