@@ -9765,3 +9765,157 @@ span {
   transform: scale(.88);
 }
 
+/* =========================================================
+   ARTICLE READING COLORS
+   المُنحنى PALETTE
+   ========================================================= */
+
+:root {
+  /* #e1a437 */
+  --reading-paper: 38.47 73.91% 54.90%;
+
+  /* #c96941 */
+  --reading-ivory: 17.65 55.74% 52.16%;
+
+  /* #82ada5 */
+  --reading-sage: 168.84 20.77% 59.41%;
+
+  /* #8c9f4a */
+  --reading-mist: 73.41 36.48% 45.69%;
+}
+
+
+/* =========================================================
+   ARTICLE SURFACE
+   ========================================================= */
+
+.article-surface {
+  background-color:
+    hsl(var(--reading-paper));
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+
+/* =========================================================
+   THE FOUR BACKGROUNDS
+   ========================================================= */
+
+.article-surface-paper {
+  background-color:
+    #e1a437 !important;
+}
+
+.article-surface-ivory {
+  background-color:
+    #c96941 !important;
+}
+
+.article-surface-sage {
+  background-color:
+    #82ada5 !important;
+}
+
+.article-surface-mist {
+  background-color:
+    #8c9f4a !important;
+}
+
+
+/* =========================================================
+   COLOR PICKER
+   ========================================================= */
+
+.reading-swatch {
+  width: 28px;
+  height: 28px;
+
+  border-radius: 999px;
+
+  border:
+    2px solid
+    hsl(var(--background));
+
+  box-shadow:
+    0 0 0 1px
+    hsl(var(--border));
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+
+/* #e1a437 */
+
+.reading-swatch-paper {
+  background: #e1a437 !important;
+}
+
+
+/* #c96941 */
+
+.reading-swatch-ivory {
+  background: #c96941 !important;
+}
+
+
+/* #82ada5 */
+
+.reading-swatch-sage {
+  background: #82ada5 !important;
+}
+
+
+/* #8c9f4a */
+
+.reading-swatch-mist {
+  background: #8c9f4a !important;
+}
+
+
+/* =========================================================
+   ACTIVE COLOR
+   ========================================================= */
+
+.reading-swatch.is-active {
+  box-shadow:
+    0 0 0 2px #ffffff,
+    0 0 0 4px #283639;
+
+  transform: scale(0.9);
+}
+
+.reading-swatch:hover {
+  transform: scale(1.08);
+}
+
+/* =========================================================
+   ARTICLE TEXT ON COLORED BACKGROUNDS
+   ========================================================= */
+
+.article-surface-paper,
+.article-surface-ivory,
+.article-surface-sage,
+.article-surface-mist {
+  color: #283639 !important;
+}
+
+.article-surface-paper p,
+.article-surface-paper li,
+.article-surface-paper blockquote,
+.article-surface-ivory p,
+.article-surface-ivory li,
+.article-surface-ivory blockquote,
+.article-surface-sage p,
+.article-surface-sage li,
+.article-surface-sage blockquote,
+.article-surface-mist p,
+.article-surface-mist li,
+.article-surface-mist blockquote {
+  color: #283639 !important;
+}
