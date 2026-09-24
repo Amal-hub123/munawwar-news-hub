@@ -6830,18 +6830,34 @@ margin-left: 15px;
    الرقم على اليمين
 */
 .numbers-archive-page .number-story-value {
-  grid-column: 3;
+  grid-column: 2;
   grid-row: 1;
 
   min-width: 0;
 
-  padding: 0;
+  height: 100%;
+  min-height: 100%;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 1rem;
 
   direction: rtl;
+  text-align: center;
 
-  text-align: right;
+  /* الخلفية تغطي كامل مساحة الرقم */
+  background: rgba(130, 173, 165, 0.07);
+
+  /* الخط بين الرقم والنص */
+  border-inline-start:
+    1px solid
+    rgba(130, 173, 165, 0.35);
+
+  box-sizing: border-box;
 }
-
 
 /* =========================================================
    الرقم
