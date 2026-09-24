@@ -8769,7 +8769,7 @@ span {
    Header
 ----------------------------- */
 .site-header-inner {
-  width: min(100% - 2rem, 76rem);
+  width: min(100% - 1rem, 80rem);
   max-width: 100%;
   margin-inline: auto;
   min-width: 0;
