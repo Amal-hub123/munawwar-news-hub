@@ -259,6 +259,14 @@ const ArticleDetail = () => {
           </div>
         )}
 
+   <div className="overflow-hidden zoom-media mb-6" style={{ borderRadius: "20px" }}>
+          <img
+            src={article.cover_image_url}
+            alt={article.title}
+            className="w-full h-72 md:h-96 object-cover"
+          />
+        </div>
+        
         <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
         <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6" style={{ textAlign: "justify" }}>
@@ -319,13 +327,7 @@ const ArticleDetail = () => {
           />
         </div>
 
-        <div className="overflow-hidden zoom-media mb-6" style={{ borderRadius: "20px" }}>
-          <img
-            src={article.cover_image_url}
-            alt={article.title}
-            className="w-full h-72 md:h-96 object-cover"
-          />
-        </div>
+     
 
         <ArticleSequence points={sequencePoints} contentRef={contentRef} />
 
