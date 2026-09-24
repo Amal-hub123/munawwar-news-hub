@@ -67,7 +67,7 @@ const NumberStory = () => {
         <Reveal variant="clip">
           <div className="number-section__heading">
             <h2>الرقم</h2>
-            <p>رقم واحد، يعني الكثير.</p>
+            <p>رقم واحد، يعني الكثير</p>
           </div>
         </Reveal>
 
@@ -138,7 +138,7 @@ const NumberStory = () => {
             <ArrowLeft className="w-4 h-4" />
           </Link>
 
-          <p>يتغيّر كل فترة ليحكي رواية أخرى.</p>
+          <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
         </div>
 
         <div className="number-wave" aria-hidden="true">
