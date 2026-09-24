@@ -7100,3 +7100,87 @@ margin-left: 15px;
   }
 
 }
+
+/* =========================================================
+   FLOATING CARD ANIMATION
+   ========================================================= */
+
+@keyframes numbers-card-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+
+/* =========================================================
+   TITLE GENTLE FLOAT
+   ========================================================= */
+
+@keyframes numbers-archive-title {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+
+/* =========================================================
+   MAKE SURE THE TITLE ANIMATION RUNS
+   ========================================================= */
+
+.numbers-archive-page .numbers-intro h1 {
+  animation:
+    numbers-archive-title
+    6s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   CARD ANIMATION
+   ========================================================= */
+
+.numbers-archive-page .number-story {
+  animation:
+    numbers-card-float
+    6s
+    ease-in-out
+    infinite;
+
+  animation-delay:
+    calc(var(--number-index) * -1.1s);
+}
+
+
+/* =========================================================
+   HOVER — KEEP FLOATING
+   ========================================================= */
+
+.numbers-archive-page .number-story:hover {
+  transform: translateY(-6px);
+
+  border-color:
+    rgba(130, 173, 165, 0.45);
+
+  background:
+    rgba(255, 255, 255, 0.3);
+
+  box-shadow:
+    0 16px 38px rgba(40, 54, 57, 0.06);
+
+  /*
+     مهم:
+     لا نوقف animation عند hover
+  */
+  animation-play-state: running;
+}
