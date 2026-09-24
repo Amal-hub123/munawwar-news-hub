@@ -6607,7 +6607,7 @@ margin-left: 15px;
 .numbers-archive-page .numbers-intro h1 {
   margin: 0;
 
-  color: #283639;
+  color: #00343a;
 
   font-size:
     clamp(
@@ -6823,7 +6823,7 @@ margin-left: 15px;
 .numbers-archive-page .number-story-value strong {
   display: block;
 
-  color: #283639;
+  color: #00343a;
 
   font-size:
     clamp(
@@ -6888,7 +6888,7 @@ margin-left: 15px;
 
   margin: 0;
 
-  color: #283639;
+  color: #00343a;
 
   font-size:
     clamp(
@@ -7195,7 +7195,7 @@ margin-left: 15px;
 .audio-archive-intro h1 {
   margin: 0;
 
-  color: #283639;
+  color:#00343a;
 
   font-size:
     clamp(
@@ -7549,7 +7549,7 @@ margin-left: 15px;
   max-width: 28ch;
 
   color:
-    #283639;
+    #00343a;
 
   font-size:
     clamp(
