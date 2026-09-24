@@ -10,6 +10,8 @@ import Register from "./pages/Register";
 import Articles from "./pages/Articles";
 import News from "./pages/News";
 import Writers from "./pages/Writers";
+import AudioEpisodes from "./pages/AudioEpisodes";
+import NumbersArchive from "./pages/NumbersArchive";
 import ArticleDetail from "./pages/ArticleDetail";
 import NewsDetail from "./pages/NewsDetail";
 import WriterDetail from "./pages/WriterDetail";
@@ -75,6 +77,8 @@ const App = () => (
           <Route path="/news" element={<News />} />
           <Route path="/news/:id" element={<NewsDetail />} />
           <Route path="/writers" element={<Writers />} />
+          <Route path="/audio" element={<AudioEpisodes />} />
+          <Route path="/numbers" element={<NumbersArchive />} />
           <Route path="/writers/:id" element={<WriterDetail />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetail />} />

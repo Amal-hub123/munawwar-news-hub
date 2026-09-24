@@ -13,6 +13,7 @@ import {
   Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface Episode {
   id: string;
@@ -42,14 +43,13 @@ const AudioSection = () => {
       )
       .eq("is_active", true)
       .order("display_order")
+      .limit(4)
       .then(({ data }) => {
         const rows = (data as Episode[]) || [];
 
         setEpisodes(rows);
 
-        const featured =
-          rows.find((row) => row.is_featured) ||
-          rows[0];
+        const featured = rows[0];
 
         if (featured) {
           setCurrentId(featured.id);
@@ -283,10 +283,10 @@ const AudioSection = () => {
 
               </ul>
 
-              <span className="audio-all">
+              <Link to="/audio" className="audio-all">
                 <Headphones className="w-4 h-4" />
                 كل الحلقات
-              </span>
+              </Link>
 
             </div>
 

@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Reveal from "@/components/motion/Reveal";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface NumberStory {
   id: string;
@@ -39,10 +40,9 @@ const NumberStory = () => {
         "id, number_value, title, description, source, story_date, link_url"
       )
       .eq("is_active", true)
-      .order("display_order");
+      .order("display_order")
+      .limit(1);
 
-    console.log("NUMBER STORIES DATA:", data);
-    console.log("NUMBER STORIES ERROR:", error);
 
     if (error) {
       console.error("Failed to load number_stories:", error);
@@ -133,30 +133,10 @@ const NumberStory = () => {
         </Reveal>
 
         <div className="number-section__footer">
-          {items.length > 1 ? (
-            <div className="number-history">
-              <span>أرقام سابقة</span>
-
-              <div className="number-dots" dir="rtl">
-                {items.map((n, i) => (
-                  <Button
-                    key={n.id}
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setActive(i)}
-                    aria-label={n.title}
-                    aria-pressed={i === safeActive}
-                    className={`number-dot ${
-                      i === safeActive ? "is-active" : ""
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <span />
-          )}
+          <Link to="/numbers" className="number-history">
+            كل الأرقام
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
 
           <p>يتغيّر كل فترة ليحكي رواية أخرى.</p>
         </div>
