@@ -4,8 +4,6 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AudioEpisodes from "./pages/AudioEpisodes";
-import NumberStories from "./pages/NumberStories";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
 import Register from "./pages/Register";
@@ -82,8 +80,6 @@ const App = () => (
           <Route path="/products/:id" element={<ProductDetail />} />
           
           <Route path="/store" element={<Store />} />
-          <Route path="/audio" element={<AudioEpisodes />} />
-          <Route path="/numbers" element={<NumberStories />} />
           <Route path="/store/:id" element={<StoreProductDetail />} />
           <Route path="/admin" element={<AdminLayout><AdminDashboard /></AdminLayout>} />
           <Route path="/admin/articles" element={<AdminLayout><ManageArticles /></AdminLayout>} />

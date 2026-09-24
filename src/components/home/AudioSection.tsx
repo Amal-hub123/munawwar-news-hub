@@ -13,7 +13,6 @@ import {
   Play,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 interface Episode {
   id: string;
@@ -27,7 +26,7 @@ interface Episode {
   is_featured: boolean;
 }
 
-const AudioSection = ({ showAll = false }: { showAll?: boolean }) => {
+const AudioSection = () => {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -42,20 +41,21 @@ const AudioSection = ({ showAll = false }: { showAll?: boolean }) => {
         "id, title, description, category, audio_url, cover_image_url, duration_label, episode_date, is_featured"
       )
       .eq("is_active", true)
-      .order("created_at", { ascending: false })
-      .limit(showAll ? 500 : 4)
+      .order("display_order")
       .then(({ data }) => {
         const rows = (data as Episode[]) || [];
 
         setEpisodes(rows);
 
-        const featured = rows[0];
+        const featured =
+          rows.find((row) => row.is_featured) ||
+          rows[0];
 
         if (featured) {
           setCurrentId(featured.id);
         }
       });
-  }, [showAll]);
+  }, []);
 
   const current = useMemo(
     () =>
@@ -230,7 +230,7 @@ const AudioSection = ({ showAll = false }: { showAll?: boolean }) => {
 
             <div className="audio-more">
 
-              <h3>{showAll ? "كل الحلقات" : "اسمع أكثر"}</h3>
+              <h3>اسمع أكثر</h3>
 
               <ul className="audio-list">
 
@@ -283,12 +283,10 @@ const AudioSection = ({ showAll = false }: { showAll?: boolean }) => {
 
               </ul>
 
-              {!showAll && (
-                <Link to="/audio" className="audio-all">
-                  <Headphones className="w-4 h-4" />
-                  كل الحلقات
-                </Link>
-              )}
+              <span className="audio-all">
+                <Headphones className="w-4 h-4" />
+                كل الحلقات
+              </span>
 
             </div>
 
