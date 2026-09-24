@@ -7277,3 +7277,208 @@ margin-left: 15px;
     transition: none;
   }
 }
+
+/* =========================================================
+   NUMBERS — FLOATING MOTION
+   حركة هادئة مستمرة
+   ========================================================= */
+
+/* الرقم الكبير يتحرك بشكل مستقل */
+.number-story-value strong {
+  animation:
+    numberFloat
+    5.5s
+    ease-in-out
+    infinite;
+}
+
+
+/* النقطة تتحرك بشكل أخف */
+.number-story-dot {
+  animation:
+    numberDotFloat
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+/* كل قصة لها توقيت مختلف حتى لا تتحرك كلها معًا */
+.number-story:nth-child(2)
+.number-story-value strong {
+  animation-delay: -1.2s;
+}
+
+.number-story:nth-child(3)
+.number-story-value strong {
+  animation-delay: -2.4s;
+}
+
+.number-story:nth-child(4)
+.number-story-value strong {
+  animation-delay: -3.1s;
+}
+
+.number-story:nth-child(5)
+.number-story-value strong {
+  animation-delay: -4.2s;
+}
+
+.number-story:nth-child(2)
+.number-story-dot {
+  animation-delay: -0.8s;
+}
+
+.number-story:nth-child(3)
+.number-story-dot {
+  animation-delay: -1.7s;
+}
+
+.number-story:nth-child(4)
+.number-story-dot {
+  animation-delay: -2.6s;
+}
+
+.number-story:nth-child(5)
+.number-story-dot {
+  animation-delay: -3.5s;
+}
+
+
+/* =========================================================
+   FLOAT KEYFRAMES
+   ========================================================= */
+
+@keyframes numberFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-7px);
+  }
+}
+
+
+@keyframes numberDotFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(4px);
+  }
+}
+
+
+/* =========================================================
+   HOVER
+   ========================================================= */
+
+.number-story:hover
+.number-story-value strong {
+  animation-play-state: paused;
+
+  transform:
+    translateY(-8px)
+    scale(1.025);
+}
+
+.number-story:hover
+.number-story-dot {
+  animation-play-state: paused;
+
+  transform:
+    scale(1.35);
+}
+
+
+/* =========================================================
+   CONTENT FLOAT
+   حركة شبه غير محسوسة للنص
+   ========================================================= */
+
+.number-story-content {
+  animation:
+    numberContentFloat
+    7s
+    ease-in-out
+    infinite;
+}
+
+.number-story:nth-child(2)
+.number-story-content {
+  animation-delay: -2s;
+}
+
+.number-story:nth-child(3)
+.number-story-content {
+  animation-delay: -4s;
+}
+
+.number-story:nth-child(4)
+.number-story-content {
+  animation-delay: -1s;
+}
+
+.number-story:nth-child(5)
+.number-story-content {
+  animation-delay: -5s;
+}
+
+@keyframes numberContentFloat {
+
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-3px);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   الحركة أخف حتى لا تصبح الصفحة مزعجة
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+  .number-story-value strong {
+    animation-duration: 6.5s;
+  }
+
+  .number-story-content {
+    animation-duration: 8s;
+  }
+
+  .number-story-dot {
+    animation-duration: 5s;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .number-story-value strong,
+  .number-story-dot,
+  .number-story-content {
+    animation: none !important;
+  }
+}
