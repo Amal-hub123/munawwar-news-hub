@@ -1,19 +1,14 @@
+import { useEffect, useRef, useState } from "react";
+import { TopBar } from "@/components/TopBar";
+import { Header } from "@/components/Header";
+import Footer from "@/components/Footer";
 import {
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-
-import { supabase } from "@/integrations/supabase/client";
-import Reveal from "@/components/motion/Reveal";
-import {
-  Headphones,
   Pause,
   Play,
+  Headphones,
+  Clock3,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Episode {
   id: string;
@@ -23,14 +18,11 @@ interface Episode {
   audio_url: string;
   cover_image_url: string | null;
   duration_label: string | null;
-  episode_date: string | null;
-  is_featured: boolean;
 }
 
-const AudioSection = () => {
+const AudioEpisodes = () => {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
-  const [currentId, setCurrentId] = useState<string | null>(null);
-  const [playing, setPlaying] = useState(false);
+  const [playingId, setPlayingId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -39,263 +31,285 @@ const AudioSection = () => {
     supabase
       .from("audio_episodes")
       .select(
-        "id, title, description, category, audio_url, cover_image_url, duration_label, episode_date, is_featured"
+        "id, title, description, category, audio_url, cover_image_url, duration_label"
       )
       .eq("is_active", true)
       .order("display_order")
-      .limit(4)
       .then(({ data }) => {
-        const rows = (data as Episode[]) || [];
-
-        setEpisodes(rows);
-
-        const featured = rows[0];
-
-        if (featured) {
-          setCurrentId(featured.id);
-        }
+        setEpisodes((data as Episode[]) || []);
       });
+
+    return () => {
+      audioRef.current?.pause();
+    };
   }, []);
 
-  const current = useMemo(
-    () =>
-      episodes.find(
-        (episode) => episode.id === currentId
-      ) || null,
-    [episodes, currentId]
-  );
+  const toggle = async (episode: Episode) => {
+    const currentAudio = audioRef.current;
 
-  useEffect(() => {
-    setProgress(0);
-    setPlaying(false);
-  }, [currentId]);
-
-  const toggle = async (id: string) => {
-    if (id !== currentId) {
-      setCurrentId(id);
-
-      setTimeout(() => {
-        const el = audioRef.current;
-
-        if (!el) return;
-
-        el.play()
-          .then(() => setPlaying(true))
-          .catch(() => setPlaying(false));
-      }, 60);
+    // نفس الحلقة
+    if (playingId === episode.id && currentAudio) {
+      if (currentAudio.paused) {
+        try {
+          await currentAudio.play();
+          setPlayingId(episode.id);
+        } catch {
+          setPlayingId(null);
+        }
+      } else {
+        currentAudio.pause();
+        setPlayingId(null);
+      }
 
       return;
     }
 
-    const el = audioRef.current;
+    // أوقف الحلقة السابقة
+    currentAudio?.pause();
 
-    if (!el) return;
+    const audio = new Audio(episode.audio_url);
 
-    if (el.paused) {
-      try {
-        await el.play();
-        setPlaying(true);
-      } catch {
-        setPlaying(false);
+    audioRef.current = audio;
+    setPlayingId(episode.id);
+    setProgress(0);
+
+    audio.ontimeupdate = () => {
+      if (
+        Number.isFinite(audio.duration) &&
+        audio.duration > 0
+      ) {
+        setProgress(
+          (audio.currentTime / audio.duration) * 100
+        );
       }
-    } else {
-      el.pause();
-      setPlaying(false);
+    };
+
+    audio.onended = () => {
+      setPlayingId(null);
+      setProgress(0);
+    };
+
+    audio.onerror = () => {
+      setPlayingId(null);
+      setProgress(0);
+    };
+
+    try {
+      await audio.play();
+    } catch {
+      setPlayingId(null);
+      setProgress(0);
     }
   };
 
-  if (!episodes.length) return null;
-
   return (
-    <section id="masmoo3" className="audio-section">
-      <div className="container mx-auto px-6">
+    <div
+      className="audio-archive-page"
+      dir="rtl"
+    >
+      <TopBar />
+      <Header />
 
-        <Reveal variant="clip">
-          <div className="audio-section__heading">
-            <h2>مسموع</h2>
-            <p>للأذن حصتها من المُنحنى.</p>
+      <main className="audio-archive">
+
+        {/* =========================================
+            Intro
+        ========================================= */}
+
+        <section className="audio-archive-intro">
+
+          <div className="audio-archive-kicker">
+            <Headphones />
+            <span>مسموع</span>
           </div>
-        </Reveal>
 
-        <Reveal variant="clip">
-          <div className="audio-panel">
+          <h1>
+            أصواتٌ تُسمع،
+            <br />
+            <em>وحكاياتٌ تبقى.</em>
+          </h1>
 
-            {current && (
-              <div
-                key={current.id}
-                className={`audio-player ${
-                  playing ? "is-playing" : ""
-                }`}
-              >
+          <p>
+            حلقات المُنحنى الصوتية؛
+            أفكار وحكايات تأخذك إلى زاوية
+            أخرى من الحكاية.
+          </p>
 
-                {current.cover_image_url && (
-                  <div className="audio-player__cover">
-                    <img
-                      src={current.cover_image_url}
-                      alt={current.title}
-                      loading="lazy"
-                    />
-                  </div>
-                )}
+        </section>
 
-                <div className="audio-player__body">
 
-                  <span className="audio-chip">
-                    {current.category || "حكاية رقم"}
-                  </span>
+        {/* =========================================
+            Episodes
+        ========================================= */}
 
-                  <h3 className="audio-player__title">
-                    {current.title}
-                  </h3>
+        {episodes.length === 0 ? (
 
-                  {current.description && (
-                    <p className="audio-player__text">
-                      {current.description}
-                    </p>
-                  )}
+          <section className="audio-archive-empty">
+            <Headphones />
+            <p>لا توجد حلقات بعد.</p>
+          </section>
 
-                  <div className="audio-controls">
+        ) : (
 
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="icon"
-                      className="audio-play"
-                      onClick={() => toggle(current.id)}
-                      aria-label={
-                        playing ? "إيقاف" : "تشغيل"
-                      }
-                    >
-                      {playing ? (
-                        <Pause className="w-5 h-5" />
-                      ) : (
-                        <Play className="w-5 h-5" />
-                      )}
-                    </Button>
+          <section className="audio-archive-list">
 
-                    <div
-                      className={`audio-waveform ${
-                        playing ? "is-playing" : ""
-                      }`}
-                      aria-hidden="true"
-                    >
-                      {Array.from(
-                        { length: 30 },
-                        (_, index) => (
-                          <span
-                            key={index}
-                            className={
-                              (index / 29) * 100 <= progress
-                                ? "is-played"
-                                : ""
-                            }
-                          />
-                        )
-                      )}
-                    </div>
+            {episodes.map((episode, index) => {
 
-                    <span className="audio-duration">
-                      {current.duration_label || ""}
+              const isPlaying =
+                playingId === episode.id;
+
+              return (
+                <article
+                  key={episode.id}
+                  className={`audio-episode-card ${
+                    isPlaying
+                      ? "is-playing"
+                      : ""
+                  }`}
+                  style={
+                    {
+                      "--audio-index": index,
+                    } as React.CSSProperties
+                  }
+                >
+
+                  {/* الصورة */}
+
+                  <div className="audio-episode-media">
+
+                    {episode.cover_image_url ? (
+                      <img
+                        src={episode.cover_image_url}
+                        alt={episode.title}
+                        loading={
+                          index < 2
+                            ? "eager"
+                            : "lazy"
+                        }
+                      />
+                    ) : (
+                      <div className="audio-episode-media-placeholder">
+                        <Headphones />
+                      </div>
+                    )}
+
+                    <div className="audio-episode-media-overlay" />
+
+                    <span className="audio-episode-number">
+                      {String(index + 1).padStart(2, "0")}
                     </span>
 
                   </div>
 
-                  <audio
-                    ref={audioRef}
-                    src={current.audio_url}
-                    onPlay={() => setPlaying(true)}
-                    onPause={() => setPlaying(false)}
-                    onTimeUpdate={(e) => {
-                      const el = e.currentTarget;
 
-                      if (
-                        Number.isFinite(el.duration) &&
-                        el.duration > 0
-                      ) {
-                        setProgress(
-                          (el.currentTime / el.duration) * 100
-                        );
-                      }
-                    }}
-                    onEnded={() => {
-                      setPlaying(false);
-                      setProgress(0);
-                    }}
-                    className="hidden"
-                  />
+                  {/* المحتوى */}
 
-                </div>
-              </div>
-            )}
+                  <div className="audio-episode-content">
 
-            <div className="audio-more">
+                    <div className="audio-episode-top">
 
-              <h3>اسمع أكثر</h3>
+                      {episode.category && (
+                        <span className="audio-episode-category">
+                          {episode.category}
+                        </span>
+                      )}
 
-              <ul className="audio-list">
+                      {episode.duration_label && (
+                        <span className="audio-episode-duration">
+                          <Clock3 />
+                          {episode.duration_label}
+                        </span>
+                      )}
 
-                {episodes.map((ep) => (
-                  <li key={ep.id}>
+                    </div>
 
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => toggle(ep.id)}
-                      className={`audio-item ${
-                        ep.id === currentId
-                          ? "is-active"
-                          : ""
-                      }`}
-                    >
 
-                      <span className="audio-item__icon">
-                        {ep.id === currentId && playing ? (
-                          <Pause className="w-4 h-4" />
+                    <h2>
+                      {episode.title}
+                    </h2>
+
+
+                    {episode.description && (
+                      <p className="audio-episode-description">
+                        {episode.description}
+                      </p>
+                    )}
+
+
+                    {/* المشغل */}
+
+                    <div className="audio-episode-controls">
+
+                      <button
+                        type="button"
+                        className="audio-episode-play"
+                        onClick={() =>
+                          toggle(episode)
+                        }
+                        aria-label={
+                          isPlaying
+                            ? "إيقاف الحلقة"
+                            : "تشغيل الحلقة"
+                        }
+                      >
+                        {isPlaying ? (
+                          <Pause />
                         ) : (
-                          <Play className="w-4 h-4" />
+                          <Play />
                         )}
-                      </span>
+                      </button>
 
-                      <span className="audio-item__body">
 
-                        <span className="audio-item__title">
-                          {ep.title}
-                        </span>
+                      <div className="audio-episode-progress">
 
-                        <span className="audio-item__meta">
-                          {ep.category && (
-                            <span>{ep.category}</span>
+                        <div
+                          className="audio-episode-progress-track"
+                        >
+                          <span
+                            style={{
+                              width: isPlaying
+                                ? `${progress}%`
+                                : "0%",
+                            }}
+                          />
+                        </div>
+
+                        <div className="audio-episode-wave">
+                          {Array.from(
+                            { length: 24 },
+                            (_, i) => (
+                              <i
+                                key={i}
+                                className={
+                                  isPlaying &&
+                                  (i / 23) * 100 <=
+                                    progress
+                                    ? "is-played"
+                                    : ""
+                                }
+                              />
+                            )
                           )}
+                        </div>
 
-                          {ep.duration_label && (
-                            <span>
-                              {ep.duration_label}
-                            </span>
-                          )}
-                        </span>
+                      </div>
 
-                      </span>
+                    </div>
 
-                    </Button>
+                  </div>
 
-                  </li>
-                ))}
+                </article>
+              );
+            })}
 
-              </ul>
+          </section>
+        )}
 
-              <Link to="/audio" className="audio-all">
-                <Headphones className="w-4 h-4" />
-                كل الحلقات
-              </Link>
+      </main>
 
-            </div>
-
-          </div>
-        </Reveal>
-
-      </div>
-    </section>
+      <Footer />
+    </div>
   );
 };
 
-export default AudioSection;
+export default AudioEpisodes;
