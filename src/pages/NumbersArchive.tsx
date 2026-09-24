@@ -3,6 +3,7 @@ import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Hash } from "lucide-react";
 
 interface NumberItem {
   id: string;
@@ -18,36 +19,154 @@ const NumbersArchive = () => {
   useEffect(() => {
     supabase
       .from("number_stories")
-      .select("id, number_value, title, description, source")
+      .select(
+        "id, number_value, title, description, source"
+      )
       .eq("is_active", true)
       .order("display_order")
-      .then(({ data }) => setItems((data as NumberItem[]) || []));
+      .then(({ data }) => {
+        setItems(
+          (data as NumberItem[]) || []
+        );
+      });
   }, []);
 
   return (
-    <div className="min-h-screen bg-background" dir="rtl">
+    <div
+      className="numbers-archive-page"
+      dir="rtl"
+    >
       <TopBar />
       <Header />
-      <main className="container mx-auto px-6 py-12 max-w-4xl">
-        <h1 className="text-3xl font-bold mb-2">الرقم</h1>
-        <p className="text-muted-foreground mb-8">كل الأرقام السابقة.</p>
+
+      <main className="numbers-archive">
+
+        {/* =========================================
+            INTRO
+        ========================================== */}
+
+        <section className="numbers-intro">
+
+          <div className="numbers-intro-kicker">
+            <Hash />
+            <span>الرقم</span>
+          </div>
+
+          <h1>
+            أرقام صغيرة،
+            <br />
+            <em>تحكي حكايات كبيرة.</em>
+          </h1>
+
+          <p>
+            مجموعة من الأرقام التي مرّت في
+            المُنحنى، وكل رقم منها يخفي خلفه
+            قصة تستحق أن تُروى.
+          </p>
+
+        </section>
+
+
+        {/* =========================================
+            CONTENT
+        ========================================== */}
+
         {items.length === 0 ? (
-          <p className="text-muted-foreground">لا توجد أرقام بعد.</p>
+
+          <section className="numbers-empty">
+            <span>—</span>
+            <p>لا توجد أرقام بعد.</p>
+          </section>
+
         ) : (
-          <ul className="space-y-3">
-            {items.map((n) => (
-              <li key={n.id} className="flex items-start gap-5 rounded-xl border border-border bg-card p-5">
-                <span className="text-3xl font-bold text-accent shrink-0 min-w-[4rem]">{n.number_value}</span>
-                <div className="min-w-0">
-                  <h2 className="font-bold">{n.title}</h2>
-                  {n.description && <p className="text-sm text-muted-foreground mt-1">{n.description}</p>}
-                  {n.source && <p className="text-xs text-muted-foreground mt-2">المصدر: {n.source}</p>}
+
+          <section className="numbers-list">
+
+            <div
+              className="numbers-list-line"
+              aria-hidden="true"
+            />
+
+            {items.map((item, index) => (
+
+              <article
+                key={item.id}
+                className="number-story"
+                style={{
+                  "--number-index": index,
+                } as React.CSSProperties}
+              >
+
+                {/* الرقم */}
+
+                <div className="number-story-value">
+
+                  <span className="number-story-index">
+                    {String(index + 1).padStart(
+                      2,
+                      "0"
+                    )}
+                  </span>
+
+                  <strong>
+                    {item.number_value}
+                  </strong>
+
                 </div>
-              </li>
+
+
+                {/* النقطة */}
+
+                <div
+                  className="number-story-dot"
+                  aria-hidden="true"
+                />
+
+
+                {/* القصة */}
+
+                <div className="number-story-content">
+
+                  <div className="number-story-top">
+
+                    <span>
+                      الرقم
+                    </span>
+
+                    {item.source && (
+                      <small>
+                        المصدر: {item.source}
+                      </small>
+                    )}
+
+                  </div>
+
+                  <h2>
+                    {item.title}
+                  </h2>
+
+                  {item.description && (
+                    <p>
+                      {item.description}
+                    </p>
+                  )}
+
+                  <div className="number-story-arrow">
+                    <ArrowLeft />
+                  </div>
+
+                </div>
+
+              </article>
+
             ))}
-          </ul>
+
+          </section>
+
         )}
+
       </main>
+
       <Footer />
     </div>
   );
