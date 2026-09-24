@@ -6566,16 +6566,13 @@ margin-left: 15px;
 /* =========================================================
    NUMBERS ARCHIVE
    المُنحنى — الرقم
+   FINAL CLEAN STYLE
    ========================================================= */
 
 .numbers-archive-page {
   min-height: 100vh;
-
+  background: #f5f0e1;
   color: #283639;
-
-  background:
-    #f5f0e1;
-
   overflow-x: clip;
 }
 
@@ -6585,17 +6582,9 @@ margin-left: 15px;
    ========================================================= */
 
 .numbers-archive {
-  width: min(
-    1120px,
-    calc(100% - 3rem)
-  );
-
+  width: min(1000px, calc(100% - 3rem));
   margin: 0 auto;
-
-  padding:
-    7rem
-    0
-    9rem;
+  padding: 5rem 0 6rem;
 }
 
 
@@ -6604,38 +6593,26 @@ margin-left: 15px;
    ========================================================= */
 
 .numbers-intro {
-  max-width: 720px;
-
-  margin:
-    0
-    0
-    7rem
-    auto;
-
+  max-width: 620px;
+  margin: 0 0 4.5rem auto;
   text-align: right;
 }
 
 .numbers-intro-kicker {
   display: inline-flex;
-
   align-items: center;
+  gap: 0.45rem;
 
-  gap: 0.55rem;
-
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
 
   color: #c96941;
-
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   font-weight: 700;
-
-  letter-spacing: 0.04em;
 }
 
 .numbers-intro-kicker svg {
-  width: 1rem;
-  height: 1rem;
-
+  width: 0.95rem;
+  height: 0.95rem;
   stroke-width: 1.8;
 }
 
@@ -6644,46 +6621,48 @@ margin-left: 15px;
 
   color: #283639;
 
-  font-size:
-    clamp(
-      3rem,
-      6vw,
-      5.5rem
-    );
-
+  font-size: clamp(2.5rem, 5vw, 4.2rem);
   font-weight: 700;
-
-  line-height: 1.08;
-
+  line-height: 1.12;
   letter-spacing: -0.04em;
+
+  animation:
+    numbers-title-float
+    6s
+    ease-in-out
+    infinite;
 }
 
 .numbers-intro h1 em {
   color: #82ada5;
-
   font-style: normal;
 }
 
 .numbers-intro p {
-  max-width: 560px;
+  max-width: 500px;
 
-  margin:
-    1.75rem
-    0
-    0
-    auto;
+  margin: 1.25rem 0 0 auto;
 
-  color:
-    rgba(
-      40,
-      54,
-      57,
-      0.65
-    );
+  color: rgba(40, 54, 57, 0.62);
 
-  font-size: 1.05rem;
+  font-size: 0.92rem;
+  line-height: 1.85;
+}
 
-  line-height: 2;
+
+/* =========================================================
+   TITLE MOTION
+   ========================================================= */
+
+@keyframes numbers-title-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 
@@ -6693,11 +6672,7 @@ margin-left: 15px;
 
 .numbers-list {
   position: relative;
-
-  padding:
-    1rem
-    0
-    2rem;
+  padding: 0 0 1rem;
 }
 
 
@@ -6717,25 +6692,15 @@ margin-left: 15px;
     linear-gradient(
       to bottom,
       transparent,
-      rgba(
-        130,
-        173,
-        165,
-        0.5
-      ) 8%,
-      rgba(
-        130,
-        173,
-        165,
-        0.5
-      ) 92%,
+      rgba(130, 173, 165, 0.5) 8%,
+      rgba(130, 173, 165, 0.5) 92%,
       transparent
     );
 }
 
 
 /* =========================================================
-   STORY
+   NUMBER STORY
    ========================================================= */
 
 .number-story {
@@ -6748,36 +6713,27 @@ margin-left: 15px;
     1px
     minmax(0, 1fr);
 
-  column-gap: 2.5rem;
+  column-gap: 2rem;
 
   align-items: start;
 
-  min-height: 230px;
+  min-height: 185px;
 
-  padding:
-    2.5rem
-    0;
+  padding: 2rem 0;
 
   opacity: 0;
 
-  transform:
-    translateY(28px);
+  transform: translateY(24px);
 
   animation:
-    numberStoryReveal
-    0.75s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    )
+    number-story-reveal
+    0.7s
+    cubic-bezier(0.22, 1, 0.36, 1)
     forwards;
 
   animation-delay:
     calc(
-      var(--number-index) *
-      90ms
+      var(--number-index) * 90ms
     );
 }
 
@@ -6789,7 +6745,7 @@ margin-left: 15px;
 .number-story-value {
   position: relative;
 
-  padding-top: 0.25rem;
+  padding-top: 0.15rem;
 
   text-align: right;
 }
@@ -6797,14 +6753,14 @@ margin-left: 15px;
 .number-story-index {
   display: block;
 
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.45rem;
 
   color: #c96941;
 
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
 
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 .number-story-value strong {
@@ -6812,20 +6768,22 @@ margin-left: 15px;
 
   color: #283639;
 
-  font-size:
-    clamp(
-      2.7rem,
-      6vw,
-      5.5rem
-    );
-
+  font-size: clamp(2.3rem, 5vw, 4.3rem);
   font-weight: 700;
-
   line-height: 0.95;
-
   letter-spacing: -0.05em;
 
   word-break: break-word;
+
+  animation:
+    number-float
+    5.5s
+    ease-in-out
+    infinite;
+
+  transition:
+    color 0.35s ease,
+    transform 0.4s ease;
 }
 
 
@@ -6835,30 +6793,29 @@ margin-left: 15px;
 
 .number-story-dot {
   position: relative;
-
   z-index: 3;
 
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
 
-  margin-top: 0.75rem;
+  margin-top: 0.65rem;
 
-  border:
-    2px solid
-    #f5f0e1;
-
+  border: 2px solid #f5f0e1;
   border-radius: 50%;
 
   background: #e1a437;
 
   box-shadow:
-    0 0 0 5px
-    rgba(
-      225,
-      164,
-      55,
-      0.12
-    );
+    0 0 0 5px rgba(225, 164, 55, 0.12);
+
+  animation:
+    number-dot-float
+    4s
+    ease-in-out
+    infinite;
+
+  transition:
+    transform 0.35s ease;
 }
 
 
@@ -6869,9 +6826,18 @@ margin-left: 15px;
 .number-story-content {
   position: relative;
 
-  max-width: 650px;
+  max-width: 560px;
 
-  padding-bottom: 1rem;
+  padding-bottom: 0.5rem;
+
+  animation:
+    number-content-float
+    7s
+    ease-in-out
+    infinite;
+
+  transition:
+    transform 0.4s ease;
 }
 
 .number-story-top {
@@ -6882,26 +6848,20 @@ margin-left: 15px;
 
   gap: 1rem;
 
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .number-story-top > span {
   color: #82ada5;
 
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
 }
 
 .number-story-top small {
-  color:
-    rgba(
-      40,
-      54,
-      57,
-      0.45
-    );
+  color: rgba(40, 54, 57, 0.42);
 
-  font-size: 0.72rem;
+  font-size: 0.68rem;
 }
 
 .number-story-content h2 {
@@ -6909,39 +6869,24 @@ margin-left: 15px;
 
   color: #283639;
 
-  font-size:
-    clamp(
-      1.45rem,
-      2.4vw,
-      2rem
-    );
-
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
   font-weight: 700;
 
-  line-height: 1.45;
+  line-height: 1.4;
 
   letter-spacing: -0.025em;
 }
 
 .number-story-content p {
-  max-width: 580px;
+  max-width: 500px;
 
-  margin:
-    0.85rem
-    0
-    0;
+  margin: 0.65rem 0 0;
 
-  color:
-    rgba(
-      40,
-      54,
-      57,
-      0.62
-    );
+  color: rgba(40, 54, 57, 0.6);
 
-  font-size: 0.95rem;
+  font-size: 0.88rem;
 
-  line-height: 1.9;
+  line-height: 1.8;
 }
 
 
@@ -6955,11 +6900,11 @@ margin-left: 15px;
   align-items: center;
   justify-content: flex-end;
 
-  margin-top: 1.25rem;
+  margin-top: 0.9rem;
 
   color: #c96941;
 
-  opacity: 0.65;
+  opacity: 0.6;
 
   transition:
     transform 0.35s ease,
@@ -6967,16 +6912,8 @@ margin-left: 15px;
 }
 
 .number-story-arrow svg {
-  width: 1.1rem;
-  height: 1.1rem;
-}
-
-.number-story:hover
-.number-story-arrow {
-  opacity: 1;
-
-  transform:
-    translateX(-7px);
+  width: 1rem;
+  height: 1rem;
 }
 
 
@@ -6984,326 +6921,82 @@ margin-left: 15px;
    HOVER
    ========================================================= */
 
-.number-story-content {
-  transition:
-    transform 0.45s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    );
-}
-
-.number-story:hover
-.number-story-content {
-  transform:
-    translateX(-8px);
-}
-
-.number-story-value strong {
-  transition:
-    color 0.35s ease,
-    transform 0.45s
-    cubic-bezier(
-      0.22,
-      1,
-      0.36,
-      1
-    );
-}
-
 .number-story:hover
 .number-story-value strong {
+  animation-play-state: paused;
+
   color: #c96941;
 
   transform:
-    translateX(-5px);
+    translateY(-7px)
+    scale(1.02);
 }
 
-
-/* =========================================================
-   EMPTY
-   ========================================================= */
-
-.numbers-empty {
-  min-height: 300px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: center;
-  justify-content: center;
-
-  gap: 1rem;
-
-  color:
-    rgba(
-      40,
-      54,
-      57,
-      0.5
-    );
-
-  text-align: center;
-}
-
-.numbers-empty span {
-  color: #e1a437;
-
-  font-size: 2rem;
-}
-
-.numbers-empty p {
-  margin: 0;
-}
-
-
-/* =========================================================
-   ANIMATION
-   ========================================================= */
-
-@keyframes numberStoryReveal {
-  from {
-    opacity: 0;
-
-    transform:
-      translateY(28px);
-  }
-
-  to {
-    opacity: 1;
-
-    transform:
-      translateY(0);
-  }
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 700px) {
-
-  .numbers-archive {
-    width:
-      calc(
-        100% - 2.25rem
-      );
-
-    padding:
-      4.5rem
-      0
-      6rem;
-  }
-
-
-  /* INTRO */
-
-  .numbers-intro {
-    margin-bottom: 4.5rem;
-  }
-
-  .numbers-intro-kicker {
-    margin-bottom: 1.25rem;
-  }
-
-  .numbers-intro h1 {
-    font-size:
-      clamp(
-        2.8rem,
-        13vw,
-        4rem
-      );
-
-    line-height: 1.1;
-  }
-
-  .numbers-intro p {
-    margin-top: 1.25rem;
-
-    font-size: 0.95rem;
-
-    line-height: 1.9;
-  }
-
-
-  /* LIST */
-
-  .numbers-list {
-    padding-top: 0;
-  }
-
-  .numbers-list-line {
-    right: 16px;
-  }
-
-
-  /* STORY */
-
-  .number-story {
-    display: grid;
-
-    grid-template-columns:
-      32px
-      minmax(0, 1fr);
-
-    column-gap: 1.25rem;
-
-    min-height: auto;
-
-    padding:
-      1.75rem
-      0;
-  }
-
-
-  /* DOT */
-
-  .number-story-dot {
-    grid-column: 1;
-
-    grid-row: 1;
-
-    margin-top: 0.7rem;
-
-    width: 9px;
-    height: 9px;
-  }
-
-
-  /* VALUE */
-
-  .number-story-value {
-    grid-column: 2;
-
-    grid-row: 1;
-
-    padding: 0;
-
-    text-align: right;
-  }
-
-  .number-story-index {
-    margin-bottom: 0.5rem;
-  }
-
-  .number-story-value strong {
-    font-size:
-      clamp(
-        2.7rem,
-        15vw,
-        4.2rem
-      );
-
-    line-height: 0.95;
-  }
-
-
-  /* CONTENT */
-
-  .number-story-content {
-    grid-column: 2;
-
-    grid-row: 2;
-
-    margin-top: 1.25rem;
-
-    padding: 0;
-  }
-
-  .number-story-top {
-    align-items: flex-start;
-
-    flex-direction: column;
-
-    gap: 0.35rem;
-
-    margin-bottom: 0.7rem;
-  }
-
-  .number-story-content h2 {
-    font-size: 1.3rem;
-
-    line-height: 1.5;
-  }
-
-  .number-story-content p {
-    margin-top: 0.65rem;
-
-    font-size: 0.9rem;
-
-    line-height: 1.85;
-  }
-
-  .number-story-arrow {
-    margin-top: 1rem;
-  }
-
-
-  /* MOBILE HOVER */
-
-  .number-story:hover
-  .number-story-content {
-    transform: none;
-  }
-
-  .number-story:hover
-  .number-story-value strong {
-    transform: none;
-  }
-}
-
-
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-  .number-story {
-    opacity: 1;
-
-    transform: none;
-
-    animation: none;
-  }
-
-  .number-story-content,
-  .number-story-value strong,
-  .number-story-arrow {
-    transition: none;
-  }
-}
-
-/* =========================================================
-   NUMBERS — FLOATING MOTION
-   حركة هادئة مستمرة
-   ========================================================= */
-
-/* الرقم الكبير يتحرك بشكل مستقل */
-.number-story-value strong {
-  animation:
-    numberFloat
-    5.5s
-    ease-in-out
-    infinite;
-}
-
-
-/* النقطة تتحرك بشكل أخف */
+.number-story:hover
 .number-story-dot {
-  animation:
-    numberDotFloat
-    4s
-    ease-in-out
-    infinite;
+  animation-play-state: paused;
+
+  transform: scale(1.3);
+}
+
+.number-story:hover
+.number-story-content {
+  animation-play-state: paused;
+
+  transform: translateY(-3px);
+}
+
+.number-story:hover
+.number-story-arrow {
+  opacity: 1;
+
+  transform: translateX(-6px);
 }
 
 
-/* كل قصة لها توقيت مختلف حتى لا تتحرك كلها معًا */
+/* =========================================================
+   FLOATING MOTION
+   ========================================================= */
+
+@keyframes number-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes number-dot-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes number-content-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+
+/* =========================================================
+   DIFFERENT RHYTHM
+   حتى لا تتحرك كل العناصر معًا
+   ========================================================= */
+
 .number-story:nth-child(2)
 .number-story-value strong {
   animation-delay: -1.2s;
@@ -7344,76 +7037,6 @@ margin-left: 15px;
   animation-delay: -3.5s;
 }
 
-
-/* =========================================================
-   FLOAT KEYFRAMES
-   ========================================================= */
-
-@keyframes numberFloat {
-
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(-7px);
-  }
-}
-
-
-@keyframes numberDotFloat {
-
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
-
-  50% {
-    transform:
-      translateY(4px);
-  }
-}
-
-
-/* =========================================================
-   HOVER
-   ========================================================= */
-
-.number-story:hover
-.number-story-value strong {
-  animation-play-state: paused;
-
-  transform:
-    translateY(-8px)
-    scale(1.025);
-}
-
-.number-story:hover
-.number-story-dot {
-  animation-play-state: paused;
-
-  transform:
-    scale(1.35);
-}
-
-
-/* =========================================================
-   CONTENT FLOAT
-   حركة شبه غير محسوسة للنص
-   ========================================================= */
-
-.number-story-content {
-  animation:
-    numberContentFloat
-    7s
-    ease-in-out
-    infinite;
-}
-
 .number-story:nth-child(2)
 .number-story-content {
   animation-delay: -2s;
@@ -7434,51 +7057,228 @@ margin-left: 15px;
   animation-delay: -5s;
 }
 
-@keyframes numberContentFloat {
 
-  0%,
-  100% {
-    transform:
-      translateY(0);
-  }
+/* =========================================================
+   EMPTY
+   ========================================================= */
 
-  50% {
-    transform:
-      translateY(-3px);
-  }
+.numbers-empty {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 0.75rem;
+
+  color: rgba(40, 54, 57, 0.5);
+
+  text-align: center;
+}
+
+.numbers-empty span {
+  color: #e1a437;
+
+  font-size: 1.8rem;
+}
+
+.numbers-empty p {
+  margin: 0;
 }
 
 
 /* =========================================================
    MOBILE
-   الحركة أخف حتى لا تصبح الصفحة مزعجة
    ========================================================= */
 
 @media (max-width: 700px) {
 
-  .number-story-value strong {
-    animation-duration: 6.5s;
+  .numbers-archive {
+    width: calc(100% - 2rem);
+
+    padding:
+      3.5rem
+      0
+      5rem;
   }
 
-  .number-story-content {
-    animation-duration: 8s;
+
+  /* INTRO */
+
+  .numbers-intro {
+    margin-bottom: 3.5rem;
   }
+
+  .numbers-intro-kicker {
+    margin-bottom: 0.9rem;
+  }
+
+  .numbers-intro h1 {
+    font-size:
+      clamp(
+        2.35rem,
+        11vw,
+        3.4rem
+      );
+
+    line-height: 1.1;
+  }
+
+  .numbers-intro p {
+    margin-top: 1rem;
+
+    font-size: 0.9rem;
+
+    line-height: 1.85;
+  }
+
+
+  /* LIST */
+
+  .numbers-list-line {
+    right: 13px;
+  }
+
+
+  /* STORY */
+
+  .number-story {
+    display: grid;
+
+    grid-template-columns:
+      28px
+      minmax(0, 1fr);
+
+    column-gap: 1rem;
+
+    min-height: auto;
+
+    padding:
+      1.5rem
+      0;
+  }
+
+
+  /* DOT */
 
   .number-story-dot {
-    animation-duration: 5s;
+    grid-column: 1;
+    grid-row: 1;
+
+    margin-top: 0.6rem;
   }
+
+
+  /* NUMBER */
+
+  .number-story-value {
+    grid-column: 2;
+    grid-row: 1;
+
+    padding: 0;
+
+    text-align: right;
+  }
+
+  .number-story-index {
+    margin-bottom: 0.4rem;
+  }
+
+  .number-story-value strong {
+    font-size:
+      clamp(
+        2.3rem,
+        13vw,
+        3.5rem
+      );
+  }
+
+
+  /* CONTENT */
+
+  .number-story-content {
+    grid-column: 2;
+    grid-row: 2;
+
+    margin-top: 0.9rem;
+
+    max-width: none;
+  }
+
+  .number-story-top {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 0.3rem;
+
+    margin-bottom: 0.6rem;
+  }
+
+  .number-story-top > span {
+    font-size: 0.7rem;
+  }
+
+  .number-story-top small {
+    font-size: 0.65rem;
+  }
+
+  .number-story-content h2 {
+    font-size: 1.15rem;
+
+    line-height: 1.5;
+  }
+
+  .number-story-content p {
+    margin-top: 0.55rem;
+
+    font-size: 0.86rem;
+
+    line-height: 1.85;
+  }
+
+  .number-story-arrow {
+    margin-top: 0.8rem;
+  }
+
+
+  /* لا نحتاج حركة hover على اللمس */
+
+  .number-story:hover
+  .number-story-value strong {
+    transform: none;
+  }
+
+  .number-story:hover
+  .number-story-content {
+    transform: none;
+  }
+
 }
 
 
 /* =========================================================
-   ACCESSIBILITY
+   REDUCED MOTION
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
 
+  .numbers-intro h1,
+  .number-story,
   .number-story-value strong,
   .number-story-dot,
   .number-story-content {
     animation: none !important;
+
+    transform: none !important;
+  }
+
+  .number-story-value strong,
+  .number-story-dot,
+  .number-story-content,
+  .number-story-arrow {
+    transition: none !important;
   }
 }
