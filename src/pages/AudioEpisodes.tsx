@@ -110,7 +110,7 @@ const AudioEpisodes = () => {
       <TopBar />
       <Header />
 
-      <main className="audio-archive">
+      <main className="audio-archive container mx-auto px-8 py-12">
 
         {/* =========================================
             Intro
