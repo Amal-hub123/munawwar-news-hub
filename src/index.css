@@ -7152,3 +7152,1050 @@ margin-left: 15px;
   */
   animation-play-state: running;
 }
+
+
+
+/* =========================================================
+   AUDIO ARCHIVE — صفحة كل الحلقات
+   نفس لغة صفحة الأرقام
+   ========================================================= */
+
+.audio-archive-page {
+  min-height: 100vh;
+  overflow-x: clip;
+
+  color: #283639;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(130, 173, 165, .08),
+      transparent 28rem
+    ),
+    #f5f0e1;
+}
+
+
+/* =========================================================
+   Container
+   ========================================================= */
+
+.audio-archive {
+  width: min(1000px, calc(100% - 3rem));
+  margin: 0 auto;
+
+  padding: 5rem 0 6rem;
+}
+
+
+/* =========================================================
+   Intro
+   ========================================================= */
+
+.audio-archive-intro {
+  max-width: 700px;
+  margin-bottom: 4rem;
+
+  text-align: right;
+}
+
+
+.audio-archive-kicker {
+  display: inline-flex;
+  align-items: center;
+
+  gap: .5rem;
+  margin-bottom: 1.1rem;
+
+  color: #466c69;
+
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+
+.audio-archive-kicker svg {
+  width: 1rem;
+  height: 1rem;
+
+  stroke-width: 1.8;
+}
+
+
+.audio-archive-intro h1 {
+  margin: 0;
+
+  color: #283639;
+
+  font-size:
+    clamp(
+      2.5rem,
+      5vw,
+      4.2rem
+    );
+
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.04em;
+
+  animation:
+    audio-archive-title-float
+    4s
+    ease-in-out
+    infinite;
+}
+
+
+.audio-archive-intro h1 em {
+  color: #466c69;
+
+  font-style: normal;
+}
+
+
+.audio-archive-intro p {
+  max-width: 34rem;
+
+  margin-top: 1.2rem;
+
+  color: rgba(40, 54, 57, .64);
+
+  font-size: .95rem;
+  line-height: 1.9;
+}
+
+
+/* =========================================================
+   Episodes list
+   ========================================================= */
+
+.audio-archive-list {
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.1rem;
+
+  width: 100%;
+}
+
+
+/* =========================================================
+   Episode card
+   ========================================================= */
+
+.audio-episode-card {
+  position: relative;
+
+  display: grid;
+
+  /*
+     المحتوى أكبر
+     الصورة منطقة مستقلة
+  */
+  grid-template-columns:
+    minmax(0, 1fr)
+    clamp(220px, 29vw, 300px);
+
+  align-items: stretch;
+
+  width: 100%;
+  min-height: 230px;
+
+  overflow: hidden;
+
+  direction: ltr;
+
+  border:
+    1px solid
+    rgba(40, 54, 57, .13);
+
+  border-radius: 1rem;
+
+  background:
+    rgba(255, 255, 255, .22);
+
+  box-shadow:
+    0 8px 24px
+    rgba(40, 54, 57, .025);
+
+  /*
+     نفس روح حركة صفحة الأرقام
+  */
+  animation:
+    audio-episode-float
+    3.8s
+    ease-in-out
+    infinite;
+
+  animation-delay:
+    calc(var(--audio-index) * -.65s);
+
+  transition:
+    border-color .35s ease,
+    box-shadow .35s ease,
+    background .35s ease;
+}
+
+
+/* =========================================================
+   Hover
+   ========================================================= */
+
+.audio-episode-card:hover {
+  border-color:
+    rgba(130, 173, 165, .48);
+
+  background:
+    rgba(255, 255, 255, .34);
+
+  box-shadow:
+    0 18px 42px
+    rgba(40, 54, 57, .08);
+}
+
+
+/* =========================================================
+   Image
+   ========================================================= */
+
+.audio-episode-media {
+  position: relative;
+
+  grid-column: 2;
+  grid-row: 1;
+
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 230px;
+
+  overflow: hidden;
+
+  background:
+    #dfe6e2;
+}
+
+
+.audio-episode-media img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transform:
+    scale(1.035);
+
+  transition:
+    transform .9s
+    cubic-bezier(.22, 1, .36, 1),
+    filter .6s ease;
+
+  animation:
+    audio-episode-image-float
+    10s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+.audio-episode-card:hover
+.audio-episode-media img {
+  transform:
+    scale(1.085);
+}
+
+
+.audio-episode-media-overlay {
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0, 52, 58, .08),
+      transparent 60%
+    );
+
+  transition:
+    opacity .45s ease;
+}
+
+
+.audio-episode-card:hover
+.audio-episode-media-overlay {
+  opacity: .45;
+}
+
+
+.audio-episode-media-placeholder {
+  display: grid;
+
+  width: 100%;
+  height: 100%;
+
+  place-items: center;
+
+  color:
+    rgba(40, 54, 57, .35);
+}
+
+
+.audio-episode-media-placeholder svg {
+  width: 3rem;
+  height: 3rem;
+}
+
+
+/* =========================================================
+   رقم الحلقة
+   ========================================================= */
+
+.audio-episode-number {
+  position: absolute;
+
+  top: 1rem;
+  inset-inline-start: 1rem;
+
+  z-index: 2;
+
+  display: grid;
+
+  width: 2.35rem;
+  height: 2.35rem;
+
+  place-items: center;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, .5);
+
+  border-radius: 50%;
+
+  color: #f6f4ee;
+
+  background:
+    rgba(0, 52, 58, .72);
+
+  backdrop-filter:
+    blur(8px);
+
+  font-size: .65rem;
+  font-weight: 700;
+
+  transition:
+    transform .4s
+    cubic-bezier(.22, 1, .36, 1),
+    background .3s ease;
+}
+
+
+.audio-episode-card:hover
+.audio-episode-number {
+  transform:
+    scale(1.08);
+}
+
+
+/* =========================================================
+   Content
+   ========================================================= */
+
+.audio-episode-content {
+  grid-column: 1;
+  grid-row: 1;
+
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding:
+    clamp(1.5rem, 3vw, 2.25rem);
+
+  direction: rtl;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   Top meta
+   ========================================================= */
+
+.audio-episode-top {
+  display: flex;
+
+  align-items: center;
+
+  gap: .65rem;
+
+  min-height: 1.6rem;
+
+  flex-wrap: wrap;
+}
+
+
+.audio-episode-category {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding:
+    .25rem
+    .65rem;
+
+  border-radius: 999px;
+
+  color:
+    #466c69;
+
+  background:
+    rgba(130, 173, 165, .13);
+
+  font-size: .68rem;
+  font-weight: 700;
+}
+
+
+.audio-episode-duration {
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: .3rem;
+
+  color:
+    rgba(40, 54, 57, .52);
+
+  font-size: .68rem;
+}
+
+
+.audio-episode-duration svg {
+  width: .8rem;
+  height: .8rem;
+}
+
+
+/* =========================================================
+   Title
+   ========================================================= */
+
+.audio-episode-content h2 {
+  margin:
+    1rem 0 0;
+
+  max-width: 28ch;
+
+  color:
+    #283639;
+
+  font-size:
+    clamp(
+      1.35rem,
+      2.3vw,
+      1.9rem
+    );
+
+  font-weight: 700;
+
+  line-height: 1.5;
+
+  letter-spacing: -.025em;
+
+  animation:
+    audio-episode-text-float
+    5s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   Description
+   ========================================================= */
+
+.audio-episode-description {
+  max-width: 38rem;
+
+  margin-top: .6rem;
+
+  color:
+    rgba(40, 54, 57, .62);
+
+  font-size: .86rem;
+
+  line-height: 1.9;
+
+  display: -webkit-box;
+
+  overflow: hidden;
+
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+
+/* =========================================================
+   Controls
+   ========================================================= */
+
+.audio-episode-controls {
+  display: flex;
+
+  align-items: center;
+
+  gap: .8rem;
+
+  margin-top: auto;
+  padding-top: 1.5rem;
+
+  direction: ltr;
+}
+
+
+/* =========================================================
+   Play
+   ========================================================= */
+
+.audio-episode-play {
+  display: grid;
+
+  flex: none;
+
+  width: 3rem;
+  height: 3rem;
+
+  place-items: center;
+
+  border:
+    1px solid
+    #00343a;
+
+  border-radius: 50%;
+
+  color:
+    #f6f4ee;
+
+  background:
+    #00343a;
+
+  cursor: pointer;
+
+  transition:
+    transform .35s
+    cubic-bezier(.22, 1, .36, 1),
+    box-shadow .35s ease,
+    background .3s ease;
+}
+
+
+.audio-episode-play svg {
+  width: 1rem;
+  height: 1rem;
+
+  fill: currentColor;
+}
+
+
+.audio-episode-play:hover {
+  transform:
+    scale(1.1);
+
+  box-shadow:
+    0 8px 20px
+    rgba(0, 52, 58, .18);
+}
+
+
+.audio-episode-card.is-playing
+.audio-episode-play {
+  animation:
+    audio-play-pulse
+    1.7s
+    ease-in-out
+    infinite;
+}
+
+
+/* =========================================================
+   Progress
+   ========================================================= */
+
+.audio-episode-progress {
+  position: relative;
+
+  flex: 1;
+
+  min-width: 0;
+
+  height: 2.5rem;
+
+  display: flex;
+
+  align-items: center;
+}
+
+
+/*
+   الخط الأساسي
+*/
+.audio-episode-progress-track {
+  position: absolute;
+
+  inset-inline: 0;
+
+  top: 50%;
+
+  height: 2px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background:
+    rgba(40, 54, 57, .13);
+
+  transform:
+    translateY(-50%);
+}
+
+
+.audio-episode-progress-track span {
+  display: block;
+
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    #e1a437;
+
+  transition:
+    width .15s linear;
+}
+
+
+/*
+   waveform صغيرة فوق الخط
+*/
+.audio-episode-wave {
+  position: relative;
+
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  width: 100%;
+  height: 100%;
+
+  padding-inline: .15rem;
+
+  pointer-events: none;
+}
+
+
+.audio-episode-wave i {
+  display: block;
+
+  width: 2px;
+
+  height: 35%;
+
+  border-radius: 999px;
+
+  background:
+    rgba(40, 54, 57, .18);
+
+  transition:
+    background .25s ease,
+    transform .3s ease;
+}
+
+
+.audio-episode-wave i:nth-child(3n) {
+  height: 65%;
+}
+
+
+.audio-episode-wave i:nth-child(4n) {
+  height: 48%;
+}
+
+
+.audio-episode-wave i:nth-child(7n) {
+  height: 80%;
+}
+
+
+.audio-episode-wave i.is-played {
+  background:
+    #e1a437;
+}
+
+
+.audio-episode-card.is-playing
+.audio-episode-wave i {
+  animation:
+    audio-small-wave
+    .8s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+
+.audio-episode-card.is-playing
+.audio-episode-wave i:nth-child(2n) {
+  animation-duration: .55s;
+}
+
+
+.audio-episode-card.is-playing
+.audio-episode-wave i:nth-child(3n) {
+  animation-duration: .72s;
+}
+
+
+.audio-episode-card.is-playing
+.audio-episode-wave i:nth-child(5n) {
+  animation-duration: 1s;
+}
+
+
+/* =========================================================
+   Empty
+   ========================================================= */
+
+.audio-archive-empty {
+  min-height: 15rem;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: .8rem;
+
+  border:
+    1px dashed
+    rgba(40, 54, 57, .2);
+
+  border-radius: 1rem;
+
+  color:
+    rgba(40, 54, 57, .55);
+}
+
+
+.audio-archive-empty svg {
+  width: 2rem;
+  height: 2rem;
+}
+
+
+/* =========================================================
+   Animations
+   ========================================================= */
+
+@keyframes audio-episode-float {
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-6px);
+  }
+}
+
+
+@keyframes audio-archive-title-float {
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-8px);
+  }
+}
+
+
+@keyframes audio-episode-text-float {
+  0%,
+  100% {
+    transform:
+      translateY(0);
+  }
+
+  50% {
+    transform:
+      translateY(-2px);
+  }
+}
+
+
+@keyframes audio-episode-image-float {
+  from {
+    transform:
+      scale(1.035)
+      translate3d(0, 0, 0);
+  }
+
+  to {
+    transform:
+      scale(1.06)
+      translate3d(-1.2%, -1%, 0);
+  }
+}
+
+
+@keyframes audio-play-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 0
+      rgba(225, 164, 55, 0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 .45rem
+      rgba(225, 164, 55, .13);
+  }
+}
+
+
+@keyframes audio-small-wave {
+  from {
+    transform:
+      scaleY(.55);
+  }
+
+  to {
+    transform:
+      scaleY(1.2);
+  }
+}
+
+
+/* =========================================================
+   Tablet
+   ========================================================= */
+
+@media (max-width: 800px) {
+
+  .audio-archive {
+    width:
+      min(
+        720px,
+        calc(100% - 2rem)
+      );
+
+    padding:
+      4rem 0 5rem;
+  }
+
+
+  .audio-episode-card {
+    grid-template-columns:
+      minmax(0, 1fr)
+      clamp(190px, 32vw, 240px);
+
+    min-height: 210px;
+  }
+
+
+  .audio-episode-media {
+    min-height: 210px;
+  }
+
+
+  .audio-episode-content {
+    padding: 1.5rem;
+  }
+
+}
+
+
+/* =========================================================
+   Mobile
+   ========================================================= */
+
+@media (max-width: 620px) {
+
+  .audio-archive {
+    width:
+      calc(100% - 1.25rem);
+
+    padding:
+      3.25rem 0 4rem;
+  }
+
+
+  .audio-archive-intro {
+    margin-bottom: 2.75rem;
+  }
+
+
+  .audio-archive-intro h1 {
+    font-size:
+      clamp(
+        2.35rem,
+        11vw,
+        3.3rem
+      );
+  }
+
+
+  .audio-archive-intro p {
+    font-size: .85rem;
+  }
+
+
+  .audio-episode-card {
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 0;
+
+    direction: rtl;
+  }
+
+
+  .audio-episode-media {
+    order: 1;
+
+    width: 100%;
+
+    height:
+      clamp(
+        12rem,
+        48vw,
+        18rem
+      );
+
+    min-height: 0;
+  }
+
+
+  .audio-episode-content {
+    order: 2;
+
+    width: 100%;
+
+    padding: 1.35rem;
+  }
+
+
+  .audio-episode-content h2 {
+    font-size: 1.25rem;
+
+    margin-top: .8rem;
+  }
+
+
+  .audio-episode-description {
+    font-size: .8rem;
+
+    -webkit-line-clamp: 3;
+  }
+
+
+  .audio-episode-controls {
+    padding-top: 1.25rem;
+  }
+
+
+  .audio-episode-play {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+}
+
+
+/* =========================================================
+   Small mobile
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+  .audio-archive {
+    width:
+      calc(100% - 1rem);
+  }
+
+
+  .audio-episode-media {
+    height: 12rem;
+  }
+
+
+  .audio-episode-content {
+    padding: 1.15rem;
+  }
+
+
+  .audio-episode-category,
+  .audio-episode-duration {
+    font-size: .62rem;
+  }
+
+
+  .audio-episode-content h2 {
+    font-size: 1.15rem;
+  }
+
+
+  .audio-episode-description {
+    font-size: .76rem;
+    line-height: 1.8;
+  }
+
+}
+
+
+/* =========================================================
+   Reduced motion
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .audio-archive-intro h1,
+  .audio-episode-card,
+  .audio-episode-content h2,
+  .audio-episode-media img,
+  .audio-episode-card.is-playing
+  .audio-episode-play,
+  .audio-episode-card.is-playing
+  .audio-episode-wave i {
+
+    animation: none !important;
+  }
+
+
+  .audio-episode-card:hover
+  .audio-episode-media img {
+
+    transform: none;
+  }
+}
