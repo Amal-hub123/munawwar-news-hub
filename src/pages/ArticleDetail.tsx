@@ -244,7 +244,7 @@ const ArticleDetail = () => {
       <TopBar />
       <Header />
 
-      <article className="container mx-auto px-4 py-8 max-w-4xl">
+      <article className="ArticleContainer mx-auto px-4 py-8 max-w-4xl">
         {categories && categories.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {categories.map((c: any) => (
