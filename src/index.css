@@ -7360,46 +7360,38 @@ margin-left: 15px;
 
 .audio-episode-media {
   position: relative;
-
   grid-column: 2;
   grid-row: 1;
-
   min-width: 0;
   width: 100%;
   height: 100%;
   min-height: 230px;
-
   overflow: hidden;
-
-  background:
-    #dfe6e2;
+  background: #dfe6e2;
 }
 
-
+/* حركة الصورة داخل الكادر */
 .audio-episode-media img {
   display: block;
-
   width: 100%;
   height: 100%;
-
   object-fit: cover;
 
-  transform:
-    scale(1.035);
+  /* أقرب شوي */
+  transform: scale(1.08);
+
+  animation: audio-image-motion 7s ease-in-out infinite alternate;
 
   transition:
-    transform .9s
-    cubic-bezier(.22, 1, .36, 1),
+    transform 1s cubic-bezier(.22,1,.36,1),
     filter .6s ease;
-
-  animation:
-    audio-episode-image-float
-    10s
-    ease-in-out
-    infinite
-    alternate;
 }
 
+/* عند المرور عليها تقرب أكثر */
+.audio-episode-card:hover .audio-episode-media img {
+  animation-play-state: paused;
+  transform: scale(1.16);
+}
 
 .audio-episode-card:hover
 .audio-episode-media img {
