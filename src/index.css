@@ -492,7 +492,7 @@ All colors MUST be HSL.
 /* Homepage editorial system */
 .editorial-home { --editorial-ease: cubic-bezier(.22, 1, .36, 1); }
 .editorial-kicker { margin-top:.5rem; color: hsl(var(--muted-foreground)); font-size: 1rem; font-weight: 600; }
-.editorial-heading { color: hsl(var(--foreground));background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-size: clamp(1.6rem, 2.6vw, 2.5rem); line-height: 1.15; }
+.editorial-heading { color: hsl(186.21deg 100% 11.37%);background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-size: clamp(1.6rem, 2.6vw, 2.5rem); line-height: 1.15; }
 .editorial-heading-fit {
   display: table;
   width: fit-content;
