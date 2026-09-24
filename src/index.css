@@ -8448,13 +8448,17 @@ margin-bottom:5rem;
 .dark .audio-archive {
   color: hsl(var(--foreground)) !important;
 }
+.dark .number-card__value {
+  color: hsl(var(--foreground)) !important;
+}
+
 
 .dark .audio-archive-kicker {
   color: hsl(var(--primary)) !important;
 }
 
 .dark .audio-archive-intro h1 em {
-  color: hsl(var(--secondary)) !important;
+  color: hsl(38.12deg 73.91% 54.9%) !important !important;
 }
 
 .dark .audio-episode-card {
