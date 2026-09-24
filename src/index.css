@@ -6721,7 +6721,9 @@ margin-left: 15px;
    ========================================================= */
 
 
-/* الكارد */
+/* =========================================================
+   NUMBERS ARCHIVE — CARDS
+   ========================================================= */
 
 .numbers-archive-page .number-story {
   position: relative;
@@ -6729,20 +6731,24 @@ margin-left: 15px;
   display: grid;
 
   /*
-     المحتوى ← الفاصل ← الرقم
+     النص ← الرقم
+     الرقم:
+     300px تقريبًا على الشاشات الكبيرة
+     ويصغر تلقائيًا على الشاشات المتوسطة
   */
   grid-template-columns:
     minmax(0, 1fr)
-    1px
-    24%;
+    clamp(180px, 27vw, 300px);
 
-  column-gap: 2rem;
+  column-gap: 0;
 
-  align-items: start;
+  align-items: stretch;
+
+  width: 100%;
 
   min-height: 185px;
 
-  padding: 2rem;
+  padding: 0;
 
   direction: ltr;
 
@@ -6751,6 +6757,8 @@ margin-left: 15px;
   border-radius: 1rem;
 
   background: rgba(255, 255, 255, 0.18);
+
+  overflow: hidden;
 
   box-shadow:
     0 8px 24px rgba(40, 54, 57, 0.025);
@@ -6773,111 +6781,77 @@ margin-left: 15px;
 
 
 /* =========================================================
-   ترتيب العناصر داخل الـGrid
+   CONTENT — النص
    ========================================================= */
 
-/*
-   المحتوى على اليسار
-*/
 .numbers-archive-page .number-story-content {
   grid-column: 1;
   grid-row: 1;
 
   min-width: 0;
 
-  max-width: none;
+  width: 100%;
 
-  padding: 0;
+  padding: 2rem;
 
-  padding-inline-end: 0;
-
-  border: none;
+  box-sizing: border-box;
 
   direction: rtl;
 
   text-align: right;
+
+  border: none;
 }
 
 
-/*
-   النقطة في المنتصف
-*/
-.numbers-archive-page .number-story-dot {
-  grid-column: 2;
-  grid-row: 1;
+/* =========================================================
+   NUMBER AREA — مساحة الرقم
+   ========================================================= */
 
-  justify-self: center;
-
-  width: 8px;
-  height: 8px;
-
-  margin-top: 0.65rem;
-
-  border: 2px solid #f5f0e1;
-
-  border-radius: 50%;
-
-  background: #e1a437;
-
-  box-shadow:
-    0 0 0 5px rgba(225, 164, 55, 0.12);
-
-  animation: none;
-}
-
-
-/*
-   الرقم على اليمين
-*/
 .numbers-archive-page .number-story-value {
   grid-column: 2;
   grid-row: 1;
 
   min-width: 0;
 
+  width: 100%;
   height: 100%;
+
   min-height: 100%;
 
   display: flex;
 
   align-items: center;
+
   justify-content: center;
 
-  padding: 1rem;
+  box-sizing: border-box;
+
+  padding: 1rem 1.5rem;
 
   direction: rtl;
+
   text-align: center;
 
-  /* الخلفية تغطي كامل مساحة الرقم */
-  background: rgba(130, 173, 165, 0.07);
+  /*
+     الخلفية تغطي كامل مساحة الـ300px
+     من أعلى الكارد إلى أسفله
+  */
+  background:
+    rgba(130, 173, 165, 0.07);
 
-  /* الخط بين الرقم والنص */
+  /*
+     الخط الفاصل بين الرقم والنص
+  */
   border-inline-start:
     1px solid
     rgba(130, 173, 165, 0.35);
-
-  box-sizing: border-box;
 }
+
 
 /* =========================================================
-   الرقم
+   NUMBER
    ========================================================= */
-
-.numbers-archive-page .number-story-index {
-  display: block;
-
-  margin-bottom: 0.5rem;
-
-  color: #c96941;
-
-  font-size: 0.68rem;
-
-  font-weight: 700;
-
-  letter-spacing: 0.1em;
-
-  text-align: right;
-}
 
 .numbers-archive-page .number-story-value strong {
   display: block;
@@ -6899,7 +6873,7 @@ margin-left: 15px;
 
   white-space: nowrap;
 
-  text-align: right;
+  text-align: center;
 
   transition:
     color 0.3s ease;
@@ -6907,7 +6881,7 @@ margin-left: 15px;
 
 
 /* =========================================================
-   CONTENT
+   CONTENT TEXT
    ========================================================= */
 
 .numbers-archive-page .number-story-top {
@@ -6942,7 +6916,6 @@ margin-left: 15px;
   text-align: right;
 }
 
-
 .numbers-archive-page .number-story-content h2 {
   width: 100%;
 
@@ -6966,7 +6939,6 @@ margin-left: 15px;
   text-align: right;
 }
 
-
 .numbers-archive-page .number-story-content p {
   width: 100%;
 
@@ -6985,55 +6957,6 @@ margin-left: 15px;
   line-height: 1.8;
 
   text-align: right;
-}
-
-
-/* =========================================================
-   ARROW
-   ========================================================= */
-
-.numbers-archive-page .number-story-arrow {
-  display: flex;
-
-  justify-content: flex-start;
-
-  margin-top: 1rem;
-
-  color: #c96941;
-
-  opacity: 0.6;
-
-  transition:
-    transform 0.3s ease,
-    opacity 0.3s ease;
-}
-
-.numbers-archive-page .number-story-arrow svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.numbers-archive-page .number-story:hover
-.number-story-arrow {
-  opacity: 1;
-
-  transform: translateX(-5px);
-}
-
-
-/* =========================================================
-   الكارد فقط تتحرك
-   ========================================================= */
-
-@keyframes numbers-card-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-4px);
-  }
 }
 
 
@@ -7077,16 +7000,37 @@ margin-left: 15px;
 
     min-height: 0;
 
-    padding: 1.4rem;
+    padding: 0;
 
     direction: rtl;
   }
 
 
+  /* -----------------------------------------
+     الرقم
+     ----------------------------------------- */
+
   .numbers-archive-page .number-story-value {
     width: 100%;
 
-    margin-bottom: 1rem;
+    height: auto;
+
+    min-height: 110px;
+
+    margin: 0;
+
+    padding: 1.25rem 1.4rem;
+
+    justify-content: flex-start;
+
+    background:
+      rgba(130, 173, 165, 0.07);
+
+    border-inline-start: none;
+
+    border-bottom:
+      1px solid
+      rgba(130, 173, 165, 0.3);
 
     text-align: right;
   }
@@ -7099,34 +7043,23 @@ margin-left: 15px;
         14vw,
         3.8rem
       );
-  }
-
-
-  .numbers-archive-page .number-story-dot {
-    display: none;
-  }
-
-
-  .numbers-archive-page .number-story-content {
-    width: 100%;
-
-    padding-top: 1rem;
-
-    border-top:
-      1px solid
-      rgba(
-        130,
-        173,
-        165,
-        0.25
-      );
 
     text-align: right;
   }
 
 
-  .numbers-archive-page .number-story-top {
-    margin-bottom: 0.65rem;
+  /* -----------------------------------------
+     النص
+     ----------------------------------------- */
+
+  .numbers-archive-page .number-story-content {
+    width: 100%;
+
+    padding: 1.4rem;
+
+    border: none;
+
+    text-align: right;
   }
 
 
@@ -7151,154 +7084,19 @@ margin-left: 15px;
 
 
 /* =========================================================
-   REDUCED MOTION
+   SMALL MOBILE
    ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media (max-width: 420px) {
 
-  .numbers-archive-page .number-story {
-    animation: none !important;
+  .numbers-archive-page .number-story-value {
+    min-height: 95px;
 
-    transform: none !important;
+    padding: 1rem 1.2rem;
   }
-}
 
-/* =========================================================
-   NUMBER SIDE — COMPACT + FULL HEIGHT DIVIDER
-   ========================================================= */
+  .numbers-archive-page .number-story-content {
+    padding: 1.2rem;
+  }
 
-/* =========================================================
-   NUMBER CARD
-   ========================================================= */
-
-.numbers-archive-page .number-story {
-  position: relative;
-
-  display: grid;
-
-  /* النص ← الرقم */
-  grid-template-columns:
-    minmax(0, 1fr)
-    160px;
-
-  column-gap: 0;
-
-  align-items: stretch;
-
-  min-height: 185px;
-
-  padding: 0;
-
-  direction: ltr;
-
-  border: 1px solid rgba(40, 54, 57, 0.13);
-
-  border-radius: 1rem;
-
-  background: rgba(255, 255, 255, 0.18);
-
-  overflow: hidden;
-
-  box-shadow:
-    0 8px 24px rgba(40, 54, 57, 0.025);
-
-  animation:
-    numbers-card-float
-    6s
-    ease-in-out
-    infinite;
-
-  animation-delay:
-    calc(var(--number-index) * -1.1s);
-
-  transition:
-    transform 0.4s ease,
-    border-color 0.35s ease,
-    box-shadow 0.4s ease,
-    background 0.35s ease;
-}
-
-
-/* =========================================================
-   CONTENT
-   ========================================================= */
-
-.numbers-archive-page .number-story-content {
-  grid-column: 1;
-  grid-row: 1;
-
-  min-width: 0;
-
-  padding: 2rem;
-
-  direction: rtl;
-
-  text-align: right;
-
-  border: none;
-}
-
-
-/* =========================================================
-   NUMBER AREA
-   ========================================================= */
-
-.numbers-archive-page .number-story-value {
-  grid-column: 2;
-  grid-row: 1;
-
-  position: relative;
-
-  min-width: 0;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  padding: 1rem;
-
-  direction: rtl;
-
-  text-align: center;
-
-  /* الخلفية فقط لمساحة الرقم */
-  background: rgba(130, 173, 165, 0.07);
-
-  /* الخط الفاصل */
-  border-inline-start:
-    1px solid
-    rgba(130, 173, 165, 0.35);
-}
-
-
-/* =========================================================
-   NUMBER
-   ========================================================= */
-
-.numbers-archive-page .number-story-value strong {
-  display: block;
-
-  color: #283639;
-
-  font-size:
-    clamp(
-      2.5rem,
-      4vw,
-      4rem
-    );
-
-  font-weight: 700;
-
-  line-height: 1;
-
-  letter-spacing: -0.05em;
-
-  white-space: nowrap;
-
-  text-align: center;
-
-  transition:
-    color 0.3s ease;
 }
