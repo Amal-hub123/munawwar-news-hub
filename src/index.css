@@ -9632,3 +9632,7 @@ span {
 .dark .number-card__value {
   color: hsl(var(--foreground)) !important;
 }
+
+.ArticleContainer {
+      width: min(100% - 0rem, 62rem);
+}
