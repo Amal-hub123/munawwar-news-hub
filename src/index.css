@@ -8146,3 +8146,612 @@ margin-bottom:5rem;
     transform: none;
   }
 }
+
+/* =====================================================================
+   ALMONHNA — FINAL DARK MODE CONSISTENCY FIX
+   ---------------------------------------------------------------------
+   This block intentionally comes LAST so it safely overrides older
+   hard-coded light-theme colors without changing the existing layout,
+   animations, spacing, or component structure.
+   ===================================================================== */
+
+@layer base {
+  /* ---------- Global dark surfaces ---------- */
+  .dark {
+    color-scheme: dark;
+  }
+
+  .dark body,
+  .dark #root {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .bg-background {
+    background-color: hsl(var(--background)) !important;
+  }
+
+  .dark .bg-card,
+  .dark .bg-card1,
+  .dark .surface-alt {
+    background-color: hsl(var(--card)) !important;
+    color: hsl(var(--card-foreground)) !important;
+  }
+
+  .dark .bg-muted {
+    background-color: hsl(var(--muted)) !important;
+  }
+
+  .dark .text-foreground {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .text-muted-foreground {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .border-border {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  /* ---------- Brand / editorial headings ---------- */
+  .dark .editorial-heading,
+  .dark .editorial-kicker,
+  .dark .section-hint,
+  .dark .editorial-link,
+  .dark .journey-label,
+  .dark .latest-card-copy h3,
+  .dark .mosaic-cell,
+  .dark .writer-info h3,
+  .dark .ask-editorial-heading,
+  .dark .question-origin p,
+  .dark .site-footer {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .editorial-heading {
+    background-image: linear-gradient(
+      transparent 68%,
+      hsl(var(--primary) / .9) 68%,
+      hsl(var(--primary) / .9) 84%,
+      transparent 84%
+    ) !important;
+  }
+
+  .dark .editorial-link {
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .editorial-link:hover {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* ---------- Header ---------- */
+  .dark .site-header {
+    background: hsl(var(--background) / .82) !important;
+    border-bottom-color: hsl(var(--border) / .7) !important;
+  }
+
+  .dark .site-header.is-scrolled {
+    background: hsl(192 25% 10% / .96) !important;
+    box-shadow: 0 12px 35px hsl(0 0% 0% / .32) !important;
+  }
+
+  .dark .site-nav-link {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .site-nav-link:hover {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* ---------- Hero ---------- */
+  .dark .calm-hero,
+  .dark .editorial-services-section,
+  .dark .ask-editorial-section,
+  .dark .question-transform-section {
+    background-color: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .calm-hero-phrase,
+  .dark .calm-hero-phrase .mark {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .calm-hero-phrase .mark {
+    background-image: linear-gradient(
+      transparent 68%,
+      hsl(var(--primary) / .9) 68%,
+      hsl(var(--primary) / .9) 84%,
+      transparent 84%
+    ) !important;
+  }
+
+  .dark .hero-dot {
+    background: hsl(var(--foreground) / .28) !important;
+  }
+
+  .dark .hero-dot.is-active {
+    background: hsl(var(--primary)) !important;
+  }
+
+  .dark .hero-article-slider {
+    background: hsl(var(--card)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .hero-article-shade {
+    background: linear-gradient(
+      0deg,
+      hsl(0 0% 0% / .88),
+      hsl(0 0% 0% / .08) 78%
+    ) !important;
+  }
+
+  .dark .hero-article-copy {
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  /* ---------- Dark teal editorial sections ---------- */
+  .dark .daily-story-section,
+  .dark .daily-story-section::before {
+    background: hsl(175 32% 19%) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  .dark .daily-story-section::after {
+    background: linear-gradient(
+      hsl(175 32% 19% / .78),
+      transparent
+    ) !important;
+  }
+
+  .dark .daily-story-composition {
+    background: hsl(var(--card)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .daily-story-copy > p {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .daily-story-copy::before {
+    color: hsl(var(--primary)) !important;
+    background: hsl(var(--primary) / .12) !important;
+  }
+
+  .dark .daily-story-copy .editorial-link {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* ---------- Journey / writers ---------- */
+  .dark .journey-section {
+    background-color: hsl(var(--background)) !important;
+    background-image: radial-gradient(
+      hsl(var(--secondary) / .18) 1px,
+      transparent 1px
+    ) !important;
+  }
+
+  .dark .writers-section {
+    background-color: hsl(var(--card)) !important;
+    background-image: radial-gradient(
+      hsl(var(--secondary) / .16) 1px,
+      transparent 1px
+    ) !important;
+  }
+
+  .dark .writer-portrait {
+    border-color: hsl(var(--secondary)) !important;
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .writer-info {
+    background: hsl(var(--background) / .96) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .writer-info p,
+  .dark .writer-socials {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* ---------- Latest cards ---------- */
+  .dark .latest-editorial,
+  .dark .mosaic-section {
+    background-color: hsl(var(--card)) !important;
+    background-image: radial-gradient(
+      hsl(var(--secondary) / .16) 1px,
+      transparent 1px
+    ) !important;
+  }
+
+  .dark .latest-article-card {
+    background: hsl(var(--background)) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .latest-card-copy h3,
+  .dark .latest-card-author strong {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .latest-card-copy p,
+  .dark .latest-card-footer time,
+  .dark .latest-sequence span {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .latest-card-footer {
+    border-top-color: hsl(var(--border)) !important;
+  }
+
+  .dark .latest-card-media {
+    background: hsl(var(--muted)) !important;
+  }
+
+  .dark .latest-card-categories span {
+    color: hsl(var(--primary)) !important;
+    background: hsl(var(--primary) / .12) !important;
+  }
+
+  /* ---------- Mosaic ---------- */
+  .dark .mosaic-layout {
+    background: hsl(var(--card)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .mosaic-cell {
+    border-color: hsl(var(--foreground) / .22) !important;
+    box-shadow: inset 0 1px hsl(var(--foreground) / .08) !important;
+  }
+
+  /* ---------- Ask section ---------- */
+  .dark .ask-editorial-panel {
+    background: hsl(var(--card) / .96) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .ask-form-column {
+    border-inline-end-color: hsl(var(--border)) !important;
+  }
+
+  .dark .ask-form-stage textarea,
+  .dark .ask-form-footer input {
+    color: hsl(var(--foreground)) !important;
+    background: hsl(var(--background) / .72) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .ask-form-stage textarea::placeholder,
+  .dark .ask-form-footer input::placeholder {
+    color: hsl(var(--muted-foreground) / .7) !important;
+  }
+
+  .dark .ask-content-question,
+  .dark .ask-content-empty,
+  .dark .ask-content-count,
+  .dark .ask-editorial-heading p {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .ask-content-article {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark .ask-panel-footer {
+    border-top-color: hsl(var(--border)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* ---------- Question → article cards ---------- */
+  .dark .question-transform > a {
+    background: hsl(var(--card)) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .question-origin {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .question-curve span {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* ---------- Footer ---------- */
+  .dark .site-footer {
+    background: hsl(var(--card)) !important;
+    border-top-color: hsl(var(--border)) !important;
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* ---------- Timeline ---------- */
+  .dark .timelines-section {
+    background: hsl(175 32% 19%) !important;
+    color: hsl(var(--secondary-foreground)) !important;
+  }
+
+  .dark .timeline-journey-line,
+  .dark .timeline-journey-line path {
+    color: hsl(var(--primary)) !important;
+    stroke: hsl(var(--primary)) !important;
+  }
+
+  .dark .timeline-dot {
+    color: hsl(var(--primary)) !important;
+    background: hsl(175 32% 19%) !important;
+    border-color: hsl(var(--primary)) !important;
+  }
+
+  .dark .timeline-stop.is-active .timeline-dot {
+    color: hsl(var(--primary-foreground)) !important;
+    background: hsl(var(--primary)) !important;
+    border-color: hsl(var(--primary)) !important;
+  }
+
+  .dark .timeline-stop-copy h6 {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark .timeline-stop-copy p {
+    color: hsl(var(--secondary-foreground) / .72) !important;
+  }
+
+  /* ---------- Numbers archive ---------- */
+  .dark .numbers-archive-page {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .numbers-archive-page .numbers-intro-kicker {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark .numbers-archive-page .numbers-intro h1,
+  .dark .numbers-archive-page .number-story-value strong,
+  .dark .numbers-archive-page .number-story-content h2 {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .numbers-archive-page .numbers-intro h1 em {
+    color: hsl(var(--secondary)) !important;
+  }
+
+  .dark .numbers-archive-page .numbers-intro p,
+  .dark .numbers-archive-page .number-story-content p,
+  .dark .numbers-archive-page .number-story-top small {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .numbers-archive-page .number-story {
+    background: hsl(var(--card) / .78) !important;
+    border-color: hsl(var(--border)) !important;
+    box-shadow: 0 8px 24px hsl(0 0% 0% / .18) !important;
+  }
+
+  .dark .numbers-archive-page .number-story-value {
+    background: hsl(var(--secondary) / .10) !important;
+    border-inline-start-color: hsl(var(--secondary) / .32) !important;
+  }
+
+  .dark .numbers-archive-page .number-story-top > span {
+    color: hsl(var(--secondary)) !important;
+  }
+
+  .dark .numbers-archive-page .number-story:hover {
+    background: hsl(var(--card)) !important;
+    border-color: hsl(var(--secondary) / .55) !important;
+    box-shadow: 0 16px 38px hsl(0 0% 0% / .28) !important;
+  }
+
+  .dark .numbers-archive-page .number-story:hover .number-story-value strong {
+    color: hsl(var(--primary)) !important;
+  }
+
+  /* ---------- Audio archive ---------- */
+  .dark .audio-archive,
+  .dark .audio-archive-intro,
+  .dark .audio-archive-list {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .audio-archive-kicker {
+    color: hsl(var(--primary)) !important;
+  }
+
+  .dark .audio-archive-intro h1,
+  .dark .audio-episode-content h2 {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .dark .audio-archive-intro h1 em {
+    color: hsl(var(--secondary)) !important;
+  }
+
+  .dark .audio-archive-intro p,
+  .dark .audio-episode-duration,
+  .dark .audio-episode-description {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .audio-episode-card {
+    background: hsl(var(--card) / .82) !important;
+    border-color: hsl(var(--border)) !important;
+    box-shadow: 0 8px 24px hsl(0 0% 0% / .18) !important;
+  }
+
+  .dark .audio-episode-card:hover {
+    background: hsl(var(--card)) !important;
+    border-color: hsl(var(--secondary) / .55) !important;
+    box-shadow: 0 18px 42px hsl(0 0% 0% / .28) !important;
+  }
+
+  .dark .audio-episode-media {
+    background: hsl(var(--muted)) !important;
+  }
+
+  .dark .audio-episode-media-overlay {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--secondary) / .12),
+      transparent 60%
+    ) !important;
+  }
+
+  .dark .audio-episode-media-placeholder {
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  .dark .audio-episode-number {
+    color: hsl(var(--secondary-foreground)) !important;
+    background: hsl(192 25% 8% / .78) !important;
+    border-color: hsl(var(--foreground) / .35) !important;
+  }
+
+  .dark .audio-episode-category {
+    color: hsl(var(--secondary)) !important;
+    background: hsl(var(--secondary) / .12) !important;
+  }
+
+  .dark .audio-episode-play {
+    color: hsl(var(--primary-foreground)) !important;
+    background: hsl(var(--primary)) !important;
+    border-color: hsl(var(--primary)) !important;
+  }
+
+  .dark .audio-episode-play:hover {
+    box-shadow: 0 8px 20px hsl(var(--primary) / .20) !important;
+  }
+
+  .dark .audio-episode-progress-track {
+    background: hsl(var(--foreground) / .14) !important;
+  }
+
+  .dark .audio-episode-wave i {
+    background: hsl(var(--foreground) / .20) !important;
+  }
+
+  .dark .audio-episode-wave i.is-played,
+  .dark .audio-episode-progress-track span {
+    background: hsl(var(--primary)) !important;
+  }
+
+  .dark .audio-archive-empty {
+    background: hsl(var(--card) / .72) !important;
+    border-color: hsl(var(--border)) !important;
+    color: hsl(var(--muted-foreground)) !important;
+  }
+
+  /* ---------- Knowledge links ---------- */
+  .dark .knowledge-link-block {
+    border-color: hsl(var(--primary) / .65) !important;
+    background: hsl(var(--primary) / .08) !important;
+    color: hsl(var(--foreground)) !important;
+  }
+
+  /* ---------- Authentication ---------- */
+  .dark .auth-form-card {
+    background: hsl(var(--card) / .88) !important;
+    border-color: hsl(var(--border) / .8) !important;
+  }
+
+  .dark .auth-visual-logo {
+    background: hsl(var(--background) / .88) !important;
+  }
+
+  /* ---------- Article reading palettes ---------- */
+  .dark .article-surface-paper {
+    background: #283639 !important;
+  }
+
+  .dark .article-surface-olive {
+    background: rgb(140 159 74) !important;
+  }
+
+  .dark .article-surface-gold {
+    background: rgb(225 164 55) !important;
+  }
+
+  .dark .article-surface-terracotta {
+    background: rgb(201 105 65) !important;
+  }
+
+  .dark .article-surface-teal {
+    background: rgb(130 173 165) !important;
+  }
+
+  .dark .article-surface-paper,
+  .dark .article-surface-paper p,
+  .dark .article-surface-paper li,
+  .dark .article-surface-paper blockquote,
+  .dark .article-surface-paper strong {
+    color: #f7f5ef !important;
+  }
+
+  .dark .article-surface-olive,
+  .dark .article-surface-gold,
+  .dark .article-surface-terracotta,
+  .dark .article-surface-teal {
+    color: #111816 !important;
+  }
+
+  .dark .article-surface-olive p,
+  .dark .article-surface-gold p,
+  .dark .article-surface-terracotta p,
+  .dark .article-surface-teal p {
+    color: #111816 !important;
+  }
+
+  .dark .reading-swatch {
+    border-color: hsl(var(--foreground) / .28) !important;
+    box-shadow: 0 0 0 1px hsl(var(--border)) !important;
+  }
+
+  .dark .reading-swatch.is-active {
+    border-color: hsl(var(--foreground)) !important;
+    box-shadow: 0 0 0 2px hsl(var(--primary)) !important;
+  }
+
+  /* ---------- Generic hard-coded light controls ---------- */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color: hsl(var(--foreground));
+    background-color: hsl(var(--background));
+    border-color: hsl(var(--border));
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: hsl(var(--muted-foreground) / .7);
+  }
+
+  .dark button {
+    border-color: hsl(var(--border));
+  }
+
+  .dark .theme-mode-toggle {
+    background: hsl(var(--background)) !important;
+    color: hsl(var(--foreground)) !important;
+    border-color: hsl(var(--border)) !important;
+  }
+
+  .dark .theme-mode-toggle:hover {
+    background: hsl(var(--muted)) !important;
+  }
+}
+
+/* Keep dark mode overrides above the responsive rules visually consistent. */
+@media (prefers-reduced-motion: reduce) {
+  .dark .numbers-archive-page .number-story,
+  .dark .numbers-archive-page .numbers-intro h1,
+  .dark .audio-archive-intro h1,
+  .dark .audio-episode-card,
+  .dark .audio-episode-content h2 {
+    animation: none !important;
+  }
+}
