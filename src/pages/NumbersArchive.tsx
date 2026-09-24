@@ -33,7 +33,7 @@ const NumbersArchive = () => {
 
   return (
     <div
-      className="numbers-archive-page"
+      className="container mx-auto px-8 py-12"
       dir="rtl"
     >
       <TopBar />
