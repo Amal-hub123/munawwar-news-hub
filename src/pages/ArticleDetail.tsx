@@ -28,7 +28,7 @@ const ArticleDetail = () => {
     return saved === "ivory" ||
       saved === "sage" ||
       saved === "mist"
-      ? saved
+      ? saved as ReadingBackground
       : "paper";
   });
   
