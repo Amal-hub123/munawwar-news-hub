@@ -7148,17 +7148,112 @@ margin-left: 15px;
 }
 
 /* =========================================================
-   FINAL SMALL CLEANUP
+   NUMBER SIDE — COMPACT + FULL HEIGHT DIVIDER
    ========================================================= */
 
+.numbers-archive-page .number-story {
+  grid-template-columns:
+    minmax(0, 1fr)
+    180px;
 
-/* الخط الفاصل بين الرقم والمحتوى */
+  column-gap: 0;
 
-.numbers-archive-page .number-story-content {
-  border-inline-start:
-    1px solid
-    rgba(130, 173, 165, 0.3);
-
-  padding-inline-start: 2rem;
+  overflow: hidden;
 }
 
+
+/* =========================================================
+   CONTENT
+   ========================================================= */
+
+.numbers-archive-page .number-story-content {
+  grid-column: 1;
+  grid-row: 1;
+
+  min-width: 0;
+
+  padding-inline-end: 2rem;
+
+  border: none;
+
+  direction: rtl;
+
+  text-align: right;
+}
+
+
+/* =========================================================
+   NUMBER AREA
+   ========================================================= */
+
+.numbers-archive-page .number-story-value {
+  grid-column: 2;
+  grid-row: 1;
+
+  position: relative;
+
+  min-width: 0;
+
+  height: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  padding: 1rem 1.25rem;
+
+  background:
+    rgba(130, 173, 165, 0.07);
+
+  direction: rtl;
+
+  text-align: center;
+}
+
+
+/* الخط الفاصل — بطول الكارد كاملًا */
+
+.numbers-archive-page .number-story-value::before {
+  content: "";
+
+  position: absolute;
+
+  inset-inline-start: 0;
+  inset-block: -2rem;
+
+  width: 1px;
+
+  background:
+    rgba(130, 173, 165, 0.35);
+}
+
+
+/* الرقم */
+
+.numbers-archive-page .number-story-value strong {
+  display: block;
+
+  color: #283639;
+
+  font-size:
+    clamp(
+      2.5rem,
+      4vw,
+      4rem
+    );
+
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: -0.05em;
+
+  white-space: nowrap;
+
+  text-align: center;
+
+  transition:
+    color 0.3s ease;
+}
