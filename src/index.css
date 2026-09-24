@@ -6592,9 +6592,9 @@ margin-left: 15px;
 
   margin-bottom: 1rem;
 
-  color: #c96941;
+  color: #e1a437;
 
-  font-size: 0.78rem;
+  font-size: 1.78rem;
 
   font-weight: 700;
 }
@@ -6630,8 +6630,8 @@ margin-left: 15px;
 }
 
 .numbers-archive-page .numbers-intro h1 em {
-  color: #82ada5;
-
+  color: #00343a;
+.numbers-archive-page .numbers-intro-kicker
   font-style: normal;
 }
 
@@ -6720,7 +6720,7 @@ margin-left: 15px;
 
   direction: ltr;
 
-  border: 1px solid rgba(40, 54, 57, 0.13);
+  border: 3px solid rgba(40, 54, 57, 0.13);
 
   border-radius: 1rem;
 
@@ -6949,7 +6949,7 @@ margin-left: 15px;
 
 .numbers-archive-page .number-story:hover
 .number-story-value strong {
-  color: #c96941;
+  color: #e1a437;
 }
 
 
