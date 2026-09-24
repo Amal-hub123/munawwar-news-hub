@@ -25,10 +25,13 @@ const Index = () => {
 
         <div id="home-flow" className="editorial-home">
           <DailyStory />
+         <LatestArticles />
+<NumberStory />
+          <AudioSection />
+           <HomeTimelines />
           <ColumnsTrail />
-          <LatestArticles />
           <CategoryMosaic />
-          <HomeTimelines />
+         
 
           {/* خدماتنا */}
           {/* <section className="editorial-services-section py-16 md:py-24">
@@ -47,8 +50,7 @@ const Index = () => {
           </section> */}
 
           <WritersTrail />
-          <NumberStory />
-          <AudioSection />
+          
           <AskSection />
         </div>
       </main>
