@@ -101,12 +101,7 @@ const NumbersArchive = () => {
 
                 <div className="number-story-value">
 
-                  <span className="number-story-index">
-                    {String(index + 1).padStart(
-                      2,
-                      "0"
-                    )}
-                  </span>
+            
 
                   <strong>
                     {item.number_value}
@@ -115,23 +110,11 @@ const NumbersArchive = () => {
                 </div>
 
 
-                {/* النقطة */}
-
-                <div
-                  className="number-story-dot"
-                  aria-hidden="true"
-                />
-
-
-                {/* القصة */}
+              {/* القصة */}
 
                 <div className="number-story-content">
 
                   <div className="number-story-top">
-
-                    <span>
-                      الرقم
-                    </span>
 
                     {item.source && (
                       <small>
@@ -151,10 +134,7 @@ const NumbersArchive = () => {
                     </p>
                   )}
 
-                  <div className="number-story-arrow">
-                    <ArrowLeft />
-                  </div>
-
+          
                 </div>
 
               </article>
