@@ -6562,11 +6562,8 @@ margin-left: 15px;
 }
 
 
-
 /* =========================================================
-   NUMBERS ARCHIVE
-   المُنحنى — الرقم
-   FINAL CLEAN STYLE
+   NUMBERS ARCHIVE — SAFE FINAL
    ========================================================= */
 
 .numbers-archive-page {
@@ -6575,11 +6572,6 @@ margin-left: 15px;
   color: #283639;
   overflow-x: clip;
 }
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
 
 .numbers-archive {
   width: min(1000px, calc(100% - 3rem));
@@ -6602,7 +6594,6 @@ margin-left: 15px;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-
   margin-bottom: 1rem;
 
   color: #c96941;
@@ -6613,7 +6604,6 @@ margin-left: 15px;
 .numbers-intro-kicker svg {
   width: 0.95rem;
   height: 0.95rem;
-  stroke-width: 1.8;
 }
 
 .numbers-intro h1 {
@@ -6626,11 +6616,7 @@ margin-left: 15px;
   line-height: 1.12;
   letter-spacing: -0.04em;
 
-  animation:
-    numbers-title-float
-    6s
-    ease-in-out
-    infinite;
+  animation: numbers-title-float 6s ease-in-out infinite;
 }
 
 .numbers-intro h1 em {
@@ -6640,29 +6626,12 @@ margin-left: 15px;
 
 .numbers-intro p {
   max-width: 500px;
-
   margin: 1.25rem 0 0 auto;
 
   color: rgba(40, 54, 57, 0.62);
 
   font-size: 0.92rem;
   line-height: 1.85;
-}
-
-
-/* =========================================================
-   TITLE MOTION
-   ========================================================= */
-
-@keyframes numbers-title-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
 }
 
 
@@ -6675,32 +6644,27 @@ margin-left: 15px;
   padding: 0 0 1rem;
 }
 
-
-/* الخط الرأسي */
-
 .numbers-list-line {
   position: absolute;
 
   top: 0;
   bottom: 0;
-
   right: 24%;
 
   width: 1px;
 
-  background:
-    linear-gradient(
-      to bottom,
-      transparent,
-      rgba(130, 173, 165, 0.5) 8%,
-      rgba(130, 173, 165, 0.5) 92%,
-      transparent
-    );
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(130, 173, 165, 0.5) 8%,
+    rgba(130, 173, 165, 0.5) 92%,
+    transparent
+  );
 }
 
 
 /* =========================================================
-   NUMBER STORY
+   STORY
    ========================================================= */
 
 .number-story {
@@ -6721,20 +6685,13 @@ margin-left: 15px;
 
   padding: 2rem 0;
 
-  opacity: 0;
+  /* مهم: العناصر تظهر دائمًا */
+  opacity: 1;
 
-  transform: translateY(24px);
+  /* حركة دخول بسيطة بدون الاعتماد عليها للظهور */
+  animation: number-story-enter 0.7s ease both;
 
-  animation:
-    number-story-reveal
-    0.7s
-    cubic-bezier(0.22, 1, 0.36, 1)
-    forwards;
-
-  animation-delay:
-    calc(
-      var(--number-index) * 90ms
-    );
+  animation-delay: calc(var(--number-index) * 80ms);
 }
 
 
@@ -6744,9 +6701,7 @@ margin-left: 15px;
 
 .number-story-value {
   position: relative;
-
   padding-top: 0.15rem;
-
   text-align: right;
 }
 
@@ -6759,7 +6714,6 @@ margin-left: 15px;
 
   font-size: 0.68rem;
   font-weight: 700;
-
   letter-spacing: 0.1em;
 }
 
@@ -6775,11 +6729,7 @@ margin-left: 15px;
 
   word-break: break-word;
 
-  animation:
-    number-float
-    5.5s
-    ease-in-out
-    infinite;
+  animation: number-float 5.5s ease-in-out infinite;
 
   transition:
     color 0.35s ease,
@@ -6808,14 +6758,9 @@ margin-left: 15px;
   box-shadow:
     0 0 0 5px rgba(225, 164, 55, 0.12);
 
-  animation:
-    number-dot-float
-    4s
-    ease-in-out
-    infinite;
+  animation: number-dot-float 4s ease-in-out infinite;
 
-  transition:
-    transform 0.35s ease;
+  transition: transform 0.35s ease;
 }
 
 
@@ -6830,14 +6775,9 @@ margin-left: 15px;
 
   padding-bottom: 0.5rem;
 
-  animation:
-    number-content-float
-    7s
-    ease-in-out
-    infinite;
+  animation: number-content-float 7s ease-in-out infinite;
 
-  transition:
-    transform 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
 .number-story-top {
@@ -6871,9 +6811,7 @@ margin-left: 15px;
 
   font-size: clamp(1.25rem, 2vw, 1.65rem);
   font-weight: 700;
-
   line-height: 1.4;
-
   letter-spacing: -0.025em;
 }
 
@@ -6885,7 +6823,6 @@ margin-left: 15px;
   color: rgba(40, 54, 57, 0.6);
 
   font-size: 0.88rem;
-
   line-height: 1.8;
 }
 
@@ -6921,42 +6858,58 @@ margin-left: 15px;
    HOVER
    ========================================================= */
 
-.number-story:hover
-.number-story-value strong {
+.number-story:hover .number-story-value strong {
   animation-play-state: paused;
 
   color: #c96941;
 
   transform:
-    translateY(-7px)
+    translateY(-6px)
     scale(1.02);
 }
 
-.number-story:hover
-.number-story-dot {
+.number-story:hover .number-story-dot {
   animation-play-state: paused;
-
   transform: scale(1.3);
 }
 
-.number-story:hover
-.number-story-content {
+.number-story:hover .number-story-content {
   animation-play-state: paused;
-
   transform: translateY(-3px);
 }
 
-.number-story:hover
-.number-story-arrow {
+.number-story:hover .number-story-arrow {
   opacity: 1;
-
   transform: translateX(-6px);
 }
 
 
 /* =========================================================
-   FLOATING MOTION
+   ANIMATIONS
    ========================================================= */
+
+@keyframes number-story-enter {
+  from {
+    opacity: 0.2;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes numbers-title-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
 
 @keyframes number-float {
   0%,
@@ -6993,68 +6946,23 @@ margin-left: 15px;
 
 
 /* =========================================================
-   DIFFERENT RHYTHM
-   حتى لا تتحرك كل العناصر معًا
+   DIFFERENT MOTION TIMING
    ========================================================= */
 
-.number-story:nth-child(2)
-.number-story-value strong {
+.number-story:nth-of-type(2) .number-story-value strong {
   animation-delay: -1.2s;
 }
 
-.number-story:nth-child(3)
-.number-story-value strong {
+.number-story:nth-of-type(3) .number-story-value strong {
   animation-delay: -2.4s;
 }
 
-.number-story:nth-child(4)
-.number-story-value strong {
+.number-story:nth-of-type(4) .number-story-value strong {
   animation-delay: -3.1s;
 }
 
-.number-story:nth-child(5)
-.number-story-value strong {
+.number-story:nth-of-type(5) .number-story-value strong {
   animation-delay: -4.2s;
-}
-
-.number-story:nth-child(2)
-.number-story-dot {
-  animation-delay: -0.8s;
-}
-
-.number-story:nth-child(3)
-.number-story-dot {
-  animation-delay: -1.7s;
-}
-
-.number-story:nth-child(4)
-.number-story-dot {
-  animation-delay: -2.6s;
-}
-
-.number-story:nth-child(5)
-.number-story-dot {
-  animation-delay: -3.5s;
-}
-
-.number-story:nth-child(2)
-.number-story-content {
-  animation-delay: -2s;
-}
-
-.number-story:nth-child(3)
-.number-story-content {
-  animation-delay: -4s;
-}
-
-.number-story:nth-child(4)
-.number-story-content {
-  animation-delay: -1s;
-}
-
-.number-story:nth-child(5)
-.number-story-content {
-  animation-delay: -5s;
 }
 
 
@@ -7080,7 +6988,6 @@ margin-left: 15px;
 
 .numbers-empty span {
   color: #e1a437;
-
   font-size: 1.8rem;
 }
 
@@ -7097,56 +7004,32 @@ margin-left: 15px;
 
   .numbers-archive {
     width: calc(100% - 2rem);
-
-    padding:
-      3.5rem
-      0
-      5rem;
+    padding: 3.5rem 0 5rem;
   }
-
-
-  /* INTRO */
 
   .numbers-intro {
     margin-bottom: 3.5rem;
   }
 
-  .numbers-intro-kicker {
-    margin-bottom: 0.9rem;
-  }
-
   .numbers-intro h1 {
-    font-size:
-      clamp(
-        2.35rem,
-        11vw,
-        3.4rem
-      );
-
-    line-height: 1.1;
+    font-size: clamp(2.35rem, 11vw, 3.4rem);
   }
 
   .numbers-intro p {
-    margin-top: 1rem;
-
     font-size: 0.9rem;
-
-    line-height: 1.85;
   }
 
 
-  /* LIST */
+  /* الخط */
 
   .numbers-list-line {
     right: 13px;
   }
 
 
-  /* STORY */
+  /* كل قصة */
 
   .number-story {
-    display: grid;
-
     grid-template-columns:
       28px
       minmax(0, 1fr);
@@ -7155,13 +7038,11 @@ margin-left: 15px;
 
     min-height: auto;
 
-    padding:
-      1.5rem
-      0;
+    padding: 1.5rem 0;
   }
 
 
-  /* DOT */
+  /* النقطة */
 
   .number-story-dot {
     grid-column: 1;
@@ -7171,7 +7052,7 @@ margin-left: 15px;
   }
 
 
-  /* NUMBER */
+  /* الرقم */
 
   .number-story-value {
     grid-column: 2;
@@ -7182,80 +7063,51 @@ margin-left: 15px;
     text-align: right;
   }
 
-  .number-story-index {
-    margin-bottom: 0.4rem;
-  }
-
   .number-story-value strong {
-    font-size:
-      clamp(
-        2.3rem,
-        13vw,
-        3.5rem
-      );
+    font-size: clamp(2.3rem, 13vw, 3.5rem);
   }
 
 
-  /* CONTENT */
+  /* المحتوى */
 
   .number-story-content {
     grid-column: 2;
     grid-row: 2;
 
-    margin-top: 0.9rem;
-
     max-width: none;
+
+    margin-top: 0.9rem;
   }
 
   .number-story-top {
-    align-items: flex-start;
-
     flex-direction: column;
+    align-items: flex-start;
 
     gap: 0.3rem;
 
     margin-bottom: 0.6rem;
   }
 
-  .number-story-top > span {
-    font-size: 0.7rem;
-  }
-
-  .number-story-top small {
-    font-size: 0.65rem;
-  }
-
   .number-story-content h2 {
     font-size: 1.15rem;
-
     line-height: 1.5;
   }
 
   .number-story-content p {
-    margin-top: 0.55rem;
-
     font-size: 0.86rem;
-
     line-height: 1.85;
   }
 
-  .number-story-arrow {
-    margin-top: 0.8rem;
-  }
 
+  /* إلغاء تأثير hover على الموبايل */
 
-  /* لا نحتاج حركة hover على اللمس */
-
-  .number-story:hover
-  .number-story-value strong {
+  .number-story:hover .number-story-value strong {
     transform: none;
   }
 
-  .number-story:hover
-  .number-story-content {
+  .number-story:hover .number-story-content {
     transform: none;
   }
-
 }
 
 
@@ -7271,14 +7123,16 @@ margin-left: 15px;
   .number-story-dot,
   .number-story-content {
     animation: none !important;
+  }
 
+  .number-story {
+    opacity: 1 !important;
     transform: none !important;
   }
 
   .number-story-value strong,
   .number-story-dot,
-  .number-story-content,
-  .number-story-arrow {
-    transition: none !important;
+  .number-story-content {
+    transform: none !important;
   }
 }
