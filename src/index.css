@@ -8589,3 +8589,122 @@ margin-bottom:5rem;
   }
 }
 
+
+/* =====================================================================
+   HOMEPAGE — "مسموع" SECTION — FINAL DARK MODE
+   ===================================================================== */
+
+.dark .audio-section {
+  background-color: hsl(192 25% 9%) !important;
+  background-image:
+    radial-gradient(
+      circle,
+      hsl(var(--primary) / .16) 1px,
+      transparent 1.4px
+    ) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-section__heading,
+.dark .audio-section .audio-section__heading h2 {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-section__heading p {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.dark .audio-section .audio-panel {
+  background: hsl(192 24% 13% / .96) !important;
+  border-color: hsl(var(--border) / .85) !important;
+  box-shadow: 0 18px 50px hsl(0 0% 0% / .28) !important;
+}
+
+.dark .audio-section .audio-panel::before {
+  background:
+    radial-gradient(
+      circle,
+      hsl(var(--primary) / .08),
+      transparent 68%
+    ) !important;
+}
+
+.dark .audio-section .audio-player {
+  background: hsl(192 27% 16%) !important;
+  color: hsl(var(--foreground)) !important;
+  box-shadow: inset 0 0 0 1px hsl(var(--foreground) / .035) !important;
+}
+
+.dark .audio-section .audio-player:hover {
+  box-shadow:
+    0 18px 45px hsl(0 0% 0% / .34),
+    inset 0 0 0 1px hsl(var(--primary) / .10) !important;
+}
+
+.dark .audio-section .audio-player__cover::after {
+  background:
+    linear-gradient(
+      105deg,
+      hsl(192 27% 10% / .94) 5%,
+      hsl(192 27% 12% / .72) 48%,
+      transparent 85%
+    ) !important;
+}
+
+.dark .audio-section .audio-player__title {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-player__text,
+.dark .audio-section .audio-duration {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.dark .audio-section .audio-waveform span {
+  background: hsl(var(--foreground) / .22) !important;
+}
+
+.dark .audio-section .audio-waveform span.is-played {
+  background: hsl(var(--primary)) !important;
+}
+
+.dark .audio-section .audio-more > h3 {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-item {
+  border-bottom-color: hsl(var(--border) / .72) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-item:hover {
+  background: hsl(var(--muted) / .34) !important;
+}
+
+.dark .audio-section .audio-item__icon {
+  background: hsl(var(--muted)) !important;
+  color: hsl(var(--secondary)) !important;
+}
+
+.dark .audio-section .audio-item__title {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .audio-section .audio-item__meta {
+  color: hsl(var(--muted-foreground)) !important;
+}
+
+.dark .audio-section .audio-all {
+  color: hsl(var(--foreground)) !important;
+  background: transparent !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .audio-section .audio-all:hover {
+  background: hsl(var(--primary) / .10) !important;
+  border-color: hsl(var(--primary) / .55) !important;
+}
+
+.dark .audio-section .audio-list::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / .35) !important;
+}
