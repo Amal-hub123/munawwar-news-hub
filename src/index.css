@@ -3552,21 +3552,15 @@ margin-bottom:1rem;
 
 .number-history {
   display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
+  align-items: center;
   gap: .45rem;
 }
-
 
 .number-history > span {
   border-bottom:
     1px solid
     hsl(var(--muted-foreground) / .45);
 }
-
 
 .number-dots {
   display: flex;
