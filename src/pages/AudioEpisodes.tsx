@@ -195,10 +195,7 @@ const AudioEpisodes = () => {
 
                     <div className="audio-episode-media-overlay" />
 
-                    <span className="audio-episode-number">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-
+                   
                   </div>
 
 
