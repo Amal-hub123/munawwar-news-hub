@@ -6563,40 +6563,68 @@ margin-left: 15px;
 
 
 /* =========================================================
-   NUMBERS ARCHIVE — SAFE FINAL
+   NUMBERS — FINAL CLEAN SYSTEM
+   الصفحة الرئيسية + صفحة الأرشيف
+   ========================================================= */
+
+
+/* =========================================================
+   ARCHIVE PAGE
    ========================================================= */
 
 .numbers-archive-page {
   min-height: 100vh;
+
   background: #f5f0e1;
   color: #283639;
-  overflow-x: clip;
-}
 
-.numbers-archive {
-  width: min(1000px, calc(100% - 3rem));
-  margin: 0 auto;
-  padding: 5rem 0 6rem;
+  overflow-x: clip;
 }
 
 
 /* =========================================================
-   INTRO
+   ARCHIVE CONTAINER
+   ========================================================= */
+
+.numbers-archive {
+  width: min(1080px, calc(100% - 3rem));
+
+  margin: 0 auto;
+
+  padding:
+    5rem
+    0
+    7rem;
+}
+
+
+/* =========================================================
+   ARCHIVE INTRO
    ========================================================= */
 
 .numbers-intro {
-  max-width: 620px;
-  margin: 0 0 4.5rem auto;
+  max-width: 680px;
+
+  margin:
+    0
+    0
+    4rem
+    auto;
+
   text-align: right;
 }
 
 .numbers-intro-kicker {
   display: inline-flex;
+
   align-items: center;
+
   gap: 0.45rem;
+
   margin-bottom: 1rem;
 
   color: #c96941;
+
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -6611,60 +6639,75 @@ margin-left: 15px;
 
   color: #283639;
 
-  font-size: clamp(2.5rem, 5vw, 4.2rem);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
+  font-size:
+    clamp(
+      2.5rem,
+      5vw,
+      4.3rem
+    );
 
-  animation: numbers-title-float 6s ease-in-out infinite;
+  font-weight: 700;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.045em;
 }
 
 .numbers-intro h1 em {
   color: #82ada5;
+
   font-style: normal;
 }
 
 .numbers-intro p {
-  max-width: 500px;
-  margin: 1.25rem 0 0 auto;
+  max-width: 520px;
 
-  color: rgba(40, 54, 57, 0.62);
+  margin:
+    1.25rem
+    0
+    0
+    auto;
 
-  font-size: 0.92rem;
-  line-height: 1.85;
+  color:
+    rgba(
+      40,
+      54,
+      57,
+      0.58
+    );
+
+  font-size: 0.95rem;
+
+  line-height: 1.9;
 }
 
 
 /* =========================================================
-   LIST
+   ARCHIVE LIST
    ========================================================= */
 
 .numbers-list {
-  position: relative;
-  padding: 0 0 1rem;
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.1rem;
+
+  width: 100%;
 }
 
+
+/*
+   لا نريد خط timeline قديم
+*/
+
 .numbers-list-line {
-  position: absolute;
-
-  top: 0;
-  bottom: 0;
-  right: 24%;
-
-  width: 1px;
-
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(130, 173, 165, 0.5) 8%,
-    rgba(130, 173, 165, 0.5) 92%,
-    transparent
-  );
+  display: none;
 }
 
 
 /* =========================================================
-   STORY
+   NUMBER CARD
    ========================================================= */
 
 .number-story {
@@ -6673,94 +6716,194 @@ margin-left: 15px;
   display: grid;
 
   grid-template-columns:
-    24%
-    1px
+    minmax(170px, 24%)
     minmax(0, 1fr);
 
-  column-gap: 2rem;
+  align-items: center;
 
-  align-items: start;
+  width: 100%;
 
-  min-height: 185px;
+  min-height: 190px;
 
-  padding: 2rem 0;
+  padding:
+    2rem
+    2.2rem;
 
-  /* مهم: العناصر تظهر دائمًا */
+  border:
+    1px solid
+    rgba(
+      40,
+      54,
+      57,
+      0.12
+    );
+
+  border-radius: 1.25rem;
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.22
+    );
+
+  box-shadow:
+    0
+    8px
+    30px
+    rgba(
+      40,
+      54,
+      57,
+      0.025
+    );
+
   opacity: 1;
 
-  /* حركة دخول بسيطة بدون الاعتماد عليها للظهور */
-  animation: number-story-enter 0.7s ease both;
+  transform: translateY(0);
 
-  animation-delay: calc(var(--number-index) * 80ms);
+  animation:
+    numbers-card-enter
+    0.7s
+    cubic-bezier(
+      0.22,
+      1,
+      0.36,
+      1
+    )
+    both;
+
+  animation-delay:
+    calc(
+      var(--number-index) * 80ms
+    );
+
+  transition:
+    transform 0.45s
+      cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
+      ),
+    border-color 0.35s ease,
+    background 0.35s ease,
+    box-shadow 0.45s ease;
 }
 
 
 /* =========================================================
-   NUMBER
+   CARD HOVER
+   ========================================================= */
+
+.number-story:hover {
+  transform:
+    translateY(-5px);
+
+  border-color:
+    rgba(
+      130,
+      173,
+      165,
+      0.45
+    );
+
+  background:
+    rgba(
+      255,
+      255,
+      255,
+      0.38
+    );
+
+  box-shadow:
+    0
+    18px
+    45px
+    rgba(
+      40,
+      54,
+      57,
+      0.07
+    );
+}
+
+
+/* =========================================================
+   NUMBER SIDE
    ========================================================= */
 
 .number-story-value {
-  position: relative;
-  padding-top: 0.15rem;
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: flex-start;
+
+  justify-content: center;
+
+  min-width: 0;
+
+  padding-inline-end: 2rem;
+
   text-align: right;
+
+  direction: rtl;
 }
+
+
+/* 01 / 02 / 03 */
 
 .number-story-index {
   display: block;
 
-  margin-bottom: 0.45rem;
+  margin-bottom: 0.5rem;
 
   color: #c96941;
 
   font-size: 0.68rem;
+
   font-weight: 700;
-  letter-spacing: 0.1em;
+
+  letter-spacing: 0.08em;
 }
+
+
+/* الرقم الكبير */
 
 .number-story-value strong {
   display: block;
 
   color: #283639;
 
-  font-size: clamp(2.3rem, 5vw, 4.3rem);
+  font-size:
+    clamp(
+      2.8rem,
+      5vw,
+      4.8rem
+    );
+
   font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: -0.05em;
 
-  word-break: break-word;
+  line-height: 0.9;
 
-  animation: number-float 5.5s ease-in-out infinite;
+  letter-spacing: -0.06em;
+
+  white-space: nowrap;
 
   transition:
     color 0.35s ease,
-    transform 0.4s ease;
+    transform 0.35s ease;
 }
 
 
-/* =========================================================
-   DOT
-   ========================================================= */
+/* Hover الرقم فقط يتغير لونه،
+   الحركة الأساسية على الكارد */
 
-.number-story-dot {
-  position: relative;
-  z-index: 3;
-
-  width: 8px;
-  height: 8px;
-
-  margin-top: 0.65rem;
-
-  border: 2px solid #f5f0e1;
-  border-radius: 50%;
-
-  background: #e1a437;
-
-  box-shadow:
-    0 0 0 5px rgba(225, 164, 55, 0.12);
-
-  animation: number-dot-float 4s ease-in-out infinite;
-
-  transition: transform 0.35s ease;
+.number-story:hover
+.number-story-value strong {
+  color: #c96941;
 }
 
 
@@ -6769,61 +6912,128 @@ margin-left: 15px;
    ========================================================= */
 
 .number-story-content {
-  position: relative;
+  min-width: 0;
 
-  max-width: 560px;
+  max-width: 680px;
 
-  padding-bottom: 0.5rem;
+  padding-inline-start: 2.5rem;
 
-  animation: number-content-float 7s ease-in-out infinite;
+  border-inline-start:
+    1px solid
+    rgba(
+      130,
+      173,
+      165,
+      0.28
+    );
 
-  transition: transform 0.4s ease;
+  text-align: right;
+
+  direction: rtl;
+
+  animation: none;
 }
+
+
+/* =========================================================
+   CONTENT TOP
+   ========================================================= */
 
 .number-story-top {
   display: flex;
 
   align-items: center;
+
   justify-content: space-between;
 
   gap: 1rem;
 
-  margin-bottom: 0.75rem;
+  width: 100%;
+
+  margin-bottom: 0.65rem;
+
+  text-align: right;
 }
 
 .number-story-top > span {
   color: #82ada5;
 
   font-size: 0.72rem;
+
   font-weight: 700;
 }
 
 .number-story-top small {
-  color: rgba(40, 54, 57, 0.42);
+  color:
+    rgba(
+      40,
+      54,
+      57,
+      0.4
+    );
 
   font-size: 0.68rem;
+
+  text-align: right;
 }
 
+
+/* =========================================================
+   TITLE
+   ========================================================= */
+
 .number-story-content h2 {
+  width: 100%;
+
   margin: 0;
 
   color: #283639;
 
-  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  font-size:
+    clamp(
+      1.2rem,
+      2vw,
+      1.65rem
+    );
+
   font-weight: 700;
-  line-height: 1.4;
+
+  line-height: 1.5;
+
   letter-spacing: -0.025em;
+
+  text-align: right;
 }
 
+
+/* =========================================================
+   DESCRIPTION
+   ========================================================= */
+
 .number-story-content p {
-  max-width: 500px;
+  width: 100%;
 
-  margin: 0.65rem 0 0;
+  max-width: 600px;
 
-  color: rgba(40, 54, 57, 0.6);
+  margin:
+    0.55rem
+    0
+    0
+    auto;
+
+  color:
+    rgba(
+      40,
+      54,
+      57,
+      0.56
+    );
 
   font-size: 0.88rem;
-  line-height: 1.8;
+
+  line-height: 1.85;
+
+  text-align: right;
 }
 
 
@@ -6835,13 +7045,14 @@ margin-left: 15px;
   display: flex;
 
   align-items: center;
-  justify-content: flex-end;
 
-  margin-top: 0.9rem;
+  justify-content: flex-start;
+
+  margin-top: 1rem;
 
   color: #c96941;
 
-  opacity: 0.6;
+  opacity: 0.65;
 
   transition:
     transform 0.35s ease,
@@ -6853,116 +7064,33 @@ margin-left: 15px;
   height: 1rem;
 }
 
-
-/* =========================================================
-   HOVER
-   ========================================================= */
-
-.number-story:hover .number-story-value strong {
-  animation-play-state: paused;
-
-  color: #c96941;
+.number-story:hover
+.number-story-arrow {
+  opacity: 1;
 
   transform:
-    translateY(-6px)
-    scale(1.02);
-}
-
-.number-story:hover .number-story-dot {
-  animation-play-state: paused;
-  transform: scale(1.3);
-}
-
-.number-story:hover .number-story-content {
-  animation-play-state: paused;
-  transform: translateY(-3px);
-}
-
-.number-story:hover .number-story-arrow {
-  opacity: 1;
-  transform: translateX(-6px);
+    translateX(-5px);
 }
 
 
 /* =========================================================
-   ANIMATIONS
+   CARD ENTRY
    ========================================================= */
 
-@keyframes number-story-enter {
+@keyframes numbers-card-enter {
   from {
-    opacity: 0.2;
-    transform: translateY(16px);
+    opacity: 0;
+
+    transform:
+      translateY(18px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+
+    transform:
+      translateY(0);
   }
-}
-
-@keyframes numbers-title-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-5px);
-  }
-}
-
-@keyframes number-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-7px);
-  }
-}
-
-@keyframes number-dot-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(4px);
-  }
-}
-
-@keyframes number-content-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-3px);
-  }
-}
-
-
-/* =========================================================
-   DIFFERENT MOTION TIMING
-   ========================================================= */
-
-.number-story:nth-of-type(2) .number-story-value strong {
-  animation-delay: -1.2s;
-}
-
-.number-story:nth-of-type(3) .number-story-value strong {
-  animation-delay: -2.4s;
-}
-
-.number-story:nth-of-type(4) .number-story-value strong {
-  animation-delay: -3.1s;
-}
-
-.number-story:nth-of-type(5) .number-story-value strong {
-  animation-delay: -4.2s;
 }
 
 
@@ -6971,28 +7099,39 @@ margin-left: 15px;
    ========================================================= */
 
 .numbers-empty {
-  min-height: 260px;
+  min-height: 240px;
 
   display: flex;
+
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
-  gap: 0.75rem;
+  gap: 0.6rem;
 
-  color: rgba(40, 54, 57, 0.5);
+  color:
+    rgba(
+      40,
+      54,
+      57,
+      0.5
+    );
 
   text-align: center;
 }
 
 .numbers-empty span {
   color: #e1a437;
-  font-size: 1.8rem;
+
+  font-size: 1.6rem;
 }
 
 .numbers-empty p {
   margin: 0;
+
+  font-size: 0.9rem;
 }
 
 
@@ -7003,109 +7142,152 @@ margin-left: 15px;
 @media (max-width: 700px) {
 
   .numbers-archive {
-    width: calc(100% - 2rem);
-    padding: 3.5rem 0 5rem;
+    width:
+      calc(
+        100% - 2rem
+      );
+
+    padding:
+      3.5rem
+      0
+      5rem;
   }
 
+
+  /* INTRO */
+
   .numbers-intro {
-    margin-bottom: 3.5rem;
+    margin-bottom: 3rem;
   }
 
   .numbers-intro h1 {
-    font-size: clamp(2.35rem, 11vw, 3.4rem);
+    font-size:
+      clamp(
+        2.35rem,
+        11vw,
+        3.4rem
+      );
   }
 
   .numbers-intro p {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
   }
 
 
-  /* الخط */
+  /* LIST */
 
-  .numbers-list-line {
-    right: 13px;
+  .numbers-list {
+    gap: 0.9rem;
   }
 
 
-  /* كل قصة */
+  /* CARD */
 
   .number-story {
-    grid-template-columns:
-      28px
-      minmax(0, 1fr);
+    display: flex;
 
-    column-gap: 1rem;
+    flex-direction: column;
 
-    min-height: auto;
+    align-items: stretch;
 
-    padding: 1.5rem 0;
+    min-height: 0;
+
+    padding:
+      1.5rem;
+
+    border-radius: 1rem;
   }
 
 
-  /* النقطة */
-
-  .number-story-dot {
-    grid-column: 1;
-    grid-row: 1;
-
-    margin-top: 0.6rem;
-  }
-
-
-  /* الرقم */
+  /* NUMBER */
 
   .number-story-value {
-    grid-column: 2;
-    grid-row: 1;
+    align-items: flex-start;
 
     padding: 0;
+
+    margin-bottom: 1.2rem;
 
     text-align: right;
   }
 
+  .number-story-index {
+    margin-bottom: 0.4rem;
+  }
+
   .number-story-value strong {
-    font-size: clamp(2.3rem, 13vw, 3.5rem);
+    font-size:
+      clamp(
+        2.7rem,
+        15vw,
+        4rem
+      );
   }
 
 
-  /* المحتوى */
+  /* CONTENT */
 
   .number-story-content {
-    grid-column: 2;
-    grid-row: 2;
+    width: 100%;
 
     max-width: none;
 
-    margin-top: 0.9rem;
+    padding:
+      1rem
+      0
+      0;
+
+    border-inline-start: none;
+
+    border-top:
+      1px solid
+      rgba(
+        130,
+        173,
+        165,
+        0.25
+      );
+
+    text-align: right;
   }
 
+
   .number-story-top {
-    flex-direction: column;
-    align-items: flex-start;
+    flex-direction: row;
 
-    gap: 0.3rem;
+    align-items: center;
 
-    margin-bottom: 0.6rem;
+    margin-bottom: 0.65rem;
   }
 
   .number-story-content h2 {
-    font-size: 1.15rem;
-    line-height: 1.5;
+    font-size: 1.1rem;
+
+    line-height: 1.55;
   }
 
   .number-story-content p {
-    font-size: 0.86rem;
+    font-size: 0.84rem;
+
     line-height: 1.85;
   }
 
 
-  /* إلغاء تأثير hover على الموبايل */
+  /* Arrow */
 
-  .number-story:hover .number-story-value strong {
+  .number-story-arrow {
+    margin-top: 0.8rem;
+  }
+
+
+  /* Hover على الموبايل بدون حركة */
+
+  .number-story:hover {
     transform: none;
   }
 
-  .number-story:hover .number-story-content {
+  .number-story:hover
+  .number-story-arrow {
     transform: none;
   }
 }
@@ -7117,22 +7299,18 @@ margin-left: 15px;
 
 @media (prefers-reduced-motion: reduce) {
 
-  .numbers-intro h1,
-  .number-story,
-  .number-story-value strong,
-  .number-story-dot,
-  .number-story-content {
-    animation: none !important;
-  }
-
   .number-story {
+    animation: none !important;
+
     opacity: 1 !important;
+
     transform: none !important;
+
+    transition: none !important;
   }
 
-  .number-story-value strong,
-  .number-story-dot,
-  .number-story-content {
-    transform: none !important;
+  .number-story-arrow,
+  .number-story-value strong {
+    transition: none !important;
   }
 }
