@@ -7944,17 +7944,17 @@ margin-left: 15px;
 }
 
 
-@keyframes audio-episode-image-float {
-  from {
-    transform:
-      scale(1.035)
-      translate3d(0, 0, 0);
+@keyframes audio-image-motion {
+  0% {
+    transform: scale(1.08) translate3d(0, 0, 0);
   }
 
-  to {
-    transform:
-      scale(1.06)
-      translate3d(-1.2%, -1%, 0);
+  50% {
+    transform: scale(1.12) translate3d(-0.8%, -0.5%, 0);
+  }
+
+  100% {
+    transform: scale(1.08) translate3d(0.8%, 0.5%, 0);
   }
 }
 
