@@ -9636,3 +9636,187 @@ span {
 .ArticleContainer {
       width: min(100% - 0rem, 70rem);
 }
+
+/* =========================================================
+   ARTICLE READING PALETTE — RESTORE
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   PALETTE DOTS
+   --------------------------------------------------------- */
+
+.reading-swatch {
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+
+  padding: 0 !important;
+
+  border-radius: 9999px !important;
+
+  border: 1px solid rgba(0, 0, 0, 0.18) !important;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease !important;
+}
+
+
+/* Paper */
+
+.reading-swatch-paper {
+  background: #f5f0e1d1 !important;
+}
+
+
+/* Olive */
+
+.reading-swatch-olive {
+  background: rgb(140, 159, 74) !important;
+}
+
+
+/* Gold */
+
+.reading-swatch-gold {
+  background: rgb(225, 164, 55) !important;
+}
+
+
+/* Terracotta */
+
+.reading-swatch-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+
+/* Teal */
+
+.reading-swatch-teal {
+  background: rgb(130, 173, 165) !important;
+}
+
+
+/* ---------------------------------------------------------
+   LIGHT MODE — ARTICLE
+   --------------------------------------------------------- */
+
+html:not(.dark)
+.article-surface.article-surface-paper {
+  background: #f5f0e1d1 !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-olive {
+  background: rgb(140, 159, 74) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-gold {
+  background: rgb(225, 164, 55) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+html:not(.dark)
+.article-surface.article-surface-teal {
+  background: rgb(130, 173, 165) !important;
+}
+
+
+/* ---------------------------------------------------------
+   DARK MODE — ARTICLE
+   --------------------------------------------------------- */
+
+/* Paper فقط يتحول للداكن */
+
+.dark
+.article-surface.article-surface-paper {
+  background: #283639 !important;
+}
+
+
+/* باقي الألوان تبقى كما هي */
+
+.dark
+.article-surface.article-surface-olive {
+  background: rgb(140, 159, 74) !important;
+}
+
+.dark
+.article-surface.article-surface-gold {
+  background: rgb(225, 164, 55) !important;
+}
+
+.dark
+.article-surface.article-surface-terracotta {
+  background: rgb(201, 105, 65) !important;
+}
+
+.dark
+.article-surface.article-surface-teal {
+  background: rgb(130, 173, 165) !important;
+}
+
+
+/* ---------------------------------------------------------
+   DARK MODE — DEFAULT SWATCH
+   --------------------------------------------------------- */
+
+.dark .reading-swatch-paper {
+  background: #283639 !important;
+}
+
+
+/* ---------------------------------------------------------
+   ACTIVE SWATCH
+   --------------------------------------------------------- */
+
+.reading-swatch.is-active {
+  border: 2px solid #ffffff !important;
+
+  box-shadow:
+    0 0 0 2px #e98a15 !important;
+
+  transform: scale(1.06);
+}
+
+.reading-swatch:hover {
+  transform: scale(1.08);
+}
+
+
+/* ---------------------------------------------------------
+   DARK MODE — PAPER TEXT
+   --------------------------------------------------------- */
+
+.dark .article-surface-paper,
+.dark .article-surface-paper p,
+.dark .article-surface-paper li,
+.dark .article-surface-paper blockquote,
+.dark .article-surface-paper strong {
+  color: #f7f5ef !important;
+}
+
+
+/* ---------------------------------------------------------
+   COLORED BACKGROUNDS — TEXT
+   --------------------------------------------------------- */
+
+.article-surface-olive,
+.article-surface-gold,
+.article-surface-terracotta,
+.article-surface-teal,
+
+.article-surface-olive p,
+.article-surface-gold p,
+.article-surface-terracotta p,
+.article-surface-teal p {
+  color: #111816 !important;
+}
