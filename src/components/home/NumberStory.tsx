@@ -3,6 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Reveal from "@/components/motion/Reveal";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface NumberStory {
   id: string;
@@ -16,7 +17,6 @@ interface NumberStory {
 
 const NumberStory = () => {
   const [items, setItems] = useState<NumberStory[]>([]);
-  const [active, setActive] = useState(0);
 
   // useEffect(() => {
   //   supabase
@@ -39,10 +39,8 @@ const NumberStory = () => {
         "id, number_value, title, description, source, story_date, link_url"
       )
       .eq("is_active", true)
-      .order("display_order");
-
-    console.log("NUMBER STORIES DATA:", data);
-    console.log("NUMBER STORIES ERROR:", error);
+      .order("created_at", { ascending: false })
+      .limit(1);
 
     if (error) {
       console.error("Failed to load number_stories:", error);
@@ -57,8 +55,7 @@ const NumberStory = () => {
 
   if (!items.length) return null;
 
-  const safeActive = Math.min(active, items.length - 1);
-  const item = items[safeActive];
+  const item = items[0];
 
   return (
     <section id="the-number" className="number-section">
@@ -133,31 +130,10 @@ const NumberStory = () => {
         </Reveal>
 
         <div className="number-section__footer">
-          {items.length > 1 ? (
-            <div className="number-history">
-              <span>أرقام سابقة</span>
-
-              <div className="number-dots" dir="rtl">
-                {items.map((n, i) => (
-                  <Button
-                    key={n.id}
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setActive(i)}
-                    aria-label={n.title}
-                    aria-pressed={i === safeActive}
-                    className={`number-dot ${
-                      i === safeActive ? "is-active" : ""
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          ) : (
-            <span />
-          )}
-
+          <Link to="/numbers" className="number-card__link inline-flex items-center gap-1">
+            كل الأرقام
+            <ArrowLeft className="w-4 h-4" />
+          </Link>
           <p>يتغيّر كل فترة ليحكي رواية أخرى.</p>
         </div>
 

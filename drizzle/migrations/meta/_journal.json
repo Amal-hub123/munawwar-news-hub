@@ -8,6 +8,13 @@
       "when": 1789981026008,
       "tag": "0000_create_number_stories_and_audio_episodes",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1790232091885,
+      "tag": "0001_public_read_numbers_audio",
+      "breakpoints": true
     }
   ]
 }
