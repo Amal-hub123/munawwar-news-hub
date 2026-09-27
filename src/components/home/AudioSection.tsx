@@ -32,6 +32,7 @@ const AudioSection = () => {
   const [currentId, setCurrentId] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [playbackRate, setPlaybackRate] = useState(1);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -66,9 +67,15 @@ const AudioSection = () => {
   );
 
   useEffect(() => {
-    setProgress(0);
-    setPlaying(false);
-  }, [currentId]);
+  setProgress(0);
+  setPlaying(false);
+}, [currentId]);
+
+useEffect(() => {
+  if (audioRef.current) {
+    audioRef.current.playbackRate = playbackRate;
+  }
+}, [playbackRate, currentId]);
 
   const toggle = async (id: string) => {
     if (id !== currentId) {
@@ -173,6 +180,26 @@ const AudioSection = () => {
                       )}
                     </Button>
 
+<button
+  type="button"
+  className="audio-speed"
+  onClick={() => {
+    const speeds = [0.75, 1, 1.25, 1.5, 1.75, 2];
+    const currentIndex = speeds.indexOf(playbackRate);
+    const nextSpeed =
+      speeds[(currentIndex + 1) % speeds.length];
+
+    setPlaybackRate(nextSpeed);
+
+    if (audioRef.current) {
+      audioRef.current.playbackRate = nextSpeed;
+    }
+  }}
+  aria-label={`سرعة التشغيل ${playbackRate}x`}
+>
+  {playbackRate}×
+</button>
+                    
                     <div
                       className={`audio-waveform ${
                         playing ? "is-playing" : ""
