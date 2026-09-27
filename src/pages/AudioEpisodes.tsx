@@ -494,10 +494,7 @@ const AudioEpisodes = () => {
 
             </section>
 
-
-        {/* =========================================
-    Pagination - Arabic
-========================================= */}
+{/* Pagination - RTL Arabic */}
 
 {totalPages > 1 && (
   <nav
@@ -505,20 +502,19 @@ const AudioEpisodes = () => {
     aria-label="التنقل بين صفحات الحلقات"
     dir="rtl"
   >
-    {/* الصفحة التالية */}
+    {/* السابق */}
     <button
       type="button"
       className="audio-pagination-arrow"
-      onClick={() => goToPage(currentPage + 1)}
-      disabled={currentPage === totalPages}
-      aria-label="الصفحة التالية"
-      title="الصفحة التالية"
+      onClick={() => goToPage(currentPage - 1)}
+      disabled={currentPage === 1}
+      aria-label="السابق"
     >
-      <span>←</span>
+      <span>→</span>
     </button>
 
     {/* أرقام الصفحات */}
-    <div className="audio-pagination-pages">
+    <div className="audio-pagination-pages" dir="rtl">
       {Array.from(
         { length: totalPages },
         (_, index) => index + 1
@@ -530,27 +526,22 @@ const AudioEpisodes = () => {
           className={`audio-pagination-page ${
             currentPage === page ? "is-active" : ""
           }`}
-          aria-current={
-            currentPage === page ? "page" : undefined
-          }
-          aria-label={`الصفحة ${page}`}
+          aria-current={currentPage === page ? "page" : undefined}
         >
-          {page.toLocaleString("ar")}
+          {String(page).replace(/\d/g, (digit) => "٠١٢٣٤٥٦٧٨٩"[Number(digit)])}
         </button>
       ))}
     </div>
-    
 
-    {/* الصفحة السابقة */}
+    {/* التالي */}
     <button
       type="button"
       className="audio-pagination-arrow"
-      onClick={() => goToPage(currentPage - 1)}
-      disabled={currentPage === 1}
-      aria-label="الصفحة السابقة"
-      title="الصفحة السابقة"
+      onClick={() => goToPage(currentPage + 1)}
+      disabled={currentPage === totalPages}
+      aria-label="التالي"
     >
-      <span>→</span>
+      <span>←</span>
     </button>
   </nav>
 )}
