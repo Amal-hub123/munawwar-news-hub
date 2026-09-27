@@ -3192,8 +3192,8 @@ margin-left: 15px;
 
   border-radius: .15rem;
 
-  background: hsl(var(--primary));
-
+  background: linear-gradient(transparent 68%,hsl(var(--primary) / .9) 68%,hsl(var(--primary) / .9) 84%,transparent 84%);
+    background-size: 100% 100%;
   transform-origin: right center;
 
   animation:
