@@ -299,7 +299,7 @@ const Articles = () => {
               ))}
             </div>
 
-          {/* Load More */}
+         {/* Load More */}
 {hasMore && (
   <div className="flex flex-col items-center justify-center mt-16 mb-8">
     <button
@@ -308,28 +308,28 @@ const Articles = () => {
       disabled={loadingMore}
       className="group flex flex-col items-center gap-3 bg-transparent border-0 outline-none cursor-pointer disabled:cursor-wait"
     >
-      <span
-        className={cn(
-          "text-sm font-medium transition-all duration-300",
-          "text-muted-foreground group-hover:text-primary",
-          loadingMore && "opacity-60"
-        )}
-      >
-        {loadingMore ? "جاري تحميل المزيد..." : "المزيد من المقالات"}
-      </span>
-
-      {!loadingMore && (
-        <span className="flex flex-col items-center -space-y-1">
-          <span className="animate-arrow-down text-muted-foreground/60 group-hover:text-primary transition-colors">
-            ↓
+      {!loadingMore ? (
+        <>
+          <span className="animate-load-more text-sm font-medium text-muted-foreground group-hover:text-primary transition-colors duration-300">
+            المزيد من المقالات
           </span>
 
-          <span
-            className="animate-arrow-down text-muted-foreground/40 group-hover:text-primary/70 transition-colors"
-            style={{ animationDelay: "150ms" }}
-          >
-            ↓
+          <span className="flex flex-col items-center -space-y-1">
+            <span className="animate-arrow-down text-muted-foreground/60 group-hover:text-primary transition-colors">
+              ↓
+            </span>
+
+            <span
+              className="animate-arrow-down text-muted-foreground/40 group-hover:text-primary/70 transition-colors"
+              style={{ animationDelay: "150ms" }}
+            >
+              ↓
+            </span>
           </span>
+        </>
+      ) : (
+        <span className="text-sm font-medium text-muted-foreground animate-pulse">
+          جاري تحميل المزيد...
         </span>
       )}
     </button>
