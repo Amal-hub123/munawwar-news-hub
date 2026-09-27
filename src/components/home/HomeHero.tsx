@@ -299,6 +299,16 @@ export const HomeHero = () => {
     className="orb orb-bottom"
     style={shift(10)}
   />
+
+  <span
+    className="orb orb-left-back"
+    style={shift(6)}
+  />
+
+  <span
+    className="orb orb-right-edge"
+    style={shift(7)}
+  />
 </div>
 
 
@@ -307,9 +317,8 @@ export const HomeHero = () => {
       ================================================= */}
 
       <div
-        className="calm-hero-dots hide"
+        className="calm-hero-dots"
         aria-hidden="true"
-        style={{ display: "none" }}
       >
         {Array.from({
           length: 14,
@@ -393,36 +402,27 @@ export const HomeHero = () => {
 
 
       {/* ================================================
-          Waves
+          Editorial curved lines
       ================================================= */}
 
       <svg
-        className="calm-hero-wave"
-        viewBox="0 0 1440 420"
+        className="calm-hero-swoosh"
+        viewBox="0 0 1440 620"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-
         <path
-          className="wave-air"
-          d="M-120 174 C130 50 390 210 650 122 C930 28 1175 177 1560 70 L1560 420 L-120 420 Z"
+          className="swoosh-shadow swoosh-shadow-one"
+          d="M-100 382 C190 535 420 458 700 286 C970 119 1190 112 1540 271"
         />
-
         <path
-          className="wave-back"
-          d="M-120 225 C170 98 390 275 700 170 C970 78 1240 220 1560 122 L1560 420 L-120 420 Z"
+          className="swoosh-shadow swoosh-shadow-two"
+          d="M-100 368 C185 515 416 441 694 273 C961 112 1191 96 1540 251"
         />
-
         <path
-          className="wave-mid"
-          d="M-120 292 C180 156 480 330 760 231 C1035 135 1260 280 1560 185 L1560 420 L-120 420 Z"
+          className="swoosh-gold"
+          d="M-90 387 C185 516 420 459 706 281"
         />
-
-        <path
-          className="wave-front"
-          d="M-120 345 C190 235 500 372 820 290 C1100 217 1320 330 1560 255 L1560 420 L-120 420 Z"
-        />
-
       </svg>
 
 
