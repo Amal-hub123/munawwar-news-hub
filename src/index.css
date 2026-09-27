@@ -9817,11 +9817,13 @@ span {
 }
 
 .animate-load-more {
+  font-size:large;
   display: block;
   animation: loadMore 1.8s ease-in-out infinite;
 }
 
 .animate-arrow-down {
+    font-size:large;
   display: block;
   line-height: 12px;
   animation: arrowDown 1.4s ease-in-out infinite;
