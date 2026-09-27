@@ -5,9 +5,6 @@
 @tailwind utilities;
 
 
-
-
-
 @font-face {
   font-family: 'Greta Arabic';
   src: url('/fonts/GretaArabic-Light.ttf') format('truetype');
@@ -6765,8 +6762,7 @@ margin-bottom:5rem;
   align-items: stretch;
 
   width: 100%;
-  min-height: 230px;
-
+ max-height: 12rem;
   overflow: hidden;
 
   direction: ltr;
@@ -6957,7 +6953,7 @@ margin-bottom:5rem;
   flex-direction: column;
 
   padding:
-    clamp(1.5rem, 3vw, 2.25rem);
+    clamp(.5rem, 1vw, .9rem);
 
   direction: rtl;
 
@@ -7025,8 +7021,6 @@ margin-bottom:5rem;
 
 
 .audio-episode-content h2 {
-  margin:
-    1rem 0 0;
 
   max-width: 28ch;
 
@@ -7058,9 +7052,6 @@ margin-bottom:5rem;
 
 .audio-episode-description {
   max-width: 38rem;
-
-  margin-top: .6rem;
-
   color:
     rgba(40, 54, 57, .62);
 
@@ -7085,10 +7076,6 @@ margin-bottom:5rem;
   align-items: center;
 
   gap: .8rem;
-
-  margin-top: auto;
-  padding-top: 1.5rem;
-
   direction: ltr;
 }
 
