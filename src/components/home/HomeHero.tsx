@@ -317,9 +317,8 @@ export const HomeHero = () => {
       ================================================= */}
 
       <div
-        className="calm-hero-dots hide"
+        className="calm-hero-dots"
         aria-hidden="true"
-        style={{ display: "none" }}
       >
         {Array.from({
           length: 14,
