@@ -533,8 +533,8 @@ All colors MUST be HSL.
 .calm-hero .calm-hero-dotsnav, .calm-hero .calm-hero-orbs, .calm-hero .calm-hero-dots { opacity: var(--hero-opacity, 1); transform: translateY(calc(var(--hero-scroll, 0) * -1rem)); }
 .calm-hero .calm-hero-cue { opacity: calc(1 - var(--hero-scroll, 0) * 1.7); }
 .calm-hero-orbs .orb { position: absolute; border-radius: 50%; transition: transform .8s var(--editorial-ease); }
-.calm-hero-orbs .orb-gold { top: -10rem; right: -43rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
-.calm-hero-orbs .orb-teal { top: -12rem; left: 33.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
+.calm-hero-orbs .orb-gold { top: -5rem; right: -43rem; width: 15rem; height: 15rem; background: hsl(var(--primary) / .55); animation: ambient-float 12s ease-in-out infinite; }
+.calm-hero-orbs .orb-teal { top: -5rem; left: 33.5rem; width: 13rem; height: 13rem; background: hsl(var(--secondary) / .75); animation: ambient-float 15s ease-in-out infinite reverse; }
 .calm-hero-orbs .orb-bottom { top: 23rem; left: 33.5rem; width: 13rem; height: 13rem; background: hsl(20.92deg 85.83% 49.8%); animation: ambient-float 15s ease-in-out infinite reverse; }
 .calm-hero-dots i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: hsl(var(--secondary) / .28); animation: ambient-pulse-slow 6s ease-in-out infinite; }
 .calm-hero-content { margin-bottom: 4rem; position: relative; z-index: 5; display: grid; width: min(76rem, 100%); grid-template-columns: minmax(0, .9fr) minmax(20rem, 1.1fr); direction: rtl; align-items: center; gap: clamp(2rem, 5vw, 5rem);     grid-template-columns: 1.3fr 1fr;}
@@ -8818,12 +8818,12 @@ span {
 }
 
 .calm-hero-orbs .orb-gold {
-  right: clamp(-8rem, -8vw, -2rem);
+  right: clamp(0rem, -8vw, -2rem);
 }
 
- .orb-teal {
+.calm-hero-orbs .orb-teal {
   left: auto;
-  right: clamp(8rem, 28vw, 28rem);
+  right: clamp(8rem, 28vw, 8rem);
 }
 
  .calm-hero-orbs .orb-bottom {
