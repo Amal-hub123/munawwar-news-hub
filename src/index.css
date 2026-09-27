@@ -9182,7 +9182,7 @@ span {
   .calm-hero-phrase.phrase-2,
   .calm-hero-phrase.phrase-3 {
     font-size: clamp(1.8rem, 8.5vw, 3rem);
-    line-height: 1.55;
+    line-height: 1;
   }
 
   .hero-article-slider {
@@ -9966,9 +9966,9 @@ span {
 .calm-hero-phrase.phrase-3 {
   max-width: 40rem;
   color: hsl(var(--foreground));
-  font-size: clamp(2.35rem, 4.2vw, 4.3rem);
+  font-size: clamp(4rem, 4.2vw, 4.3rem);
   font-weight: 400;
-  line-height: 1.45;
+  line-height: 1.2;
 }
 
 .calm-hero-phrase .mark {
