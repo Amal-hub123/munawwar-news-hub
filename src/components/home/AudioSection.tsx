@@ -125,7 +125,7 @@ useEffect(() => {
 
         <Reveal variant="clip">
           <div className="audio-section__heading">
-            <h2>مسموع</h2>
+            <h2 className="editorial-heading ">مسموع</h2>
             <p>للأذن حصتها من المُنحنى</p>
           </div>
         </Reveal>
