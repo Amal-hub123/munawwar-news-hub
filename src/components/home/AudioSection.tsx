@@ -14,6 +14,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 
 interface Episode {
   id: string;
@@ -180,25 +186,49 @@ useEffect(() => {
                       )}
                     </Button>
 
-<button
-  type="button"
-  className="audio-speed"
-  onClick={() => {
-    const speeds = [0.75, 1, 1.25, 1.5, 1.75, 2];
-    const currentIndex = speeds.indexOf(playbackRate);
-    const nextSpeed =
-      speeds[(currentIndex + 1) % speeds.length];
+<Popover>
+  <PopoverTrigger asChild>
+    <button
+      type="button"
+      className="audio-speed"
+      aria-label="سرعة التشغيل"
+    >
+      {playbackRate}×
+    </button>
+  </PopoverTrigger>
 
-    setPlaybackRate(nextSpeed);
+  <PopoverContent
+    align="center"
+    side="top"
+    sideOffset={10}
+    className="audio-speed-menu"
+  >
+    <div className="audio-speed-menu__title">
+      سرعة التشغيل
+    </div>
 
-    if (audioRef.current) {
-      audioRef.current.playbackRate = nextSpeed;
-    }
-  }}
-  aria-label={`سرعة التشغيل ${playbackRate}x`}
->
-  {playbackRate}×
-</button>
+    <div className="audio-speed-options">
+      {[0.75, 1, 1.25, 1.5, 1.75, 2].map((speed) => (
+        <button
+          key={speed}
+          type="button"
+          className={`audio-speed-option ${
+            playbackRate === speed ? "is-active" : ""
+          }`}
+          onClick={() => {
+            setPlaybackRate(speed);
+
+            if (audioRef.current) {
+              audioRef.current.playbackRate = speed;
+            }
+          }}
+        >
+          {speed}×
+        </button>
+      ))}
+    </div>
+  </PopoverContent>
+</Popover>
                     
                     <div
                       className={`audio-waveform ${
