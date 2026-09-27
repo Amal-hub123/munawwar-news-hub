@@ -321,14 +321,7 @@ const Articles = () => {
               </div>
             )}
 
-            {/* End of articles */}
-            {!hasMore && articles.length > 20 && (
-              <div className="text-center mt-12">
-                <p className="text-sm text-muted-foreground">
-                  وصلت إلى نهاية المقالات
-                </p>
-              </div>
-            )}
+           
           </>
         )}
       </main>
