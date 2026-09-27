@@ -9,6 +9,11 @@ import {
   Clock3,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 interface Episode {
   id: string;
@@ -25,10 +30,8 @@ const AudioEpisodes = () => {
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
-  const [speedMenuOpen, setSpeedMenuOpen] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const speedMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     supabase
@@ -44,32 +47,7 @@ const AudioEpisodes = () => {
 
     return () => {
       audioRef.current?.pause();
-    };
-  }, []);
-
-  // إغلاق قائمة السرعة عند الضغط خارجها
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        speedMenuRef.current &&
-        !speedMenuRef.current.contains(
-          event.target as Node
-        )
-      ) {
-        setSpeedMenuOpen(false);
-      }
-    };
-
-    document.addEventListener(
-      "mousedown",
-      handleClickOutside
-    );
-
-    return () => {
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
+      audioRef.current = null;
     };
   }, []);
 
@@ -79,14 +57,15 @@ const AudioEpisodes = () => {
     if (audioRef.current) {
       audioRef.current.playbackRate = speed;
     }
-
-    setSpeedMenuOpen(false);
   };
 
   const toggle = async (episode: Episode) => {
     const currentAudio = audioRef.current;
 
+    // =========================================
     // نفس الحلقة
+    // =========================================
+
     if (
       playingId === episode.id &&
       currentAudio
@@ -109,14 +88,19 @@ const AudioEpisodes = () => {
       return;
     }
 
+    // =========================================
     // أوقف الحلقة السابقة
+    // =========================================
+
     currentAudio?.pause();
 
-    const audio = new Audio(
-      episode.audio_url
-    );
+    // =========================================
+    // إنشاء Audio جديد
+    // =========================================
 
-    // تطبيق السرعة الحالية على الحلقة الجديدة
+    const audio = new Audio(episode.audio_url);
+
+    // تطبيق سرعة التشغيل الحالية
     audio.playbackRate = playbackRate;
 
     audioRef.current = audio;
@@ -124,7 +108,10 @@ const AudioEpisodes = () => {
     setPlayingId(episode.id);
     setProgress(0);
 
-    // تحديث التقدم
+    // =========================================
+    // تحديث Progress
+    // =========================================
+
     audio.ontimeupdate = () => {
       if (
         Number.isFinite(audio.duration) &&
@@ -136,17 +123,27 @@ const AudioEpisodes = () => {
       }
     };
 
+    // =========================================
     // نهاية الحلقة
+    // =========================================
+
     audio.onended = () => {
       setPlayingId(null);
       setProgress(0);
     };
 
-    // في حالة وجود خطأ
+    // =========================================
+    // خطأ في الصوت
+    // =========================================
+
     audio.onerror = () => {
       setPlayingId(null);
       setProgress(0);
     };
+
+    // =========================================
+    // تشغيل
+    // =========================================
 
     try {
       await audio.play();
@@ -162,6 +159,7 @@ const AudioEpisodes = () => {
       dir="rtl"
     >
       <TopBar />
+
       <Header />
 
       <main className="audio-archive container mx-auto px-8 py-12">
@@ -234,6 +232,7 @@ const AudioEpisodes = () => {
                   <div className="audio-episode-media">
 
                     {episode.cover_image_url ? (
+
                       <img
                         src={
                           episode.cover_image_url
@@ -245,10 +244,13 @@ const AudioEpisodes = () => {
                             : "lazy"
                         }
                       />
+
                     ) : (
+
                       <div className="audio-episode-media-placeholder">
                         <Headphones />
                       </div>
+
                     )}
 
                     <div className="audio-episode-media-overlay" />
@@ -261,6 +263,8 @@ const AudioEpisodes = () => {
                   ================================= */}
 
                   <div className="audio-episode-content">
+
+                    {/* Top */}
 
                     <div className="audio-episode-top">
 
@@ -280,10 +284,14 @@ const AudioEpisodes = () => {
                     </div>
 
 
+                    {/* Title */}
+
                     <h2>
                       {episode.title}
                     </h2>
 
+
+                    {/* Description */}
 
                     {episode.description && (
                       <p className="audio-episode-description">
@@ -293,7 +301,7 @@ const AudioEpisodes = () => {
 
 
                     {/* =================================
-                        المشغل
+                        Audio Controls
                     ================================= */}
 
                     <div className="audio-episode-controls">
@@ -312,56 +320,46 @@ const AudioEpisodes = () => {
                             : "تشغيل الحلقة"
                         }
                       >
+
                         {isPlaying ? (
                           <Pause />
                         ) : (
                           <Play />
                         )}
+
                       </button>
 
 
-                      {/* سرعة التشغيل */}
+                      {/* =================================
+                          Playback Speed
+                      ================================= */}
 
-                      <div
-                        className="audio-speed-wrapper"
-                        ref={
-                          isPlaying
-                            ? speedMenuRef
-                            : undefined
-                        }
-                      >
+                      <Popover>
 
-                        <button
-                          type="button"
-                          className="audio-speed"
-                          aria-label="سرعة التشغيل"
-                          aria-expanded={
-                            speedMenuOpen
-                          }
-                          onClick={(event) => {
-                            event.stopPropagation();
+                        <PopoverTrigger asChild>
 
-                            setSpeedMenuOpen(
-                              (open) => !open
-                            );
-                          }}
-                        >
-                          {playbackRate}×
-                        </button>
+                          <button
+                            type="button"
+                            className="audio-speed"
+                            aria-label="سرعة التشغيل"
+                          >
+                            {playbackRate}×
+                          </button>
+
+                        </PopoverTrigger>
 
 
-                        <div
-                          className={`audio-speed-menu ${
-                            speedMenuOpen &&
-                            isPlaying
-                              ? "is-open"
-                              : ""
-                          }`}
+                        <PopoverContent
+                          side="top"
+                          align="center"
+                          sideOffset={10}
+                          className="audio-speed-popover"
                         >
 
-                          <span className="audio-speed-menu__title">
+                          <div className="audio-speed-menu__title">
                             سرعة التشغيل
-                          </span>
+                          </div>
+
 
                           <div className="audio-speed-options">
 
@@ -383,13 +381,11 @@ const AudioEpisodes = () => {
                                     ? "is-active"
                                     : ""
                                 }`}
-                                onClick={(event) => {
-                                  event.stopPropagation();
-
+                                onClick={() =>
                                   changePlaybackRate(
                                     speed
-                                  );
-                                }}
+                                  )
+                                }
                               >
                                 {speed}×
                               </button>
@@ -398,12 +394,14 @@ const AudioEpisodes = () => {
 
                           </div>
 
-                        </div>
+                        </PopoverContent>
 
-                      </div>
+                      </Popover>
 
 
-                      {/* Progress */}
+                      {/* =================================
+                          Progress
+                      ================================= */}
 
                       <div className="audio-episode-progress">
 
@@ -411,15 +409,16 @@ const AudioEpisodes = () => {
 
                           <span
                             style={{
-                              width:
-                                isPlaying
-                                  ? `${progress}%`
-                                  : "0%",
+                              width: isPlaying
+                                ? `${progress}%`
+                                : "0%",
                             }}
                           />
 
                         </div>
 
+
+                        {/* Waveform */}
 
                         <div className="audio-episode-wave">
 
@@ -455,6 +454,7 @@ const AudioEpisodes = () => {
             })}
 
           </section>
+
         )}
 
       </main>
