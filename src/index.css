@@ -9920,3 +9920,82 @@ span {
   color: #283639 !important;
 }
 
+/* =========================================================
+   HERO ORBS
+   الدوائر موجودة خلف صورة المقال
+========================================================= */
+
+.calm-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+
+/* طبقة الدوائر */
+
+.calm-hero-orbs {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+
+/* الدوائر نفسها */
+
+.calm-hero-orbs .orb {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  will-change: transform;
+  transition: transform 0.18s ease-out;
+}
+
+
+/* الذهبية - فوق الصورة */
+
+.calm-hero-orbs .orb-gold {
+  width: 230px;
+  height: 230px;
+
+  top: -125px;
+  left: 41%;
+
+  background: #edc978;
+}
+
+
+/* التركواز - فوق ويسار الصورة */
+
+.calm-hero-orbs .orb-teal {
+  width: 150px;
+  height: 150px;
+
+  top: -82px;
+  left: 10%;
+
+  background: #4f9694;
+}
+
+
+/* الدائرة الجديدة - تحت الصورة */
+
+.calm-hero-orbs .orb-bottom {
+  width: 190px;
+  height: 190px;
+
+  bottom: -115px;
+  left: 32%;
+
+  background: #edc978;
+}
+
+
+/* =========================================================
+   المحتوى فوق الدوائر
+========================================================= */
+
+.calm-hero-content {
+  position: relative;
+  z-index: 2;
+}
