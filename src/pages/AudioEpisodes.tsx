@@ -24,8 +24,11 @@ const AudioEpisodes = () => {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+  const [playbackRate, setPlaybackRate] = useState(1);
+  const [speedMenuOpen, setSpeedMenuOpen] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const speedMenuRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     supabase
@@ -44,14 +47,56 @@ const AudioEpisodes = () => {
     };
   }, []);
 
+  // إغلاق قائمة السرعة عند الضغط خارجها
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        speedMenuRef.current &&
+        !speedMenuRef.current.contains(
+          event.target as Node
+        )
+      ) {
+        setSpeedMenuOpen(false);
+      }
+    };
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside
+    );
+
+    return () => {
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+    };
+  }, []);
+
+  const changePlaybackRate = (speed: number) => {
+    setPlaybackRate(speed);
+
+    if (audioRef.current) {
+      audioRef.current.playbackRate = speed;
+    }
+
+    setSpeedMenuOpen(false);
+  };
+
   const toggle = async (episode: Episode) => {
     const currentAudio = audioRef.current;
 
     // نفس الحلقة
-    if (playingId === episode.id && currentAudio) {
+    if (
+      playingId === episode.id &&
+      currentAudio
+    ) {
       if (currentAudio.paused) {
         try {
+          currentAudio.playbackRate = playbackRate;
+
           await currentAudio.play();
+
           setPlayingId(episode.id);
         } catch {
           setPlayingId(null);
@@ -67,12 +112,19 @@ const AudioEpisodes = () => {
     // أوقف الحلقة السابقة
     currentAudio?.pause();
 
-    const audio = new Audio(episode.audio_url);
+    const audio = new Audio(
+      episode.audio_url
+    );
+
+    // تطبيق السرعة الحالية على الحلقة الجديدة
+    audio.playbackRate = playbackRate;
 
     audioRef.current = audio;
+
     setPlayingId(episode.id);
     setProgress(0);
 
+    // تحديث التقدم
     audio.ontimeupdate = () => {
       if (
         Number.isFinite(audio.duration) &&
@@ -84,11 +136,13 @@ const AudioEpisodes = () => {
       }
     };
 
+    // نهاية الحلقة
     audio.onended = () => {
       setPlayingId(null);
       setProgress(0);
     };
 
+    // في حالة وجود خطأ
     audio.onerror = () => {
       setPlayingId(null);
       setProgress(0);
@@ -173,13 +227,17 @@ const AudioEpisodes = () => {
                   }
                 >
 
-                  {/* الصورة */}
+                  {/* =================================
+                      الصورة
+                  ================================= */}
 
                   <div className="audio-episode-media">
 
                     {episode.cover_image_url ? (
                       <img
-                        src={episode.cover_image_url}
+                        src={
+                          episode.cover_image_url
+                        }
                         alt={episode.title}
                         loading={
                           index < 2
@@ -195,11 +253,12 @@ const AudioEpisodes = () => {
 
                     <div className="audio-episode-media-overlay" />
 
-                   
                   </div>
 
 
-                  {/* المحتوى */}
+                  {/* =================================
+                      المحتوى
+                  ================================= */}
 
                   <div className="audio-episode-content">
 
@@ -233,9 +292,13 @@ const AudioEpisodes = () => {
                     )}
 
 
-                    {/* المشغل */}
+                    {/* =================================
+                        المشغل
+                    ================================= */}
 
                     <div className="audio-episode-controls">
+
+                      {/* Play / Pause */}
 
                       <button
                         type="button"
@@ -257,36 +320,128 @@ const AudioEpisodes = () => {
                       </button>
 
 
-                      <div className="audio-episode-progress">
+                      {/* سرعة التشغيل */}
+
+                      <div
+                        className="audio-speed-wrapper"
+                        ref={
+                          isPlaying
+                            ? speedMenuRef
+                            : undefined
+                        }
+                      >
+
+                        <button
+                          type="button"
+                          className="audio-speed"
+                          aria-label="سرعة التشغيل"
+                          aria-expanded={
+                            speedMenuOpen
+                          }
+                          onClick={(event) => {
+                            event.stopPropagation();
+
+                            setSpeedMenuOpen(
+                              (open) => !open
+                            );
+                          }}
+                        >
+                          {playbackRate}×
+                        </button>
+
 
                         <div
-                          className="audio-episode-progress-track"
+                          className={`audio-speed-menu ${
+                            speedMenuOpen &&
+                            isPlaying
+                              ? "is-open"
+                              : ""
+                          }`}
                         >
-                          <span
-                            style={{
-                              width: isPlaying
-                                ? `${progress}%`
-                                : "0%",
-                            }}
-                          />
+
+                          <span className="audio-speed-menu__title">
+                            سرعة التشغيل
+                          </span>
+
+                          <div className="audio-speed-options">
+
+                            {[
+                              0.75,
+                              1,
+                              1.25,
+                              1.5,
+                              1.75,
+                              2,
+                            ].map((speed) => (
+
+                              <button
+                                key={speed}
+                                type="button"
+                                className={`audio-speed-option ${
+                                  playbackRate ===
+                                  speed
+                                    ? "is-active"
+                                    : ""
+                                }`}
+                                onClick={(event) => {
+                                  event.stopPropagation();
+
+                                  changePlaybackRate(
+                                    speed
+                                  );
+                                }}
+                              >
+                                {speed}×
+                              </button>
+
+                            ))}
+
+                          </div>
+
                         </div>
 
+                      </div>
+
+
+                      {/* Progress */}
+
+                      <div className="audio-episode-progress">
+
+                        <div className="audio-episode-progress-track">
+
+                          <span
+                            style={{
+                              width:
+                                isPlaying
+                                  ? `${progress}%`
+                                  : "0%",
+                            }}
+                          />
+
+                        </div>
+
+
                         <div className="audio-episode-wave">
+
                           {Array.from(
                             { length: 24 },
                             (_, i) => (
+
                               <i
                                 key={i}
                                 className={
                                   isPlaying &&
-                                  (i / 23) * 100 <=
+                                  (i / 23) *
+                                    100 <=
                                     progress
                                     ? "is-played"
                                     : ""
                                 }
                               />
+
                             )
                           )}
+
                         </div>
 
                       </div>
