@@ -297,7 +297,7 @@ export const HomeHero = () => {
 
   <span
     className="orb orb-bottom"
-    style={shift(7)}
+    style={shift(10)}
   />
 </div>
 
