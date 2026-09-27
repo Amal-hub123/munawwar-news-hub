@@ -25,7 +25,7 @@ interface Episode {
   duration_label: string | null;
 }
 
-const EPISODES_PER_PAGE = 1;
+const EPISODES_PER_PAGE = 10;
 
 const AudioEpisodes = () => {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
