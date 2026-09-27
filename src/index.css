@@ -9990,7 +9990,7 @@ span {
 }
 
 .calm-hero-orbs .orb-gold {
-  top: 1.8rem;
+  top: -1.2rem;
   left: 22%;
   right: auto;
   width: clamp(9rem, 18vw, 15rem);
@@ -9999,20 +9999,20 @@ span {
 }
 
 .calm-hero-orbs .orb-teal {
-  top: 7rem;
-  left: -3.5rem;
+  top: 0rem;
+  /* left: -3.5rem; */
   width: clamp(15rem, 28vw, 25rem);
   height: clamp(15rem, 28vw, 25rem);
-  background-color: hsl(var(--secondary) / .35);
+  background-color: hsl(188deg 49% 32% / 70%);
 }
 
 .calm-hero-orbs .orb-bottom {
   top: auto;
-  bottom: -9rem;
-  left: -5rem;
-  width: clamp(17rem, 31vw, 28rem);
+  bottom: 0rem;
+  left: -22rem;
+  width: clamp(3rem, 31vw, 28rem);
   height: clamp(17rem, 31vw, 28rem);
-  background-color: hsl(var(--secondary) / .2);
+  background-color: hsl(188deg 49% 32% / 49%);
 }
 
 .calm-hero-orbs .orb-left-back {
@@ -10024,11 +10024,11 @@ span {
 }
 
 .calm-hero-orbs .orb-right-edge {
-  top: 5rem;
-  right: -6rem;
-  width: 14rem;
-  height: 14rem;
-  background-color: hsl(var(--secondary) / .14);
+  top: 3rem;
+  right: 48rem;
+  width: 20rem;
+  height: 20rem;
+  background-color: hsl(38.12deg 73.91% 54.9% / 37%);
 }
 
 .hero-article-slider {
