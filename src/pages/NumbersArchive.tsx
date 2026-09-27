@@ -13,7 +13,7 @@ interface NumberItem {
   source: string | null;
 }
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 10;
 
 const toArabicNumber = (value: number) => {
   return String(value).replace(
