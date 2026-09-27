@@ -307,7 +307,7 @@ const Articles = () => {
                   onClick={fetchMoreArticles}
                   disabled={loadingMore}
                   className={cn(
-                    "px-8 py-3 rounded-full border border-primary",
+                    "px-8 py-3 ",
                     "text-primary font-medium",
                     "transition-all duration-300",
                     "hover:bg-primary hover:text-primary-foreground",
