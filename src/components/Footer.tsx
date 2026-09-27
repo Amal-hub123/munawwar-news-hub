@@ -1,11 +1,11 @@
 export const Footer = () => (
   <footer className="site-footer">
     <div className="container mx-auto px-6">
-      <span>الرياض - المملكة العربية السعودية </span>
-      <span aria-hidden="true">•</span>
+      <span>  من الرياض للذاكرة - الرياض - المملكة العربية السعودية - ترخيص رقم 0000-00  </span>
+      {/* <span aria-hidden="true">•</span>
        <span> الهيئة العامة لتنظيم الإعلام </span>
       <span aria-hidden="true">•</span>
-      <span>ترخيص رقم  -001359</span>
+      <span>ترخيص رقم  -001359</span> */}
     </div>
   </footer>
 );
