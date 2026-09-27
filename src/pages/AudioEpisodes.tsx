@@ -25,11 +25,14 @@ interface Episode {
   duration_label: string | null;
 }
 
+const EPISODES_PER_PAGE = 10;
+
 const AudioEpisodes = () => {
   const [episodes, setEpisodes] = useState<Episode[]>([]);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
   const [playbackRate, setPlaybackRate] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -57,6 +60,39 @@ const AudioEpisodes = () => {
     if (audioRef.current) {
       audioRef.current.playbackRate = speed;
     }
+  };
+
+  const totalPages = Math.ceil(
+    episodes.length / EPISODES_PER_PAGE
+  );
+
+  const paginatedEpisodes = episodes.slice(
+    (currentPage - 1) * EPISODES_PER_PAGE,
+    currentPage * EPISODES_PER_PAGE
+  );
+
+  const goToPage = (page: number) => {
+    if (
+      page < 1 ||
+      page > totalPages ||
+      page === currentPage
+    ) {
+      return;
+    }
+
+    // إيقاف الصوت عند تغيير الصفحة
+    audioRef.current?.pause();
+    audioRef.current = null;
+
+    setPlayingId(null);
+    setProgress(0);
+    setCurrentPage(page);
+
+    // الرجوع لأعلى قسم الحلقات
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   const toggle = async (episode: Episode) => {
@@ -203,243 +239,248 @@ const AudioEpisodes = () => {
 
         ) : (
 
-          <section className="audio-archive-list">
+          <>
+            <section className="audio-archive-list">
 
-            {episodes.map((episode, index) => {
+              {paginatedEpisodes.map((episode, index) => {
 
-              const isPlaying =
-                playingId === episode.id;
+                const isPlaying =
+                  playingId === episode.id;
 
-              return (
-                <article
-                  key={episode.id}
-                  className={`audio-episode-card ${
-                    isPlaying
-                      ? "is-playing"
-                      : ""
-                  }`}
-                  style={
-                    {
-                      "--audio-index": index,
-                    } as React.CSSProperties
-                  }
-                >
+                return (
+                  <article
+                    key={episode.id}
+                    className={`audio-episode-card ${
+                      isPlaying
+                        ? "is-playing"
+                        : ""
+                    }`}
+                    style={
+                      {
+                        "--audio-index":
+                          index,
+                      } as React.CSSProperties
+                    }
+                  >
 
-                  {/* =================================
-                      الصورة
-                  ================================= */}
+                    {/* =================================
+                        الصورة
+                    ================================= */}
 
-                  <div className="audio-episode-media">
+                    <div className="audio-episode-media">
 
-                    {episode.cover_image_url ? (
+                      {episode.cover_image_url ? (
 
-                      <img
-                        src={
-                          episode.cover_image_url
-                        }
-                        alt={episode.title}
-                        loading={
-                          index < 2
-                            ? "eager"
-                            : "lazy"
-                        }
-                      />
+                        <img
+                          src={
+                            episode.cover_image_url
+                          }
+                          alt={episode.title}
+                          loading={
+                            index < 2
+                              ? "eager"
+                              : "lazy"
+                          }
+                        />
 
-                    ) : (
+                      ) : (
 
-                      <div className="audio-episode-media-placeholder">
-                        <Headphones />
-                      </div>
+                        <div className="audio-episode-media-placeholder">
+                          <Headphones />
+                        </div>
 
-                    )}
-
-                    <div className="audio-episode-media-overlay" />
-
-                  </div>
-
-
-                  {/* =================================
-                      المحتوى
-                  ================================= */}
-
-                  <div className="audio-episode-content">
-
-                    {/* Top */}
-
-                    <div className="audio-episode-top">
-
-                      {episode.category && (
-                        <span className="audio-episode-category">
-                          {episode.category}
-                        </span>
                       )}
 
-                      {episode.duration_label && (
-                        <span className="audio-episode-duration">
-                          <Clock3 />
-                          {episode.duration_label}
-                        </span>
-                      )}
+                      <div className="audio-episode-media-overlay" />
 
                     </div>
-
-
-                    {/* Title */}
-
-                    <h2>
-                      {episode.title}
-                    </h2>
-
-
-                    {/* Description */}
-
-                    {episode.description && (
-                      <p className="audio-episode-description">
-                        {episode.description}
-                      </p>
-                    )}
 
 
                     {/* =================================
-                        Audio Controls
+                        المحتوى
                     ================================= */}
 
-                    <div className="audio-episode-controls">
+                    <div className="audio-episode-content">
 
-                      {/* Play / Pause */}
+                      {/* Top */}
 
-                      <button
-                        type="button"
-                        className="audio-episode-play"
-                        onClick={() =>
-                          toggle(episode)
-                        }
-                        aria-label={
-                          isPlaying
-                            ? "إيقاف الحلقة"
-                            : "تشغيل الحلقة"
-                        }
-                      >
+                      <div className="audio-episode-top">
 
-                        {isPlaying ? (
-                          <Pause />
-                        ) : (
-                          <Play />
+                        {episode.category && (
+                          <span className="audio-episode-category">
+                            {episode.category}
+                          </span>
                         )}
 
-                      </button>
+                        {episode.duration_label && (
+                          <span className="audio-episode-duration">
+                            <Clock3 />
+                            {episode.duration_label}
+                          </span>
+                        )}
+
+                      </div>
+
+
+                      {/* Title */}
+
+                      <h2>
+                        {episode.title}
+                      </h2>
+
+
+                      {/* Description */}
+
+                      {episode.description && (
+                        <p className="audio-episode-description">
+                          {episode.description}
+                        </p>
+                      )}
 
 
                       {/* =================================
-                          Playback Speed
+                          Audio Controls
                       ================================= */}
 
-                      <Popover>
+                      <div className="audio-episode-controls">
 
-                        <PopoverTrigger asChild>
+                        {/* Play / Pause */}
 
-                          <button
-                            type="button"
-                            className="audio-speed"
-                            aria-label="سرعة التشغيل"
-                          >
-                            {playbackRate}×
-                          </button>
-
-                        </PopoverTrigger>
-
-
-                        <PopoverContent
-                          side="top"
-                          align="center"
-                          sideOffset={10}
-                          className="audio-speed-popover"
+                        <button
+                          type="button"
+                          className="audio-episode-play"
+                          onClick={() =>
+                            toggle(episode)
+                          }
+                          aria-label={
+                            isPlaying
+                              ? "إيقاف الحلقة"
+                              : "تشغيل الحلقة"
+                          }
                         >
 
-                          <div className="audio-speed-menu__title">
-                            سرعة التشغيل
-                          </div>
-
-
-                          <div className="audio-speed-options">
-
-                            {[
-                              0.75,
-                              1,
-                              1.25,
-                              1.5,
-                              1.75,
-                              2,
-                            ].map((speed) => (
-
-                              <button
-                                key={speed}
-                                type="button"
-                                className={`audio-speed-option ${
-                                  playbackRate ===
-                                  speed
-                                    ? "is-active"
-                                    : ""
-                                }`}
-                                onClick={() =>
-                                  changePlaybackRate(
-                                    speed
-                                  )
-                                }
-                              >
-                                {speed}×
-                              </button>
-
-                            ))}
-
-                          </div>
-
-                        </PopoverContent>
-
-                      </Popover>
-
-
-                      {/* =================================
-                          Progress
-                      ================================= */}
-
-                      <div className="audio-episode-progress">
-
-                        <div className="audio-episode-progress-track">
-
-                          <span
-                            style={{
-                              width: isPlaying
-                                ? `${progress}%`
-                                : "0%",
-                            }}
-                          />
-
-                        </div>
-
-
-                        {/* Waveform */}
-
-                        <div className="audio-episode-wave">
-
-                          {Array.from(
-                            { length: 24 },
-                            (_, i) => (
-
-                              <i
-                                key={i}
-                                className={
-                                  isPlaying &&
-                                  (i / 23) *
-                                    100 <=
-                                    progress
-                                    ? "is-played"
-                                    : ""
-                                }
-                              />
-
-                            )
+                          {isPlaying ? (
+                            <Pause />
+                          ) : (
+                            <Play />
                           )}
+
+                        </button>
+
+
+                        {/* =================================
+                            Playback Speed
+                        ================================= */}
+
+                        <Popover>
+
+                          <PopoverTrigger asChild>
+
+                            <button
+                              type="button"
+                              className="audio-speed"
+                              aria-label="سرعة التشغيل"
+                            >
+                              {playbackRate}×
+                            </button>
+
+                          </PopoverTrigger>
+
+
+                          <PopoverContent
+                            side="top"
+                            align="center"
+                            sideOffset={10}
+                            className="audio-speed-popover"
+                          >
+
+                            <div className="audio-speed-menu__title">
+                              سرعة التشغيل
+                            </div>
+
+
+                            <div className="audio-speed-options">
+
+                              {[
+                                0.75,
+                                1,
+                                1.25,
+                                1.5,
+                                1.75,
+                                2,
+                              ].map((speed) => (
+
+                                <button
+                                  key={speed}
+                                  type="button"
+                                  className={`audio-speed-option ${
+                                    playbackRate ===
+                                    speed
+                                      ? "is-active"
+                                      : ""
+                                  }`}
+                                  onClick={() =>
+                                    changePlaybackRate(
+                                      speed
+                                    )
+                                  }
+                                >
+                                  {speed}×
+                                </button>
+
+                              ))}
+
+                            </div>
+
+                          </PopoverContent>
+
+                        </Popover>
+
+
+                        {/* =================================
+                            Progress
+                        ================================= */}
+
+                        <div className="audio-episode-progress">
+
+                          <div className="audio-episode-progress-track">
+
+                            <span
+                              style={{
+                                width:
+                                  isPlaying
+                                    ? `${progress}%`
+                                    : "0%",
+                              }}
+                            />
+
+                          </div>
+
+
+                          {/* Waveform */}
+
+                          <div className="audio-episode-wave">
+
+                            {Array.from(
+                              { length: 24 },
+                              (_, i) => (
+
+                                <i
+                                  key={i}
+                                  className={
+                                    isPlaying &&
+                                    (i / 23) *
+                                      100 <=
+                                      progress
+                                      ? "is-played"
+                                      : ""
+                                  }
+                                />
+
+                              )
+                            )}
+
+                          </div>
 
                         </div>
 
@@ -447,13 +488,98 @@ const AudioEpisodes = () => {
 
                     </div>
 
-                  </div>
+                  </article>
+                );
+              })}
 
-                </article>
-              );
-            })}
+            </section>
 
-          </section>
+
+            {/* =========================================
+                Pagination
+            ========================================= */}
+
+            {totalPages > 1 && (
+              <nav
+                className="audio-pagination"
+                aria-label="صفحات الحلقات"
+              >
+
+                {/* Previous */}
+
+                <button
+                  type="button"
+                  className="audio-pagination-arrow"
+                  onClick={() =>
+                    goToPage(currentPage - 1)
+                  }
+                  disabled={
+                    currentPage === 1
+                  }
+                  aria-label="الصفحة السابقة"
+                >
+                  ←
+                </button>
+
+
+                {/* Pages */}
+
+                <div className="audio-pagination-pages">
+
+                  {Array.from(
+                    {
+                      length: totalPages,
+                    },
+                    (_, index) =>
+                      index + 1
+                  ).map((page) => (
+
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() =>
+                        goToPage(page)
+                      }
+                      className={`audio-pagination-page ${
+                        currentPage === page
+                          ? "is-active"
+                          : ""
+                      }`}
+                      aria-current={
+                        currentPage === page
+                          ? "page"
+                          : undefined
+                      }
+                    >
+                      {page}
+                    </button>
+
+                  ))}
+
+                </div>
+
+
+                {/* Next */}
+
+                <button
+                  type="button"
+                  className="audio-pagination-arrow"
+                  onClick={() =>
+                    goToPage(currentPage + 1)
+                  }
+                  disabled={
+                    currentPage ===
+                    totalPages
+                  }
+                  aria-label="الصفحة التالية"
+                >
+                  →
+                </button>
+
+              </nav>
+            )}
+
+          </>
 
         )}
 
