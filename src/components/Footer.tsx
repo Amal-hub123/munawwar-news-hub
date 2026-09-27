@@ -6,6 +6,7 @@ export const Footer = () => (
        <span> الهيئة العامة لتنظيم الإعلام </span>
       <span aria-hidden="true">•</span>
       <span>ترخيص رقم  -001359</span> */}
+      
     </div>
   </footer>
 );
