@@ -133,11 +133,13 @@ const NumberStory = () => {
         </Reveal>
 
         <div className="number-section__footer">
+
+                    <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
+
           <Link to="/numbers" className="number-history editorial-link">
             كل الأرقام
           </Link>
 
-          <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
         </div>
 
         <div className="number-wave" aria-hidden="true">
