@@ -903,7 +903,7 @@ export const HomeTimelines =
                       }
                       style={{
                         borderRadius:
-                          "1.5rem",
+                          "0.7rem",
 
                         background:
                           color,
