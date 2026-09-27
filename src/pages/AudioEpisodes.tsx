@@ -495,89 +495,64 @@ const AudioEpisodes = () => {
             </section>
 
 
-            {/* =========================================
-                Pagination
-            ========================================= */}
+        {/* =========================================
+    Pagination - Arabic
+========================================= */}
 
-            {totalPages > 1 && (
-              <nav
-                className="audio-pagination"
-                aria-label="صفحات الحلقات"
-              >
+{totalPages > 1 && (
+  <nav
+    className="audio-pagination"
+    aria-label="التنقل بين صفحات الحلقات"
+    dir="rtl"
+  >
+    {/* الصفحة التالية */}
+    <button
+      type="button"
+      className="audio-pagination-arrow"
+      onClick={() => goToPage(currentPage + 1)}
+      disabled={currentPage === totalPages}
+      aria-label="الصفحة التالية"
+      title="الصفحة التالية"
+    >
+      <span>←</span>
+    </button>
 
-                {/* Previous */}
+    {/* أرقام الصفحات */}
+    <div className="audio-pagination-pages">
+      {Array.from(
+        { length: totalPages },
+        (_, index) => index + 1
+      ).map((page) => (
+        <button
+          key={page}
+          type="button"
+          onClick={() => goToPage(page)}
+          className={`audio-pagination-page ${
+            currentPage === page ? "is-active" : ""
+          }`}
+          aria-current={
+            currentPage === page ? "page" : undefined
+          }
+          aria-label={`الصفحة ${page}`}
+        >
+          {page.toLocaleString("ar")}
+        </button>
+      ))}
+    </div>
 
-                <button
-                  type="button"
-                  className="audio-pagination-arrow"
-                  onClick={() =>
-                    goToPage(currentPage - 1)
-                  }
-                  disabled={
-                    currentPage === 1
-                  }
-                  aria-label="الصفحة السابقة"
-                >
-                  ←
-                </button>
-
-
-                {/* Pages */}
-
-                <div className="audio-pagination-pages">
-
-                  {Array.from(
-                    {
-                      length: totalPages,
-                    },
-                    (_, index) =>
-                      index + 1
-                  ).map((page) => (
-
-                    <button
-                      key={page}
-                      type="button"
-                      onClick={() =>
-                        goToPage(page)
-                      }
-                      className={`audio-pagination-page ${
-                        currentPage === page
-                          ? "is-active"
-                          : ""
-                      }`}
-                      aria-current={
-                        currentPage === page
-                          ? "page"
-                          : undefined
-                      }
-                    >
-                      {page}
-                    </button>
-
-                  ))}
-
-                </div>
-
-
-                {/* Next */}
-
-                <button
-                  type="button"
-                  className="audio-pagination-arrow"
-                  onClick={() =>
-                    goToPage(currentPage + 1)
-                  }
-                  disabled={
-                    currentPage ===
-                    totalPages
-                  }
-                  aria-label="الصفحة التالية"
-                >
-                  →
-                </button>
-
-              </nav>
-            )}
+    {/* الصفحة السابقة */}
+    <button
+      type="button"
+      className="audio-pagination-arrow"
+      onClick={() => goToPage(currentPage - 1)}
+      disabled={currentPage === 1}
+      aria-label="الصفحة السابقة"
+      title="الصفحة السابقة"
+    >
+      <span>→</span>
+    </button>
+  </nav>
+)}
 
           </>
 
