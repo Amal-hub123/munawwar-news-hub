@@ -133,9 +133,8 @@ const NumberStory = () => {
         </Reveal>
 
         <div className="number-section__footer">
-          <Link to="/numbers" className="number-history">
+          <Link to="/numbers" className="number-history editorial-link">
             كل الأرقام
-            <ArrowLeft className="w-4 h-4" />
           </Link>
 
           <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
