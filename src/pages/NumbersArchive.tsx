@@ -3,7 +3,7 @@ import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, Hash } from "lucide-react";
+import { Hash } from "lucide-react";
 
 interface NumberItem {
   id: string;
@@ -13,23 +13,69 @@ interface NumberItem {
   source: string | null;
 }
 
+const ITEMS_PER_PAGE = 1;
+
+const toArabicNumber = (value: number) => {
+  return String(value).replace(
+    /\d/g,
+    (digit) => "٠١٢٣٤٥٦٧٨٩"[Number(digit)]
+  );
+};
+
 const NumbersArchive = () => {
   const [items, setItems] = useState<NumberItem[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    supabase
-      .from("number_stories")
-      .select(
-        "id, number_value, title, description, source"
-      )
-      .eq("is_active", true)
-      .order("display_order")
-      .then(({ data }) => {
-        setItems(
-          (data as NumberItem[]) || []
-        );
-      });
+    const fetchNumbers = async () => {
+      const { data, error } = await supabase
+        .from("number_stories")
+        .select(
+          "id, number_value, title, description, source"
+        )
+        .eq("is_active", true)
+        .order("display_order");
+
+      if (!error) {
+        setItems((data as NumberItem[]) || []);
+      }
+
+      setLoading(false);
+    };
+
+    fetchNumbers();
   }, []);
+
+  // =========================================
+  // Pagination
+  // =========================================
+
+  const totalPages = Math.ceil(
+    items.length / ITEMS_PER_PAGE
+  );
+
+  const paginatedItems = items.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
+
+  const goToPage = (page: number) => {
+    if (
+      page < 1 ||
+      page > totalPages ||
+      page === currentPage
+    ) {
+      return;
+    }
+
+    setCurrentPage(page);
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   return (
     <div
@@ -71,7 +117,30 @@ const NumbersArchive = () => {
             CONTENT
         ========================================== */}
 
-        {items.length === 0 ? (
+        {loading ? (
+
+          <section className="numbers-list">
+            <div className="numbers-list-line" aria-hidden="true" />
+
+            {Array.from({ length: 5 }).map((_, index) => (
+              <div
+                key={index}
+                className="number-story animate-pulse"
+              >
+                <div className="number-story-value">
+                  <div className="h-12 w-24 rounded bg-muted" />
+                </div>
+
+                <div className="number-story-content space-y-3">
+                  <div className="h-5 w-32 rounded bg-muted" />
+                  <div className="h-7 w-3/4 rounded bg-muted" />
+                  <div className="h-4 w-full rounded bg-muted" />
+                </div>
+              </div>
+            ))}
+          </section>
+
+        ) : items.length === 0 ? (
 
           <section className="numbers-empty">
             <span>—</span>
@@ -80,68 +149,156 @@ const NumbersArchive = () => {
 
         ) : (
 
-          <section className="numbers-list">
+          <>
 
-            <div
-              className="numbers-list-line"
-              aria-hidden="true"
-            />
+            {/* =========================================
+                NUMBERS LIST
+            ========================================== */}
 
-            {items.map((item, index) => (
+            <section
+              className="numbers-list"
+              key={currentPage}
+            >
 
-              <article
-                key={item.id}
-                className="number-story"
-                style={{
-                  "--number-index": index,
-                } as React.CSSProperties}
-              >
+              <div
+                className="numbers-list-line"
+                aria-hidden="true"
+              />
 
-                {/* الرقم */}
+              {paginatedItems.map((item, index) => (
 
-                <div className="number-story-value">
+                <article
+                  key={item.id}
+                  className="number-story"
+                  style={{
+                    "--number-index": index,
+                  } as React.CSSProperties}
+                >
 
-            
+                  {/* الرقم */}
 
-                  <strong>
-                    {item.number_value}
-                  </strong>
+                  <div className="number-story-value">
 
-                </div>
+                    <strong>
+                      {item.number_value}
+                    </strong>
+
+                  </div>
 
 
-              {/* القصة */}
+                  {/* القصة */}
 
-                <div className="number-story-content">
+                  <div className="number-story-content">
 
-                  <div className="number-story-top">
+                    <div className="number-story-top">
 
-                    {item.source && (
-                      <small>
-                        المصدر: {item.source}
-                      </small>
+                      {item.source && (
+                        <small>
+                          المصدر: {item.source}
+                        </small>
+                      )}
+
+                    </div>
+
+                    <h2>
+                      {item.title}
+                    </h2>
+
+                    {item.description && (
+                      <p>
+                        {item.description}
+                      </p>
                     )}
 
                   </div>
 
-                  <h2>
-                    {item.title}
-                  </h2>
+                </article>
 
-                  {item.description && (
-                    <p>
-                      {item.description}
-                    </p>
-                  )}
+              ))}
 
-          
+            </section>
+
+
+            {/* =========================================
+                PAGINATION
+            ========================================== */}
+
+            {totalPages > 1 && (
+
+              <nav
+                className="audio-pagination"
+                aria-label="التنقل بين صفحات الأرقام"
+                dir="rtl"
+              >
+
+                {/* السابق */}
+
+                <button
+                  type="button"
+                  className="audio-pagination-arrow"
+                  onClick={() => goToPage(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  aria-label="الصفحة السابقة"
+                  title="الصفحة السابقة"
+                >
+                  <span>→</span>
+                </button>
+
+
+                {/* أرقام الصفحات */}
+
+                <div
+                  className="audio-pagination-pages"
+                  dir="rtl"
+                >
+
+                  {Array.from(
+                    { length: totalPages },
+                    (_, index) => index + 1
+                  ).map((page) => (
+
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => goToPage(page)}
+                      className={`audio-pagination-page ${
+                        currentPage === page
+                          ? "is-active"
+                          : ""
+                      }`}
+                      aria-current={
+                        currentPage === page
+                          ? "page"
+                          : undefined
+                      }
+                      aria-label={`الصفحة ${toArabicNumber(page)}`}
+                    >
+                      {toArabicNumber(page)}
+                    </button>
+
+                  ))}
+
                 </div>
 
-              </article>
 
-            ))}
+                {/* التالي */}
 
-          </section>
+                <button
+                  type="button"
+                  className="audio-pagination-arrow"
+                  onClick={() => goToPage(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  aria-label="الصفحة التالية"
+                  title="الصفحة التالية"
+                >
+                  <span>←</span>
+                </button>
+
+              </nav>
+
+            )}
+
+          </>
 
         )}
 
