@@ -281,20 +281,25 @@ export const HomeHero = () => {
           Decorative Orbs
       ================================================= */}
 
-      <div
-        className="calm-hero-orbs"
-        aria-hidden="true"
-      >
-        <span
-          className="orb orb-gold"
-          style={shift(10)}
-        />
+     <div
+  className="calm-hero-orbs"
+  aria-hidden="true"
+>
+  <span
+    className="orb orb-gold"
+    style={shift(8)}
+  />
 
-        <span
-          className="orb orb-teal"
-          style={shift(16)}
-        />
-      </div>
+  <span
+    className="orb orb-teal"
+    style={shift(12)}
+  />
+
+  <span
+    className="orb orb-bottom"
+    style={shift(7)}
+  />
+</div>
 
 
       {/* ================================================
