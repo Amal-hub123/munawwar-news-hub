@@ -6,9 +6,7 @@
 
 
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+
 
 @font-face {
   font-family: 'Greta Arabic';
@@ -194,12 +192,12 @@ All colors MUST be HSL.
     transform: rotate(12deg);
   }
 
-  /* All headings/titles render bold by default */
+  
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold;
   }
 
-  /* ==== Light theme surfaces ==== */
+  
   html:not(.dark),
   html:not(.dark) body,
   html:not(.dark) .bg-card,
@@ -230,7 +228,7 @@ All colors MUST be HSL.
     border-color: #00343a !important;
   }
 
-  /* ==== Dark theme surfaces ==== */
+  
   .dark,
   .dark body {
     background-color: hsl(var(--background)) !important;
@@ -255,7 +253,7 @@ All colors MUST be HSL.
     border-color: hsl(var(--primary)) !important;
   }
 
-  /* ==== Reusable themed helpers (replace hardcoded inline colors) ==== */
+  
   .surface-alt {
     background-color: hsl(var(--card));
   }
@@ -273,7 +271,7 @@ All colors MUST be HSL.
     color: hsl(var(--primary));
   }
 
-  /* Article/news content rendered from editor inherits the site font */
+  
   .site-content,
   .site-content * {
     font-weight: 400 !important;
@@ -291,7 +289,7 @@ All colors MUST be HSL.
     background-color: transparent !important;
   }
 
-  /* Preserve bold for headings and strong elements */
+  
   .site-content h1,
   .site-content h2,
   .site-content h3,
@@ -303,7 +301,7 @@ All colors MUST be HSL.
     font-weight: 700 !important;
   }
 
-  /* ==== Article reading surface ==== */
+  
   .article-surface {
     background-color: hsl(var(--reading-paper));
     transition: background-color .3s ease, color .3s ease;
@@ -321,7 +319,7 @@ All colors MUST be HSL.
   .reading-swatch-mist { background-color: hsl(var(--reading-mist)) !important; }
   .reading-swatch.is-active { box-shadow: 0 0 0 2px hsl(var(--primary)); transform: scale(.88); }
 
-  /* ==== Adjustable article text size ==== */
+  
   .article-body {
     font-size: var(--article-font-size, 17px);
     line-height: 1.9;
@@ -342,7 +340,7 @@ All colors MUST be HSL.
   .article-body h6 { font-size: 1.1em !important; }
 }
 
-/* Account access pages */
+
 .auth-page-shell {
   width: min(1180px, calc(100% - 2rem));
   min-height: calc(100svh - 7rem);
@@ -358,7 +356,7 @@ All colors MUST be HSL.
 .auth-visual { position: relative; min-height: 35rem; overflow: hidden; border-radius: .5rem; isolation: isolate; box-shadow: var(--hover-shadow); }
 .auth-visual-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: auth-image-breathe 14s ease-in-out infinite alternate; }
 .auth-visual-shade { position: absolute; inset: 0; background: linear-gradient(180deg, hsl(176 32% 13% / .12), hsl(176 32% 9% / .82)); }
-/* .auth-visual-content { position: relative; z-index: 2; height: 100%; min-height: inherit; padding: clamp(1.5rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: space-between; color: hsl(0 0% 96%); } */
+
 .auth-visual-content {
   padding: clamp(1.5rem, 4vw, 3rem);
   height: 100%;
@@ -417,10 +415,7 @@ All colors MUST be HSL.
   .auth-visual-image, .auth-visual-line, .auth-visual-copy { animation: none; }
 }
 
-/* ==================================================================
-   Editorial motion layer — "المُنحنى" interactive knowledge experience
-   Rule: still elements breathe, interaction responds, reading calms.
-   ================================================================== */
+
 @layer utilities {
   .reveal {
     opacity: 0;
@@ -489,7 +484,7 @@ All colors MUST be HSL.
   .zoom-media:hover img { transform: scale(1.05); }
 }
 
-/* Homepage editorial system */
+
 .editorial-home { --editorial-ease: cubic-bezier(.22, 1, .36, 1); }
 .editorial-kicker { margin-top:.5rem; color: hsl(var(--muted-foreground)); font-size: 1rem; font-weight: 600; }
 .editorial-heading { color: hsl(186.21deg 100% 11.37%);background: linear-gradient(transparent 68%, hsl(var(--primary) / .9) 68%, hsl(var(--primary) / .9) 84%, transparent 84%); font-size: clamp(1.6rem, 2.6vw, 2.5rem); line-height: 1.15; }
@@ -505,7 +500,7 @@ All colors MUST be HSL.
 .editorial-link:hover { gap: .9rem; }
 
 .site-header { border-bottom: 1px solid hsl(var(--border) / .5); background: hsl(var(--background) / .78); backdrop-filter: blur(18px); transition: background .35s ease, box-shadow .35s ease; }
-/* Light Mode */
+
 .site-header.is-scrolled {
   background: #f6f4ee;
   box-shadow: 0 12px 35px hsl(var(--foreground) / 0.06);
@@ -515,7 +510,7 @@ All colors MUST be HSL.
     box-shadow 0.25s ease;
 }
 
-/* Dark Mode */
+
 .dark .site-header.is-scrolled {
   background: #101b1f;
   box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
@@ -597,16 +592,7 @@ All colors MUST be HSL.
 .daily-story-copy h3 { margin: 0 0 .9rem; max-width: 21ch; font-size: clamp(1.35rem, 2vw, 1.9rem); line-height: 1.55; }
 .daily-story-copy > p { max-width: 36rem; margin-bottom: 1.25rem; color: hsl(var(--muted-foreground)); font-size: .88rem; line-height: 1.9; }
 .daily-story-copy .editorial-link { color: hsl(var(--secondary)); }
-/* .story-timeline { position: relative; z-index: 5; margin-top: -3rem; padding: 2rem 5% 2.5rem; }
-.story-timeline > svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.story-timeline > svg path { fill: none; stroke: hsl(var(--primary) / .5); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2s .4s var(--editorial-ease) forwards; }
-.story-timeline ol { position: relative; display: flex; justify-content: space-around; gap: 1rem; }
-.story-timeline li { width: min(12rem, 20%); text-align: center; cursor: pointer; }
-.story-timeline button { width: 2.75rem; height: 2.75rem; border: 1px solid hsl(var(--primary)); border-radius: 50%; color: hsl(var(--primary)); background: hsl(var(--secondary)); transition: transform .4s var(--editorial-ease), background .4s ease, color .4s ease; }
-.story-timeline li.is-active button { color: hsl(var(--primary-foreground)); background: hsl(var(--primary)); transform: scale(1.18); }
-.story-stop-copy { margin-top: .9rem; opacity: .54; transition: opacity .4s ease, transform .4s ease; font-size :1.3rem !important ; }
-.story-timeline li.is-active .story-stop-copy { opacity: 1; transform: translateY(-3px); }
-.story-stop-copy small { display: block; margin-top: .35rem; font-size: .8rem; color: hsl(0deg 0% 100% / 89%); } */
+
 
 .journey-section, .writers-section { position: relative; padding: 4rem 0; overflow: hidden; }
 .journey-section { background-color: hsl(var(--background)); background-image: radial-gradient(hsl(var(--secondary) / .13) 1px, transparent 1px); background-size: 14px 14px; }
@@ -682,22 +668,7 @@ All colors MUST be HSL.
 .mosaic-count { margin-top: .4rem; font-size: .68rem; opacity: 0; transform: translateY(6px); transition: opacity .35s ease, transform .35s ease; }
 .mosaic-cell:hover .mosaic-count { opacity: 1; transform: none; }
 
-/* .timelines-section { padding: 4.5rem 0; color: #fff; background: hsl(175.38deg 31.71% 24.12%); }
-.timelines-section .editorial-heading, .timelines-section .editorial-kicker, .timelines-section h3 { color: inherit; }
-.timeline-journey-wrap { position: relative; min-height: 20rem; padding-bottom: 1rem; }
-.timeline-journey-stage { position: relative; width: max(100vw, calc(var(--timeline-stop-count) * 15rem)); min-height: 20rem; }
-.timeline-journey-line { position: absolute; inset-inline: 0; top: 0; width: 100%; height: 10rem; }
-.timeline-journey-line path { fill: none; stroke: #e1a437; opacity: .95; stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2.4s var(--editorial-ease) forwards; }
-.timeline-journey { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(var(--timeline-stop-count), minmax(12rem, 1fr)); direction: rtl; padding-inline: max(1.5rem, calc((100vw - 1400px)/2 + 1.5rem)); }
-.timeline-stop { position: relative; width: 100%; min-height: 19rem; padding: calc(7.1rem + var(--stop-progress) * 2.45rem) .75rem 0; opacity: .58; transition: opacity .45s ease, transform .5s var(--editorial-ease); }
-.timeline-stop.is-active { opacity: 1; }
-.timeline-stop.is-active .timeline-dot { color: #00343a; background: #e1a437; border-color: #e1a437; }
-.timeline-dot { position: absolute; top: calc(0.15rem + var(--stop-progress) * 5.45rem); inset-inline-start: 50%; display: grid; width: 3.3rem; height: 3.3rem; place-items: center; border: 1px solid #e1a437; border-radius: 50%; color: #e1a437; background: hsl(175.38deg 31.71% 24.12%); font-size: 1.3rem; transform: translateX(50%); transition: transform .45s var(--editorial-ease), background .4s ease; }
-.timeline-stop.is-active .timeline-dot { transform: translateX(50%) scale(1.08); }
-.timeline-stop-image { height: 7.5rem; margin-top: .85rem; overflow: hidden; }
-.timeline-stop-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s ease; }
-.timeline-stop:hover img { transform: scale(1.05); }
-.timeline-stop-copy { padding-top: .8rem; }.timeline-stop-copy h6 { color: #e1a437; }.timeline-stop-copy h4 { margin: .3rem 0; font-size: 1rem; }.timeline-stop-copy p { color: hsl(var(--secondary-foreground) / .65); font-size: .78rem; line-height: 1.6; } */
+
 
 .image-timeline-stage { padding: 2rem; background: hsl(var(--secondary-foreground) / .05); }
 .image-timeline-stage img { max-width: none; max-height: 72vh; width: auto; transition: transform 1.2s ease; }
@@ -788,7 +759,7 @@ All colors MUST be HSL.
   .editorial-heading { font-size: 1.65rem; }.section-heading-row { margin-bottom: 2rem; }
   .calm-hero-content { grid-template-columns: minmax(0, .82fr) minmax(18rem, 1.18fr); gap: 1.75rem; }
   .daily-story-composition { grid-template-columns: minmax(16rem, .9fr) minmax(0, 1.1fr); min-height: 18rem; }.daily-story-media { min-height: 18rem; }.daily-story-copy { padding: 1.75rem; }
-  /* .story-timeline { margin-top: 1rem; overflow-x: auto; }.story-timeline ol { width: 42rem; } */
+  
   .latest-card-main { grid-template-columns: minmax(0, 1fr) 8.2rem; }.latest-card-media { height: 8.2rem; }
   .mosaic-layout { grid-template-columns: repeat(4, 1fr); }
 }
@@ -845,7 +816,7 @@ All colors MUST be HSL.
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
 
-/* Knowledge-link block as it appears inside the writer's editor */
+
 .knowledge-link-block {
   border: 1px dashed #b98f3f;
   border-radius: 14px;
@@ -854,9 +825,7 @@ All colors MUST be HSL.
   background: rgba(185, 143, 63, 0.08);
 }
 
-/* =========================================
-   READING PALETTE
-   ========================================= */
+
 
 .reading-swatch {
   width: 28px !important;
@@ -874,39 +843,35 @@ All colors MUST be HSL.
 }
 
 
-/* =========================================
-   PALETTE DOTS
-   ========================================= */
 
-/* الافتراضي */
+
+
 .reading-swatch-paper {
   background: #f5f0e1d1 !important;
 }
 
-/* Olive */
+
 .reading-swatch-olive {
   background: rgb(140, 159, 74) !important;
 }
 
-/* Gold */
+
 .reading-swatch-gold {
   background: rgb(225, 164, 55) !important;
 }
 
-/* Terracotta */
+
 .reading-swatch-terracotta {
   background: rgb(201, 105, 65) !important;
 }
 
-/* Teal */
+
 .reading-swatch-teal {
   background: rgb(130, 173, 165) !important;
 }
 
 
-/* =========================================
-   LIGHT MODE
-   ========================================= */
+
 
 html:not(.dark)
 .article-surface.article-surface-paper {
@@ -934,17 +899,15 @@ html:not(.dark)
 }
 
 
-/* =========================================
-   DARK MODE
-   ========================================= */
 
-/* فقط الافتراضي يتغير في الوضع الليلي */
+
+
 .dark
 .article-surface.article-surface-paper {
   background: #283639 !important;
 }
 
-/* باقي الألوان تبقى نفسها */
+
 .dark
 .article-surface.article-surface-olive {
   background: rgb(140, 159, 74) !important;
@@ -966,18 +929,14 @@ html:not(.dark)
 }
 
 
-/* =========================================
-   DEFAULT SWATCH IN DARK MODE
-   ========================================= */
+
 
 .dark .reading-swatch-paper {
   background: #283639 !important;
 }
 
 
-/* =========================================
-   ACTIVE COLOR
-   ========================================= */
+
 
 .reading-swatch.is-active {
   border: 2px solid #ffffff !important;
@@ -993,11 +952,9 @@ html:not(.dark)
 }
 
 
-/* =========================================
-   DARK MODE TEXT
-   ========================================= */
 
-/* الافتراضي الداكن يحتاج نص فاتح */
+
+
 .dark .article-surface-paper,
 .dark .article-surface-paper p,
 .dark .article-surface-paper li,
@@ -1007,9 +964,7 @@ html:not(.dark)
 }
 
 
-/* =========================================
-   COLORED BACKGROUNDS TEXT
-   ========================================= */
+
 
 .article-surface-olive,
 .article-surface-gold,
@@ -1023,9 +978,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TIMELINE SECTION
-   ========================================================= */
+
 
 .timelines-section {
   padding: 4.5rem 0;
@@ -1043,10 +996,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   SHELL
-   الخط والنقاط يعيشون داخل نفس نظام الإحداثيات
-   ========================================================= */
+
 
 .timeline-fixed-shell {
   position: relative;
@@ -1057,10 +1007,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   الخط
-   ثابت بعرض الصفحة
-   ========================================================= */
+
 
 .timeline-journey-line {
   position: absolute;
@@ -1101,9 +1048,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   SCROLL AREA
-   ========================================================= */
+
 
 .timeline-journey-wrap {
   position: relative;
@@ -1138,10 +1083,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   STAGE
-   هذا فقط يتمدد مع زيادة النقاط
-   ========================================================= */
+
 
 .timeline-journey-stage {
   position: relative;
@@ -1154,9 +1096,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TRACK
-   ========================================================= */
+
 
 .timeline-journey {
   position: relative;
@@ -1171,9 +1111,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   كل STOP
-   ========================================================= */
+
 
 .timeline-journey > a,
 .timeline-journey > div {
@@ -1183,9 +1121,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   النقطة + المحتوى
-   ========================================================= */
+
 
 .timeline-stop {
   position: relative;
@@ -1194,9 +1130,7 @@ html:not(.dark)
 
   min-height: 19rem;
 
-  /*
-   * لا نستخدم progress القديم نهائيًا.
-   */
+  
  padding:
     calc(var(--dot-y) + 1.9rem)
     .75rem
@@ -1213,22 +1147,15 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   الدائرة
-   ========================================================= */
+
 
 .timeline-dot {
   position: absolute;
 
-  /*
-   * هذا هو Y الحقيقي المحسوب
-   * من المنحنى.
-   */
+  
   top: var(--dot-y);
 
-  /*
-   * منتصف العمود أفقيًا.
-   */
+  
   right: 50%;
 
   display: grid;
@@ -1255,11 +1182,7 @@ html:not(.dark)
 
   font-size: 1.3rem;
 
-  /*
-   * أهم شيء:
-   * مركز الدائرة نفسه يكون
-   * على إحداثية الخط.
-   */
+  
   transform:
     translate(
       50%,
@@ -1277,9 +1200,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   ACTIVE DOT
-   ========================================================= */
+
 
 .timeline-stop.is-active
 .timeline-dot {
@@ -1298,9 +1219,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   IMAGE
-   ========================================================= */
+
 
 .timeline-stop-image {
   height: 7.5rem;
@@ -1326,9 +1245,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   COPY
-   ========================================================= */
+
 
 .timeline-stop-copy {
    padding-top: .35rem;
@@ -1401,7 +1318,7 @@ html:not(.dark)
 
   pointer-events: none;
 
-  /* المهم */
+  
   overflow: visible !important;
 }
 
@@ -1412,15 +1329,10 @@ html:not(.dark)
   opacity: .95;
 }
 
-/* =========================================================
-   HOME HERO — RESPONSIVE OVERRIDE
-   هذا البلوك فقط يوضع في آخر ملف CSS
-========================================================= */
 
 
-/* =========================================================
-   PHRASES — BASE
-========================================================= */
+
+
 
 .calm-hero-phrase {
   grid-area: 1 / 1;
@@ -1443,16 +1355,14 @@ html:not(.dark)
 }
 
 
-/* مهم جدًا حتى يستمر تبديل الجمل */
+
 .calm-hero-phrase.is-active {
   opacity: 1;
   transform: translateY(0);
 }
 
 
-/* =========================================================
-   DESKTOP / LAPTOP
-========================================================= */
+
 
 .calm-hero-phrase.phrase-1 {
   font-size: 4.69rem;
@@ -1467,9 +1377,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   LARGE DESKTOP
-========================================================= */
+
 
 @media (min-width: 1600px) {
 
@@ -1487,9 +1395,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TABLET / SMALL LAPTOP
-========================================================= */
+
 
 @media (max-width: 1100px) and (min-width: 701px) {
 
@@ -1522,16 +1428,11 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   MOBILE
-   النص فوق — الصورة تحته
-========================================================= */
+
 
 @media (max-width: 700px) {
 
-  /* -------------------------
-     HERO
-  ------------------------- */
+  
 
   .calm-hero {
     min-height: 100svh;
@@ -1545,9 +1446,7 @@ html:not(.dark)
   }
 
 
-  /* -------------------------
-     CONTENT
-  ------------------------- */
+  
 
   .calm-hero-content {
     position: relative;
@@ -1570,9 +1469,7 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     TEXT — FIRST
-  ===================================================== */
+  
 
   .calm-hero-stage {
     order: 1;
@@ -1583,10 +1480,7 @@ html:not(.dark)
     width: 100%;
     max-width: none;
 
-    /*
-      نخلي مساحة ثابتة نسبيًا للجمل
-      حتى تغيير الجملة لا يحرك الصورة فوق وتحت
-    */
+    
     min-height: clamp(13.5rem, 50vw, 17rem);
 
     margin: 0;
@@ -1618,7 +1512,7 @@ html:not(.dark)
   }
 
 
-  /* الجملة النشطة فقط تظهر */
+  
   .calm-hero-phrase.is-active {
     opacity: 1;
     transform: translateY(0);
@@ -1627,7 +1521,7 @@ html:not(.dark)
   }
 
 
-  /* نفس الحجم الكبير اللي طلبته */
+  
 
   .calm-hero-phrase.phrase-1 {
     font-size: clamp(2.45rem, 9.8vw, 3.4rem);
@@ -1642,22 +1536,16 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     IMAGE — SECOND
-  ===================================================== */
+  
 
   .hero-article-slider {
     order: 2;
 
-    /*
-      إلغاء إعدادات Grid الخاصة بالديسكتوب
-    */
+    
     grid-column: auto;
     grid-row: auto;
 
-    /*
-      إلغاء الإزاحات الموجودة في CSS الأصلي
-    */
+    
     top: auto;
     right: auto;
     bottom: auto;
@@ -1668,10 +1556,7 @@ html:not(.dark)
     width: min(100%, 24rem);
     max-width: 100%;
 
-    /*
-      لا نستخدم height ثابت
-      حتى تكون الصورة responsive
-    */
+    
     height: auto;
     min-height: 0;
 
@@ -1689,9 +1574,7 @@ html:not(.dark)
   }
 
 
-  /* -------------------------
-     SLIDE
-  ------------------------- */
+  
 
   .hero-article-slide {
     position: absolute;
@@ -1704,9 +1587,7 @@ html:not(.dark)
   }
 
 
-  /* -------------------------
-     IMAGE
-  ------------------------- */
+  
 
   .hero-article-slide > img {
     display: block;
@@ -1719,9 +1600,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
+
 
 @media (max-width: 420px) {
 
@@ -1754,10 +1633,7 @@ html:not(.dark)
   }
 }
 
-/* =========================================================
-   STORY TIMELINE — CLEAN FINAL VERSION
-   Desktop + Tablet + Mobile
-========================================================= */
+
 
 .story-timeline {
   position: relative;
@@ -1769,9 +1645,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   SCROLL AREA
-========================================================= */
+
 
 .story-timeline-scroll {
   position: relative;
@@ -1789,9 +1663,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TRACK
-========================================================= */
+
 
 .story-timeline-track {
   position: relative;
@@ -1803,9 +1675,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   CURVE
-========================================================= */
+
 
 .story-timeline-curve {
   position: absolute;
@@ -1830,18 +1700,16 @@ html:not(.dark)
 
   vector-effect: non-scaling-stroke;
 
-  /* الخط كامل دائمًا */
+  
   stroke-dasharray: none;
   stroke-dashoffset: 0;
 
-  /* نوقف أنميشن الرسم لهذا الخط */
+  
   animation: none;
 }
 
 
-/* =========================================================
-   LIST
-========================================================= */
+
 
 .story-timeline ol {
   position: absolute;
@@ -1859,14 +1727,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   STOP
 
-   --stop-x = موقع النقطة أفقيًا
-   --stop-y = نفس Y المستخدم لرسم المنحنى
-
-   لذلك مركز الدائرة يبقى على الخط بالضبط.
-========================================================= */
 
 .story-timeline li {
   position: absolute;
@@ -1885,9 +1746,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   CIRCLE
-========================================================= */
+
 
 .story-timeline button {
   position: relative;
@@ -1903,10 +1762,7 @@ html:not(.dark)
   margin: 0 auto;
   padding: 0;
 
-  /*
-   * نرفع الدائرة نصف ارتفاعها فقط.
-   * بالتالي مركزها يقع على المنحنى.
-   */
+  
   transform: translateY(-50%);
 
   border: 1px solid hsl(var(--primary));
@@ -1924,7 +1780,7 @@ html:not(.dark)
 }
 
 
-/* ACTIVE */
+
 
 .story-timeline li.is-active button {
   color: hsl(var(--primary-foreground));
@@ -1936,9 +1792,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TEXT
-========================================================= */
+
 
 .story-stop-copy {
   width: 100%;
@@ -1986,9 +1840,7 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   TABLET
-========================================================= */
+
 
 @media (max-width: 900px) and (min-width: 701px) {
 
@@ -2003,18 +1855,12 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   MOBILE
-   المسار يصبح أعرض من الشاشة ويمكن سحبه.
-========================================================= */
+
 
 @media (max-width: 700px) {
 
   .story-timeline {
-    /*
-     * نخرج من padding الـ container
-     * ليصبح السحب بعرض الشاشة.
-     */
+    
     width: calc(100% + 3rem);
 
     margin-inline: -1.5rem;
@@ -2026,9 +1872,7 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     SCROLL
-  ===================================================== */
+  
 
   .story-timeline-scroll {
     width: 100%;
@@ -2042,9 +1886,7 @@ html:not(.dark)
     overscroll-behavior-x: contain;
     touch-action: pan-x;
 
-    /*
-     * البداية من جهة اليمين = 01
-     */
+    
     direction: rtl;
   }
 
@@ -2053,18 +1895,7 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     TRACK
-
-     كل نقطة تحصل تقريبًا على 13rem.
-     يزيد العرض تلقائيًا مع عدد النقاط.
-
-     3 = 39rem
-     4 = 52rem
-     5 = 65rem
-     6 = 78rem
-     ...
-  ===================================================== */
+  
 
   .story-timeline-track {
     position: relative;
@@ -2079,18 +1910,12 @@ html:not(.dark)
 
     height: 16.5rem;
 
-    /*
-     * مهم:
-     * RTL للسحب فقط.
-     * إحداثيات الخط والنقاط تبقى LTR.
-     */
+    
     direction: ltr;
   }
 
 
-  /* =====================================================
-     CURVE
-  ===================================================== */
+  
 
   .story-timeline-curve {
     width: 100%;
@@ -2105,23 +1930,17 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     STOP
-  ===================================================== */
+  
 
   .story-timeline li {
     width: 9.5rem;
 
-    /*
-     * لا نلمس Y إطلاقًا.
-     */
+    
     transform: translateX(-50%);
   }
 
 
-  /* =====================================================
-     CIRCLE
-  ===================================================== */
+  
 
   .story-timeline button {
     width: 3.2rem;
@@ -2139,9 +1958,7 @@ html:not(.dark)
   }
 
 
-  /* =====================================================
-     TEXT
-  ===================================================== */
+  
 
   .story-stop-copy {
     width: 9.5rem;
@@ -2162,17 +1979,12 @@ html:not(.dark)
 }
 
 
-/* =========================================================
-   VERY SMALL MOBILE
-========================================================= */
+
 
 @media (max-width: 420px) {
 
   .story-timeline-track {
-    /*
-     * لا نصغّر كل شيء حتى نحشره بالشاشة.
-     * نخلي المسار واسع والمستخدم يسحب.
-     */
+    
     width:
       max(
         38rem,
@@ -2217,16 +2029,10 @@ margin-left: 15px;
 
 
 
-/* =========================================================
-   HOME TIMELINES — FINAL
-   Desktop + Tablet + Mobile
-   ضع هذا البلوك في آخر ملف CSS
-   ========================================================= */
 
 
-/* =========================================================
-   SECTION
-   ========================================================= */
+
+
 
 .timelines-section {
   position: relative;
@@ -2241,16 +2047,10 @@ margin-left: 15px;
   overflow-x: clip;
 }
 
-.timelines-section .editorial-heading,
-.timelines-section .editorial-kicker,
-.timelines-section h3 {
-  color: inherit;
-}
 
 
-/* =========================================================
-   FIXED SHELL
-   ========================================================= */
+
+
 
 .timeline-fixed-shell {
   position: relative;
@@ -2263,12 +2063,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   CURVE
 
-   ارتفاع المنحنى ثابت = 10rem
-   نفس الوحدة المستخدمة لحساب --dot-y
-   ========================================================= */
 
 .timeline-journey-line {
   position: absolute;
@@ -2309,9 +2104,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   SCROLL AREA
-   ========================================================= */
+
 
 .timeline-journey-wrap {
   position: relative;
@@ -2342,9 +2135,7 @@ margin-left: 15px;
   cursor: grab;
 }
 
-.timeline-journey-wrap::-webkit-scrollbar {
-  display: none;
-}
+
 
 .timeline-journey-wrap.is-dragging {
   cursor: grabbing;
@@ -2353,12 +2144,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   MOVING STAGE
 
-   العرض يأتي مباشرة من TSX:
-   style={{ width: `${trackWidth}px` }}
-   ========================================================= */
 
 .timeline-journey-stage {
   position: relative;
@@ -2376,9 +2162,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   JOURNEY TRACK
-   ========================================================= */
+
 
 .timeline-journey {
   position: relative;
@@ -2399,15 +2183,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   STOP COLUMNS
 
-   مهم جدًا:
-   STOP_GAP في TSX = 240px
-
-   لذلك عرض كل عمود هنا = 240px.
-   لا تغيّر واحدة بدون الثانية.
-   ========================================================= */
 
 .timeline-journey > a,
 .timeline-journey > div {
@@ -2429,9 +2205,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   STOP
-   ========================================================= */
+
 
 .timeline-stop {
   position: relative;
@@ -2451,21 +2225,10 @@ margin-left: 15px;
     opacity 0.45s ease;
 }
 
-.timeline-stop.is-active {
-  opacity: 1;
-}
 
 
-/* =========================================================
-   DOT
 
-   --dot-y الآن يأتي من React بوحدة rem.
 
-   مثال:
-   --dot-y: 4.5rem;
-
-   لذلك top لا يعتمد على ارتفاع العنصر الأب.
-   ========================================================= */
 
 .timeline-dot {
   position: absolute;
@@ -2497,9 +2260,7 @@ margin-left: 15px;
   font-size: 1.3rem;
   line-height: 1;
 
-  /*
-   * مركز الدائرة نفسه على Y المنحنى.
-   */
+  
   transform:
     translate(50%, -50%);
 
@@ -2515,12 +2276,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   ACTIVE DOT
 
-   نحافظ على نفس translate حتى لا تتحرك
-   الدائرة عندما تصبح Active.
-   ========================================================= */
 
 .timeline-stop.is-active .timeline-dot {
   color: #00343a;
@@ -2535,12 +2291,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   COPY
 
-   مربوط بنفس --dot-y.
-   وبالتالي النص يبقى تحت دائرته.
-   ========================================================= */
 
 .timeline-stop-copy {
   position: absolute;
@@ -2604,9 +2355,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   IMAGE
-   ========================================================= */
+
 
 .timeline-stop-image {
   position: absolute;
@@ -2654,9 +2403,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   TABLET
-   ========================================================= */
+
 
 @media (max-width: 900px) {
 
@@ -2676,10 +2423,7 @@ margin-left: 15px;
     min-height: 21rem;
   }
 
-  /*
-   * مهم:
-   * لا نغيّر ارتفاع المنحنى.
-   */
+  
   .timeline-journey-line {
     width: 100%;
     height: 10rem;
@@ -2690,9 +2434,7 @@ margin-left: 15px;
     min-height: 21rem;
   }
 
-  /*
-   * لا نغيّر 240px.
-   */
+  
   .timeline-journey > a,
   .timeline-journey > div {
     flex: 0 0 240px;
@@ -2703,9 +2445,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+
 
 @media (max-width: 700px) {
 
@@ -2719,9 +2459,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     SHELL
-     ======================================================= */
+  
 
   .timeline-fixed-shell {
     width: 100%;
@@ -2732,12 +2470,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     CURVE
-
-     يبقى بعرض الشاشة.
-     لا يتمدد مع عدد النقاط.
-     ======================================================= */
+  
 
   .timeline-journey-line {
     top: 0;
@@ -2752,9 +2485,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     SCROLL
-     ======================================================= */
+  
 
   .timeline-journey-wrap {
     width: 100%;
@@ -2781,9 +2512,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     STAGE
-     ======================================================= */
+  
 
   .timeline-journey-stage {
     min-width: 100%;
@@ -2795,9 +2524,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     TRACK
-     ======================================================= */
+  
 
   .timeline-journey {
     min-height: 24rem;
@@ -2807,11 +2534,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     COLUMNS
-
-     نفس STOP_GAP الموجود في React.
-     ======================================================= */
+  
 
   .timeline-journey > a,
   .timeline-journey > div {
@@ -2822,9 +2545,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     STOP
-     ======================================================= */
+  
 
   .timeline-stop {
     width: 100%;
@@ -2838,12 +2559,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     DOT
-
-     نغيّر حجم الدائرة فقط.
-     top يبقى نفسه تمامًا.
-     ======================================================= */
+  
 
   .timeline-dot {
     width: 3.6rem;
@@ -2851,10 +2567,7 @@ margin-left: 15px;
 
     font-size: 1.2rem;
 
-    /*
-     * مهم جدًا:
-     * لا تغير top أو translate.
-     */
+    
     top: var(--dot-y);
 
     transform:
@@ -2869,9 +2582,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     COPY
-     ======================================================= */
+  
 
   .timeline-stop-copy {
     top:
@@ -2905,9 +2616,7 @@ margin-left: 15px;
   }
 
 
-  /* =======================================================
-     IMAGE
-     ======================================================= */
+  
 
   .timeline-stop-image {
     top:
@@ -2925,9 +2634,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
+
 
 @media (max-width: 420px) {
 
@@ -2946,9 +2653,7 @@ margin-left: 15px;
     min-height: 25rem;
   }
 
-  /*
-   * لا نغير المسافة الأفقية.
-   */
+  
   .timeline-journey > a,
   .timeline-journey > div {
     flex: 0 0 240px;
@@ -2987,9 +2692,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   REDUCED MOTION
-   ========================================================= */
+
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -3015,11 +2718,9 @@ margin-left: 15px;
 
 
 
-/* ================================
-   ASK FORM — CORRECT ORDER
-   ================================ */
 
-/* Desktop */
+
+
 .ask-form-footer {
   display: flex;
   flex-direction: row;
@@ -3052,7 +2753,7 @@ margin-left: 15px;
 }
 
 
-/* Mobile */
+
 @media (max-width: 700px) {
   .ask-form-footer {
     flex-direction: column;
@@ -3075,16 +2776,14 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   HERO MOBILE — SAFE SPACE BETWEEN IMAGE & WAVES
-   ========================================================= */
+
 
 @media (max-width: 700px) {
 
   .calm-hero {
     min-height: 100svh;
 
-    /* مساحة فعلية للمحتوى + منطقة آمنة للـwaves */
+    
     padding-bottom: 17rem;
   }
 
@@ -3095,16 +2794,13 @@ margin-left: 15px;
 }
 
 
-/* الشاشات القصيرة مثل 375 × 667 */
+
 @media (max-width: 700px) and (max-height: 720px) {
 
   .calm-hero {
     min-height: auto;
 
-    /*
-     * بدل إجبار كل شيء داخل 100svh
-     * نخلي ارتفاع Hero يتبع المحتوى.
-     */
+    
     height: auto;
 
     padding-bottom: 17rem;
@@ -3113,7 +2809,7 @@ margin-left: 15px;
 }
 
 
-/* الأجهزة الصغيرة جدًا */
+
 @media (max-width: 420px) {
 
   .calm-hero {
@@ -3121,9 +2817,7 @@ margin-left: 15px;
   }
 
 }
-/* =========================================================
-   قسم الرقم
-   ========================================================= */
+
 
 .number-section {
   position: relative;
@@ -3157,9 +2851,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   العناوين المشتركة
-   ========================================================= */
+
 
 .number-section__heading,
 .audio-section__heading {
@@ -3222,9 +2914,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   قصة الرقم
-   ========================================================= */
+
 
 .number-story {
   position: relative;
@@ -3239,9 +2929,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   الرقم
-   ========================================================= */
+
 
 .number-story__figure {
   position: relative;
@@ -3252,7 +2940,7 @@ margin-left: 15px;
   align-items: center;
   justify-content: center;
 
-  /* الحركة الأساسية المستمرة */
+  
   animation:
     numberFloat
     4.5s
@@ -3263,7 +2951,7 @@ margin-left: 15px;
 }
 
 
-/* الرقم يطلع وينزل بشكل خفيف */
+
 
 @keyframes numberFloat {
   0%,
@@ -3277,9 +2965,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   الخط خلف الرقم
-   ========================================================= */
+
 
 .number-story__figure::after {
   content: "";
@@ -3309,10 +2995,7 @@ margin-left: 15px;
 }
 
 
-/*
-   الخط لا يتحرك بنفس الرقم 100%
-   حتى نحصل على إحساس بطبقات منفصلة
-*/
+
 
 @keyframes numberMarkMove {
   0%,
@@ -3334,9 +3017,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   قيمة الرقم
-   ========================================================= */
+
 
 .number-card__value {
   display: block;
@@ -3355,9 +3036,7 @@ margin-left: 15px;
 }
 
 
-/*
-   هذه الحركة تحصل عند تغيير الرقم
-*/
+
 
 .number-value-enter {
   animation:
@@ -3395,9 +3074,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   محتوى الرقم
-   ========================================================= */
+
 
 .number-card__body {
   margin-top: 1.4rem;
@@ -3473,9 +3150,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   رابط الرقم
-   ========================================================= */
+
 
 .number-card__link {
   position: relative;
@@ -3526,9 +3201,7 @@ margin-left: 15px;
 }
 
 
-/* =========================================================
-   Footer الرقم
-   ========================================================= */
+
 
 .number-section__footer {
   position: relative;
@@ -3622,9 +3295,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   الموجة السفلية
-   ========================================================= */
+
 
 .number-wave {
   position: absolute;
@@ -3661,11 +3332,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   الموجة تتحرك يمين/يسار
-   + فوق/تحت
-   + دوران خفيف
-*/
+
 
 @keyframes numberWaveFlow {
   0% {
@@ -3691,9 +3358,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   موجة ثانية خفيفة
-*/
+
 
 .number-wave::after {
   content: "";
@@ -3742,9 +3407,7 @@ margin-bottom:5rem;
 
 
 
-/* =========================================================
-   مسموع
-   ========================================================= */
+
 .audio-section {
   position: relative;
   overflow: hidden;
@@ -3781,9 +3444,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Panel
-   ========================================================= */
+
 
 .audio-panel {
   position: relative;
@@ -3815,9 +3476,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   انعكاس ضوء خفيف جدًا على كامل الـpanel
-*/
+
 
 .audio-panel::before {
   content: "";
@@ -3869,7 +3528,7 @@ margin-bottom:5rem;
 }
 
 
-/* حتى يبقى المحتوى فوق الضوء */
+
 
 .audio-player,
 .audio-more {
@@ -3879,9 +3538,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   مشغل الصوت
-   ========================================================= */
+
 
 .audio-player {
   overflow: hidden;
@@ -3940,9 +3597,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   صورة مسموع — حركة مستمرة حتى بدون تشغيل
-   ========================================================= */
+
 
 .audio-player__cover {
   position: absolute;
@@ -3956,7 +3611,7 @@ margin-bottom:5rem;
     filter .8s ease;
 }
 
-/* Gradient فوق الصورة حتى يبقى النص واضح */
+
 .audio-player__cover::after {
   content: "";
   position: absolute;
@@ -3974,7 +3629,7 @@ margin-bottom:5rem;
 }
 
 
-/* الصورة تتحرك دائمًا */
+
 .audio-player__cover img {
   width: 100%;
   height: 100%;
@@ -4020,13 +3675,13 @@ margin-bottom:5rem;
 }
 
 
-/* وقت التشغيل الصورة تصير أوضح */
+
 .audio-player.is-playing .audio-player__cover {
   opacity: .29;
 }
 
 
-/* وقت التشغيل الحركة تصبح أسرع قليلًا */
+
 .audio-player.is-playing .audio-player__cover img {
   animation:
     audioCoverPlaying
@@ -4065,9 +3720,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Overlay متحرك داخل الصورة
-   ========================================================= */
+
 
 .audio-player__cover::after {
   content: "";
@@ -4088,9 +3741,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   ضوء يمر ببطء فوق الـplayer
-*/
+
 
 .audio-player::after {
   content: "";
@@ -4150,9 +3801,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   جسم المشغل
-   ========================================================= */
+
 
 .audio-player__body {
   position: relative;
@@ -4255,9 +3904,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Controls
-   ========================================================= */
+
 
 .audio-controls {
   margin-top: auto;
@@ -4274,9 +3921,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Play
-   ========================================================= */
+
 
 .audio-play {
   width: 2.9rem;
@@ -4343,9 +3988,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Waveform
-   ========================================================= */
+
 
 .audio-waveform {
   flex: 1;
@@ -4407,7 +4050,7 @@ margin-bottom:5rem;
 }
 
 
-/* وقت التشغيل */
+
 
 .audio-waveform.is-playing span {
   animation:
@@ -4465,9 +4108,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   اسمع أكثر
-   ========================================================= */
+
 
 .audio-more {
   display: flex;
@@ -4537,9 +4178,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   عناصر الحلقات
-   ========================================================= */
+
 
 .audio-item {
   position: relative;
@@ -4642,9 +4281,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   أيقونة الحلقة
-   ========================================================= */
+
 
 .audio-item__icon {
   width: 1.7rem;
@@ -4688,9 +4325,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   نص الحلقة
-   ========================================================= */
+
 
 .audio-item__body {
   display: flex;
@@ -4744,9 +4379,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   كل الحلقات
-   ========================================================= */
+
 
 .audio-all {
   align-self: flex-end;
@@ -4788,9 +4421,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Tablet
-   ========================================================= */
+
 
 @media (max-width: 900px) {
 
@@ -4808,9 +4439,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Mobile
-   ========================================================= */
+
 
 @media (max-width: 560px) {
 
@@ -4863,7 +4492,7 @@ margin-bottom:5rem;
       .25rem;
   }
 
-  /* أخف قليلًا على الجوال */
+  
   .number-story__figure {
     animation-duration: 5.5s;
   }
@@ -4874,9 +4503,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Reduced Motion
-   ========================================================= */
+
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -4910,10 +4537,7 @@ margin-bottom:5rem;
   }
 }
 
-/* =========================================================
-   NUMBER WAVES
-   موجات الانتقال بين "الرقم" و "مسموع"
-   ========================================================= */
+
 
 .number-wave {
   position: absolute;
@@ -4928,7 +4552,7 @@ margin-bottom:5rem;
 
   pointer-events: none;
 
-  /* الخط الأساسي */
+  
   border-top:
     3px solid
     hsl(var(--muted));
@@ -4949,9 +4573,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   الموجة الثانية
-   ========================================================= */
+
 
 .number-wave::before {
   content: "";
@@ -4986,9 +4608,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   الموجة الثالثة — البرتقالي
-   ========================================================= */
+
 
 .number-wave::after {
   content: "";
@@ -5026,9 +4646,7 @@ margin-bottom:5rem;
 
 
 
-/* =========================================================
-   حركة الخط الأول
-   ========================================================= */
+
 
 @keyframes waveOne {
 
@@ -5055,9 +4673,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   حركة الخط الثاني
-   ========================================================= */
+
 
 @keyframes waveTwo {
 
@@ -5084,9 +4700,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   حركة الخط البرتقالي
-   ========================================================= */
+
 
 @keyframes waveThree {
 
@@ -5113,9 +4727,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   حركة الموجة الممتلئة
-   ========================================================= */
+
 
 @keyframes filledWaveMove {
 
@@ -5141,18 +4753,14 @@ margin-bottom:5rem;
   }
 }
 
-/* ==================================================================
-   ALMONHNA — FINAL AMBIENT MOTION LAYER
-   Keeps the current layout/identity intact and adds continuous,
-   low-amplitude editorial motion across the homepage.
-   ================================================================== */
+
 
 :root {
   --motion-ease: cubic-bezier(.22, 1, .36, 1);
   --motion-soft: cubic-bezier(.45, 0, .55, 1);
 }
 
-/* ---------- Shared section life ---------- */
+
 .editorial-home section {
   position: relative;
   isolation: isolate;
@@ -5182,7 +4790,7 @@ margin-bottom:5rem;
   to { transform: translateY(-2px); opacity: 1; }
 }
 
-/* ---------- Hero: preserve existing layout, add depth ---------- */
+
 .calm-hero-stage {
   animation: heroStageBreathe 9s ease-in-out infinite;
 }
@@ -5212,7 +4820,7 @@ margin-bottom:5rem;
   to { transform: scale(1.075) translate3d(-1%, -.7%, 0); }
 }
 
-/* ---------- Daily story ---------- */
+
 .daily-story-media {
   animation: dailyMediaFloat 8s ease-in-out infinite;
   will-change: transform;
@@ -5256,7 +4864,7 @@ margin-bottom:5rem;
   50% { box-shadow: 0 0 0 5px hsl(var(--primary) / .08); }
 }
 
-/* ---------- Journey ---------- */
+
 .journey-curve {
   animation: journeyCurveLiving 7.5s ease-in-out infinite alternate !important;
   transform-origin: center;
@@ -5292,7 +4900,7 @@ margin-bottom:5rem;
   to { transform: scale(1.055) translateY(-1%); }
 }
 
-/* ---------- Latest articles ---------- */
+
 .latest-card {
   animation: latestCardLiving 8s ease-in-out infinite;
   will-change: transform;
@@ -5330,7 +4938,7 @@ margin-bottom:5rem;
   50% { opacity: 1; }
 }
 
-/* ---------- Category mosaic ---------- */
+
 .mosaic-cell {
   animation: mosaicCellBreathe 9s ease-in-out infinite;
   will-change: transform;
@@ -5354,7 +4962,7 @@ margin-bottom:5rem;
   to { transform: scale(1.055) translateX(-.8%); }
 }
 
-/* ---------- Main timeline ---------- */
+
 .timeline-journey-line {
   animation: mainTimelineCurveLiving 7s ease-in-out infinite alternate;
   transform-origin: center;
@@ -5396,7 +5004,7 @@ margin-bottom:5rem;
   to { transform: scale(1.06) translateX(-1%); }
 }
 
-/* ---------- Writers ---------- */
+
 .writer-point {
   animation: writerPointLiving 8s ease-in-out infinite;
   will-change: transform;
@@ -5431,7 +5039,7 @@ margin-bottom:5rem;
   50% { transform: translateY(-4px); }
 }
 
-/* ---------- Ask / question transformation ---------- */
+
 .ask-dots {
   animation: askDotsLiving 18s linear infinite alternate !important;
   will-change: transform, background-position;
@@ -5481,7 +5089,7 @@ margin-bottom:5rem;
   to { transform: scale(1.065) translateX(-1%); }
 }
 
-/* ---------- Number: stronger but calm ---------- */
+
 .number-story__figure {
   animation: numberAmbientFloat 4.8s ease-in-out infinite !important;
 }
@@ -5513,7 +5121,7 @@ margin-bottom:5rem;
   animation: filledWaveMove 8s ease-in-out infinite alternate !important;
 }
 
-/* ---------- Audio: continuous living image + panel depth ---------- */
+
 .audio-panel {
   animation: audioPanelBreathe 10s ease-in-out infinite;
   will-change: transform;
@@ -5541,14 +5149,14 @@ margin-bottom:5rem;
   50% { transform: translateY(-2px); }
 }
 
-/* ---------- Hover stays responsive without fighting idle motion ---------- */
+
 .latest-card:hover,
 .mosaic-cell:hover,
 .question-transform:hover {
   translate: 0 -3px;
 }
 
-/* ---------- Mobile: same language, lower amplitude ---------- */
+
 @media (max-width: 700px) {
   .calm-hero-stage,
   .hero-article-slider,
@@ -5582,7 +5190,7 @@ margin-bottom:5rem;
   }
 }
 
-/* ---------- Accessibility ---------- */
+
 @media (prefers-reduced-motion: reduce) {
   .editorial-home .editorial-heading,
   .editorial-home .number-section__heading h2,
@@ -5634,12 +5242,9 @@ margin-bottom:5rem;
 }
 
 
-/* ==================================================================
-   ALMONHNA — MOTION V2
-   Stronger editorial motion while preserving layout and responsive.
-   ================================================================== */
 
-/* ---------- Section titles: more visible, distinctive living motion ---------- */
+
+
 .editorial-home .section-heading-row,
 .editorial-home .ask-editorial-heading,
 .editorial-home .number-section__heading,
@@ -5671,7 +5276,7 @@ margin-bottom:5rem;
   }
 }
 
-/* animated orange underline/highlight */
+
 .editorial-home .editorial-heading,
 .editorial-home .ask-editorial-heading h2 {
   background-size: 100% 100%;
@@ -5686,7 +5291,7 @@ margin-bottom:5rem;
   100% { background-position: 8px 86%; }
 }
 
-/* small moving accent beside major headings */
+
 .editorial-home .section-heading-row::after,
 .editorial-home .ask-editorial-heading::after,
 .editorial-home .number-section__heading::after,
@@ -5709,7 +5314,7 @@ margin-bottom:5rem;
   50% { transform: translateX(-9px) scaleX(1.15); opacity: 1; }
 }
 
-/* ---------- "الأعمدة" and similar heading zones ---------- */
+
 .mosaic-section .section-heading-row,
 .latest-editorial .section-heading-row,
 .journey-section .section-heading-row,
@@ -5725,7 +5330,7 @@ margin-bottom:5rem;
   50% { transform: translateY(-5px); }
 }
 
-/* ---------- From your question an article begins ---------- */
+
 .ask-editorial-heading h2 {
   display: inline-block;
   transform-origin: right bottom;
@@ -5766,7 +5371,7 @@ margin-bottom:5rem;
   50% { transform: translateX(-4px); }
 }
 
-/* ---------- Daily Story / مقال اليوم: move the whole article, not only image ---------- */
+
 .daily-story-composition {
   animation: dailyStoryCardV2 7s ease-in-out infinite !important;
   transform-origin: center;
@@ -5823,7 +5428,7 @@ margin-bottom:5rem;
   100% { transform: scale(1.105) translate3d(.7%,-1.2%,0); }
 }
 
-/* ---------- Hero phrases: smoother fade + blur + vertical glide ---------- */
+
 .calm-hero-stage {
   animation: heroStageV2 6.8s ease-in-out infinite !important;
 }
@@ -5856,7 +5461,7 @@ margin-bottom:5rem;
   50% { translate: -5px -5px; }
 }
 
-/* moving highlight inside the active phrase */
+
 .calm-hero-phrase .mark {
   background-size: 100% .42em;
   animation: heroMarkV2 3.6s ease-in-out infinite alternate;
@@ -5867,7 +5472,7 @@ margin-bottom:5rem;
   to { background-position: -8px 92%; }
 }
 
-/* Hero image gets a little more life */
+
 .hero-article-slider {
   animation: heroSliderV2 6.5s ease-in-out infinite !important;
 }
@@ -5887,7 +5492,7 @@ margin-bottom:5rem;
   100% { transform: scale(1.095) translate3d(.6%,-1%,0); }
 }
 
-/* ---------- Cards: raise global ambient amplitude one step ---------- */
+
 .latest-card {
   animation: latestCardV2 6.5s ease-in-out infinite !important;
 }
@@ -5920,7 +5525,7 @@ margin-bottom:5rem;
   50% { transform: translateY(-7px); }
 }
 
-/* ---------- Curves / dots: visibly alive but still editorial ---------- */
+
 .journey-curve {
   animation: journeyCurveV2 6s ease-in-out infinite alternate !important;
 }
@@ -5937,7 +5542,7 @@ margin-bottom:5rem;
   to { transform: translate3d(.45%,-6px,0) scaleX(1.014); }
 }
 
-/* ---------- Mobile: noticeable but controlled ---------- */
+
 @media (max-width: 700px) {
   .editorial-home .editorial-heading,
   .editorial-home .ask-editorial-heading h2,
@@ -5974,7 +5579,7 @@ margin-bottom:5rem;
   }
 }
 
-/* ---------- Accessibility ---------- */
+
 @media (prefers-reduced-motion: reduce) {
   .editorial-home .editorial-heading,
   .editorial-home .ask-editorial-heading h2,
@@ -6013,19 +5618,11 @@ margin-bottom:5rem;
 }
 
 
-/* ==================================================================
-   ALMONHNA — MOTION V3 OVERRIDES
-   Rule:
-   1) Internal text stays still.
-   2) Cards move as one unit.
-   3) Main section titles only move vertically, slightly faster.
-   ================================================================== */
 
-/* =========================================================
-   1. STOP INTERNAL TEXT MOTION
-   ========================================================= */
 
-/* مقال اليوم — الكارد يتحرك، المحتوى الداخلي ثابت */
+
+
+
 .daily-story-copy,
 .daily-story-copy h3,
 .daily-story-copy p,
@@ -6035,7 +5632,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* من سؤالك يبدأ مقال */
+
 .ask-editorial-heading p,
 .ask-content-item,
 .ask-content-question,
@@ -6047,7 +5644,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* أسئلة أصبحت محتوى — لا حركة للنصوص داخل الكارد */
+
 .question-transform .question-origin,
 .question-transform .question-origin p,
 .question-transform .question-origin span,
@@ -6059,7 +5656,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* Latest cards */
+
 .latest-card-copy,
 .latest-card-copy h3,
 .latest-card-copy p,
@@ -6070,7 +5667,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* الأعمدة */
+
 .mosaic-cell strong,
 .mosaic-cell span,
 .mosaic-cell p {
@@ -6078,7 +5675,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* الكتّاب */
+
 .writer-info,
 .writer-info h3,
 .writer-info p,
@@ -6088,23 +5685,21 @@ margin-bottom:5rem;
   animation: none !important;
 }
 
-/* =========================================================
-   2. CARDS MOVE AS A COMPLETE UNIT
-   ========================================================= */
 
-/* مقال اليوم */
+
+
 .daily-story-composition {
   animation: wholeCardFloatV3 6.2s ease-in-out infinite !important;
   will-change: transform;
 }
 
-/* من سؤالك يبدأ مقال — اللوحة كاملة */
+
 .ask-editorial-panel {
   animation: wholeCardFloatV3 6.8s ease-in-out infinite -1.8s !important;
   will-change: transform;
 }
 
-/* أسئلة أصبحت محتوى — كل كارد كوحدة واحدة */
+
 .question-transform {
   animation: wholeCardFloatV3 6.4s ease-in-out infinite !important;
   will-change: transform;
@@ -6118,21 +5713,21 @@ margin-bottom:5rem;
   animation-delay: -4s !important;
 }
 
-/* Latest */
+
 .latest-card {
   animation: wholeCardFloatSoftV3 7s ease-in-out infinite !important;
 }
 .latest-card:nth-child(2n) { animation-delay: -2.4s !important; }
 .latest-card:nth-child(3n) { animation-delay: -4.6s !important; }
 
-/* الأعمدة */
+
 .mosaic-cell {
   animation: wholeCardFloatSoftV3 7.4s ease-in-out infinite !important;
 }
 .mosaic-cell:nth-child(2n) { animation-delay: -2.7s !important; }
 .mosaic-cell:nth-child(3n) { animation-delay: -4.8s !important; }
 
-/* writer card + image container stay visually together */
+
 .writer-point {
   animation: wholeCardFloatSoftV3 7.2s ease-in-out infinite !important;
 }
@@ -6158,11 +5753,9 @@ margin-bottom:5rem;
   }
 }
 
-/* =========================================================
-   3. TITLES — ONLY UP/DOWN, FASTER THAN THE REST
-   ========================================================= */
 
-/* إزالة حركة اليمين/اليسار والـrotate/filter السابقة */
+
+
 .editorial-home .editorial-heading,
 .editorial-home .ask-editorial-heading h2,
 .editorial-home .number-section__heading h2,
@@ -6177,7 +5770,7 @@ margin-bottom:5rem;
   will-change: transform;
 }
 
-/* حركة واضحة لكن صغيرة: مكانه نفسه، فقط فوق وتحت */
+
 @keyframes sectionTitleVerticalV3 {
   0%, 100% {
     transform: translate3d(0,0,0);
@@ -6188,7 +5781,7 @@ margin-bottom:5rem;
   }
 }
 
-/* الهايلايت يتحرك بخفة بدون تحريك العنوان أفقيًا */
+
 @keyframes titleHighlightV3 {
   0% {
     background-position: 0 88%;
@@ -6199,7 +5792,7 @@ margin-bottom:5rem;
   }
 }
 
-/* نوقف تحريك صف العنوان كامل حتى لا تتحرك النصوص المرافقة معه */
+
 .editorial-home .section-heading-row,
 .editorial-home .ask-editorial-heading,
 .editorial-home .number-section__heading,
@@ -6208,7 +5801,7 @@ margin-bottom:5rem;
   transform: none;
 }
 
-/* نخلي الـaccent حي لكن بدون سحب العنوان معه */
+
 .editorial-home .section-heading-row::after,
 .editorial-home .ask-editorial-heading::after,
 .editorial-home .number-section__heading::after,
@@ -6227,17 +5820,14 @@ margin-bottom:5rem;
   }
 }
 
-/* =========================================================
-   4. HERO
-   Keep phrase transition fade/blur, but no extra internal wandering
-   ========================================================= */
+
 
 .calm-hero-phrase.is-active {
   animation: none !important;
   translate: none !important;
 }
 
-/* الهيرو كمنطقة كاملة يتنفس بخفة */
+
 .calm-hero-stage {
   animation: heroStageVerticalV3 5.2s ease-in-out infinite !important;
 }
@@ -6247,7 +5837,7 @@ margin-bottom:5rem;
   50% { translate: 0 -5px; }
 }
 
-/* الانتقال نفسه يبقى Fade + Blur + vertical glide */
+
 .calm-hero-phrase {
   opacity: 0;
   transform: translate3d(0,18px,0) scale(.99);
@@ -6265,9 +5855,7 @@ margin-bottom:5rem;
   filter: blur(0);
 }
 
-/* =========================================================
-   5. MOBILE
-   ========================================================= */
+
 
 @media (max-width: 700px) {
   .editorial-home .editorial-heading,
@@ -6296,9 +5884,7 @@ margin-bottom:5rem;
   }
 }
 
-/* =========================================================
-   6. REDUCED MOTION
-   ========================================================= */
+
 
 @media (prefers-reduced-motion: reduce) {
   .daily-story-composition,
@@ -6321,14 +5907,9 @@ margin-bottom:5rem;
 }
 
 
-/* ==================================================================
-   ALMONHNA — V4 LAYOUT-SAFE MOTION FIX
-   Fixes section spacing/alignment caused by decorative pseudo-elements.
-   Motion must never participate in document layout.
-   ================================================================== */
 
-/* 1) REMOVE the pseudo accent that became a real flex/grid child
-      and created the orange dash / spacing seen between headings/cards. */
+
+
 .editorial-home .section-heading-row::after,
 .editorial-home .ask-editorial-heading::after,
 .editorial-home .number-section__heading::after,
@@ -6338,8 +5919,7 @@ margin-bottom:5rem;
   animation: none !important;
 }
 
-/* 2) Never animate heading ROW/container itself.
-      This preserves all original spacing and alignment. */
+
 .editorial-home .section-heading-row,
 .editorial-home .ask-editorial-heading,
 .editorial-home .number-section__heading,
@@ -6349,8 +5929,7 @@ margin-bottom:5rem;
   translate: none !important;
 }
 
-/* 3) Only the actual title moves vertically.
-      Transform is visual-only and cannot push the cards/content below it. */
+
 .editorial-home .editorial-heading,
 .editorial-home .ask-editorial-heading h2,
 .editorial-home .number-section__heading h2,
@@ -6372,14 +5951,13 @@ margin-bottom:5rem;
   }
 }
 
-/* Keep the original underline/highlight exactly in the title itself.
-   No extra element is inserted into the section layout. */
+
 .editorial-home .editorial-heading,
 .editorial-home .ask-editorial-heading h2 {
   background-position: 0 88% !important;
 }
 
-/* 4) Internal content never animates independently. */
+
 .daily-story-copy,
 .daily-story-copy *,
 .ask-editorial-panel > *,
@@ -6401,14 +5979,14 @@ margin-bottom:5rem;
   animation: none !important;
 }
 
-/* Restore hover transitions where useful; no idle text movement. */
+
 .ask-content-item,
 .latest-card-copy,
 .writer-info {
   translate: none !important;
 }
 
-/* 5) Cards may float ONLY as whole units. No margin/padding/position changes. */
+
 .daily-story-composition {
   animation: safeWholeCardFloat 6.4s ease-in-out infinite !important;
 }
@@ -6420,7 +5998,7 @@ margin-bottom:5rem;
 .question-transform {
   animation: safeWholeCardFloat 6.7s ease-in-out infinite !important;
 }
-.question-transform:nth-child(2n) { animation-delay: -2.1s !important; }
+
 .question-transform:nth-child(3n) { animation-delay: -4.2s !important; }
 
 .latest-card {
@@ -6450,8 +6028,7 @@ margin-bottom:5rem;
   50%      { transform: translate3d(0, -5px, 0); }
 }
 
-/* 6) مقال اليوم: image may breathe inside its frame,
-      but text remains completely stationary relative to the card. */
+
 .daily-story-copy,
 .daily-story-copy h3,
 .daily-story-copy p {
@@ -6472,8 +6049,7 @@ margin-bottom:5rem;
   to   { transform: scale(1.075); }
 }
 
-/* 7) Hero: fade/blur transition only.
-      No permanent wandering of each phrase. */
+
 .calm-hero-phrase {
   opacity: 0;
   transform: translate3d(0, 16px, 0) scale(.992);
@@ -6492,7 +6068,7 @@ margin-bottom:5rem;
   animation: none !important;
 }
 
-/* The stage breathes as one unit without affecting layout. */
+
 .calm-hero-stage {
   animation: safeHeroStageFloat 5.1s ease-in-out infinite !important;
 }
@@ -6502,7 +6078,7 @@ margin-bottom:5rem;
   50%     { translate: 0 -5px; }
 }
 
-/* 8) Mobile: smaller amplitude, same geometry. */
+
 @media (max-width: 700px) {
   .editorial-home .editorial-heading,
   .editorial-home .ask-editorial-heading h2,
@@ -6528,7 +6104,7 @@ margin-bottom:5rem;
   }
 }
 
-/* 9) Accessibility */
+
 @media (prefers-reduced-motion: reduce) {
   .editorial-home .editorial-heading,
   .editorial-home .ask-editorial-heading h2,
@@ -6546,13 +6122,8 @@ margin-bottom:5rem;
   }
 }
 
-/* =========================================================
-   NUMBERS ARCHIVE
-   ONLY — DO NOT AFFECT HOME NUMBER SECTION
-   ========================================================= */
-/* =========================================================
-   INTRO
-   ========================================================= */
+
+
 
 .numbers-archive-page .numbers-intro {
   max-width: 620px;
@@ -6642,9 +6213,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   LIST
-   ========================================================= */
+
 
 .numbers-archive-page .numbers-list {
   position: relative;
@@ -6659,35 +6228,24 @@ margin-bottom:5rem;
 }
 
 
-/*
-   لا نريد الخط القديم
-*/
+
 
 .numbers-archive-page .numbers-list-line {
   display: none;
 }
 
 
-/* =========================================================
-   NUMBERS ARCHIVE — CARD CONTENT FIX
-   ========================================================= */
 
 
-/* =========================================================
-   NUMBERS ARCHIVE — CARDS
-   ========================================================= */
+
+
 
 .numbers-archive-page .number-story {
   position: relative;
 
   display: grid;
 
-  /*
-     النص ← الرقم
-     الرقم:
-     300px تقريبًا على الشاشات الكبيرة
-     ويصغر تلقائيًا على الشاشات المتوسطة
-  */
+  
   grid-template-columns:
     minmax(0, 1fr)
     clamp(180px, 27vw, 300px);
@@ -6732,9 +6290,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   CONTENT — النص
-   ========================================================= */
+
 
 .numbers-archive-page .number-story-content {
   grid-column: 1;
@@ -6756,9 +6312,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   NUMBER AREA — مساحة الرقم
-   ========================================================= */
+
 
 .numbers-archive-page .number-story-value {
   grid-column: 2;
@@ -6785,25 +6339,18 @@ margin-bottom:5rem;
 
   text-align: center;
 
-  /*
-     الخلفية تغطي كامل مساحة الـ300px
-     من أعلى الكارد إلى أسفله
-  */
+  
   background:
     rgba(130, 173, 165, 0.07);
 
-  /*
-     الخط الفاصل بين الرقم والنص
-  */
+  
   border-inline-start:
     1px solid
     rgba(130, 173, 165, 0.35);
 }
 
 
-/* =========================================================
-   NUMBER
-   ========================================================= */
+
 
 .numbers-archive-page .number-story-value strong {
   display: block;
@@ -6832,9 +6379,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   CONTENT TEXT
-   ========================================================= */
+
 
 .numbers-archive-page .number-story-top {
   display: flex;
@@ -6912,9 +6457,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   HOVER
-   ========================================================= */
+
 
 .numbers-archive-page .number-story:hover {
   transform: translateY(-6px);
@@ -6937,9 +6480,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   MOBILE
-   ========================================================= */
+
 
 @media (max-width: 700px) {
 
@@ -6958,9 +6499,7 @@ margin-bottom:5rem;
   }
 
 
-  /* -----------------------------------------
-     الرقم
-     ----------------------------------------- */
+  
 
   .numbers-archive-page .number-story-value {
     width: 100%;
@@ -7000,9 +6539,7 @@ margin-bottom:5rem;
   }
 
 
-  /* -----------------------------------------
-     النص
-     ----------------------------------------- */
+  
 
   .numbers-archive-page .number-story-content {
     width: 100%;
@@ -7035,9 +6572,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   SMALL MOBILE
-   ========================================================= */
+
 
 @media (max-width: 420px) {
 
@@ -7053,9 +6588,7 @@ margin-bottom:5rem;
 
 }
 
-/* =========================================================
-   FLOATING CARD ANIMATION
-   ========================================================= */
+
 
 @keyframes numbers-card-float {
   0%,
@@ -7069,9 +6602,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   TITLE GENTLE FLOAT
-   ========================================================= */
+
 
 @keyframes numbers-archive-title {
   0%,
@@ -7085,9 +6616,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   MAKE SURE THE TITLE ANIMATION RUNS
-   ========================================================= */
+
 
 .numbers-archive-page .numbers-intro h1 {
   animation:
@@ -7098,9 +6627,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   CARD ANIMATION
-   ========================================================= */
+
 
 .numbers-archive-page .number-story {
   animation:
@@ -7114,9 +6641,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   HOVER — KEEP FLOATING
-   ========================================================= */
+
 
 .numbers-archive-page .number-story:hover {
   transform: translateY(-6px);
@@ -7130,22 +6655,15 @@ margin-bottom:5rem;
   box-shadow:
     0 16px 38px rgba(40, 54, 57, 0.06);
 
-  /*
-     مهم:
-     لا نوقف animation عند hover
-  */
+  
   animation-play-state: running;
 }
 
 
 
-/* =========================================================
-   AUDIO ARCHIVE — صفحة كل الحلقات
-   ========================================================= */
 
-/* =========================================================
-   Intro
-   ========================================================= */
+
+
 
 .audio-archive-intro {
   max-width: 700px;
@@ -7220,9 +6738,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Episodes list
-   ========================================================= */
+
 
 .audio-archive-list {
   display: flex;
@@ -7234,19 +6750,14 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Episode card
-   ========================================================= */
+
 
 .audio-episode-card {
   position: relative;
 
   display: grid;
 
-  /*
-     المحتوى أكبر
-     الصورة منطقة مستقلة
-  */
+  
   grid-template-columns:
     minmax(0, 1fr)
     clamp(220px, 29vw, 300px);
@@ -7273,9 +6784,7 @@ margin-bottom:5rem;
     0 8px 24px
     rgba(40, 54, 57, .025);
 
-  /*
-     نفس روح حركة صفحة الأرقام
-  */
+  
   animation:
     audio-episode-float
     3.8s
@@ -7292,9 +6801,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Hover
-   ========================================================= */
+
 
 .audio-episode-card:hover {
   border-color:
@@ -7309,9 +6816,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Image
-   ========================================================= */
+
 
 .audio-episode-media {
   position: relative;
@@ -7325,7 +6830,7 @@ margin-bottom:5rem;
   background: #dfe6e2;
 }
 
-/* حركة الصورة داخل الكادر */
+
 .audio-episode-media img {
   display: block;
   width: 100%;
@@ -7342,7 +6847,7 @@ margin-bottom:5rem;
     filter .6s ease;
 }
 
-/* حركة أقرب وأوضح عند المرور */
+
 .audio-episode-card:hover .audio-episode-media img {
   animation-play-state: paused;
   transform: scale(1.17);
@@ -7392,9 +6897,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   رقم الحلقة
-   ========================================================= */
+
 
 .audio-episode-number {
   position: absolute;
@@ -7442,9 +6945,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Content
-   ========================================================= */
+
 
 .audio-episode-content {
   grid-column: 1;
@@ -7464,9 +6965,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Top meta
-   ========================================================= */
+
 
 .audio-episode-top {
   display: flex;
@@ -7523,9 +7022,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Title
-   ========================================================= */
+
 
 .audio-episode-content h2 {
   margin:
@@ -7557,9 +7054,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Description
-   ========================================================= */
+
 
 .audio-episode-description {
   max-width: 38rem;
@@ -7582,9 +7077,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Controls
-   ========================================================= */
+
 
 .audio-episode-controls {
   display: flex;
@@ -7600,9 +7093,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Play
-   ========================================================= */
+
 
 .audio-episode-play {
   display: grid;
@@ -7664,9 +7155,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Progress
-   ========================================================= */
+
 
 .audio-episode-progress {
   position: relative;
@@ -7683,9 +7172,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   الخط الأساسي
-*/
+
 .audio-episode-progress-track {
   position: absolute;
 
@@ -7723,9 +7210,7 @@ margin-bottom:5rem;
 }
 
 
-/*
-   waveform صغيرة فوق الخط
-*/
+
 .audio-episode-wave {
   position: relative;
 
@@ -7814,9 +7299,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Empty
-   ========================================================= */
+
 
 .audio-archive-empty {
   min-height: 15rem;
@@ -7847,9 +7330,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Animations
-   ========================================================= */
+
 
 @keyframes audio-episode-float {
   0%,
@@ -7936,9 +7417,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Tablet
-   ========================================================= */
+
 
 @media (max-width: 800px) {
 
@@ -7975,9 +7454,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Mobile
-   ========================================================= */
+
 
 @media (max-width: 620px) {
 
@@ -8073,9 +7550,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Small mobile
-   ========================================================= */
+
 
 @media (max-width: 420px) {
 
@@ -8114,9 +7589,7 @@ margin-bottom:5rem;
 }
 
 
-/* =========================================================
-   Reduced motion
-   ========================================================= */
+
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -8140,17 +7613,13 @@ margin-bottom:5rem;
   }
 }
 
-/* ================================================================
-   FINAL DARK THEME — COMPONENT-LEVEL FIXES
-   This block is intentionally last. It overrides the legacy
-   hard-coded light colors used by the archive/editorial sections.
-   ================================================================ */
+
 
 .dark {
   color-scheme: dark;
 }
 
-/* ---------- Shared editorial text ---------- */
+
 .dark .editorial-heading,
 .dark .calm-hero-phrase,
 .dark .calm-hero-phrase .mark,
@@ -8193,7 +7662,7 @@ margin-bottom:5rem;
   border-color: hsl(var(--primary) / .55) !important;
 }
 
-/* ---------- Header ---------- */
+
 .dark .site-header {
   background: hsl(var(--background) / .9) !important;
   border-bottom-color: hsl(var(--border) / .7) !important;
@@ -8214,7 +7683,7 @@ margin-bottom:5rem;
   color: hsl(var(--primary)) !important;
 }
 
-/* ---------- Hero ---------- */
+
 .dark .calm-hero {
   background: hsl(var(--background)) !important;
   color: hsl(var(--foreground)) !important;
@@ -8238,7 +7707,7 @@ margin-bottom:5rem;
   background: hsl(192 25% 8% / .72) !important;
 }
 
-/* ---------- Dark teal editorial sections ---------- */
+
 .dark .daily-story-section,
 .dark .timelines-section {
   color: hsl(var(--secondary-foreground)) !important;
@@ -8261,7 +7730,7 @@ margin-bottom:5rem;
   color: hsl(var(--muted-foreground)) !important;
 }
 
-/* ---------- Journey / writers ---------- */
+
 .dark .journey-section,
 .dark .writers-section,
 .dark .latest-editorial,
@@ -8309,7 +7778,7 @@ margin-bottom:5rem;
   border-color: hsl(var(--border)) !important;
 }
 
-/* ---------- Latest cards / mosaic ---------- */
+
 .dark .latest-article-card {
   background: hsl(var(--background)) !important;
   border-color: hsl(var(--border)) !important;
@@ -8336,7 +7805,7 @@ margin-bottom:5rem;
   color: hsl(var(--foreground)) !important;
 }
 
-/* ---------- Ask / forms ---------- */
+
 .dark .ask-editorial-section {
   background: hsl(var(--background)) !important;
   color: hsl(var(--foreground)) !important;
@@ -8374,7 +7843,7 @@ margin-bottom:5rem;
   border-top-color: hsl(var(--border)) !important;
 }
 
-/* ---------- Question transformation ---------- */
+
 .dark .question-transform {
   background: transparent !important;
 }
@@ -8397,7 +7866,7 @@ margin-bottom:5rem;
   ) !important;
 }
 
-/* ---------- Numbers archive: these were the main light-mode leaks ---------- */
+
 .dark .numbers-archive-page {
   color: hsl(var(--foreground)) !important;
 }
@@ -8437,7 +7906,7 @@ margin-bottom:5rem;
   box-shadow: 0 16px 38px hsl(0 0% 0% / .3) !important;
 }
 
-/* ---------- Audio archive: removes remaining white/light card colors ---------- */
+
 .dark .audio-archive {
   color: hsl(var(--foreground)) !important;
 }
@@ -8502,7 +7971,7 @@ margin-bottom:5rem;
   color: hsl(var(--muted-foreground)) !important;
 }
 
-/* ---------- Article editor / reading ---------- */
+
 .dark .article-surface {
   color: hsl(var(--foreground)) !important;
 }
@@ -8527,8 +7996,7 @@ margin-bottom:5rem;
   color: hsl(var(--foreground)) !important;
 }
 
-/* Do NOT make every descendant transparent: images, code blocks,
-   embeds and editor blocks must keep their own backgrounds. */
+
 .dark .site-content {
   color: hsl(var(--foreground));
 }
@@ -8549,14 +8017,14 @@ margin-bottom:5rem;
   background: hsl(var(--card) / .45);
 }
 
-/* ---------- Footer ---------- */
+
 .dark .site-footer {
   color: hsl(var(--muted-foreground)) !important;
   background: hsl(var(--card)) !important;
   border-top-color: hsl(var(--border)) !important;
 }
 
-/* ---------- Generic form controls ---------- */
+
 .dark input,
 .dark textarea,
 .dark select {
@@ -8570,7 +8038,7 @@ margin-bottom:5rem;
   color: hsl(var(--muted-foreground) / .7);
 }
 
-/* ---------- Accessibility ---------- */
+
 @media (prefers-reduced-motion: reduce) {
   .dark .calm-hero-stage,
   .dark .numbers-archive-page .number-story,
@@ -8583,9 +8051,7 @@ margin-bottom:5rem;
 }
 
 
-/* =====================================================================
-   HOMEPAGE — "مسموع" SECTION — FINAL DARK MODE
-   ===================================================================== */
+
 
 .dark .audio-section {
   background-color: hsl(192 25% 9%) !important;
@@ -8701,11 +8167,7 @@ margin-bottom:5rem;
 .dark .audio-section .audio-list::-webkit-scrollbar-thumb {
   background: hsl(var(--muted-foreground) / .35) !important;
 }
-/* =====================================================================
-   RESPONSIVE SAFETY PASS — ALL VIEWPORT SIZES
-   Goal: no horizontal overflow, collisions, clipped text, or stacked
-   elements on narrow/short screens while preserving the desktop design.
-   ===================================================================== */
+
 
 html {
   width: 100%;
@@ -8759,9 +8221,7 @@ span {
   margin-inline: auto;
 }
 
-/* -----------------------------
-   Header
------------------------------ */
+
 .site-header-inner {
   width: min(100% - 0rem, 85rem);
   max-width: 100%;
@@ -8779,11 +8239,7 @@ span {
   white-space: nowrap;
 }
 
-/* -----------------------------
-   Hero — remove collision caused
-   by fixed offsets on intermediate
-   viewport widths
------------------------------ */
+
 .calm-hero-content {
   width: min(100%, 76rem);
   min-width: 0;
@@ -8821,9 +8277,7 @@ span {
  .calm-hero-orbs .orb-bottom {
   right: clamp(60rem,28vw,10rem);
 }
-/* -----------------------------
-   Daily story
------------------------------ */
+
 .daily-story-composition,
 .daily-story-copy,
 .daily-story-media {
@@ -8835,9 +8289,7 @@ span {
   max-width: 100%;
 }
 
-/* -----------------------------
-   Latest cards
------------------------------ */
+
 .latest-card,
 .latest-card-main,
 .latest-card-copy,
@@ -8863,9 +8315,7 @@ span {
   overflow-wrap: anywhere;
 }
 
-/* -----------------------------
-   Mosaic
------------------------------ */
+
 .mosaic-layout {
   min-width: 0;
 }
@@ -8880,9 +8330,7 @@ span {
   overflow-wrap: anywhere;
 }
 
-/* -----------------------------
-   Writers / journey
------------------------------ */
+
 .journey-section,
 .writers-section,
 .writer-point,
@@ -8897,9 +8345,7 @@ span {
   overflow-wrap: anywhere;
 }
 
-/* -----------------------------
-   Ask / forms
------------------------------ */
+
 .ask-editorial-panel,
 .ask-form-column,
 .ask-content-column,
@@ -8922,9 +8368,7 @@ span {
   flex: 1 1 12rem;
 }
 
-/* -----------------------------
-   Timeline / horizontal tracks
------------------------------ */
+
 .timeline-fixed-shell,
 .story-timeline,
 .story-timeline-track {
@@ -8936,9 +8380,7 @@ span {
   max-width: 100%;
 }
 
-/* -----------------------------
-   Numbers
------------------------------ */
+
 .numbers-archive-page,
 .number-story,
 .number-story__content,
@@ -8956,9 +8398,7 @@ span {
   overflow-wrap: anywhere;
 }
 
-/* -----------------------------
-   Audio
------------------------------ */
+
 .audio-section,
 .audio-panel,
 .audio-player,
@@ -8993,9 +8433,7 @@ span {
   max-width: 100%;
 }
 
-/* =========================================================
-   1100px and below
-========================================================= */
+
 @media (max-width: 1100px) {
 
   .calm-hero-content {
@@ -9032,9 +8470,7 @@ span {
   }
 }
 
-/* =========================================================
-   900px and below — tablet
-========================================================= */
+
 @media (max-width: 900px) {
 
   .site-header-inner {
@@ -9145,9 +8581,7 @@ span {
   }
 }
 
-/* =========================================================
-   700px and below — mobile
-========================================================= */
+
 @media (max-width: 700px) {
 
   .container {
@@ -9316,9 +8750,7 @@ span {
   }
 }
 
-/* =========================================================
-   480px and below — small phones
-========================================================= */
+
 @media (max-width: 480px) {
 
   .container {
@@ -9407,10 +8839,7 @@ span {
   }
 }
 
-/* =========================================================
-   Very short screens — prevent hero content from colliding
-   with the decorative wave.
-========================================================= */
+
 @media (max-width: 700px) and (max-height: 720px) {
 
   .calm-hero {
@@ -9431,10 +8860,7 @@ span {
   }
 }
 
-/* =========================================================
-   Ultra-wide screens — keep content readable rather than
-   stretching endlessly.
-========================================================= */
+
 @media (min-width: 1600px) {
 
   .container,
@@ -9448,9 +8874,7 @@ span {
   }
 }
 
-/* =========================================================
-   Final overflow guard for transformed / animated elements
-========================================================= */
+
 @media (max-width: 900px) {
 
   .calm-hero-orbs,
@@ -9470,11 +8894,7 @@ span {
   }
 }
 
-/* =========================================================
-   V5 — HEADER RESPONSIVE REPAIR
-   Prevent navigation/buttons from colliding or being clipped
-   on narrow and intermediate screens.
-========================================================= */
+
 .site-header,
 .site-header-inner,
 .site-nav,
@@ -9634,14 +9054,10 @@ span {
       width: min(100% - 0rem, 70rem);
 }
 
-/* =========================================================
-   ARTICLE READING PALETTE — RESTORE
-   ========================================================= */
 
 
-/* ---------------------------------------------------------
-   PALETTE DOTS
-   --------------------------------------------------------- */
+
+
 
 .reading-swatch {
   width: 28px !important;
@@ -9662,39 +9078,29 @@ span {
 }
 
 
-/* Paper */
-
-.reading-swatch-paper {
-  background: #f5f0e1d1 !important;
-}
 
 
-/* Olive */
-
-.reading-swatch-olive {
-  background: rgb(140, 159, 74) !important;
-}
 
 
-/* Gold */
-
-.reading-swatch-gold {
-  background: rgb(225, 164, 55) !important;
-}
 
 
-/* Terracotta */
-
-.reading-swatch-terracotta {
-  background: rgb(201, 105, 65) !important;
-}
 
 
-/* Teal */
 
-.reading-swatch-teal {
-  background: rgb(130, 173, 165) !important;
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .article-surface {
   background-color: hsl(var(--reading-paper));
@@ -9762,29 +9168,24 @@ span {
   transform: scale(.88);
 }
 
-/* =========================================================
-   ARTICLE READING COLORS
-   المُنحنى PALETTE
-   ========================================================= */
+
 
 :root {
-  /* #e1a437 */
+  
   --reading-paper: 38.47 73.91% 54.90%;
 
-  /* #c96941 */
+  
   --reading-ivory: 17.65 55.74% 52.16%;
 
-  /* #82ada5 */
+  
   --reading-sage: 168.84 20.77% 59.41%;
 
-  /* #8c9f4a */
+  
   --reading-mist: 73.41 36.48% 45.69%;
 }
 
 
-/* =========================================================
-   ARTICLE SURFACE
-   ========================================================= */
+
 
 .article-surface {
   background-color:
@@ -9796,9 +9197,7 @@ span {
 }
 
 
-/* =========================================================
-   THE FOUR BACKGROUNDS
-   ========================================================= */
+
 
 .article-surface-paper {
   background-color:
@@ -9821,9 +9220,7 @@ span {
 }
 
 
-/* =========================================================
-   COLOR PICKER
-   ========================================================= */
+
 
 .reading-swatch {
   width: 28px;
@@ -9847,37 +9244,35 @@ span {
 }
 
 
-/* #e1a437 */
+
 
 .reading-swatch-paper {
   background: #f5f1e3 !important;
 }
 
 
-/* #c96941 */
+
 
 .reading-swatch-ivory {
   background: #c96941 !important;
 }
 
 
-/* #82ada5 */
+
 
 .reading-swatch-sage {
   background: #82ada5 !important;
 }
 
 
-/* #8c9f4a */
+
 
 .reading-swatch-mist {
   background: #8c9f4a !important;
 }
 
 
-/* =========================================================
-   ACTIVE COLOR
-   ========================================================= */
+
 
 .reading-swatch.is-active {
   box-shadow:
@@ -9887,13 +9282,9 @@ span {
   transform: scale(0.9);
 }
 
-.reading-swatch:hover {
-  transform: scale(1.08);
-}
 
-/* =========================================================
-   ARTICLE TEXT ON COLORED BACKGROUNDS
-   ========================================================= */
+
+
 
 .article-surface-paper,
 .article-surface-ivory,
@@ -9917,9 +9308,7 @@ span {
   color: #283639 !important;
 }
 
-/* =========================================================
-   HOME HERO — circular editorial composition
-   ========================================================= */
+
 .calm-hero {
   min-height: min(88svh, 44rem);
   padding: 1rem 1.5rem 4.75rem;
@@ -9997,7 +9386,7 @@ span {
 
 .calm-hero-orbs .orb-teal {
   top: 0rem;
-  /* left: -3.5rem; */
+  
   width: clamp(15rem, 28vw, 25rem);
   height: clamp(15rem, 28vw, 25rem);
   background-color: hsl(188deg 49% 32% / 70%);
@@ -10224,7 +9613,7 @@ span {
 
 
 
-/* AUDIO  */
+
 
 .audio-speed {
   display: inline-flex;
@@ -10339,9 +9728,7 @@ span {
     transform 0.2s ease;
 }
 
-.audio-speed:hover {
-  background: rgba(40, 54, 57, 0.06);
-}
+
 
 .audio-speed:active {
   transform: scale(0.95);
@@ -10372,11 +9759,7 @@ span {
   font-weight: 600;
 }
 
-.audio-speed-options {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
+
 
 .audio-speed-option {
   height: 36px;
@@ -10397,9 +9780,7 @@ span {
     color 0.18s ease;
 }
 
-.audio-speed-option:hover {
-  background: rgba(40, 54, 57, 0.06);
-}
+
 
 .audio-speed-option.is-active {
   background: #283639;
