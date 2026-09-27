@@ -8818,11 +8818,11 @@ span {
 
 .calm-hero-orbs .orb-teal {
   left: auto;
-  right: clamp(8rem, 28vw, 8rem);
+  right: clamp(60rem, 28vw, 8rem);
 }
 
  .calm-hero-orbs .orb-bottom {
-  right: clamp(30rem,28vw,10rem);
+  right: clamp(60rem,28vw,10rem);
 }
 /* -----------------------------
    Daily story
