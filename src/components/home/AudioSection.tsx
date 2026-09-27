@@ -283,7 +283,7 @@ const AudioSection = () => {
 
               </ul>
 
-              <Link to="/audio" className="audio-all">
+              <Link to="/audio" className="audio-all editorial-link">
                 <Headphones className="w-4 h-4" />
                 كل الحلقات
               </Link>
