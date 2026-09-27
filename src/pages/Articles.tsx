@@ -299,27 +299,44 @@ const Articles = () => {
               ))}
             </div>
 
-            {/* Load More */}
-            {hasMore && (
-              <div className="flex justify-center mt-12">
-                <button
-                  type="button"
-                  onClick={fetchMoreArticles}
-                  disabled={loadingMore}
-                  className={cn(
-                    "px-8 py-3 ",
-                    "text-primary font-medium",
-                    "transition-all duration-300",
-                    "hover:bg-primary hover:text-primary-foreground",
-                    "disabled:opacity-50 disabled:cursor-not-allowed"
-                  )}
-                >
-                  {loadingMore
-                    ? "جاري تحميل المزيد..."
-                    : "المزيد من المقالات"}
-                </button>
-              </div>
-            )}
+          {/* Load More */}
+{hasMore && (
+  <div className="flex flex-col items-center justify-center mt-16 mb-8">
+    <button
+      type="button"
+      onClick={fetchMoreArticles}
+      disabled={loadingMore}
+      className="group flex flex-col items-center gap-3 bg-transparent border-0 outline-none cursor-pointer disabled:cursor-wait"
+    >
+      <span
+        className={cn(
+          "text-sm font-medium transition-all duration-300",
+          "text-muted-foreground group-hover:text-primary",
+          loadingMore && "opacity-60"
+        )}
+      >
+        {loadingMore ? "جاري تحميل المزيد..." : "المزيد من المقالات"}
+      </span>
+
+      {!loadingMore && (
+        <span className="flex flex-col items-center -space-y-1">
+          <span className="animate-arrow-down text-muted-foreground/60 group-hover:text-primary transition-colors">
+            ↓
+          </span>
+
+          <span
+            className="animate-arrow-down text-muted-foreground/40 group-hover:text-primary/70 transition-colors"
+            style={{ animationDelay: "150ms" }}
+          >
+            ↓
+          </span>
+        </span>
+      )}
+    </button>
+  </div>
+)}
+
+
 
            
           </>
