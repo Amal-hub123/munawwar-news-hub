@@ -66,7 +66,7 @@ const NumberStory = () => {
 
         <Reveal variant="clip">
           <div className="number-section__heading">
-            <h2>الرقم</h2>
+            <h2 className="editorial-heading ">الرقم</h2>
             <p>رقم واحد، يعني الكثير</p>
           </div>
         </Reveal>
