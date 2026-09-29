@@ -112,11 +112,11 @@ const News = () => {
         >
           <div className="services-dots" aria-hidden="true" />
 
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-8 py-12">
 
             <div className="">
              
-              <h1 id="services-title" className="text-4xl font-bold mb-2 mt-5">
+              <h1 className="text-4xl font-bold mb-2 mt-5">
                 خدماتنا
               </h1>
 
