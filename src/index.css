@@ -10567,7 +10567,7 @@ span {
 
 .services-more-heading h2 {
   margin: 0;
-  color: var(--services-ink);
+  /* color: var(--services-ink); */
   font-size: 1.35rem;
   font-weight: 700;
   line-height: 1.5;
