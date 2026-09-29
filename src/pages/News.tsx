@@ -124,12 +124,9 @@ const News = () => {
                 ما نصنعه للمؤسسات والأفراد , مقسوماً الى مجموعتين
               </p>
 
-              <div className="container mx-auto px-6">
-
             <div className="services-more-heading">
               <div>
                
-
                 <h2 id="more-services-title">
                   خدمات المحتوى
                 </h2>
@@ -138,9 +135,7 @@ const News = () => {
                 </p>
               </div>
 
-              <span className="services-count">
-                {news.length.toLocaleString("ar-SA")} خدمات
-              </span>
+            
             </div>
               
             </div>
