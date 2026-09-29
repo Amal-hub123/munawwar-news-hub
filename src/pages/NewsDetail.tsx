@@ -159,16 +159,7 @@ const NewsDetail = () => {
           </div>
         </Link>
 
-        {Array.isArray(news.gallery_images) && news.gallery_images.length > 0 && (
-          <ServiceGallery
-            images={news.gallery_images as string[]}
-            title={news.gallery_title || news.title}
-            subtitle="دليل من المُنحنى"
-            pdfUrl={news.gallery_pdf_url}
-            shareUrl={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
-            displayUrl={`https://almonhna.sa/news/${id}`}
-          />
-        )}
+      
 
         <div className="prose prose-lg max-w-none">
           <p className="text-xl text-muted-foreground mb-6" style={{textAlign: "justify"}}>{news.excerpt}</p>
@@ -181,6 +172,17 @@ const NewsDetail = () => {
             dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }}
           />
         </div>
+  {Array.isArray(news.gallery_images) && news.gallery_images.length > 0 && (
+          <ServiceGallery
+            images={news.gallery_images as string[]}
+            title={news.gallery_title || news.title}
+            subtitle="دليل من المُنحنى"
+            pdfUrl={news.gallery_pdf_url}
+            shareUrl={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
+            displayUrl={`https://almonhna.sa/news/${id}`}
+          />
+        )}
+        
       </article>
     </div>
   );
