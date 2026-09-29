@@ -115,17 +115,14 @@ const News = () => {
           <div className="container mx-auto px-6">
 
             <div className="services-heading">
-              <p className="services-kicker">
-                خبرة تُروى بوضوح
-              </p>
-
-              <h1 id="services-title">
+             
+              <h1 id="services-title" className="text-4xl font-bold mb-2">
                 خدماتنا
               </h1>
 
-              <p>
+              <p className="text-muted-foreground">
                 نصنع محتوى اقتصاديًا يصل إلى الناس بلغة دقيقة،
-                وحكاية تبقى في الذاكرة.
+                وحكاية تبقى في الذاكرة
               </p>
             </div>
 
