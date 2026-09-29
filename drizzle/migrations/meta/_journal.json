@@ -15,6 +15,13 @@
       "when": 1790232253246,
       "tag": "0001_public_read_numbers_audio",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1790680555117,
+      "tag": "0002_news_gallery",
+      "breakpoints": true
     }
   ]
 }

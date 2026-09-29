@@ -401,6 +401,9 @@ export type Database = {
           cover_image_url: string
           created_at: string
           excerpt: string
+          gallery_images: Json
+          gallery_pdf_url: string | null
+          gallery_title: string | null
           id: string
           linkedin_url: string | null
           rejection_reason: string | null
@@ -416,6 +419,9 @@ export type Database = {
           cover_image_url: string
           created_at?: string
           excerpt: string
+          gallery_images?: Json
+          gallery_pdf_url?: string | null
+          gallery_title?: string | null
           id?: string
           linkedin_url?: string | null
           rejection_reason?: string | null
@@ -431,6 +437,9 @@ export type Database = {
           cover_image_url?: string
           created_at?: string
           excerpt?: string
+          gallery_images?: Json
+          gallery_pdf_url?: string | null
+          gallery_title?: string | null
           id?: string
           linkedin_url?: string | null
           rejection_reason?: string | null
