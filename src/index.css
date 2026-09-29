@@ -426,7 +426,7 @@
   }
 
   .services-more-heading h2 {
-    margin: 0;
+    margin-top: 1.5rem;
     font-size: clamp(1.8rem, 3.5vw, 2.75rem);
   }
 
@@ -10566,7 +10566,7 @@ span {
 }
 
 .services-more-heading h2 {
-  margin: 0;
+  /* margin: 0; */
   /* color: var(--services-ink); */
   font-size: 1.35rem;
   font-weight: 700;
