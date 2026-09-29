@@ -4,7 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face {
   font-family: 'Greta Arabic';
   src: url('/fonts/GretaArabic-Light.ttf') format('truetype');
@@ -10245,7 +10244,7 @@ span {
 
   overflow: hidden;
   background: var(--services-paper);
-  color: var(--services-ink);
+  /* color: var(--services-ink); */
 }
 
 /* Intro */
