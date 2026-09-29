@@ -127,10 +127,10 @@ const News = () => {
             <div className="services-more-heading">
               <div>
                
-                <h2 id="more-services-title">
+                <h2 id="more-services-title" className="services-kicker">
                   خدمات المحتوى
                 </h2>
-                <p className="services-kicker">
+                <p >
                  ما نكتبه أو نسجله أو نخرجه باسمك
                 </p>
               </div>
