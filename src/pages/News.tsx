@@ -116,7 +116,7 @@ const News = () => {
 
             <div className="">
              
-              <h1 className="text-4xl font-bold mb-2 mt-5">
+              <h1 className="text-4xl font-bold mb-2 ">
                 خدماتنا
               </h1>
 
