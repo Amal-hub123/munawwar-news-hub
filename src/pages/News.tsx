@@ -114,7 +114,7 @@ const News = () => {
 
           <div className="container mx-auto px-6">
 
-            <div className="">
+            <div className="services-heading">
              
               <h1 id="services-title" className="text-4xl font-bold mb-2">
                 خدماتنا
