@@ -311,7 +311,7 @@
 
   .services-kicker {
     margin: 0 0 .55rem;
-    color: hsl(var(--primary));
+    /* color: hsl(var(--primary)); */
     font-size: .78rem;
     font-weight: 700;
   }
@@ -10296,7 +10296,7 @@ span {
   align-items: center;
   gap: .55rem;
   margin: 0 0 .45rem;
-  color: #71816c;
+  /* color: #71816c; */
   font-size: .78rem;
   font-weight: 500;
   line-height: 1.6;
