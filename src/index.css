@@ -392,11 +392,14 @@
   }
 
   .service-featured-card p {
-    margin: .9rem 0 0;
-    color: hsl(var(--muted-foreground));
-    font-size: .88rem;
-    line-height: 1.9;
+    margin: .9rem 0;
+    /* color: hsl(var(--muted-foreground));
+    font-size: .88rem; */
+        line-height: 1.999;
+    border-bottom: 1px solid #b5a5a55e;
   }
+
+
 
   .service-featured-card.is-featured p {
     color: hsl(var(--secondary-foreground) / .78);
