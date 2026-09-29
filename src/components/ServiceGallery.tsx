@@ -37,10 +37,10 @@ export const ServiceGallery = ({ images, title, subtitle, pdfUrl, shareUrl, disp
           <p className="service-gallery-sub">{subtitle ? `${subtitle} · ` : ""}{total} صفحات</p>
         </div>
         <div className="service-gallery-actions">
-          <span className="service-gallery-btn"><ShareButton url={shareUrl} displayUrl={displayUrl} title={title || ""} iconSize={16} /> مشاركة</span>
+          <span className="service-gallery-btn"><ShareButton url={shareUrl} displayUrl={displayUrl} title={title || ""} iconSize={16} /> </span>
           {pdfUrl && (
             <a href={pdfUrl} target="_blank" rel="noreferrer" download className="service-gallery-btn">
-              <Download className="h-4 w-4" /> تحميل PDF
+              <Download className="h-5 w-5" /> 
             </a>
           )}
         </div>
