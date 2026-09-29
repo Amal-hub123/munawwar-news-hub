@@ -92,7 +92,7 @@ const NewsDetail = () => {
       <TopBar />
       <Header />
       
-      <article className="container mx-auto px-4 py-8 max-w-4xl">
+      <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
         <img
           src={news.cover_image_url}
           alt={news.title}
