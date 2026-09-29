@@ -121,9 +121,28 @@ const News = () => {
               </h1>
 
               <p className="text-muted-foreground">
-                نصنع محتوى اقتصاديًا يصل إلى الناس بلغة دقيقة،
-                وحكاية تبقى في الذاكرة
+                ما نصنعه للمؤسسات والأفراد , مقسوماً الى مجموعتين
               </p>
+
+              <div className="container mx-auto px-6">
+
+            <div className="services-more-heading">
+              <div>
+               
+
+                <h2 id="more-services-title">
+                  خدمات المحتوى
+                </h2>
+                <p className="services-kicker">
+                 ما نكتبه أو نسجله أو نخرجه باسمك
+                </p>
+              </div>
+
+              <span className="services-count">
+                {news.length.toLocaleString("ar-SA")} خدمات
+              </span>
+            </div>
+              
             </div>
 
             <div className="services-featured-grid">
