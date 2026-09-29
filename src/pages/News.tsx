@@ -107,7 +107,7 @@ const News = () => {
 
         {/* المقدمة والخدمات الرئيسية */}
         <section
-          className="services-intro"
+          className=""
           aria-labelledby="services-title"
         >
           <div className="services-dots" aria-hidden="true" />
