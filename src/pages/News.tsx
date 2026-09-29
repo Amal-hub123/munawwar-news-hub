@@ -127,7 +127,7 @@ const News = () => {
             <div className="services-more-heading">
               <div>
                
-                <h2 id="more-services-title" className="services-kicker">
+                <h2 id="more-services-title" className="services-kicker mt-3">
                   خدمات المحتوى
                 </h2>
                 <p >
