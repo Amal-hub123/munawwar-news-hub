@@ -11054,7 +11054,7 @@ span {
 .service-gallery-title{font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:700;color:hsl(var(--foreground))}
 .service-gallery-sub{font-size:.85rem;color:hsl(var(--muted-foreground))}
 .service-gallery-actions{display:flex;gap:.5rem}
-.service-gallery-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.2rem ;border:1px solid hsl(var(--border));border-radius:.6rem;background:hsl(var(--background)/.7);font-size:.8rem;color:hsl(var(--foreground));transition:background .2s}
+.service-gallery-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.4rem .8rem ;border:1px solid hsl(var(--border));border-radius:.6rem;background:hsl(var(--background)/.7);font-size:.8rem;color:hsl(var(--foreground));transition:background .2s}
 .service-gallery-btn:hover{background:hsl(var(--background))}
 .service-gallery-stage{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem}
 .service-gallery-frame{    border: 1px solid #535151; width:min(100%,640px);border-radius:.6rem;overflow:hidden;background:hsl(var(--background));box-shadow:0 18px 40px -18px hsl(var(--foreground)/.35)}
