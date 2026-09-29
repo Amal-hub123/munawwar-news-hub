@@ -76,7 +76,7 @@ const Auth = () => {
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-        redirectTo: `${window.location.origin}/auth`,
+        redirectTo: `${window.location.origin}/reset-password`,
       });
 
       if (error) throw error;
@@ -189,9 +189,9 @@ const Auth = () => {
                   
                   <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
                     <DialogTrigger asChild>
-                      {/* <Button variant="link" className="w-full mt-2">
+                      <Button type="button" variant="link" className="w-full mt-2">
                         نسيت كلمة المرور؟
-                      </Button> */}
+                      </Button>
                     </DialogTrigger>
                     <DialogContent>
                       <DialogHeader>
