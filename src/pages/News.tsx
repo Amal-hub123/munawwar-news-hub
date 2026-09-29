@@ -130,7 +130,7 @@ const News = () => {
                 <h2 id="more-services-title" className="services-kicker mt-3">
                   خدمات المحتوى
                 </h2>
-                <p >
+                <p className="text-muted-foreground">
                  ما نكتبه أو نسجله أو نخرجه باسمك
                 </p>
               </div>
@@ -198,15 +198,15 @@ const News = () => {
 
             <div className="services-more-heading">
               <div>
-                <p className="services-kicker">
-                  مساحات أوسع للمحتوى
-                </p>
-
-                <h2 id="more-services-title">
+               
+                <h2 id="more-services-title" className="services-kicker mt-3">
                   خدمات أخرى
                 </h2>
+                <p className="text-muted-foreground">
+                 ما نبنيه معك , لا ما نسلمه لك 
+                </p>
               </div>
-
+              
               <span className="services-count">
                 {news.length.toLocaleString("ar-SA")} خدمات
               </span>
