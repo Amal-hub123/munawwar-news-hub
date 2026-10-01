@@ -19,41 +19,37 @@ const NumberStory = () => {
   const [items, setItems] = useState<NumberStory[]>([]);
   const [active, setActive] = useState(0);
 
-  // useEffect(() => {
-  //   supabase
-  //     .from("number_stories")
-  //     .select(
-  //       "id, number_value, title, description, source, story_date, link_url"
-  //     )
-  //     .eq("is_active", true)
-  //     .order("display_order")
-  //     .then(({ data }) => {
-  //       setItems((data as NumberStory[]) || []);
-  //     });
-  // }, []);
-
   useEffect(() => {
-  const loadNumberStories = async () => {
-    const { data, error } = await supabase
-      .from("number_stories")
-      .select(
-        "id, number_value, title, description, source, story_date, link_url"
-      )
-      .eq("is_active", true)
-      .order("display_order")
-      .limit(1);
+    const loadNumberStories = async () => {
+      const { data, error } = await supabase
+        .from("number_stories")
+        .select(
+          "id, number_value, title, description, source, story_date, link_url"
+        )
+        .eq("is_active", true)
+        .order("display_order");
 
+      if (error) {
+        console.error("Failed to load number_stories:", error);
+        return;
+      }
 
-    if (error) {
-      console.error("Failed to load number_stories:", error);
-      return;
-    }
+      setItems((data as NumberStory[]) || []);
+    };
 
-    setItems((data as NumberStory[]) || []);
-  };
+    loadNumberStories();
+  }, []);
 
-  loadNumberStories();
-}, []);
+  // التنقل التلقائي بين الأرقام
+  useEffect(() => {
+    if (items.length <= 1) return;
+
+    const interval = window.setInterval(() => {
+      setActive((value) => (value + 1) % items.length);
+    }, 12000);
+
+    return () => window.clearInterval(interval);
+  }, [items.length]);
 
   if (!items.length) return null;
 
@@ -66,7 +62,7 @@ const NumberStory = () => {
 
         <Reveal variant="clip">
           <div className="number-section__heading">
-            <h2 className="editorial-heading ">الرقم</h2>
+            <h2 className="editorial-heading">الرقم</h2>
             <p>رقم واحد، يعني الكثير</p>
           </div>
         </Reveal>
@@ -104,9 +100,7 @@ const NumberStory = () => {
 
                 {item.story_date && (
                   <span>
-                    {new Date(item.story_date).toLocaleDateString(
-                      "ar-SA"
-                    )}
+                    {new Date(item.story_date).toLocaleDateString("ar-SA")}
                   </span>
                 )}
               </div>
@@ -133,13 +127,11 @@ const NumberStory = () => {
         </Reveal>
 
         <div className="number-section__footer">
-
-                    <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
+          <p>يتغيّر كل فترة ليحكي رواية أخرى</p>
 
           <Link to="/numbers" className="number-history editorial-link">
             كل الأرقام
           </Link>
-
         </div>
 
         <div className="number-wave" aria-hidden="true">
