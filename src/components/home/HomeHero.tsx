@@ -61,7 +61,7 @@ export const HomeHero = () => {
       setIndex(
         (value) => (value + 1) % PHRASES.length
       );
-    }, 12000);
+    }, 6000);
 
     return () => {
       window.clearInterval(id);
