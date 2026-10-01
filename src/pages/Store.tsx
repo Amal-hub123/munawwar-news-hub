@@ -162,7 +162,7 @@ const Store = () => {
                   <h2 className="text-xl font-bold">نشرتَ {userArticleCount} مقالات</h2>
                   <p className="text-sm text-muted-foreground mt-1">
                     {next
-                      ? `${remainingLabel(next.required_articles_count - userArticleCount).replace("يتبقّى", "")} يفصلك عن «${next.name}»`
+                      ? `${remainingLabel(next.required_articles_count - userArticleCount).replace("يتبقّى ", "")} يفصلك عن «${next.name}»`
                       : "كل منتجات المتجر متاحة لك"}
                   </p>
                 </div>
