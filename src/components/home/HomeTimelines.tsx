@@ -831,7 +831,7 @@ export const HomeTimelines =
                   editorial-kicker
                 "
               >
-                ارسم طريقك
+                لا شيء يقع فجأة
               </p>
 
               <h2
