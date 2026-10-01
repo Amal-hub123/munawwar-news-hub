@@ -10037,8 +10037,8 @@ span {
 }
 
 .audio-speed-popover {
-  width: 190px !important;
-  padding: 12px !important;
+  width: 140px !important;
+  padding: 5px !important;
 
   border: 1px solid rgba(40, 54, 57, 0.08) !important;
   border-radius: 18px !important;
@@ -10064,7 +10064,7 @@ span {
 
 
 .audio-speed-option {
-  height: 36px;
+  height: 26px;
 
   border: 0;
   border-radius: 10px;
@@ -10072,7 +10072,7 @@ span {
   background: transparent;
   color: #283639;
 
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 500;
 
   cursor: pointer;
