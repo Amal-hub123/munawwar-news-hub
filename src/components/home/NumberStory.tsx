@@ -46,7 +46,7 @@ const NumberStory = () => {
 
     const interval = window.setInterval(() => {
       setActive((value) => (value + 1) % items.length);
-    }, 12000);
+    }, 4000);
 
     return () => window.clearInterval(interval);
   }, [items.length]);
