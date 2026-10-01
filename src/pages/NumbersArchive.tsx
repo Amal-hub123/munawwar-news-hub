@@ -94,7 +94,7 @@ const NumbersArchive = () => {
         <section className="numbers-intro">
 
           <div className="numbers-intro-kicker">
-            <Hash />
+            {/* <Hash /> */}
             <span>الرقم</span>
           </div>
 
