@@ -9944,8 +9944,8 @@ span {
 }
 
 .audio-speed-menu {
-  width: 190px;
-  padding: 12px;
+  width: 140px;
+  padding: 5px;
 
   border: 1px solid rgba(40, 54, 57, 0.08);
   border-radius: 18px;
@@ -9968,11 +9968,11 @@ span {
 .audio-speed-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
+  gap: 0px;
 }
 
 .audio-speed-option {
-  height: 36px;
+  height: 26px;
 
   border: 0;
   border-radius: 10px;
@@ -9980,7 +9980,7 @@ span {
   background: transparent;
   color: inherit;
 
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 500;
 
   cursor: pointer;
