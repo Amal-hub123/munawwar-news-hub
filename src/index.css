@@ -11175,7 +11175,7 @@ span {
   }
 }
 
-.min-h-screen .bg-background{
+.dot-background{
   background-image: radial-gradient(hsl(var(--secondary) / .1) 1px, transparent 1px);
     background-size: 14px 14px;
 }
