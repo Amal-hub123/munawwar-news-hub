@@ -62,7 +62,7 @@ const NewsDetail = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dot-background">
         <TopBar />
         <Header />
         <div className="container mx-auto px-4 py-8">
@@ -78,7 +78,7 @@ const NewsDetail = () => {
 
   if (!news) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background dot-background">
         <TopBar />
         <Header />
         <div className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
