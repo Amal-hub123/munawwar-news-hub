@@ -311,7 +311,13 @@ const ArticleDetail = () => {
               {article.products.name}
             </Link>
           )}
-          <ShareButton
+      
+        </div>
+        </div>
+      </div>
+
+     <div className="flex items-center gap-2">
+           <ShareButton
             url={`https://almonhna.sa/api/og-share?type=articles&id=${id}`}
             displayUrl={`https://almonhna.sa/articles/${id}`}
             title={article.title}
@@ -332,11 +338,7 @@ const ArticleDetail = () => {
             contentType="article"
             className="mr-auto"
           />
-        </div>
-        </div>
-      </div>
-
-     
+     </div>
 
         <ArticleSequence points={sequencePoints} contentRef={contentRef} />
 
