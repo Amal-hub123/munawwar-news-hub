@@ -11290,7 +11290,7 @@ span {
 .column-gallery-image {
   aspect-ratio: 1.95;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 3rem;
   background: hsl(var(--muted));
 }
 .column-gallery-image img {
