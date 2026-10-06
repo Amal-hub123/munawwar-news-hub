@@ -301,7 +301,7 @@ const ArticleDetail = () => {
             </Link>
           )}
 
-           <div className="article-editorial-meta flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+           <div className=" flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
            <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" })}</span>
            <span className="flex items-center gap-2"><Clock className="w-4 h-4" />{minutes} دقيقة قراءة</span>
          </div>
