@@ -4,6 +4,7 @@ import { Label } from "./ui/label";
 import { Button } from "./ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { compressImage } from "@/lib/imageOptimizer";
 import { FileText, ImagePlus, X, ArrowUp, ArrowDown } from "lucide-react";
 
 export const MAX_GALLERY_IMAGES = 20;
@@ -70,7 +71,8 @@ export const GalleryUpload = ({ images, onImagesChange, title, onTitleChange, pd
       for (let i = 0; i < list.length; i++) {
         if (list[i].size > 5 * 1024 * 1024) continue;
         setBusy(`رفع الصورة ${i + 1} من ${list.length}...`);
-        urls.push(await uploadBlob(uid, list[i], list[i].name.split(".").pop() || "jpg"));
+        const f = await compressImage(list[i]);
+        urls.push(await uploadBlob(uid, f, f.name.split(".").pop() || "jpg"));
       }
       onImagesChange([...images, ...urls]);
     } catch (err: any) {
