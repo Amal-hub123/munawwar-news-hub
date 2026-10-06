@@ -11174,3 +11174,8 @@ span {
     border-radius: 10px;
   }
 }
+
+.min-h-screen .bg-background{
+  background-image: radial-gradient(hsl(var(--secondary) / .1) 1px, transparent 1px);
+    background-size: 14px 14px;
+}
