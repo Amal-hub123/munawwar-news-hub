@@ -11360,7 +11360,7 @@ span {
     height: calc(100vh - 2rem);
     min-height: 560px;
     max-height: 960px;
-    border-radius: 8px;
+    border-radius: 20px;
     object-fit: cover;
   }
 
