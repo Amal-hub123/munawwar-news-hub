@@ -94,15 +94,23 @@ const NewsDetail = () => {
       <Header />
       
       <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
-        <img
-          src={news.cover_image_url}
-          alt={news.title}
-          className="w-full h-96 object-cover rounded-lg mb-6"
-        />
+        <div className="article-head">
+          <div className="article-head-media overflow-hidden rounded-lg">
+            <img
+              src={news.cover_image_url}
+              alt={news.title}
+              className="w-full h-72 md:h-96 object-cover"
+            />
+          </div>
 
+          <div className="article-head-text">
         <h1 className="text-4xl font-bold mb-4">{news.title}</h1>
 
-        <div className="flex items-center gap-6 text-muted-foreground mb-6 flex-wrap">
+        <p className="text-lg text-muted-foreground leading-relaxed mb-5" style={{ textAlign: "justify" }}>
+          {news.excerpt}
+        </p>
+
+        <div className="flex items-center gap-6 text-muted-foreground flex-wrap">
           <div className="flex items-center gap-2">
             <Calendar className="w-4 h-4" />
             <span>{new Date(news.created_at).toLocaleDateString("ar-EG", {
@@ -136,7 +144,7 @@ const NewsDetail = () => {
 
         <Link
           to={`/writers/${news.profiles.id}`}
-          className="flex items-center gap-3 mb-8 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
+          className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
         >
           {news.profiles.photo_url ? (
             <img
@@ -158,11 +166,12 @@ const NewsDetail = () => {
             )}
           </div>
         </Link>
+        </div>
+      </div>
 
       
 
         <div className="prose prose-lg max-w-none">
-          <p className="text-xl text-muted-foreground mb-6" style={{textAlign: "justify"}}>{news.excerpt}</p>
           <div className="flex justify-end mb-3">
             <TextZoomControl value={fontSize} onChange={setFontSize} background={readingBackground} onBackgroundChange={handleReadingBackground} />
           </div>
