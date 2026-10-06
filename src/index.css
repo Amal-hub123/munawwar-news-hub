@@ -11325,8 +11325,8 @@ span {
   .column-gallery-image { aspect-ratio: 1.35; }
   .column-gallery-caption h2 { font-size: 1.15rem; }
   .column-gallery-arrow { width: 34px; height: 34px; top: 35%; }
-  .column-gallery-arrow-next { right: -.5rem; }
-  .column-gallery-arrow-prev { left: -.5rem; }
+  .column-gallery-arrow-next { left: -.5rem; }
+  .column-gallery-arrow-prev { right: -.5rem; }
   .column-gallery-thumbnail { flex-basis: 96px; width: 96px; height: 62px; }
 }
 @media (prefers-reduced-motion: reduce) {
