@@ -104,7 +104,6 @@ const ProductDetail = () => {
       {product.description && (
         <p className="text-sm md:text-lg ">{product.description}</p>
       )}
-       </>}
        </div>
     <ShareButton
       url={`https://almonhna.sa/products/${id}`}
@@ -140,6 +139,7 @@ const ProductDetail = () => {
         ) : (
           <p className="text-center text-muted-foreground">لا توجد مقالات متعلقة بهذا المنتج</p>
         )}
+      </>}
       </div>
   );
 };
