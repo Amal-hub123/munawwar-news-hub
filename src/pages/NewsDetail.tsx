@@ -93,7 +93,7 @@ const NewsDetail = () => {
       <TopBar />
       <Header />
       
-      <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
+      <article className="ArticleContainer article-editorial container mx-auto px-4 py-8 max-w-4xl">
         <div className="article-head">
           <div className="article-head-media overflow-hidden rounded-lg">
             <img

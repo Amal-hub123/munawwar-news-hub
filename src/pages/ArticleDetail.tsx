@@ -244,7 +244,7 @@ const ArticleDetail = () => {
       <TopBar />
       <Header />
 
-      <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
+      <article className="ArticleContainer article-editorial container mx-auto px-4 py-8 max-w-4xl">
         <div className="article-head">
           <div
             className="article-head-media overflow-hidden zoom-media"
@@ -272,7 +272,11 @@ const ArticleDetail = () => {
           </div>
         )}
         
-        <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
+         <div className="article-editorial-meta flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+           <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" })}</span>
+           <span className="flex items-center gap-2"><Clock className="w-4 h-4" />{minutes} دقيقة قراءة</span>
+         </div>
+         <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
         {article.excerpt?.trim() && (
           <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6" style={{ textAlign: "justify" }}>
@@ -291,18 +295,6 @@ const ArticleDetail = () => {
             )}
             <span className="font-medium text-foreground">{article.profiles.name}</span>
           </Link>
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            <span>{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", {
-              year: "numeric",
-              month: "long",
-              day: "numeric"
-            })}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4" />
-            <span>{minutes} دقيقة قراءة</span>
-          </div>
           {article.products && (
             <Link
               to={`/products/${article.products.id}`}
@@ -316,7 +308,7 @@ const ArticleDetail = () => {
         </div>
       </div>
 
-     <div className="flex items-center gap-2">
+     <div className="article-editorial-actions flex items-center gap-2">
            <ShareButton
             url={`https://almonhna.sa/api/og-share?type=articles&id=${id}`}
             displayUrl={`https://almonhna.sa/articles/${id}`}
