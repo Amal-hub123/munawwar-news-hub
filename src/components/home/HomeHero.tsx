@@ -396,7 +396,9 @@ export const HomeHero = () => {
             صور المقالات
         =========================== */}
 
-        <HeroArticleSlider />
+        <div className="hero-artwork">
+          <HeroArticleSlider />
+        </div>
 
       </div>
 
