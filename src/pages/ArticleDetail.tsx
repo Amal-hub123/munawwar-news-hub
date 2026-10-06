@@ -272,10 +272,7 @@ const ArticleDetail = () => {
           </div>
         )}
         
-         <div className="article-editorial-meta flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-           <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" })}</span>
-           <span className="flex items-center gap-2"><Clock className="w-4 h-4" />{minutes} دقيقة قراءة</span>
-         </div>
+        
          <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
         {article.excerpt?.trim() && (
@@ -303,6 +300,11 @@ const ArticleDetail = () => {
               {article.products.name}
             </Link>
           )}
+
+           <div className="article-editorial-meta flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
+           <span className="flex items-center gap-2"><Calendar className="w-4 h-4" />{new Date(article.approved_at || article.created_at).toLocaleDateString("ar-EG", { year: "numeric", month: "long", day: "numeric" })}</span>
+           <span className="flex items-center gap-2"><Clock className="w-4 h-4" />{minutes} دقيقة قراءة</span>
+         </div>
       
         </div>
         </div>
