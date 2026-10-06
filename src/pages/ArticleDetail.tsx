@@ -245,6 +245,19 @@ const ArticleDetail = () => {
       <Header />
 
       <article className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
+        <div className="article-head">
+          <div
+            className="article-head-media overflow-hidden zoom-media"
+            style={{ borderRadius: "20px" }}
+          >
+            <img
+              src={article.cover_image_url}
+              alt={article.title}
+              className="w-full h-72 md:h-96 object-cover"
+            />
+          </div>
+
+          <div className="article-head-text">
         {categories && categories.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
             {categories.map((c: any) => (
@@ -258,14 +271,6 @@ const ArticleDetail = () => {
             ))}
           </div>
         )}
-
-   <div className="overflow-hidden zoom-media mb-6" style={{ borderRadius: "20px" }}>
-          <img
-            src={article.cover_image_url}
-            alt={article.title}
-            className="w-full h-72 md:h-96 object-cover"
-          />
-        </div>
         
         <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
@@ -273,7 +278,7 @@ const ArticleDetail = () => {
           {article.excerpt}
         </p>
 
-        <div className="flex items-center gap-5 text-muted-foreground mb-6 flex-wrap">
+        <div className="flex items-center gap-5 text-muted-foreground flex-wrap">
           <Link to={`/writers/${article.profiles.id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
             {article.profiles.photo_url ? (
               <img src={article.profiles.photo_url} alt={article.profiles.name} className="w-9 h-9 rounded-full object-cover" />
@@ -326,6 +331,8 @@ const ArticleDetail = () => {
             className="mr-auto"
           />
         </div>
+        </div>
+      </div>
 
      
 
