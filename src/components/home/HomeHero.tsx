@@ -281,37 +281,6 @@ export const HomeHero = () => {
           Decorative Orbs
       ================================================= */}
 
-     <div
-  className="calm-hero-orbs"
-  aria-hidden="true"
->
-  <span
-    className="orb orb-gold"
-    style={shift(8)}
-  />
-
-  <span
-    className="orb orb-teal"
-    style={shift(12)}
-  />
-
-  <span
-    className="orb orb-bottom"
-    style={shift(10)}
-  />
-
-  <span
-    className="orb orb-left-back"
-    style={shift(6)}
-  />
-
-  <span
-    className="orb orb-right-edge"
-    style={shift(7)}
-  />
-</div>
-
-
       {/* ================================================
           Decorative Dots
       ================================================= */}
@@ -396,7 +365,16 @@ export const HomeHero = () => {
             صور المقالات
         =========================== */}
 
-        <HeroArticleSlider />
+        <div className="hero-artwork">
+          <div className="calm-hero-orbs" aria-hidden="true">
+            <span className="orb orb-gold" style={shift(8)} />
+            <span className="orb orb-teal" style={shift(12)} />
+            <span className="orb orb-bottom" style={shift(10)} />
+            <span className="orb orb-left-back" style={shift(6)} />
+            <span className="orb orb-right-edge" style={shift(7)} />
+          </div>
+          <HeroArticleSlider />
+        </div>
 
       </div>
 
