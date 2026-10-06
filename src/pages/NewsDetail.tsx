@@ -89,7 +89,7 @@ const NewsDetail = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background dot-background">
       <TopBar />
       <Header />
       
