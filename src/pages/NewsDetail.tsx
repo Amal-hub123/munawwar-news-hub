@@ -106,9 +106,11 @@ const NewsDetail = () => {
           <div className="article-head-text">
         <h1 className="text-4xl font-bold mb-4">{news.title}</h1>
 
-        <p className="text-lg text-muted-foreground leading-relaxed mb-5" style={{ textAlign: "justify" }}>
-          {news.excerpt}
-        </p>
+        {news.excerpt?.trim() && (
+          <p className="text-lg text-muted-foreground leading-relaxed mb-5" style={{ textAlign: "justify" }}>
+            {news.excerpt}
+          </p>
+        )}
 
         <div className="flex items-center gap-6 text-muted-foreground flex-wrap">
           <div className="flex items-center gap-2">
