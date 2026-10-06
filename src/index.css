@@ -11306,8 +11306,8 @@ span {
   width: 44px; height: 44px; background: hsl(var(--background));
   border-color: hsl(var(--border)); color: hsl(var(--foreground));
 }
-.column-gallery-arrow-next { right: -1rem; }
-.column-gallery-arrow-prev { left: -1rem; }
+.column-gallery-arrow-next { left: -1rem; }
+.column-gallery-arrow-prev { right: -1rem; }
 .column-gallery-archive-title { font-size: .85rem; }
 .column-gallery-thumbnails { display: flex; gap: .65rem; overflow-x: auto; padding: .25rem; }
 .column-gallery-thumbnail {

@@ -30,8 +30,8 @@ export const ColumnArticleGallery = ({ articles, isQuote }: { articles: GalleryA
           </div>
         </Link>
         {articles.length > 1 && <>
-          <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-next" aria-label="التالي" title="التالي" disabled={activeIndex === articles.length - 1} onClick={() => move(1)}><ChevronRight className="h-5 w-5" /></Button>
-          <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-prev" aria-label="السابق" title="السابق" disabled={activeIndex === 0} onClick={() => move(-1)}><ChevronLeft className="h-5 w-5" /></Button>
+          <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-prev" aria-label="السابق" title="السابق" disabled={activeIndex === 0} onClick={() => move(-1)}><ChevronRight className="h-5 w-5" /></Button>
+          <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-next" aria-label="التالي" title="التالي" disabled={activeIndex === articles.length - 1} onClick={() => move(1)}><ChevronLeft className="h-5 w-5" /></Button>
         </>}
       </div>
       <h3 className="column-gallery-archive-title">{isQuote ? "مقتبسات سابقة" : "صور سابقة"}</h3>
