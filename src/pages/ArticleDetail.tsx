@@ -274,9 +274,11 @@ const ArticleDetail = () => {
         
         <h1 className="text-3xl md:text-5xl font-bold leading-[1.35] mb-4">{article.title}</h1>
 
-        <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6" style={{ textAlign: "justify" }}>
-          {article.excerpt}
-        </p>
+        {article.excerpt?.trim() && (
+          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-6" style={{ textAlign: "justify" }}>
+            {article.excerpt}
+          </p>
+        )}
 
         <div className="flex items-center gap-5 text-muted-foreground flex-wrap">
           <Link to={`/writers/${article.profiles.id}`} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
