@@ -11179,3 +11179,37 @@ span {
   background-image: radial-gradient(hsl(var(--secondary) / .1) 1px, transparent 1px);
     background-size: 14px 14px;
 }
+
+/* ===== رأس المقال / الخدمة: النص يمين والصورة يسار على الشاشات الكبيرة ===== */
+.article-head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+@media (min-width: 1024px) {
+  .article-head {
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .article-head-media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .article-head-text {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .article-head-media img {
+    height: clamp(320px, 32vw, 460px);
+  }
+
+  .article-head-text h1 {
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    line-height: 1.3;
+  }
+}
