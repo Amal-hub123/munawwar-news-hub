@@ -11380,3 +11380,25 @@ span {
     height: 300px;
   }
 }
+
+
+
+.image-timeline-stage {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: block;
+}
+
+.image-timeline-content {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+}
