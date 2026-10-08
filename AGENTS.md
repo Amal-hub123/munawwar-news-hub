@@ -1,5 +1,7 @@
 # Project decisions
 
+- Keep archive card styling opt-in through ArticleCard's archive variant; shared heading CSS targets public page and section titles, excluding card titles, editor content, and admin/writer management screens to preserve hierarchy.
+
 - Anchor hero decorative circles to the article artwork with percentage-based positions and square aspect ratios; this preserves the same composition across screen sizes.
 
 - Keep the three core services as presentation content in the public Services page; database services remain the independently managed “خدمات أخرى” list, preserving the existing editorial workflow.

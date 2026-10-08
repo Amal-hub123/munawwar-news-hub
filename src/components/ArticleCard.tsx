@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { ShareButton } from "@/components/ShareDialog";
+import { BookmarkButton } from "@/components/BookmarkButton";
 
 
 interface ArticleCardProps {
@@ -20,6 +21,7 @@ interface ArticleCardProps {
   type: "article" | "news";
   categories?: string[];
   sequencePoints?: string[];
+  variant?: "default" | "archive";
 }
 
 export const ArticleCard = ({
@@ -32,6 +34,7 @@ export const ArticleCard = ({
   type,
   categories,
   sequencePoints,
+  variant = "default",
 }: ArticleCardProps) => {
 
   const formattedDate = new Date(date).toLocaleDateString("ar-EG", {
@@ -45,6 +48,38 @@ const shareLink = type  === "article" ? "articles" :  "news";
   const badgeColor = "bg-primary";
   
   const truncatedExcerpt = excerpt.length > 50 ? excerpt.substring(0, 50) + "..." : excerpt;
+
+  if (variant === "archive") {
+    return (
+      <article className="archive-article-card">
+        <Link to={link} className="archive-card-cover" aria-label={title}>
+          <img src={coverImage} alt={title} loading="lazy" decoding="async" width={160} height={160} />
+        </Link>
+        <div className="archive-card-content">
+          <Link to={link} className="archive-card-copy">
+            {categories && categories.length > 0 && <div className="archive-card-categories">{categories.slice(0, 3).map((category) => <span key={category}>{category}</span>)}</div>}
+            <h3>{title}</h3>
+            <p>{excerpt}</p>
+            {sequencePoints && sequencePoints.length > 0 && <div className="archive-card-sequence">{sequencePoints.slice(0, 5).map((point, index) => <span key={`${point}-${index}`}>{index > 0 && " ← "}{point}</span>)}</div>}
+          </Link>
+          <footer className="archive-card-footer">
+            <Link to={link} className="archive-card-author">
+              <Avatar className="h-6 w-6 shrink-0">
+                <AvatarImage src={author.photo} alt={author.name} />
+                <AvatarFallback className="archive-author-fallback">{author.name?.charAt(0) || <User className="h-3 w-3" />}</AvatarFallback>
+              </Avatar>
+              <span>{author.name}</span>
+            </Link>
+            <time dateTime={date}>{formattedDate}</time>
+            <div className="archive-card-actions">
+              <BookmarkButton size="sm" item={{ id, type, title, excerpt, coverImage, authorName: author.name }} />
+              <ShareButton url={`https://almonhna.sa/api/og-share?type=${shareLink}&id=${id}&v=1`} displayUrl={fullUrl} title={title} />
+            </div>
+          </footer>
+        </div>
+      </article>
+    );
+  }
 
   return (
     <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group border-0">
