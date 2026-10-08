@@ -571,40 +571,22 @@ const InteractiveTimeline = ({
    IMAGE TIMELINE
    ========================================================= */
 
+
 const ImageTimeline = ({
   timeline,
 }: {
   timeline: any;
 }) => {
-  const { ref, handlers } =
-    useDragScroll<HTMLDivElement>();
-
-  if (
-    !timeline.image_url
-  ) {
-    return null;
-  }
+  if (!timeline.image_url) return null;
 
   return (
-    <div
-      ref={ref}
-      {...handlers}
-      className="
-        drag-scroll
-        image-timeline-stage
-      "
-    >
+    <div className="image-timeline-stage">
       <img
-        src={
-          timeline.image_url
-        }
-        alt={
-          timeline.title
-        }
+        src={timeline.image_url}
+        alt={timeline.title || "Timeline"}
         loading="lazy"
-        draggable={
-          false
-        }
+        draggable={false}
+        className="image-timeline-content"
       />
     </div>
   );
