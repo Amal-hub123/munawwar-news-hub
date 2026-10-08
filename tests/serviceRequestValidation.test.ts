@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { SERVICE_NAMES, serviceRequestSchema, serviceRequestStatusSchema } from "../../supabase/functions/_shared/serviceRequestValidation";
+import { SERVICE_NAMES, serviceRequestSchema, serviceRequestStatusSchema } from "../supabase/functions/_shared/serviceRequestValidation";
 
 const valid = { submissionKey: "96a8b5d2-38a1-4e28-817b-6249f06b9527", name: "طلب اختبار", contact: "test@example.com", service: SERVICE_NAMES[0], details: "تفاصيل الطلب" };
 describe("Service request rules", () => {
