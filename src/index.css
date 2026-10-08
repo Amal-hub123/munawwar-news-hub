@@ -11420,3 +11420,24 @@ span {
   }
 }
 
+
+
+.visual-column-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+}
+
+.visual-column-heading > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.visual-column-heading p {
+  width: 100%;
+  max-width: none;
+  text-align: right;
+  line-height: 2;
+}
+
