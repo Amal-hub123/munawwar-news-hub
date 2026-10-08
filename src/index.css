@@ -11342,7 +11342,7 @@ span {
 }
 .column-gallery-stage {
   position: relative;
-  background: hsl(var(--background));
+  /* background: hsl(var(--background)); */
   border-radius: 3rem;
   /* padding: 1.75rem 4rem; */
 }
