@@ -11450,6 +11450,8 @@ body:has(.site-header) main h1.text-center { margin-inline: auto; }
 html body,
 #root > .min-h-screen,
 #root > main.min-h-screen,
+#root > .audio-archive-page,
+#root > .numbers-archive-page,
 .articles-archive-page {
   background-color: hsl(var(--archive-background)) !important;
   background-image: var(--page-background-pattern);
@@ -11458,8 +11460,13 @@ html body,
 }
 
 .editorial-home,
-.editorial-home > section {
-  background-color: transparent;
+.editorial-home > section,
+.calm-hero,
+.services-intro,
+.services-more,
+.auth-page-shell,
+.auth-form-pane {
+  background-color: transparent !important;
   background-image: none;
 }
 .articles-archive-main { width: min(100% - 4rem, 72rem); margin-inline: auto; padding-block: 2.5rem 4rem; }
