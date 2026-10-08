@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
           signal: AbortSignal.timeout(10000),
         });
         await db.from("service_requests").update({ notification_status: response.ok ? "sent" : "failed" }).eq("id", saved.id);
-        console.info("Service request notification", { requestId: saved.id, accepted: response.ok });
+        console.info("Service request notification", { requestId: saved.id, accepted: response.ok, providerStatus: response.status });
       } catch {
         await db.from("service_requests").update({ notification_status: "failed" }).eq("id", saved.id);
         console.error("Service request notification failed", { requestId: saved.id });
