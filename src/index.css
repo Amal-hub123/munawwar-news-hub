@@ -11340,14 +11340,7 @@ span {
   text-decoration-thickness: 5px;
   text-underline-offset: 5px;
 }
-.visual-column-heading2 h1 {
-  display: inline-block;
-  font-size: 1.75rem;
-  line-height: 1.5;
-  color: hsl(var(--foreground));
-  text-decoration: none;
 
-}
 .visual-column-heading p {
   max-width: 48rem;
   margin-top: .75rem;
@@ -11596,3 +11589,11 @@ html.dark body:not(:has(.editorial-home)),
   .archive-article-card, .archive-card-cover img { transition: none; }
 }
 
+.visual-column-heading2 h1 {
+  display: inline-block;
+  font-size: 1.75rem;
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+  text-decoration: none;
+
+}
