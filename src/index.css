@@ -995,7 +995,7 @@
 
 
 
-.image-timeline-stage { width: 100%; min-width: 0; padding: 0; background: hsl(var(--secondary-foreground) / .05); }
+.image-timeline-stage { width: 100%; min-width: 0; padding: 0; background: hsl(var(--secondary-foreground) / .05);max-height: 20rem; }
 .image-timeline-stage img { display: block; width: 100%; max-width: 100%; height: auto; max-height: none; object-fit: cover; }
 .image-timeline-stage:hover img { transform: none; }
 .site-footer { border-top: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); background: hsl(var(--card)); }
