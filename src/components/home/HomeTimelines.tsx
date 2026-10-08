@@ -924,8 +924,9 @@ export const HomeTimelines =
           {isImage ? (
             <div
               className="
+                container
+                mx-auto
                 px-6
-                md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]
               "
             >
               <ImageTimeline
