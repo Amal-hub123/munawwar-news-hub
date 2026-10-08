@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { parseSequencePoints } from "@/lib/articleExtras";
 import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
 
 interface Article {
   id: string;
@@ -14,6 +15,7 @@ interface Article {
   excerpt: string;
   cover_image_url: string;
   created_at: string;
+  approved_at?: string | null;
   sequence_points?: unknown;
   profiles: {
     id: string;
@@ -203,13 +205,13 @@ const Articles = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background articles-archive-page">
       <TopBar />
       <Header />
 
-      <main className="container mx-auto px-8 py-12">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
+      <main className="articles-archive-main">
+        <div className="archive-page-heading">
+          <h1 className="site-section-heading">
             جميع المقالات
           </h1>
 
@@ -220,45 +222,49 @@ const Articles = () => {
 
         {/* Categories */}
         {categories.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
-            <button
+          <div className="archive-category-tabs" aria-label="تصنيفات المقالات">
+            <Button
+              variant="ghost"
               type="button"
+              aria-pressed={!activeSlug}
               onClick={() => selectCategory("")}
               className={cn(
-                "px-4 py-2 rounded-full text-sm border transition-all duration-300",
+                "archive-category-tab",
                 !activeSlug
-                  ? "bg-primary text-primary-foreground border-primary"
-                  : "border-border hover:border-primary"
+                  ? "is-active"
+                  : ""
               )}
             >
               الكل
-            </button>
+            </Button>
 
             {categories.map((cat) => (
-              <button
+              <Button
+                variant="ghost"
                 key={cat.id}
                 type="button"
+                aria-pressed={activeSlug === cat.slug}
                 onClick={() => selectCategory(cat.slug)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm border transition-all duration-300",
+                  "archive-category-tab",
                   activeSlug === cat.slug
-                    ? "bg-primary text-primary-foreground border-primary"
-                    : "border-border hover:border-primary"
+                    ? "is-active"
+                    : ""
                 )}
               >
                 {cat.name}
-              </button>
+              </Button>
             ))}
           </div>
         )}
 
         {/* Loading initial articles */}
         {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="archive-article-grid">
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className="h-96 bg-muted animate-pulse rounded-lg"
+                className="archive-card-skeleton bg-muted animate-pulse rounded-lg"
               />
             ))}
           </div>
@@ -275,10 +281,11 @@ const Articles = () => {
         ) : (
           <>
             {/* Articles */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="archive-article-grid">
               {visible.map((article) => (
                 <ArticleCard
                   key={article.id}
+                   variant="archive"
                   id={article.id}
                   title={article.title}
                   excerpt={article.excerpt}
@@ -287,7 +294,7 @@ const Articles = () => {
                     name: article.profiles.name,
                     photo: article.profiles.photo_url || undefined,
                   }}
-                  date={article.created_at}
+                   date={article.approved_at || article.created_at}
                   type="article"
                   categories={(articleCategories[article.id] || [])
                     .map((slug) => slugToName[slug])
@@ -302,11 +309,12 @@ const Articles = () => {
          {/* Load More */}
 {hasMore && (
   <div className="flex flex-col items-center justify-center mt-16 mb-8">
-    <button
+    <Button
+      variant="ghost"
       type="button"
       onClick={fetchMoreArticles}
       disabled={loadingMore}
-      className="group flex flex-col items-center gap-3 bg-transparent border-0 outline-none cursor-pointer disabled:cursor-wait"
+      className="group h-auto flex flex-col items-center gap-3 bg-transparent border-0 cursor-pointer disabled:cursor-wait"
     >
       {!loadingMore ? (
         <>
@@ -332,7 +340,7 @@ const Articles = () => {
           جاري تحميل المزيد...
         </span>
       )}
-    </button>
+    </Button>
   </div>
 )}
 
