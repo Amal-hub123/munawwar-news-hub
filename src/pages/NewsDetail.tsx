@@ -1,30 +1,12 @@
-import { useParams, Link } from "react-router-dom";
-import { cleanContentFont } from "@/lib/cleanContent";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
-import { Calendar, User, Eye } from "lucide-react";
-import { ShareButton } from "@/components/ShareDialog";
-import { useEffect, useState } from "react";
-import { BookmarkButton } from "@/components/BookmarkButton";
 import { ServiceGallery } from "@/components/ServiceGallery";
-import { LikeButton } from "@/components/LikeButton";
-import { TextZoomControl, DEFAULT_ARTICLE_FONT_SIZE, type ReadingBackground } from "@/components/TextZoomControl";
 
 const NewsDetail = () => {
   const { id } = useParams();
-  const [fontSize, setFontSize] = useState(DEFAULT_ARTICLE_FONT_SIZE);
-  const [readingBackground, setReadingBackground] = useState<ReadingBackground>(() => {
-    const saved = window.localStorage.getItem("almonhna-reading-background");
-    return saved === "ivory" || saved === "sage" || saved === "mist" ? saved : "paper";
-  });
-
-  const handleReadingBackground = (next: ReadingBackground) => {
-    setReadingBackground(next);
-    window.localStorage.setItem("almonhna-reading-background", next);
-  };
-
   const { data: news, isLoading } = useQuery({
     queryKey: ["news", id],
     queryFn: async () => {
@@ -48,153 +30,31 @@ const NewsDetail = () => {
     },
   });
 
-  useEffect(() => {
-    if (news) {
-      const incrementViews = async () => {
-        await supabase
-          .from("news")
-          .update({ views: (news.views || 0) + 1 })
-          .eq("id", id);
-      };
-      incrementViews();
-    }
-  }, [news, id]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background dot-background">
-        <TopBar />
-        <Header />
-        <div className="container mx-auto px-4 py-8">
-          <div className="animate-pulse space-y-4">
-            <div className="h-96 bg-muted rounded-lg" />
-            <div className="h-8 bg-muted rounded w-3/4" />
-            <div className="h-4 bg-muted rounded w-1/2" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (!news) {
-    return (
-      <div className="min-h-screen bg-background dot-background">
-        <TopBar />
-        <Header />
-        <div className="ArticleContainer container mx-auto px-4 py-8 max-w-4xl">
-          <h1 className="text-2xl font-bold">الخدمة غير موجودة</h1>
-        </div>
-      </div>
-    );
-  }
+  const images = Array.isArray(news?.gallery_images)
+    ? news.gallery_images.filter((image): image is string => typeof image === "string" && image.trim().length > 0)
+    : [];
 
   return (
-    <div className="min-h-screen bg-background dot-background">
+    <div className="min-h-screen bg-background visual-column-page">
       <TopBar />
       <Header />
-      
-      <article className="ArticleContainer article-editorial container mx-auto px-4 py-8 max-w-4xl">
-        <div className="article-head">
-          <div className="article-head-media overflow-hidden rounded-lg">
-            <img
-              src={news.cover_image_url}
-              alt={news.title}
-              className="w-full h-72 md:h-96 object-cover"
-            />
-          </div>
-
-          <div className="article-head-text">
-        <h1 className="text-4xl font-bold mb-4">{news.title}</h1>
-
-        {news.excerpt?.trim() && (
-          <p className="text-lg text-muted-foreground leading-relaxed mb-5" style={{ textAlign: "justify" }}>
-            {news.excerpt}
-          </p>
-        )}
-
-        <div className="flex items-center gap-6 text-muted-foreground flex-wrap">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" />
-            <span>{new Date(news.created_at).toLocaleDateString("ar-EG", {
-              year: "numeric",
-              month: "long",
-              day: "numeric"
-            })}</span>
-          </div>
-          <ShareButton
-            url={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
-            displayUrl={`https://almonhna.sa/news/${id}`}
-            title={news.title}
-            iconSize={20}
-          />
-          <BookmarkButton
-            item={{
-              id: news.id,
-              type: "news",
-              title: news.title,
-              excerpt: news.excerpt,
-              coverImage: news.cover_image_url,
-              authorName: news.profiles?.name || "",
-            }}
-          />
-          <LikeButton
-            contentId={news.id}
-            contentType="news"
-            className="mr-auto"
-          />
-        </div>
-
-        <Link
-          to={`/writers/${news.profiles.id}`}
-          className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors"
-        >
-          {news.profiles.photo_url ? (
-            <img
-              src={news.profiles.photo_url}
-              alt={news.profiles.name}
-              className="w-12 h-12 rounded-full object-cover"
-            />
-          ) : (
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <User className="w-6 h-6 text-primary" />
-            </div>
-          )}
-          <div>
-            <p className="font-semibold">{news.profiles.name}</p>
-            {news.profiles.bio && (
-              <p className="text-sm text-muted-foreground line-clamp-1">
-                {news.profiles.bio}
-              </p>
-            )}
-          </div>
-        </Link>
-        </div>
-      </div>
-
-      
-
-        <div className="prose prose-lg max-w-none">
-          <div className="flex justify-end mb-3">
-            <TextZoomControl value={fontSize} onChange={setFontSize} background={readingBackground} onBackgroundChange={handleReadingBackground} />
-          </div>
-          <div
-            className={`site-content article-body article-surface article-surface-${readingBackground}`}
-            style={{ padding: "5px", borderRadius: "20px", ["--article-font-size" as any]: `${fontSize}px` }}
-            dangerouslySetInnerHTML={{ __html: cleanContentFont(news.content) }}
-          />
-        </div>
-  {Array.isArray(news.gallery_images) && news.gallery_images.length > 0 && (
+      <main className="visual-column-main" dir="rtl">
+        {isLoading ? (
+          <div className="column-gallery-loading bg-muted animate-pulse rounded-lg" aria-label="جاري تحميل الخدمة" />
+        ) : !news ? (
+          <h1 className="text-2xl font-bold">الخدمة غير موجودة</h1>
+        ) : images.length ? (
           <ServiceGallery
-            images={news.gallery_images as string[]}
+            images={images}
             title={news.gallery_title || news.title}
-            subtitle="دليل من المُنحنى"
             pdfUrl={news.gallery_pdf_url}
             shareUrl={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
             displayUrl={`https://almonhna.sa/news/${id}`}
           />
+        ) : (
+          <p className="text-center text-muted-foreground py-12">لا توجد صور مضافة لهذه الخدمة حاليًا.</p>
         )}
-        
-      </article>
+      </main>
     </div>
   );
 };
