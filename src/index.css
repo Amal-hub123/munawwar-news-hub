@@ -98,6 +98,7 @@
     --archive-rust: 16 48% 44%;
     --archive-olive: 76 38% 39%;
     --section-title-size: 1.75rem;
+    --heading-mark: linear-gradient(transparent 60%, hsl(var(--primary)) 60%, hsl(var(--primary)) 75%, transparent 86%);
 
     --hero-wave-air: 175 23% 36%;
     --hero-wave-back: 175 26% 31%;
@@ -11512,12 +11513,21 @@ body:has(.site-header) main h1:not(.calm-hero-phrase),
   line-height: 1.6 !important;
   letter-spacing: 0 !important;
   color: hsl(var(--foreground)) !important;
-  background: none !important;
-  text-decoration-line: underline;
-  text-decoration-color: hsl(var(--primary));
-  text-decoration-thickness: 5px;
-  text-underline-offset: 5px;
-  text-decoration-skip-ink: none;
+  background-image: var(--heading-mark) !important;
+  background-size: 100% .42em !important;
+  background-position: 0 88% !important;
+  background-repeat: no-repeat !important;
+  text-decoration: none;
+}
+.calm-hero-phrase .mark,
+.dark .calm-hero-phrase .mark {
+  background-image: var(--heading-mark) !important;
+}
+.daily-story-section .editorial-heading,
+.dark .daily-story-section .editorial-heading,
+.timelines-section .timeline-reference-heading .editorial-heading,
+.dark .timelines-section .timeline-reference-heading .editorial-heading {
+  color: hsl(var(--secondary-foreground)) !important;
 }
 body:has(.site-header) main h1:not(.calm-hero-phrase) em { color: inherit !important; font-size: inherit; font-style: normal; }
 body:has(.site-header) main h1.text-center { margin-inline: auto; }
