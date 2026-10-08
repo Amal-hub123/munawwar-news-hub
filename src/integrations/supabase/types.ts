@@ -692,6 +692,63 @@ export type Database = {
           },
         ]
       }
+      service_request_rate_limits: {
+        Row: {
+          attempts: number
+          key_hash: string
+          window_start: string
+        }
+        Insert: {
+          attempts?: number
+          key_hash: string
+          window_start?: string
+        }
+        Update: {
+          attempts?: number
+          key_hash?: string
+          window_start?: string
+        }
+        Relationships: []
+      }
+      service_requests: {
+        Row: {
+          contact: string
+          created_at: string
+          details: string
+          id: string
+          name: string
+          notification_status: string
+          service: string
+          status: string
+          submission_key: string
+          updated_at: string
+        }
+        Insert: {
+          contact: string
+          created_at?: string
+          details: string
+          id?: string
+          name: string
+          notification_status?: string
+          service: string
+          status?: string
+          submission_key: string
+          updated_at?: string
+        }
+        Update: {
+          contact?: string
+          created_at?: string
+          details?: string
+          id?: string
+          name?: string
+          notification_status?: string
+          service?: string
+          status?: string
+          submission_key?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       store_product_files: {
         Row: {
           created_at: string
@@ -914,6 +971,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      consume_service_request_limit: {
+        Args: { p_key_hash: string }
+        Returns: boolean
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["user_role"]
