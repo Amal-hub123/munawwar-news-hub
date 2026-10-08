@@ -1,6 +1,6 @@
 # Project decisions
 
-- Bound public page shells as one centered canvas at wide desktop sizes; use fluid inner tracks and compact navigation below desktop width so browser zoom does not stretch artwork independently and mobile remains readable.
+- Apply the bounded public canvas and its track-padding overrides only at CSS viewport widths of at least 2560px; leave ordinary desktop shells untouched because viewport width is reliable but browser zoom detection is not.
 
 - Keep timeline selection in scoped RTL text tabs using the shared Button, with a gold active underline; styling changes must preserve the existing selected timeline and content rendering.
 - Render image timelines at full container width with intrinsic height and no image hover transform, so every image stays fully visible independently of viewport height.
