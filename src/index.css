@@ -995,9 +995,9 @@
 
 
 
-.image-timeline-stage { padding: 2rem; background: hsl(var(--secondary-foreground) / .05); }
-.image-timeline-stage img { max-width: none; max-height: 72vh; width: auto; transition: transform 1.2s ease; }
-.image-timeline-stage:hover img { transform: translateX(-1.5rem) scale(1.01); }
+.image-timeline-stage { width: 100%; min-width: 0; padding: 0; background: hsl(var(--secondary-foreground) / .05); }
+.image-timeline-stage img { display: block; width: 100%; max-width: 100%; height: auto; max-height: none; object-fit: contain; }
+.image-timeline-stage:hover img { transform: none; }
 .site-footer { border-top: 1px solid hsl(var(--border)); color: hsl(var(--muted-foreground)); background: hsl(var(--card)); }
 .site-footer > div { display: flex; min-height: 4.5rem; align-items: center; justify-content: center; gap: .7rem; font-size: .78rem; text-align: center; }
 
