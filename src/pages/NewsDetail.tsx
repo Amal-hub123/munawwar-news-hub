@@ -46,7 +46,8 @@ const NewsDetail = () => {
         ) : images.length ? (
           <ServiceGallery
             images={images}
-            title={news.gallery_title || news.title}
+            title={news.title}
+            subtitle={news.excerpt || undefined}
             pdfUrl={news.gallery_pdf_url}
             shareUrl={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
             displayUrl={`https://almonhna.sa/news/${id}`}

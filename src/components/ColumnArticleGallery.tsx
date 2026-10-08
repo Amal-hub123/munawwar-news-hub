@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { GalleryImageTrack } from "@/components/GalleryImageTrack";
 
 interface GalleryArticle {
   id: string;
@@ -20,10 +21,8 @@ export const ColumnArticleGallery = ({ articles, isQuote }: { articles: GalleryA
   return (
     <section className="column-gallery" aria-label={isQuote ? "مقتبسات العمود" : "صور العمود"}>
       <div className="column-gallery-stage">
-        <Link to={`/articles/${active.id}`} className="column-gallery-feature" key={active.id}>
-          <div className="column-gallery-image">
-            <img src={active.cover_image_url} alt={active.title} decoding="async" />
-          </div>
+        <GalleryImageTrack images={articles.map((article) => ({ src: article.cover_image_url, alt: article.title, href: `/articles/${article.id}` }))} index={activeIndex} onSelect={setActiveIndex} />
+        <Link to={`/articles/${active.id}`} className="column-gallery-feature">
           <div className="column-gallery-caption">
             <h2>{active.title}</h2>
             {active.excerpt && <p>{active.excerpt}</p>}
