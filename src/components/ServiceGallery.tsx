@@ -37,7 +37,7 @@ export const ServiceGallery = ({ images, title, subtitle, pdfUrl, shareUrl, disp
 
   return (
     <section className="column-gallery" dir="rtl" aria-label={title || "معرض صور الخدمة"}>
-      <div className="visual-column-heading">
+      <div className="visual-column-heading2">
         <div className="min-w-0">{title && <h1>{title}</h1>}{subtitle && <p>{subtitle}</p>}</div>
         <div className="flex shrink-0 items-center gap-2">
           <ShareButton url={shareUrl} displayUrl={displayUrl} title={title || ""} iconSize={20} />
