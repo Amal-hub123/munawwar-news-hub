@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { Reveal } from "@/components/motion/Reveal";
+import { Button } from "@/components/ui/button";
 
 
 /* =========================================================
@@ -822,7 +823,7 @@ export const HomeTimelines =
           <Reveal
             variant="side"
             className="
-              section-heading-row
+              section-heading-row timeline-reference-heading
             "
           >
             <div>
@@ -844,13 +845,6 @@ export const HomeTimelines =
               </h2>
             </div>
 
-            <p
-              className="
-                section-hint
-              "
-            >
-              اسحب لتتبع الخط
-            </p>
           </Reveal>
 
 
@@ -861,79 +855,22 @@ export const HomeTimelines =
           <Reveal
             variant="side"
             className="
-              mt-6
+              timeline-reference-tabs
             "
           >
-            <div
-              className="
-                flex
-                flex-wrap
-                justify-start
-                gap-2
-                md:gap-3
-              "
-              dir="rtl"
-            >
-              {visible.map(
-                (
-                  t: any
-                ) => {
-                  const color =
-                    t.color ||
-                    "#00343A";
-
-                  const isActive =
-                    t.id ===
-                    active.id;
-
-                  return (
-                    <button
-                      key={
-                        t.id
-                      }
-                      type="button"
-                      onClick={
-                        () =>
-                          setActiveId(
-                            t.id
-                          )
-                      }
-                      aria-pressed={
-                        isActive
-                      }
-                      style={{
-                        borderRadius:
-                          "0.7rem",
-
-                        background:
-                          color,
-
-                        color:
-                          "#fff",
-
-                        borderColor:
-                          color,
-
-                        opacity:
-                          isActive
-                            ? 1
-                            : 0.75,
-                      }}
-                      className={
-                        `rounded-lg border px-4 py-2 text-sm transition-all md:text-base ${
-                          isActive
-                            ? "ring-2 ring-white/40 shadow-lg"
-                            : ""
-                        }`
-                      }
-                    >
-                      {
-                        t.title
-                      }
-                    </button>
-                  );
-                }
-              )}
+            <div className="timeline-title-tabs" dir="rtl" aria-label="خطوط المُنحنى">
+              {visible.map((t: any) => (
+                <Button
+                  key={t.id}
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setActiveId(t.id)}
+                  aria-pressed={t.id === active.id}
+                  className={`timeline-title-tab ${t.id === active.id ? "is-active" : ""}`}
+                >
+                  {t.title}
+                </Button>
+              ))}
             </div>
           </Reveal>
         </div>
