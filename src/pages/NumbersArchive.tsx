@@ -93,9 +93,10 @@ const NumbersArchive = () => {
 
         <section className="numbers-intro">
 
-          {/* <div className="numbers-intro-kicker">
+          <div className="numbers-intro-kicker">
+            {/* <Hash /> */}
             <span>الرقم</span>
-          </div> */}
+          </div>
 
           <h1>
             أرقام صغيرة
