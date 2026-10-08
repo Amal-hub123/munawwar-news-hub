@@ -1,5 +1,7 @@
 # Project decisions
 
+- Keep timeline selection in scoped RTL text tabs using the shared Button, with a gold active underline; styling changes must preserve the existing selected timeline and content rendering.
+
 - Reserve vertical motion clearance inside animated horizontal tracks and use unclipped reveal transitions; scroll containers must not cut off floating cards, while intentional image-frame zoom and decorative cropping stay scoped.
 
 - Apply the shared internal-page canvas at the document and top-level page shells, excluding shells containing the editorial homepage; transparent services sections expose this canvas without altering cards, reader-selected backgrounds, or homepage artwork.
