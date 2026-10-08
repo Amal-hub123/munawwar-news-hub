@@ -79,10 +79,24 @@ const ProductDetail = () => {
       
       {isVisualColumn ? (
         <main className="visual-column-main">
-          <div className="visual-column-heading">
-            <div><h1>{product.name}</h1>{product.description && <p>{product.description}</p>}</div>
-            <ShareButton url={`https://almonhna.sa/products/${id}`} title={product.name} iconSize={20} />
-          </div>
+         
+<div className="visual-column-heading">
+  <div className="w-full min-w-0">
+    <h1>{product.name}</h1>
+    {product.description && (
+      <p className="w-full max-w-none text-right leading-8">
+        {product.description}
+      </p>
+    )}
+  </div>
+
+  <ShareButton
+    url={`https://almonhna.sa/products/${id}`}
+    title={product.name}
+    iconSize={20}
+  />
+</div>
+
           {articlesLoading ? <div className="column-gallery-loading bg-muted animate-pulse rounded-lg" /> : articles?.length ? (
             <ColumnArticleGallery articles={articles} isQuote={columnName === "مقتبس"} />
           ) : <p className="text-center text-muted-foreground py-12">لا توجد مقالات متعلقة بهذا المنتج</p>}
