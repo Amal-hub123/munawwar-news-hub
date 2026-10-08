@@ -581,18 +581,20 @@ const ImageTimeline = ({
   if (!timeline.image_url) return null;
 
   return (
-    <div style={{ width: "100%", overflow: "hidden" }}>
+    <div className="image-timeline-stage">
+      <div
+        className="image-timeline-background"
+        style={{
+          backgroundImage: `url("${timeline.image_url}")`,
+        }}
+      />
+
       <img
         src={timeline.image_url}
         alt={timeline.title || "Timeline"}
         loading="lazy"
         draggable={false}
-        style={{
-          display: "block",
-          width: "100%",
-          height: "auto",
-          maxWidth: "none",
-        }}
+        className="image-timeline-content"
       />
     </div>
   );
