@@ -216,8 +216,7 @@ const Articles = () => {
           </h1>
 
           <p className="text-muted-foreground">
-            تصفح جميع المقالات المنشورة على المُنحنى
-          </p>
+كل ما نشر على المُنحنى , مرتباً من الأحدث           </p>
         </div>
 
         {/* Categories */}
