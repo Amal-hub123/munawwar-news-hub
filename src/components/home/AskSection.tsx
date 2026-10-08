@@ -264,7 +264,7 @@ export const AskSection = () => {
               FOOTER
               ========================= */}
 
-          <Button variant="ghost" onClick={focusQuestion} className="ask-panel-footer h-auto w-full whitespace-normal rounded-none text-right">
+          <Button variant="ghost" onClick={focusQuestion} className="ask-panel-footer h-auto w-full whitespace-normal rounded-none bg-transparent p-0 text-inherit hover:bg-transparent hover:text-inherit">
             <span>
               سيكون المُنحنى أقرب منك عندما تكون شريكًا في
               صياغة المحتوى
