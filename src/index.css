@@ -1327,7 +1327,11 @@ html:not(.dark)
 }
 .timelines-section .timeline-reference-heading::after { display: none; }
 .timelines-section .timeline-reference-heading .editorial-kicker {
+  color: hsl(var(--secondary-foreground));
   opacity: .6;
+}
+.timelines-section .timeline-reference-heading .editorial-heading {
+  color: hsl(var(--secondary-foreground)) !important;
 }
 .timeline-reference-tabs { width: 100%; }
 .timeline-title-tabs {
