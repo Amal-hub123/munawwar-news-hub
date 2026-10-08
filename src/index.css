@@ -11384,22 +11384,39 @@ span {
 
 
 .image-timeline-stage {
+  position: relative;
   width: 100%;
-  height: auto;
-  margin: 0;
-  padding: 0;
+  height: clamp(260px, 36vw, 520px);
   overflow: hidden;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+  background: #244b46;
+}
+
+.image-timeline-background {
+  position: absolute;
+  inset: -30px;
+  background-size: cover;
+  background-position: center;
+  filter: blur(35px) brightness(0.65);
+  z-index: -1;
 }
 
 .image-timeline-content {
   display: block;
+  position: relative;
   width: 100%;
-  height: auto;
-  max-width: none;
-  max-height: none;
+  height: 100%;
   object-fit: contain;
-  margin: 0;
-  padding: 0;
+  object-position: center;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .image-timeline-stage {
+    height: clamp(220px, 60vw, 360px);
+  }
 }
 
