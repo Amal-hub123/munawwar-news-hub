@@ -181,7 +181,7 @@ const News = () => {
                     <Button
                       variant="ghost"
                       onClick={() => setRequestedService(service.title)}
-                      className="service-action"
+                      className="service-action h-auto"
                     >
                       اطلب الخدمة
                       <ArrowLeft aria-hidden="true" />
