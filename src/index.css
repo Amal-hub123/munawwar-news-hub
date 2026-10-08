@@ -11447,8 +11447,9 @@ body:has(.site-header) main h1:not(.calm-hero-phrase) em { color: inherit !impor
 body:has(.site-header) main h1.text-center { margin-inline: auto; }
 
 /* Shared page canvas; cards, reading surfaces and artwork retain their own backgrounds. */
-html body,
-#root > .min-h-screen,
+html:not(.dark) body:not(:has(.editorial-home)),
+html.dark body:not(:has(.editorial-home)),
+#root > .min-h-screen:not(:has(.editorial-home)),
 #root > main.min-h-screen,
 #root > .audio-archive-page,
 #root > .numbers-archive-page,
@@ -11459,9 +11460,8 @@ html body,
   background-position: 0 0;
 }
 
-.editorial-home,
-.editorial-home > section,
-.calm-hero,
+.services-page,
+.Services-intro,
 .services-intro,
 .services-more,
 .auth-page-shell,
@@ -11469,6 +11469,7 @@ html body,
   background-color: transparent !important;
   background-image: none;
 }
+.services-page .services-dots { display: none; }
 .articles-archive-main { width: min(100% - 4rem, 72rem); margin-inline: auto; padding-block: 2.5rem 4rem; }
 .archive-page-heading { margin-bottom: 1.5rem; }
 .archive-page-heading p { margin-top: 1rem; color: hsl(var(--muted-foreground)); font-size: 1rem; line-height: 1.9; }
