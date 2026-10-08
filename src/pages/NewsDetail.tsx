@@ -43,17 +43,28 @@ const NewsDetail = () => {
           <div className="column-gallery-loading bg-muted animate-pulse rounded-lg" aria-label="جاري تحميل الخدمة" />
         ) : !news ? (
           <h1 className="text-2xl font-bold">الخدمة غير موجودة</h1>
-        ) : images.length ? (
+        ) : (
+          <>
+          <div className="visual-column-heading">
+            <div className="w-full min-w-0">
+              <h1>{news.title}</h1>
+              {news.excerpt?.trim() && (
+                <p className="w-full max-w-none text-right leading-8">{news.excerpt.trim()}</p>
+              )}
+            </div>
+          </div>
+          {images.length ? (
           <ServiceGallery
             images={images}
-            title={news.title}
-            subtitle={news.excerpt?.trim() || undefined}
+            title={news.gallery_title || null}
             pdfUrl={news.gallery_pdf_url}
             shareUrl={`https://almonhna.sa/api/og-share?type=news&id=${id}`}
             displayUrl={`https://almonhna.sa/news/${id}`}
           />
         ) : (
           <p className="text-center text-muted-foreground py-12">لا توجد صور مضافة لهذه الخدمة حاليًا.</p>
+          )}
+          </>
         )}
       </main>
     </div>
