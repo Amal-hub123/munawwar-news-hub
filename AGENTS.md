@@ -1,5 +1,7 @@
 # Project decisions
 
+- Apply the shared page canvas at the document and top-level page shells, not generic background utilities; this unifies pages without altering cards, reader-selected backgrounds, or artwork.
+
 - Keep archive card styling opt-in through ArticleCard's archive variant; shared heading CSS targets public page and section titles, excluding card titles, editor content, and admin/writer management screens to preserve hierarchy.
 
 - Anchor hero decorative circles to the article artwork with percentage-based positions and square aspect ratios; this preserves the same composition across screen sizes.

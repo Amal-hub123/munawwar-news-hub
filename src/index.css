@@ -92,6 +92,7 @@
     --ring: 38 74% 55%;
 
     --archive-background: 43 35% 91%;
+    --page-background-pattern: radial-gradient(circle, hsl(var(--primary) / .25) 1px, transparent 1.5px);
     --archive-surface: 43 40% 95%;
     --archive-ink: 180 48% 16%;
     --archive-rust: 16 48% 44%;
@@ -11445,10 +11446,28 @@ body:has(.site-header) main h1:not(.calm-hero-phrase),
 body:has(.site-header) main h1:not(.calm-hero-phrase) em { color: inherit !important; font-size: inherit; font-style: normal; }
 body:has(.site-header) main h1.text-center { margin-inline: auto; }
 
+/* Shared page canvas; cards, reading surfaces and artwork retain their own backgrounds. */
+html body,
+#root > .min-h-screen,
+#root > main.min-h-screen,
+#root > .audio-archive-page,
+#root > .numbers-archive-page,
 .articles-archive-page {
-  background-color: hsl(var(--archive-background));
-  background-image: radial-gradient(circle, hsl(var(--primary) / .25) 1px, transparent 1.5px);
+  background-color: hsl(var(--archive-background)) !important;
+  background-image: var(--page-background-pattern);
   background-size: 19px 19px;
+  background-position: 0 0;
+}
+
+.editorial-home,
+.editorial-home > section,
+.calm-hero,
+.services-intro,
+.services-more,
+.auth-page-shell,
+.auth-form-pane {
+  background-color: transparent !important;
+  background-image: none;
 }
 .articles-archive-main { width: min(100% - 4rem, 72rem); margin-inline: auto; padding-block: 2.5rem 4rem; }
 .archive-page-heading { margin-bottom: 1.5rem; }
