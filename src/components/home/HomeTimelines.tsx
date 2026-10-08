@@ -571,35 +571,44 @@ const InteractiveTimeline = ({
    IMAGE TIMELINE
    ========================================================= */
 
-
-
 const ImageTimeline = ({
   timeline,
 }: {
   timeline: any;
 }) => {
-  if (!timeline.image_url) return null;
+  const { ref, handlers } =
+    useDragScroll<HTMLDivElement>();
+
+  if (
+    !timeline.image_url
+  ) {
+    return null;
+  }
 
   return (
-    <div className="image-timeline-stage">
-      <div
-        className="image-timeline-background"
-        style={{
-          backgroundImage: `url("${timeline.image_url}")`,
-        }}
-      />
-
+    <div
+      ref={ref}
+      {...handlers}
+      className="
+        drag-scroll
+        image-timeline-stage
+      "
+    >
       <img
-        src={timeline.image_url}
-        alt={timeline.title || "Timeline"}
+        src={
+          timeline.image_url
+        }
+        alt={
+          timeline.title
+        }
         loading="lazy"
-        draggable={false}
-        className="image-timeline-content"
+        draggable={
+          false
+        }
       />
     </div>
   );
 };
-
 
 
 /* =========================================================
@@ -976,7 +985,12 @@ export const HomeTimelines =
               ================================================= */}
 
           {isImage ? (
-            <div className="w-full px-0">
+            <div
+              className="
+                px-6
+                md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]
+              "
+            >
               <ImageTimeline
                 timeline={
                   active
