@@ -57,7 +57,7 @@ export default function ManageServiceRequests() {
         <Select value={row.status} disabled={Boolean(updating)} onValueChange={(value) => void update(row.id, value)}><SelectTrigger className="w-40" aria-label="حالة الطلب"><SelectValue /></SelectTrigger><SelectContent>{STATUSES.map((s) => <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>)}</SelectContent></Select>
       </div>
       <p className="whitespace-pre-wrap break-words border-t pt-3 text-sm leading-7">{row.details}</p>
-      <p className="text-xs text-muted-foreground">الإشعار البريدي: {row.notification_status === "sent" ? "أُرسل" : row.notification_status === "failed" ? "تعذّر الإرسال" : "بانتظار الإرسال"}</p>
+      {/* <p className="text-xs text-muted-foreground">الإشعار البريدي: {row.notification_status === "sent" ? "أُرسل" : row.notification_status === "failed" ? "تعذّر الإرسال" : "بانتظار الإرسال"}</p> */}
     </CardContent></Card>)}
   </div>;
 }
