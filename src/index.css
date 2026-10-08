@@ -98,7 +98,7 @@
     --archive-rust: 16 48% 44%;
     --archive-olive: 76 38% 39%;
     --section-title-size: 1.75rem;
-    --heading-mark: linear-gradient(transparent 60%, hsl(var(--primary)) 60%, hsl(var(--primary)) 75%, transparent 86%);
+    --heading-mark: linear-gradient(transparent 0%, hsl(var(--primary)) 0%, hsl(var(--primary)) 30%, transparent 112%);
 
     --hero-wave-air: 175 23% 36%;
     --hero-wave-back: 175 26% 31%;
