@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, Download } from "lucide-react";
 import { ShareButton } from "@/components/ShareDialog";
 import { Button } from "@/components/ui/button";
+import { GalleryImageTrack } from "@/components/GalleryImageTrack";
 
 interface Props {
   images: string[];
@@ -12,9 +13,8 @@ interface Props {
   displayUrl: string;
 }
 
-export const ServiceGallery = ({ images, title, pdfUrl, shareUrl, displayUrl }: Props) => {
+export const ServiceGallery = ({ images, title, subtitle, pdfUrl, shareUrl, displayUrl }: Props) => {
   const [index, setIndex] = useState(0);
-  const [touchX, setTouchX] = useState<number | null>(null);
   const total = images.length;
   const activeIndex = Math.min(index, Math.max(0, total - 1));
   const go = useCallback((step: number) => {
@@ -38,7 +38,7 @@ export const ServiceGallery = ({ images, title, pdfUrl, shareUrl, displayUrl }: 
   return (
     <section className="column-gallery" dir="rtl" aria-label={title || "معرض صور الخدمة"}>
       <div className="visual-column-heading">
-        <div className="min-w-0">{title && <h1>{title}</h1>}</div>
+        <div className="min-w-0">{title && <h1>{title}</h1>}{subtitle && <p>{subtitle}</p>}</div>
         <div className="flex shrink-0 items-center gap-2">
           <ShareButton url={shareUrl} displayUrl={displayUrl} title={title || ""} iconSize={20} />
           {pdfUrl && (
@@ -50,17 +50,8 @@ export const ServiceGallery = ({ images, title, pdfUrl, shareUrl, displayUrl }: 
           )}
         </div>
       </div>
-      <div className="column-gallery-stage"
-        onTouchStart={(event) => setTouchX(event.touches[0]?.clientX ?? null)}
-        onTouchEnd={(event) => {
-          const endX = event.changedTouches[0]?.clientX;
-          if (touchX !== null && endX !== undefined && Math.abs(endX - touchX) > 40) go(endX > touchX ? 1 : -1);
-          setTouchX(null);
-        }}
-      >
-        <div className="column-gallery-image">
-          <img src={images[activeIndex]} alt={`صفحة ${activeIndex + 1}`} className="!object-contain" decoding="async" />
-        </div>
+      <div className="column-gallery-stage">
+        <GalleryImageTrack images={images.map((src, imageIndex) => ({ src, alt: `صفحة ${imageIndex + 1}` }))} index={activeIndex} onSelect={setIndex} naturalSize />
         {total > 1 && <>
           <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-prev" aria-label="السابق" title="السابق" disabled={activeIndex === 0} onClick={() => go(-1)}><ChevronRight className="h-5 w-5" /></Button>
           <Button variant="outline" size="icon" className="column-gallery-arrow column-gallery-arrow-next" aria-label="التالي" title="التالي" disabled={activeIndex === total - 1} onClick={() => go(1)}><ChevronLeft className="h-5 w-5" /></Button>
