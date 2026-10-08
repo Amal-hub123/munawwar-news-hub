@@ -71,7 +71,7 @@ export const AddEditNews = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!formData.title || !formData.excerpt || !formData.cover_image_url) {
+    if (!formData.title || !formData.excerpt.trim() || !formData.cover_image_url) {
       toast({
         title: "خطأ",
         description: "يرجى ملء جميع الحقول المطلوبة",
