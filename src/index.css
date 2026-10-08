@@ -11597,3 +11597,9 @@ html.dark body:not(:has(.editorial-home)),
   text-decoration: none !important;
 
 }
+
+.column-gallery{
+  background-color: #f7f3e8d9;
+    padding: 3rem;
+    border-radius: 3rem;
+}
