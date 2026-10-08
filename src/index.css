@@ -1355,6 +1355,16 @@ html:not(.dark)
   white-space: normal;
   text-align: right;
 }
+.timeline-title-tabs .timeline-title-tab:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  inset-inline-end: -1rem;
+  top: .65rem;
+  width: 1px;
+  height: 1rem;
+  background: hsl(var(--secondary-foreground) / .2);
+  pointer-events: none;
+}
 .timeline-title-tabs .timeline-title-tab:hover,
 .timeline-title-tabs .timeline-title-tab.is-active {
   background: transparent;
