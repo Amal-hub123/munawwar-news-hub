@@ -755,8 +755,8 @@
     transform: translateY(0);
   }
 
-  .reveal-clip { clip-path: inset(0 0 100% 0); transform: translateY(28px); transition-property: opacity, transform, clip-path; }
-  .reveal-clip.is-visible { clip-path: inset(0 0 0 0); }
+  .reveal-clip { transform: translateY(28px); }
+  .reveal-clip.is-visible { transform: translateY(0); }
   .reveal-scale { transform: translateY(20px) scale(.94); }
   .reveal-scale.is-visible { transform: translateY(0) scale(1); }
   .reveal-side { transform: translateX(34px); }
@@ -927,7 +927,7 @@
 .journey-curve { top: 7.4rem; left: 0; width: 100%; height: 10rem; color: hsl(var(--secondary) / .48); overflow: visible; animation: journey-curve-float 9s ease-in-out infinite alternate; }
 .journey-curve path { stroke-width: 4; stroke-dasharray: 1; stroke-dashoffset: 1; animation: line-draw 2.2s .15s var(--editorial-ease) forwards; }
 .journey-track, .writers-track { position: relative; z-index: 2; align-items: flex-start; gap: 1.75rem; padding: 1rem max(1.5rem, calc((100vw - 1400px)/2 + 1.5rem)) 2rem; }
-.journey-track { gap: clamp(2rem, 4vw, 4.5rem); min-height: 24rem; padding-top: 0; }
+.journey-track { gap: clamp(2rem, 4vw, 4.5rem); min-height: 24rem; padding-block: 2rem 3rem; }
 .journey-node { position: relative; flex: 0 0 clamp(8.5rem, 11vw, 10.5rem); }
 .journey-node-0, .journey-node-2 { margin-top: .5rem; }
 .journey-node-1, .journey-node-3 { margin-top: 10.5rem; }
@@ -1010,7 +1010,7 @@
 .writers-section { background: hsl(var(--card)); background-image : radial-gradient(hsl(var(--secondary) / .13) 1px,transparent 1px); background-size:14px 14px; }
 .writers-track-wrap { min-height: 23rem; }
 .writers-curve { top: 5rem; height: 13rem; }
-.writers-track { gap: 2rem; }
+.writers-track { gap: 2rem; padding-block: 2rem 3rem; }
 .writer-point { flex: 0 0 clamp(12rem, 17vw, 15rem); }
 .writer-point-1, .writer-point-3 { margin-top: 3rem; }
 .writer-portrait { display: grid; aspect-ratio: 4 / 5; place-items: center; overflow: hidden; border-radius: .9rem;     border: 4px double #00343a; color: hsl(var(--muted-foreground)); background: hsl(var(--background)); transition: transform .55s var(--editorial-ease); }
@@ -8633,6 +8633,7 @@ span {
 
 .mosaic-layout {
   min-width: 0;
+  overflow: visible;
 }
 
 .mosaic-cell {

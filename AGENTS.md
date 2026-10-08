@@ -1,5 +1,7 @@
 # Project decisions
 
+- Reserve vertical motion clearance inside animated horizontal tracks and use unclipped reveal transitions; scroll containers must not cut off floating cards, while intentional image-frame zoom and decorative cropping stay scoped.
+
 - Apply the shared internal-page canvas at the document and top-level page shells, excluding shells containing the editorial homepage; transparent services sections expose this canvas without altering cards, reader-selected backgrounds, or homepage artwork.
 
 - Keep archive card styling opt-in through ArticleCard's archive variant; shared heading CSS targets public page and section titles, excluding card titles, editor content, and admin/writer management screens to preserve hierarchy.
