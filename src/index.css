@@ -11603,3 +11603,79 @@ html.dark body:not(:has(.editorial-home)),
     padding: 3rem;
     border-radius: 3rem;
 }
+
+/* Bound the entire public canvas, not just its text, when zooming out. */
+:root {
+  --site-canvas-width: 87.5rem;
+  --site-layout-width: min(100vw, var(--site-canvas-width));
+}
+
+#root > :has(> .site-header) {
+  width: min(100%, var(--site-canvas-width));
+  min-width: 0;
+  margin-inline: auto;
+}
+
+.journey-track,
+.writers-track {
+  padding-inline: max(1.5rem, calc((var(--site-layout-width) - 1400px) / 2 + 1.5rem));
+}
+
+.question-transform-track {
+  padding-inline: max(1.5rem, calc((var(--site-layout-width) - 1400px) / 2 + 1.5rem));
+}
+
+.visual-column-main,
+.column-gallery,
+.column-gallery-stage,
+.gallery-swipe {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.visual-column-heading2 > :first-child {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 701px) and (max-width: 1100px) {
+  .calm-hero-content {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+    gap: 1.5rem;
+  }
+  .calm-hero-phrase,
+  .calm-hero-phrase.phrase-1,
+  .calm-hero-phrase.phrase-2,
+  .calm-hero-phrase.phrase-3 {
+    font-size: 3rem;
+    line-height: 1.4;
+    text-align: right;
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header-inner {
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .column-gallery {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+  .column-gallery-image,
+  .gallery-swipe-slide,
+  .gallery-swipe-natural,
+  .gallery-swipe-natural .gallery-swipe-slide img {
+    border-radius: 1rem;
+  }
+  .visual-column-heading2 {
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-bottom: 1rem;
+  }
+  .visual-column-heading2 > :first-child {
+    flex-basis: 100%;
+  }
+}

@@ -156,7 +156,7 @@ export const Header = () => {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (
                 item.onClick ? (
                  <Link
@@ -183,7 +183,7 @@ export const Header = () => {
 
           
           {/* Auth Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
             {user ? (
               <DropdownMenu>
@@ -239,11 +239,11 @@ export const Header = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className="flex items-center md:hidden">
+          <div className="flex items-center lg:hidden">
             <ThemeToggle />
           </div>
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger asChild className="md:hidden">
+            <SheetTrigger asChild className="lg:hidden">
               <Button variant="ghost" size="icon">
                 <Menu className="h-6 w-6" />
               </Button>

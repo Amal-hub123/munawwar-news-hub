@@ -1,5 +1,7 @@
 # Project decisions
 
+- Bound public page shells as one centered canvas at wide desktop sizes; use fluid inner tracks and compact navigation below desktop width so browser zoom does not stretch artwork independently and mobile remains readable.
+
 - Keep timeline selection in scoped RTL text tabs using the shared Button, with a gold active underline; styling changes must preserve the existing selected timeline and content rendering.
 
 - Reserve vertical motion clearance inside animated horizontal tracks and use unclipped reveal transitions; scroll containers must not cut off floating cards, while intentional image-frame zoom and decorative cropping stay scoped.
