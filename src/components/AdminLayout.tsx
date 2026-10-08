@@ -64,6 +64,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
     { path: "/admin", icon: LayoutDashboard, label: "لوحة التحكم" },
     { path: "/admin/articles", icon: FileText, label: "المقالات" },
     { path: "/admin/news", icon: Newspaper, label: "خدماتنا" },
+    { path: "/admin/service-requests", icon: ClipboardList, label: "طلبات الخدمات" },
     { path: "/admin/categories", icon: Tags, label: "مربع المنحنى" },
     { path: "/admin/daily-stories", icon: Sparkles, label: "مقال اليوم" },
     { path: "/admin/questions", icon: MessageCircleQuestion, label: "أسئلة الجمهور" },

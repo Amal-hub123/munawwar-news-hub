@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -22,6 +22,17 @@ export const AskSection = () => {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [example, setExample] = useState(0);
+  const questionRef = useRef<HTMLTextAreaElement>(null);
+
+  const focusQuestion = () => {
+    setSent(false);
+    window.requestAnimationFrame(() => {
+      const field = questionRef.current;
+      if (!field) return;
+      field.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+      field.focus({ preventScroll: true });
+    });
+  };
 
   const { toast } = useToast();
 
@@ -131,6 +142,8 @@ export const AskSection = () => {
                 className={sent ? "is-hidden" : ""}
               >
                 <Textarea
+                  ref={questionRef}
+                  aria-label="اكتب سؤالك"
                   value={question}
                   onChange={(event) =>
                     setQuestion(event.target.value)
@@ -251,14 +264,14 @@ export const AskSection = () => {
               FOOTER
               ========================= */}
 
-          <div className="ask-panel-footer">
+          <Button variant="ghost" onClick={focusQuestion} className="ask-panel-footer h-auto w-full whitespace-normal rounded-none text-right">
             <span>
               سيكون المُنحنى أقرب منك عندما تكون شريكًا في
               صياغة المحتوى
             </span>
 
             <ArrowLeft />
-          </div>
+          </Button>
         </Reveal>
       </div>
     </section>

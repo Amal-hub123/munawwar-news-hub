@@ -1,5 +1,8 @@
 # Project decisions
 
+- Persist public service requests only through the validated, rate-limited edge endpoint; keep request reads/status updates admin-only under database RLS, and share validation between form and endpoint to prevent drift.
+- Service-request notifications use the existing SendGrid sender and a server-configured administration recipient; mail failure never turns a saved request into a failed submission and notification state stays visible to administrators.
+
 - Apply the bounded public canvas and its track-padding overrides only at CSS viewport widths of at least 2560px; leave ordinary desktop shells untouched because viewport width is reliable but browser zoom detection is not.
 
 - Keep timeline selection in scoped RTL text tabs using the shared Button, with a gold active underline; styling changes must preserve the existing selected timeline and content rendering.
