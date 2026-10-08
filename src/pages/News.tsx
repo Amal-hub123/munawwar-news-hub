@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, BarChart3, Mic2, PenLine } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ServiceRequestDialog } from "@/components/ServiceRequestDialog";
 
 interface NewsItem {
   id: string;
@@ -64,6 +66,7 @@ const featuredServices = [
 const News = () => {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [requestedService, setRequestedService] = useState<string | null>(null);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -175,13 +178,14 @@ const News = () => {
                       ))}
                     </ul>
 
-                    <a
-                      href="#contact"
+                    <Button
+                      variant="ghost"
+                      onClick={() => setRequestedService(service.title)}
                       className="service-action"
                     >
                       اطلب الخدمة
                       <ArrowLeft aria-hidden="true" />
-                    </a>
+                    </Button>
                   </article>
                 );
               })}
@@ -285,6 +289,7 @@ const News = () => {
       </main>
 
       <Footer />
+      <ServiceRequestDialog service={requestedService} onClose={() => setRequestedService(null)} />
     </div>
   );
 };

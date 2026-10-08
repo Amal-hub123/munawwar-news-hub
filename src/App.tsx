@@ -50,6 +50,7 @@ import AdminEditNews from "./pages/admin/AddEditNews";
 import ManageCategories from "./pages/admin/ManageCategories";
 import ManageDailyStories from "./pages/admin/ManageDailyStories";
 import ManageAudienceQuestions from "./pages/admin/ManageAudienceQuestions";
+import ManageServiceRequests from "./pages/admin/ManageServiceRequests";
 import ManageTimelines from "./pages/admin/ManageTimelines";
 import ManageNumberStories from "./pages/admin/ManageNumberStories";
 import ManageAudioEpisodes from "./pages/admin/ManageAudioEpisodes";
@@ -101,6 +102,7 @@ const App = () => (
           <Route path="/admin/categories" element={<AdminLayout><ManageCategories /></AdminLayout>} />
           <Route path="/admin/daily-stories" element={<AdminLayout><ManageDailyStories /></AdminLayout>} />
           <Route path="/admin/questions" element={<AdminLayout><ManageAudienceQuestions /></AdminLayout>} />
+          <Route path="/admin/service-requests" element={<AdminLayout><ManageServiceRequests /></AdminLayout>} />
           <Route path="/admin/timelines" element={<AdminLayout><ManageTimelines /></AdminLayout>} />
           <Route path="/admin/numbers" element={<AdminLayout><ManageNumberStories /></AdminLayout>} />
           <Route path="/admin/audio" element={<AdminLayout><ManageAudioEpisodes /></AdminLayout>} />
