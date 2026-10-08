@@ -11594,6 +11594,6 @@ html.dark body:not(:has(.editorial-home)),
   font-size: 1.75rem;
   line-height: 1.5;
   color: hsl(var(--foreground));
-  text-decoration: none;
+  text-decoration: none !important;
 
 }
