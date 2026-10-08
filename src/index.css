@@ -11614,25 +11614,24 @@ html.dark body:not(:has(.editorial-home)),
     border-radius: 3rem;
 }
 
-/* Bound the entire public canvas, not just its text, when zooming out. */
-:root {
-  --site-canvas-width: 87.5rem;
-  --site-layout-width: min(100vw, var(--site-canvas-width));
-}
+/* CSS viewport width, not zoom detection: preserve normal desktop shells. */
+@media (min-width: 2560px) {
+  :root {
+    --site-canvas-width: 87.5rem;
+    --site-layout-width: min(100vw, var(--site-canvas-width));
+  }
 
-#root > :has(> .site-header) {
-  width: min(100%, var(--site-canvas-width));
-  min-width: 0;
-  margin-inline: auto;
-}
+  #root > :has(> .site-header) {
+    width: min(100%, var(--site-canvas-width));
+    min-width: 0;
+    margin-inline: auto;
+  }
 
-.journey-track,
-.writers-track {
-  padding-inline: max(1.5rem, calc((var(--site-layout-width) - 1400px) / 2 + 1.5rem));
-}
-
-.question-transform-track {
-  padding-inline: max(1.5rem, calc((var(--site-layout-width) - 1400px) / 2 + 1.5rem));
+  .journey-track,
+  .writers-track,
+  .question-transform-track {
+    padding-inline: max(1.5rem, calc((var(--site-layout-width) - 1400px) / 2 + 1.5rem));
+  }
 }
 
 .visual-column-main,
