@@ -572,6 +572,7 @@ const InteractiveTimeline = ({
    ========================================================= */
 
 
+
 const ImageTimeline = ({
   timeline,
 }: {
@@ -580,17 +581,23 @@ const ImageTimeline = ({
   if (!timeline.image_url) return null;
 
   return (
-    <div className="image-timeline-stage">
+    <div style={{ width: "100%", overflow: "hidden" }}>
       <img
         src={timeline.image_url}
         alt={timeline.title || "Timeline"}
         loading="lazy"
         draggable={false}
-        className="image-timeline-content"
+        style={{
+          display: "block",
+          width: "100%",
+          height: "auto",
+          maxWidth: "none",
+        }}
       />
     </div>
   );
 };
+
 
 
 /* =========================================================
@@ -967,12 +974,7 @@ export const HomeTimelines =
               ================================================= */}
 
           {isImage ? (
-            <div
-              className="
-                px-6
-                md:px-[max(1.5rem,calc((100vw-1400px)/2+1.5rem))]
-              "
-            >
+            <div className="w-full px-0">
               <ImageTimeline
                 timeline={
                   active
