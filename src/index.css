@@ -6716,7 +6716,7 @@ margin-bottom:5rem;
 
   
   background:
-    rgba(130, 173, 165, 0.07);
+   rgb(192 215 211 / 50%);
 
   
   border-inline-start:
@@ -6890,7 +6890,7 @@ margin-bottom:5rem;
     justify-content: flex-start;
 
     background:
-      rgba(130, 173, 165, 0.07);
+      rgb(192 215 211 / 50%);
 
     border-inline-start: none;
 
@@ -6922,7 +6922,7 @@ margin-bottom:5rem;
     padding: 1.4rem;
 
     border: none;
-
+background-color: #ffffffc7;
     text-align: right;
   }
 
