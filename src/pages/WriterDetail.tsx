@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { User, Linkedin, X } from "lucide-react";
@@ -35,6 +36,7 @@ const WriterDetail = () => {
     queryKey: ["writer-articles", id, filter],
     queryFn: async () => {
       if (filter === "news") return [];
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const { data, error } = await supabase
         .from("articles")
         .select(`
@@ -43,6 +45,7 @@ const WriterDetail = () => {
         `)
         .eq("author_id", id)
         .eq("status", "approved")
+        .or(hidden ?? "id.not.is.null")
         .order("created_at", { ascending: false });
 
       if (error) throw error;

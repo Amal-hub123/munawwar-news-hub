@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import Reveal from "@/components/motion/Reveal";
 import { Eye, BookOpen, CalendarRange } from "lucide-react";
 
@@ -27,11 +28,13 @@ export const WriterKnowledgeProfile = ({ writerId }: Props) => {
     let cancelled = false;
 
     const load = async () => {
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const { data: arts } = await supabase
         .from("articles")
         .select("id, title, views, approved_at, created_at")
         .eq("author_id", writerId)
-        .eq("status", "approved");
+        .eq("status", "approved")
+        .or(hidden ?? "id.not.is.null");
 
       const list = (arts || []) as TopArticle[];
       if (cancelled) return;

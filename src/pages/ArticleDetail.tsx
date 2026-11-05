@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Clock } from "lucide-react";
@@ -118,6 +119,7 @@ const ArticleDetail = () => {
     queryKey: ["related-articles", article?.author_id, id],
     enabled: !!article?.author_id,
     queryFn: async () => {
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const { data, error } = await supabase
         .from("articles")
         .select(`
@@ -130,6 +132,7 @@ const ArticleDetail = () => {
         `)
         .eq("author_id", article!.author_id)
         .eq("status", "approved")
+        .or(hidden ?? "id.not.is.null")
         .neq("id", id!)
         .limit(6);
 
