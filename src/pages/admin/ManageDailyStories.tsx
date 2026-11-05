@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { parseSequencePoints } from "@/lib/articleExtras";
 import { ChevronDown, GripVertical, Plus, Trash2 } from "lucide-react";
 
 interface Stop {
@@ -34,6 +35,18 @@ const emptyDraft: StoryDraft = {
   ends_at: "",
   is_active: true,
 };
+
+const STOP_TITLES = ["البداية", "المنتصف", "النهاية"];
+
+/** Picks start / middle / end points from the article's own sequence. */
+const stopsFromSequence = (value: unknown): Stop[] => {
+  const pts = parseSequencePoints(value);
+  const pick = pts.length <= 3 ? pts : [pts[0], pts[Math.floor((pts.length - 1) / 2)], pts[pts.length - 1]];
+  return STOP_TITLES.map((title, i) => ({ title, description: pick[i] || "" }));
+};
+
+const normalizeStops = (stops: Stop[]): Stop[] =>
+  STOP_TITLES.map((title, i) => ({ title, description: stops[i]?.description || "" }));
 
 const toLocalInput = (iso: string | null) => (iso ? new Date(iso).toISOString().slice(0, 16) : "");
 
@@ -71,7 +84,11 @@ const StoryForm = ({
       <div className="grid md:grid-cols-2 gap-4">
         <div>
           <Label>المقال المميز</Label>
-          <Select value={draft.article_id || "none"} onValueChange={(v) => onChange({ ...draft, article_id: v === "none" ? "" : v })}>
+          <Select value={draft.article_id || "none"} onValueChange={(v) => {
+            const id = v === "none" ? "" : v;
+            const art = articles.find((a) => a.id === id);
+            onChange({ ...draft, article_id: id, stops: art ? stopsFromSequence(art.sequence_points) : normalizeStops([]) });
+          }}>
             <SelectTrigger className="text-right"><SelectValue placeholder="اختر مقالاً" /></SelectTrigger>
             <SelectContent>
               <SelectItem className="text-right" value="none">بدون</SelectItem>
@@ -101,30 +118,18 @@ const StoryForm = ({
       </div>
 
       <div>
-        <div className="flex items-center justify-between">
-          <Label>محطات المقال (3 إلى 5)</Label>
-          <Button type="button" variant="outline" size="sm" disabled={draft.stops.length >= 5} onClick={() => onChange({ ...draft, stops: [...draft.stops, { title: "" }] })}>
-            <Plus className="w-4 h-4 ml-1" /> محطة
-          </Button>
-        </div>
+        <Label>محطات المقال (تُقرأ تلقائيًا من تسلسل المقال ويمكن تعديل الوصف)</Label>
         <div className="space-y-3 mt-3">
-          {draft.stops.map((stop, i) => (
-            <div
-              key={i}
-              draggable
-              onDragStart={() => setDragIndex(i)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => { if (dragIndex !== null) move(dragIndex, i); setDragIndex(null); }}
-              className="flex items-start gap-2 border border-border rounded-xl p-3"
-            >
-              <GripVertical className="w-4 h-4 mt-3 text-muted-foreground cursor-grab shrink-0" />
-              <div className="min-w-0 flex-1 space-y-2">
-                <Input value={stop.title} onChange={(e) => setStop(i, { title: e.target.value })} placeholder={`عنوان المحطة ${i + 1}`} maxLength={90} />
-                <Textarea value={stop.description || ""} onChange={(e) => setStop(i, { description: e.target.value })} placeholder="وصف مختصر (اختياري)" rows={2} maxLength={200} />
-              </div>
-              <Button type="button" variant="ghost" size="icon" onClick={() => onChange({ ...draft, stops: draft.stops.filter((_, x) => x !== i) })}>
-                <Trash2 className="w-4 h-4" />
-              </Button>
+          {normalizeStops(draft.stops).map((stop, i) => (
+            <div key={i} className="border border-border rounded-xl p-3 space-y-2">
+              <div className="text-sm font-semibold">{stop.title}</div>
+              <Textarea
+                value={stop.description || ""}
+                onChange={(e) => onChange({ ...draft, stops: normalizeStops(draft.stops).map((s, x) => (x === i ? { ...s, description: e.target.value } : s)) })}
+                placeholder={`وصف ${stop.title}`}
+                rows={2}
+                maxLength={200}
+              />
             </div>
           ))}
         </div>
@@ -150,14 +155,14 @@ const ManageDailyStories = () => {
   const load = async () => {
     const [{ data: rows }, { data: arts }] = await Promise.all([
       supabase.from("daily_stories").select("*").order("created_at", { ascending: false }),
-      supabase.from("articles").select("id, title").eq("status", "approved").order("created_at", { ascending: false }).limit(200),
+      supabase.from("articles").select("id, title, sequence_points").eq("status", "approved").order("created_at", { ascending: false }).limit(200),
     ]);
     setStories(
       (rows || []).map((r: any) => ({
         id: r.id,
         article_id: r.article_id,
         badge: r.badge || "",
-        stops: Array.isArray(r.stops) ? r.stops : [],
+        stops: normalizeStops(Array.isArray(r.stops) ? r.stops : []),
         starts_at: toLocalInput(r.starts_at),
         ends_at: toLocalInput(r.ends_at),
         is_active: r.is_active,
@@ -173,7 +178,7 @@ const ManageDailyStories = () => {
   const payload = (d: StoryDraft) => ({
     article_id: d.article_id,
     badge: d.badge || null,
-    stops: d.stops.filter((s) => s.title.trim()).map((s) => ({ title: s.title, description: s.description || "" })) as any,
+    stops: normalizeStops(d.stops).map((s) => ({ title: s.title, description: s.description || "" })) as any,
     starts_at: d.starts_at ? new Date(d.starts_at).toISOString() : null,
     ends_at: d.ends_at ? new Date(d.ends_at).toISOString() : null,
     is_active: d.is_active,
