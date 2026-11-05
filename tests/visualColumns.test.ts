@@ -7,10 +7,12 @@ const QUOTE_ID = "a975cc2b-e2ac-46cc-892e-e649b5b754d6";
 // PostgREST `or=(a,b)` is a boolean OR; evaluate it the same way the API does.
 const matchesFilter = (productId: string | null, filter: string | null) => {
   if (!filter) return true;
-  const [isNull, notIn] = filter.split(",");
+  const sep = filter.indexOf(",");
+  const isNull = filter.slice(0, sep);
+  const notIn = filter.slice(sep + 1);
   if (isNull !== "product_id.is.null") throw new Error(`unexpected filter: ${filter}`);
   if (productId === null) return true;
-  const ids = notIn.replace("product_id.not.in.(", "").replace(")", "").split(",");
+  const ids = notIn.replace("product_id.not.in.(", "").replace(/\)$/, "").split(",");
   return !ids.includes(productId);
 };
 
