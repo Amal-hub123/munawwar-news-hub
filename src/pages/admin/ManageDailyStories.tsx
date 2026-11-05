@@ -11,6 +11,8 @@ import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { parseSequencePoints } from "@/lib/articleExtras";
 import { ChevronDown, GripVertical, Plus, Trash2 } from "lucide-react";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
+
 
 interface Stop {
   title: string;
@@ -153,10 +155,20 @@ const ManageDailyStories = () => {
   const { toast } = useToast();
 
   const load = async () => {
-    const [{ data: rows }, { data: arts }] = await Promise.all([
-      supabase.from("daily_stories").select("*").order("created_at", { ascending: false }),
-      supabase.from("articles").select("id, title, sequence_points").eq("status", "approved").order("created_at", { ascending: false }).limit(200),
-    ]);
+  const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
+
+  const [{ data: rows }, { data: arts }] = await Promise.all([
+    supabase.from("daily_stories").select("*").order("created_at", { ascending: false }),
+
+    supabase
+      .from("articles")
+      .select("id, title, sequence_points")
+      .eq("status", "approved")
+      .or(hidden ?? "id.not.is.null")
+      .order("created_at", { ascending: false })
+      .limit(200),
+  ]);
+    
     setStories(
       (rows || []).map((r: any) => ({
         id: r.id,
