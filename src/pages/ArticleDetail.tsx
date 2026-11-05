@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import { TopBar } from "@/components/TopBar";
 import { Header } from "@/components/Header";
 import { Calendar, User, Clock } from "lucide-react";
