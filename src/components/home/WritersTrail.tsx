@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import { useDragScroll } from "@/hooks/useDragScroll";
 import { Reveal } from "@/components/motion/Reveal";
 import { ArrowLeft, Linkedin, User, X } from "lucide-react";
@@ -31,9 +32,10 @@ export const WritersTrail = () => {
   const { data: writers } = useQuery({
     queryKey: ["writers-trail"],
     queryFn: async (): Promise<Writer[]> => {
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const [{ data: profiles, error: pErr }, { data: articles, error: aErr }, { data: links, error: lErr }] = await Promise.all([
         supabase.from("profiles").select("id, name, photo_url, bio, linkedin_url, twitter_url").eq("status", "approved"),
-        supabase.from("articles").select("id, author_id").eq("status", "approved"),
+        supabase.from("articles").select("id, author_id").eq("status", "approved").or(hidden ?? "id.not.is.null"),
         supabase.from("article_categories").select("article_id, categories:category_id (name, color)"),
       ]);
       if (pErr) throw pErr;

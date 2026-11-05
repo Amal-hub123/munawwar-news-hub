@@ -4,6 +4,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 
 interface NewsItem {
   id: string;
@@ -29,6 +30,7 @@ export const NewsSlider = () => {
 
   const fetchNews = async () => {
     try {
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const { data, error } = await supabase
         .from("articles")
         .select(`
@@ -36,6 +38,7 @@ export const NewsSlider = () => {
           author:profiles!articles_author_id_fkey(name, photo_url)
         `)
         .eq("status", "approved")
+        .or(hidden ?? "id.not.is.null")
         .order("approved_at", { ascending: false })
         .limit(5);
 

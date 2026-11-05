@@ -1,6 +1,7 @@
 import { X, Linkedin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 
 interface NewsItem {
   title: string;
@@ -19,6 +20,7 @@ export const TopBar = () => {
     const fetchLatestContent = async () => {
       try {
         // Get latest approved articles with author info
+        const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
         const { data: articles } = await supabase
           .from("articles")
           .select(`
@@ -27,6 +29,7 @@ export const TopBar = () => {
             author:profiles!articles_author_id_fkey(linkedin_url, twitter_url)
           `)
           .eq("status", "approved")
+          .or(hidden ?? "id.not.is.null")
           .order("created_at", { ascending: false })
           .limit(3);
 

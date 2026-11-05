@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Linkedin, User, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { excludeVisualColumnsFilter, getVisualColumnIds } from "@/lib/visualColumns";
 import { useToast } from "@/hooks/use-toast";
 
 interface Writer {
@@ -27,10 +28,12 @@ export const TopWriters = () => {
 
   const fetchTopWriters = async () => {
     try {
+      const hidden = excludeVisualColumnsFilter(await getVisualColumnIds());
       const { data: articlesData, error: articlesError } = await supabase
         .from("articles")
         .select("author_id")
-        .eq("status", "approved");
+        .eq("status", "approved")
+        .or(hidden ?? "id.not.is.null");
 
       if (articlesError) throw articlesError;
 
