@@ -187,7 +187,10 @@ const Auth = () => {
                     {loading ? "جاري التحميل..." : "تسجيل الدخول"}
                   </Button>
                   
-                  <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
+                 
+                </form>
+
+       <Dialog open={resetDialogOpen} onOpenChange={setResetDialogOpen}>
                     <DialogTrigger asChild>
                       <Button type="button" variant="link" className="w-full mt-2">
                         نسيت كلمة المرور؟
@@ -217,7 +220,6 @@ const Auth = () => {
                       </form>
                     </DialogContent>
                   </Dialog>
-                </form>
               )}
             </CardContent>
           </Card>
