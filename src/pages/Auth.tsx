@@ -162,6 +162,7 @@ const Auth = () => {
                   </Button>
                 </form>
               ) : (
+      <>
                 <form onSubmit={handleSignIn} className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="signin-email">البريد الإلكتروني</Label>
@@ -220,6 +221,7 @@ const Auth = () => {
                       </form>
                     </DialogContent>
                   </Dialog>
+        </>
               )}
             </CardContent>
           </Card>
